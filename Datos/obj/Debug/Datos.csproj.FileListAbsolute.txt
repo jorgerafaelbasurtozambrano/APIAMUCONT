@@ -1,0 +1,41 @@
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\Datos.dll.config
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\Datos.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\Datos.pdb
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\obj\Debug\Datos.csprojResolveAssemblyReference.cache
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\obj\Debug\Datos.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\obj\Debug\Datos.pdb
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\bin\Debug\Datos.dll.config
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\bin\Debug\Datos.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\bin\Debug\Datos.pdb
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\obj\Debug\Datos.csprojAssemblyReference.cache
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\obj\Debug\Datos.csproj.CopyComplete
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\obj\Debug\Datos.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Datos\obj\Debug\Datos.pdb
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\Datos.dll.config
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\Datos.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\Datos.pdb
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\obj\Debug\Datos.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\Datos\obj\Debug\Datos.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\bin\Debug\Datos.dll.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\bin\Debug\Datos.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\bin\Debug\Datos.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\obj\Debug\Datos.csprojAssemblyReference.cache
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\obj\Debug\Datos.csproj.CopyComplete
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\obj\Debug\Datos.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\obj\Debug\Datos.pdb

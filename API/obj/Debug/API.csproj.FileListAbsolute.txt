@@ -1,0 +1,477 @@
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\ApplicationInsights.config
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\csc.exe
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\csc.exe.config
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\csc.rsp
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\csi.exe
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\csi.rsp
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\System.AppContext.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\System.Collections.Immutable.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\System.Diagnostics.StackTrace.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\System.IO.FileSystem.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\System.IO.FileSystem.Primitives.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\vbc.exe
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\vbc.exe.config
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\vbc.rsp
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\VBCSCompiler.exe
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\roslyn\VBCSCompiler.exe.config
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\API.dll.config
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\API.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\API.pdb
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Antlr3.Runtime.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.AI.Agent.Intercept.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.AI.DependencyCollector.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.AI.PerfCounterCollector.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.AI.ServerTelemetryChannel.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.AI.Web.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.AI.WindowsServer.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.ApplicationInsights.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.Web.Infrastructure.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Newtonsoft.Json.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Net.Http.Formatting.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Helpers.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Http.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Http.WebHost.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Mvc.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Optimization.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Razor.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.WebPages.Deployment.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.WebPages.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.WebPages.Razor.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\WebGrease.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Newtonsoft.Json.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Net.Http.Formatting.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Helpers.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Http.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Http.WebHost.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Mvc.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Optimization.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.Razor.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.WebPages.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.WebPages.Deployment.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\System.Web.WebPages.Razor.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Antlr3.Runtime.pdb
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.ApplicationInsights.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.AI.DependencyCollector.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.AI.ServerTelemetryChannel.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.AI.WindowsServer.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\Microsoft.AI.Web.xml
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\es\System.Net.Http.Formatting.resources.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\es\System.Web.Helpers.resources.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\es\System.Web.Http.resources.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\es\System.Web.Http.WebHost.resources.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\es\System.Web.Mvc.resources.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\es\System.Web.Optimization.resources.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\es\System.Web.Razor.resources.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\es\System.Web.WebPages.resources.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\es\System.Web.WebPages.Deployment.resources.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\bin\es\System.Web.WebPages.Razor.resources.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\obj\Debug\API.csprojResolveAssemblyReference.cache
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\obj\Debug\API.dll
+c:\users\uzzer\documents\visual studio 2017\Projects\APIAMUCOMT\API\obj\Debug\API.pdb
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\APIAMUCOMT\API\bin\Negocio.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\APIAMUCOMT\API\bin\Negocio.pdb
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\ApplicationInsights.config
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\csc.exe
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\csc.exe.config
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\csc.rsp
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\csi.exe
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\csi.rsp
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.AppContext.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\vbc.exe
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\vbc.exe.config
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\vbc.rsp
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\API.dll.config
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\API.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\API.pdb
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Antlr3.Runtime.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.Web.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.ApplicationInsights.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Negocio.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Newtonsoft.Json.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Net.Http.Formatting.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Helpers.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Http.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Http.WebHost.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Mvc.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Optimization.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Razor.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.Deployment.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.Razor.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\WebGrease.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Negocio.pdb
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Newtonsoft.Json.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Net.Http.Formatting.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Helpers.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Http.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Http.WebHost.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Mvc.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Optimization.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Razor.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.Deployment.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.Razor.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Antlr3.Runtime.pdb
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.ApplicationInsights.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.Web.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Helpers.resources.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Http.resources.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Mvc.resources.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Optimization.resources.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Razor.resources.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.WebPages.resources.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\obj\Debug\API.csprojResolveAssemblyReference.cache
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\obj\Debug\API.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\obj\Debug\API.pdb
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Datos.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\EntityFramework.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\EntityFramework.SqlServer.dll
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Datos.pdb
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Datos.dll.config
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Negocio.dll.config
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\EntityFramework.xml
+C:\Users\UZZER\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\EntityFramework.SqlServer.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\ApplicationInsights.config
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\csc.exe
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\csc.exe.config
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\csc.rsp
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\csi.exe
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\csi.rsp
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\System.AppContext.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\vbc.exe
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\vbc.exe.config
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\vbc.rsp
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\API.dll.config
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\API.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\API.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\API.pdb
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Antlr3.Runtime.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Datos.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\EntityFramework.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\EntityFramework.SqlServer.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.AI.Web.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.ApplicationInsights.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Negocio.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Newtonsoft.Json.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Swashbuckle.Core.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Net.Http.Formatting.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Cors.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Helpers.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Http.Cors.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Http.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Http.WebHost.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Mvc.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Optimization.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Razor.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.WebPages.Deployment.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.WebPages.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.WebPages.Razor.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\WebActivatorEx.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\WebGrease.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Datos.pdb
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Datos.dll.config
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Negocio.pdb
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Negocio.dll.config
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\EntityFramework.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\EntityFramework.SqlServer.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Newtonsoft.Json.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Net.Http.Formatting.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Http.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Http.Cors.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Helpers.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Http.WebHost.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Mvc.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Optimization.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.Razor.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.WebPages.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.WebPages.Deployment.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\System.Web.WebPages.Razor.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Antlr3.Runtime.pdb
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.ApplicationInsights.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\Microsoft.AI.Web.xml
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\es\System.Web.Http.resources.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\es\System.Web.Helpers.resources.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\es\System.Web.Mvc.resources.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\es\System.Web.Optimization.resources.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\es\System.Web.Razor.resources.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\es\System.Web.WebPages.resources.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\obj\Debug\API.csprojAssemblyReference.cache
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\obj\Debug\API.csproj.CopyComplete
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\obj\Debug\API.dll
+C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\obj\Debug\API.pdb
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\ApplicationInsights.config
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\csc.exe
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\csc.exe.config
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\csc.rsp
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\csi.exe
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\csi.rsp
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.AppContext.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\vbc.exe
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\vbc.exe.config
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\vbc.rsp
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\API.dll.config
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\API.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\API.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\API.pdb
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Antlr3.Runtime.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Datos.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\EntityFramework.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\EntityFramework.SqlServer.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.Web.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.ApplicationInsights.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Negocio.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Newtonsoft.Json.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Swashbuckle.Core.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Net.Http.Formatting.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Cors.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Helpers.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Http.Cors.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Http.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Http.WebHost.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Mvc.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Optimization.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Razor.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.Deployment.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.Razor.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\WebActivatorEx.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\WebGrease.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Datos.pdb
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Datos.dll.config
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Negocio.pdb
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Negocio.dll.config
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\EntityFramework.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\EntityFramework.SqlServer.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Newtonsoft.Json.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Net.Http.Formatting.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Http.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Http.Cors.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Helpers.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Http.WebHost.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Mvc.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Optimization.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.Razor.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.Deployment.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\System.Web.WebPages.Razor.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Antlr3.Runtime.pdb
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.ApplicationInsights.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\Microsoft.AI.Web.xml
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Http.resources.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Helpers.resources.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Mvc.resources.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Optimization.resources.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.Razor.resources.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.WebPages.resources.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\obj\Debug\API.csprojResolveAssemblyReference.cache
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\obj\Debug\API.dll
+C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\obj\Debug\API.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\ApplicationInsights.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csc.exe
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csc.exe.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csc.rsp
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csi.exe
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csi.rsp
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.AppContext.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\vbc.exe
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\vbc.exe.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\vbc.rsp
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\API.dll.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\API.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\API.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\API.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Antlr3.Runtime.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Datos.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\EntityFramework.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\EntityFramework.SqlServer.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.AI.Web.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.ApplicationInsights.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Negocio.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Newtonsoft.Json.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Swashbuckle.Core.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Net.Http.Formatting.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Cors.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Helpers.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Http.Cors.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Http.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Http.WebHost.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Mvc.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Optimization.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Razor.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.WebPages.Deployment.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.WebPages.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.WebPages.Razor.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\WebActivatorEx.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\WebGrease.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Datos.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Datos.dll.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Negocio.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Negocio.dll.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\EntityFramework.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\EntityFramework.SqlServer.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Newtonsoft.Json.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Net.Http.Formatting.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Http.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Http.Cors.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Helpers.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Http.WebHost.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Mvc.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Optimization.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.Razor.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.WebPages.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.WebPages.Deployment.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\System.Web.WebPages.Razor.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Antlr3.Runtime.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.ApplicationInsights.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\Microsoft.AI.Web.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\es\System.Web.Http.resources.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\es\System.Web.Helpers.resources.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\es\System.Web.Mvc.resources.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\es\System.Web.Optimization.resources.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\es\System.Web.Razor.resources.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\es\System.Web.WebPages.resources.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\obj\Debug\API.csprojAssemblyReference.cache
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\obj\Debug\API.csproj.CopyComplete
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\obj\Debug\API.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\obj\Debug\API.pdb
