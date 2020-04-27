@@ -25,3 +25,17 @@ C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Negocio\obj\Release\Negocio.csprojAs
 C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Negocio\obj\Release\Negocio.csproj.CopyComplete
 C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Negocio\obj\Release\Negocio.dll
 C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\Negocio\obj\Release\Negocio.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\bin\Release\Negocio.dll.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\bin\Release\Negocio.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\bin\Release\Negocio.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\bin\Release\Datos.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\bin\Release\EntityFramework.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\bin\Release\Datos.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\bin\Release\Datos.dll.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\bin\Release\EntityFramework.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\obj\Release\Negocio.csprojAssemblyReference.cache
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\obj\Release\Negocio.csproj.CopyComplete
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\obj\Release\Negocio.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\obj\Release\Negocio.pdb

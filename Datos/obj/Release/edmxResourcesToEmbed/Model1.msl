@@ -1126,6 +1126,8 @@
     <FunctionImportMapping FunctionImportName="sp_ModificarPrivilegioMT" FunctionName="AMUCOMTModel.Store.sp_ModificarPrivilegioMT" />
     <FunctionImportMapping FunctionImportName="sp_ModificarUsuario" FunctionName="AMUCOMTModel.Store.sp_ModificarUsuario" />
     <FunctionImportMapping FunctionImportName="sp_CrearDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_CrearDetalleVenta" />
+    <FunctionImportMapping FunctionImportName="sp_EliminarDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_EliminarDetalleVenta" />
+    <FunctionImportMapping FunctionImportName="sp_AumentarDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_AumentarDetalleVenta" />
     <FunctionImportMapping FunctionImportName="sp_ConsultarDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_ConsultarDetalleVenta">
       <ResultMapping>
         <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarDetalleVenta_Result">
@@ -1135,11 +1137,10 @@
           <ScalarProperty Name="AplicaDescuento" ColumnName="AplicaDescuento" />
           <ScalarProperty Name="Faltante" ColumnName="Faltante" />
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_AumentarDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_AumentarDetalleVenta" />
     <FunctionImportMapping FunctionImportName="sp_SetCantidadDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_SetCantidadDetalleVenta" />
-    <FunctionImportMapping FunctionImportName="sp_EliminarDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_EliminarDetalleVenta" />
   </EntityContainerMapping>
 </Mapping>

@@ -493,17 +493,17 @@
       <Parameter Name="Faltante" Mode="In" Type="String" />
       <Parameter Name="Cantidad" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_ConsultarDetalleVenta" ReturnType="Collection(AMUCOMTModel.sp_ConsultarDetalleVenta_Result)" />
+    <FunctionImport Name="sp_EliminarDetalleVenta">
+      <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="sp_AumentarDetalleVenta">
       <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
       <Parameter Name="Cantidad" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="sp_ConsultarDetalleVenta" ReturnType="Collection(AMUCOMTModel.sp_ConsultarDetalleVenta_Result)" />
     <FunctionImport Name="sp_SetCantidadDetalleVenta">
       <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
       <Parameter Name="Cantidad" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_EliminarDetalleVenta">
-      <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_ConsultarConfiguracionInteres_Result">
@@ -1300,5 +1300,6 @@
     <Property Type="Boolean" Name="AplicaDescuento" Nullable="false" />
     <Property Type="Boolean" Name="Faltante" Nullable="false" />
     <Property Type="Int32" Name="Cantidad" Nullable="false" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
   </ComplexType>
 </Schema>

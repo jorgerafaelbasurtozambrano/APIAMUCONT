@@ -96,10 +96,20 @@ namespace Negocio.Logica.Inventario
         }
         public void CargarConfigurarProductos()
         {
+            var listaAsignarProductoLote = CargarDatosAsignarProductoLoteQueNoPerteneceaAkit();
             ListaConfigurarProductos = new List<ConfigurarProductos>();
             var ListaPrecios = GestionPrecioConfigurarProducto.ListarPrecioConfigurarProducto();
             foreach (var item in ConexionBD.sp_ConsultarConfigurarProducto())
             {
+                string estado = "0";
+                if (item.ConfiguracionProductoUtilizado == "1" || listaAsignarProductoLote.Where(p=>Seguridad.DesEncriptar(p.IdRelacionLogica) == item.ConfigurarProductoIdConfigurarProducto.ToString()).FirstOrDefault() != null)
+                {
+                    estado = "1";
+                }
+                else
+                {
+                    estado = "0";
+                }
                 ListaConfigurarProductos.Add(new ConfigurarProductos()
                 {
                     IdConfigurarProducto = Seguridad.Encriptar(item.ConfigurarProductoIdConfigurarProducto.ToString()),
@@ -107,7 +117,8 @@ namespace Negocio.Logica.Inventario
                     FechaCreacion = item.ConfigurarProductoFechaCreacion,
                     FechaActualizacion = item.ConfigurarProductoFechaActualizacion,
                     estado = item.ConfigurarProductoEstado,
-                    ConfigurarProductosUtilizado = item.ConfiguracionProductoUtilizado,
+                    //ConfigurarProductosUtilizado = item.ConfiguracionProductoUtilizado,
+                    ConfigurarProductosUtilizado = estado,
                     IdAsignacionTu = Seguridad.Encriptar(item.ConfigurarProductoIdAsignacionTU.ToString()),
                     Codigo =item.ConfigurarProductoCodigo,
                     PrecioConfigurarProducto = ListaPrecios.Where(p=> Seguridad.DesEncriptar(p.IdConfigurarProducto) == item.ConfigurarProductoIdConfigurarProducto.ToString() && p.Estado == "True").FirstOrDefault(),
@@ -148,6 +159,24 @@ namespace Negocio.Logica.Inventario
                 });
             }
         }
+        public List<AsignarProductoLote> CargarDatosAsignarProductoLoteQueNoPerteneceaAkit()
+        {
+
+            List<AsignarProductoLote> ListaAsignarProductoLote = new List<AsignarProductoLote>();
+            foreach (var item in ConexionBD.sp_ConsultarAsignarProductoLote().Where(p=>p.PerteneceKit == false).ToList())
+            {
+                ListaAsignarProductoLote.Add(new AsignarProductoLote()
+                {
+                    IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString()),
+                    IdLote = Seguridad.Encriptar(item.IdLote.ToString()),
+                    IdRelacionLogica = Seguridad.Encriptar(item.IdRelacionLogica.ToString()),
+                    PerteneceKit = item.PerteneceKit.ToString(),
+                    FechaExpiracion = item.FechaExpiracion,
+                    ValorUnitario = item.ValorUnitario,
+                });
+            }
+            return ListaAsignarProductoLote;
+        }
         public List<ConfigurarProductos> ListarConfigurarProductos()
         {
             CargarConfigurarProductos();
@@ -162,9 +191,20 @@ namespace Negocio.Logica.Inventario
         }
         public List<ConfigurarProductos> CargarConfigurarProductosQueNoTieneUnKit(int IdKit)
         {
+            var listaAsignarProductoLote = CargarDatosAsignarProductoLoteQueNoPerteneceaAkit();
             ListaConfigurarProductos = new List<ConfigurarProductos>();
             foreach (var item in ConexionBD.sp_ConsultarConfigurarProductoQueNoTieneUnKit(IdKit))
             {
+                string estado = "0";
+                if (listaAsignarProductoLote.Where(p => Seguridad.DesEncriptar(p.IdRelacionLogica) == item.ConfigurarProductoIdConfigurarProducto.ToString()).FirstOrDefault() != null)
+                {
+                    estado = "1";
+                }
+                else
+                {
+                    estado = "0";
+                }
+
                 ListaConfigurarProductos.Add(new ConfigurarProductos()
                 {
                     IdConfigurarProducto = Seguridad.Encriptar(item.ConfigurarProductoIdConfigurarProducto.ToString()),
@@ -172,6 +212,7 @@ namespace Negocio.Logica.Inventario
                     FechaCreacion = item.ConfigurarProductoFechaCreacion,
                     FechaActualizacion = item.ConfigurarProductoFechaActualizacion,
                     estado = item.ConfigurarProductoEstado,
+                    ConfigurarProductosUtilizado = estado,
                     IdAsignacionTu = Seguridad.Encriptar(item.ConfigurarProductoIdAsignacionTU.ToString()),
                     Codigo = item.ConfigurarProductoCodigo,
                     Producto = new Producto()

@@ -140,6 +140,8 @@ namespace Negocio.Logica.Factura
         public void CargarDatos()
         {
             ListaAsignarProductoLote = new List<AsignarProductoLote>();
+            var listaConfigurarProducto = GestionConfigurarProducto.ListarConfigurarProductos();
+            var listaLotes = GestionLote.CargarTodosLosLotes();
             foreach (var item in ConexionBD.sp_ConsultarAsignarProductoLote())
             {
                 Lote Lote = new Lote();
@@ -151,7 +153,7 @@ namespace Negocio.Logica.Factura
                 }
                 else
                 {
-                    ConfigurarProductos = GestionConfigurarProducto.ListarConfigurarProductos().Where(p => Seguridad.DesEncriptar(p.IdConfigurarProducto) == item.IdRelacionLogica.ToString()).FirstOrDefault();
+                    ConfigurarProductos = listaConfigurarProducto.Where(p => Seguridad.DesEncriptar(p.IdConfigurarProducto) == item.IdRelacionLogica.ToString()).FirstOrDefault();
                 }
                 if (item.IdLote == null)
                 {
@@ -159,7 +161,7 @@ namespace Negocio.Logica.Factura
                 }
                 else
                 {
-                    Lote = GestionLote.CargarTodosLosLotes().Where(p => Seguridad.DesEncriptar(p.IdLote) == item.IdLote.ToString()).FirstOrDefault();
+                    Lote = listaLotes.Where(p => Seguridad.DesEncriptar(p.IdLote) == item.IdLote.ToString()).FirstOrDefault();
                 }
                 ListaAsignarProductoLote.Add(new AsignarProductoLote()
                 {

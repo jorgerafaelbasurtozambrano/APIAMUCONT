@@ -24,8 +24,8 @@
   <Function Name="sp_CrearDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
     <Parameter Name="IdAsignarProductoLote" Type="int" Mode="In" />
-    <Parameter Name="AplicaDescuento" Type="nvarchar" Mode="In" />
-    <Parameter Name="Faltante" Type="nvarchar" Mode="In" />
+    <Parameter Name="AplicaDescuento" Type="varchar" Mode="In" />
+    <Parameter Name="Faltante" Type="varchar" Mode="In" />
     <Parameter Name="Cantidad" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_CrearTipoInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
