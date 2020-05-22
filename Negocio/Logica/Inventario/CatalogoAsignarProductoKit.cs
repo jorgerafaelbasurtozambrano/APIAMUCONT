@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Datos;
 using Negocio.Entidades.DatoUsuarios;
 using Negocio.Entidades;
+using Negocio.Logica.Factura;
 namespace Negocio.Logica.Inventario
 {
     public class CatalogoAsignarProductoKit
@@ -71,7 +72,8 @@ namespace Negocio.Logica.Inventario
         public void CargarAsignarProductoKit()
         {
             ListaAsignarProductosKits = new List<AsignarProductosKits>();
-            foreach (var item in GestionKit.ListarKit())
+            var ListaKit = GestionKit.ListarKit();
+            foreach (var item in ListaKit)
             {
                 List<AsignarProductoKit> ListaAsignarProductoKit = new List<AsignarProductoKit>();
                 foreach (var item1 in ConexionBD.sp_ConsultarAsignarProductoKit(int.Parse(Seguridad.DesEncriptar(item.IdKit))))
@@ -126,8 +128,9 @@ namespace Negocio.Logica.Inventario
                                 FechaCreacion = item1.PresentacionFechaCreacion,
                                 Estado = item1.PresentacionEstado,
                             },
+                            Iva = item1.ConfigurarProductoIva
                         },
-                        Kit = GestionKit.ListarKit().Where(p=>Seguridad.DesEncriptar(p.IdKit)== item1.AsignarDescuentoKitIdKit.ToString()).FirstOrDefault(),
+                        Kit = ListaKit.Where(p=>Seguridad.DesEncriptar(p.IdKit)== item1.AsignarDescuentoKitIdKit.ToString()).FirstOrDefault(),
                     });
                 }
                 ListaAsignarProductosKits.Add(new AsignarProductosKits()
@@ -150,9 +153,10 @@ namespace Negocio.Logica.Inventario
         public List<AsignarProductosKits> ListarProductosDeUnKit(int IdKit)
         {
             //CargarAsignarProductoKit();
+            var ListaKit = GestionKit.ListarKit();
             ListaAsignarProductosKits = new List<AsignarProductosKits>();
             var ListaAsignarProductoLote = CargarDatosAsignarProductoLote();
-            foreach (var item in GestionKit.ListarKit().Where(p=> Seguridad.DesEncriptar(p.IdKit) == IdKit.ToString()).ToList())
+            foreach (var item in ListaKit.Where(p=> Seguridad.DesEncriptar(p.IdKit) == IdKit.ToString()).ToList())
             {
                 List<AsignarProductoKit> ListaAsignarProductoKit = new List<AsignarProductoKit>();
                 foreach (var item1 in ConexionBD.sp_ConsultarAsignarProductoKit(int.Parse(Seguridad.DesEncriptar(item.IdKit))))
@@ -218,8 +222,9 @@ namespace Negocio.Logica.Inventario
                                 FechaCreacion = item1.PresentacionFechaCreacion,
                                 Estado = item1.PresentacionEstado,
                             },
+                            Iva = item1.ConfigurarProductoIva
                         },
-                        Kit = GestionKit.ListarKit().Where(p => Seguridad.DesEncriptar(p.IdKit) == item1.AsignarDescuentoKitIdKit.ToString()).FirstOrDefault(),
+                        Kit = ListaKit.Where(p => Seguridad.DesEncriptar(p.IdKit) == item1.AsignarDescuentoKitIdKit.ToString()).FirstOrDefault(),
                     });
                 }
                 ListaAsignarProductosKits.Add(new AsignarProductosKits()

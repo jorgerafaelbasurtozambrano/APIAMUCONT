@@ -17,6 +17,7 @@ namespace Negocio.Entidades
         public string encriptada { get; set; }
         public ConfigurarProductos ListaProductos { get; set; }
         public Kit Kit { get; set; }
+        public Stock Stock { get; set; }
 
     }
 }

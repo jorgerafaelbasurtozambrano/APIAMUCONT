@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -196,11 +197,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AbonoController.cs" />
     <Compile Include="Controllers\AsignacionPersonaComunidadController.cs" />
     <Compile Include="Controllers\AsignacionTipoUsuarioController.cs" />
     <Compile Include="Controllers\AsignarDescuentoKitController.cs" />
     <Compile Include="Controllers\AsignarProductoKitController.cs" />
     <Compile Include="Controllers\AsignarProductoLoteController.cs" />
+    <Compile Include="Controllers\AsignarSeguroController.cs" />
     <Compile Include="Controllers\CabeceraFacturaController.cs" />
     <Compile Include="Controllers\CantonController.cs" />
     <Compile Include="Controllers\ComunidadController.cs" />

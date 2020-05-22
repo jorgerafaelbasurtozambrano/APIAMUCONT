@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Negocio.Entidades;
+using Negocio.Logica.Factura;
 using Negocio.Logica.Inventario;
 using Negocio;
 using Negocio.Logica.Seguridad;
@@ -14,6 +15,7 @@ namespace API.Controllers
     {
         CatalogoAsignarProductoKit GestionAsignarProductoKit = new CatalogoAsignarProductoKit();
         CatalogoSeguridad GestionSeguridad = new CatalogoSeguridad();
+        CatalogoStock GestionStock = new CatalogoStock();
         Prueba p = new Prueba();
         Negocio.Metodos.Seguridad Seguridad = new Negocio.Metodos.Seguridad();
 
@@ -156,6 +158,7 @@ namespace API.Controllers
                 Kit.IdKit = Seguridad.DesEncriptar(Kit.IdKit);
                 //respuesta = GestionAsignarProductoKit.ListarAsignarProductosKit();
                 respuesta = GestionAsignarProductoKit.ListarProductosDeUnKit(int.Parse(Kit.IdKit));
+                //respuesta = GestionStock.ListarProductosDeUnKitEnEstock(int.Parse(Kit.IdKit));
                 //}
                 //else
                 //{

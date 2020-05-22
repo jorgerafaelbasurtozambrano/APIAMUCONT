@@ -19,5 +19,13 @@ namespace Negocio.Entidades
         public decimal ValorUnitario { get; set; }
         public decimal? Total { get; set; }
         public decimal? Subtotal { get; set; }
+        public string IdKit { get; set; }
+        public int? PorcentajeDescuento { get; set; }
+        public bool? PerteneceKitCompleto { get; set; }
+        public int? CantidadDisponible { get; set; }
+        public bool? PermitirVender { get; set; }
+        public int? Iva { get; set; }
+        public decimal? CantidadDescontada { get; set; }
+        public decimal? IvaAnadido { get; set; }
     }
 }

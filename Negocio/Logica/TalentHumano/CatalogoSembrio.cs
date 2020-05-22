@@ -76,5 +76,25 @@ namespace Negocio.Logica.TalentHumano
             CargarSembrios();
             return ListaSembrios.Where(p=>p.Estado!=false && p.Comunidad.Estado != false).ToList();
         }
+        public Sembrio ConsultarSembrioPorId(int? IdSembrio)
+        {
+            Sembrio _Sembrio = new Sembrio();
+            foreach (var item in ConexionBD.sp_ConsultarSembrios().Where(p=>p.IdSembrio == IdSembrio).ToList())
+            {
+                _Sembrio.IdSembrio = Seguridad.Encriptar(item.IdSembrio.ToString());
+                _Sembrio.Descripcion = item.Descripcion;
+                _Sembrio.IdComunidad = Seguridad.Encriptar(item.IdComunidad.ToString());
+                _Sembrio.FechaCreacion = item.FechaCreacion;
+                _Sembrio.FechaActualizacion = item.FechaActualizacion;
+                _Sembrio.Estado = item.Estado;
+                _Sembrio.Comunidad = new Comunidad()
+                {
+                    IdComunidad = Seguridad.Encriptar(item.IdComunidad.ToString()),
+                    Descripcion = item.ComunidadDescripcion,
+                    Estado = item.ComunidadEstado,
+                };
+            }
+            return _Sembrio;
+        }
     }
 }

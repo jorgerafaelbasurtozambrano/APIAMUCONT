@@ -1125,12 +1125,12 @@
     <FunctionImportMapping FunctionImportName="sp_ModificarModuloTipo" FunctionName="AMUCOMTModel.Store.sp_ModificarModuloTipo" />
     <FunctionImportMapping FunctionImportName="sp_ModificarPrivilegioMT" FunctionName="AMUCOMTModel.Store.sp_ModificarPrivilegioMT" />
     <FunctionImportMapping FunctionImportName="sp_ModificarUsuario" FunctionName="AMUCOMTModel.Store.sp_ModificarUsuario" />
-    <FunctionImportMapping FunctionImportName="sp_CrearDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_CrearDetalleVenta" />
     <FunctionImportMapping FunctionImportName="sp_EliminarDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_EliminarDetalleVenta" />
     <FunctionImportMapping FunctionImportName="sp_AumentarDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_AumentarDetalleVenta" />
+    <FunctionImportMapping FunctionImportName="sp_SetCantidadDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_SetCantidadDetalleVenta" />
     <FunctionImportMapping FunctionImportName="sp_ConsultarDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_ConsultarDetalleVenta">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarDetalleVenta_Result">
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarDetalleVenta_Result1">
           <ScalarProperty Name="IdDetalleVenta" ColumnName="IdDetalleVenta" />
           <ScalarProperty Name="IdCabeceraFactura" ColumnName="IdCabeceraFactura" />
           <ScalarProperty Name="IdAsignarProductoLote" ColumnName="IdAsignarProductoLote" />
@@ -1138,9 +1138,11 @@
           <ScalarProperty Name="Faltante" ColumnName="Faltante" />
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="PorcentajeDescuento" ColumnName="PorcentajeDescuento" />
+          <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_SetCantidadDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_SetCantidadDetalleVenta" />
+    <FunctionImportMapping FunctionImportName="sp_CrearDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_CrearDetalleVenta" />
   </EntityContainerMapping>
 </Mapping>

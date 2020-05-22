@@ -42,7 +42,19 @@ namespace Negocio.Logica.TalentHumano
         {
             try
             {
-                ConexionBD.sp_ModificarAsignacionPC(int.Parse(AsignacionPersonaParroquiaEntidad.IdAsignacionPC), int.Parse(AsignacionPersonaParroquiaEntidad.IdPersona), int.Parse(AsignacionPersonaParroquiaEntidad.IdParroquia));
+                AsignacionPersonaParroquiaEntidad asignacionPersonaParroquia = new AsignacionPersonaParroquiaEntidad();
+                foreach (var item in ConexionBD.sp_ConsultarAsignacionPPporPersona(int.Parse(AsignacionPersonaParroquiaEntidad.IdPersona)))
+                {
+                    asignacionPersonaParroquia.IdAsignacionPC = item.IdAsignacionPP.ToString();
+                    asignacionPersonaParroquia.IdParroquia = item.IdParroquia.ToString();
+                }
+                if (asignacionPersonaParroquia.IdAsignacionPC != null)
+                {
+                    if (asignacionPersonaParroquia.IdParroquia != AsignacionPersonaParroquiaEntidad.IdParroquia)
+                    {
+                        ConexionBD.sp_ModificarAsignacionPC(int.Parse(AsignacionPersonaParroquiaEntidad.IdAsignacionPC), int.Parse(AsignacionPersonaParroquiaEntidad.IdPersona), int.Parse(AsignacionPersonaParroquiaEntidad.IdParroquia));
+                    }
+                }
                 return true;
             }
             catch (Exception)

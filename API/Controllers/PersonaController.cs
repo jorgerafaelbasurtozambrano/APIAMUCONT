@@ -178,5 +178,54 @@ namespace API.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/TalentoHumano/ConsultarPersonasDependeDeTipoUsuario")]
+        public object ConsultarPersonasDependeDeTipoUsuario(TipoUsuario TipoUsuario)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
+                Object resultado = new object();
+                string ClaveGetEncripBD = p.desencriptar(TipoUsuario.encriptada, _claveGet.Clave.Descripcion.Trim());
+                //if (ClaveGetEncripBD == _claveGet.Descripcion)
+                //{
+                if (TipoUsuario.IdTipoUsuario == null || string.IsNullOrEmpty(TipoUsuario.IdTipoUsuario))
+                {
+                    mensaje = "Ingrese El ID TIPO USUARIO";
+                    codigo = "418";
+                    objeto = new { codigo, mensaje};
+                    return objeto;
+                }
+                else
+                {
+                    mensaje = "EXITO";
+                    codigo = "200";
+                    TipoUsuario.IdTipoUsuario = Seguridad.DesEncriptar(TipoUsuario.IdTipoUsuario);
+                    respuesta = GestionPersona.ListaPersonasDependiendoDeTipoUsuario(int.Parse(TipoUsuario.IdTipoUsuario));
+                    objeto = new { codigo, mensaje, respuesta };
+                    return objeto;
+                }
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+                codigo = "418";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
+
+
     }
 }

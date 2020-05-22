@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Negocio.Entidades.DatoUsuarios;
 namespace Negocio.Entidades
 {
     public class ConfigurarVenta
@@ -15,7 +15,11 @@ namespace Negocio.Entidades
         public string EstadoConfVenta { get; set; }
         public string IdConfiguracionInteres { get; set; }
         public string Efectivo { get; set; }
-        public int Descuento { get; set; }
+        public int? Descuento { get; set; }
         public string encriptada { get; set; }
+        public Sembrio _Sembrio { get; set; }
+        public PersonaEntidad _PersonaEntidad { get; set; }
+        public AsignarSeguro _AsignarSeguro { get; set; }
+        public DateTime? FechaFinalCredito { get; set; }
     }
 }

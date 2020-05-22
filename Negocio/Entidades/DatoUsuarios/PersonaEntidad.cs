@@ -25,5 +25,7 @@ namespace Negocio.Entidades.DatoUsuarios
         public List<Telefono> ListaTelefono { get; set; }
         public List<Correo> ListaCorreo { get; set; }
         public List<AsignacionPersonaParroquia> AsignacionPersonaParroquia { get; set; }
+        public AsignacionPersonaParroquia AsignacionPersonaComunidad { get; set; }
+        public AsignacionTipoUsuario AsignacionTipoUsuario { get; set; }
     }
 }

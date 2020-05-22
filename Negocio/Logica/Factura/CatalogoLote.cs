@@ -21,12 +21,20 @@ namespace Negocio.Logica.Factura
                 Lote LoteData = CargarTodosLosLotes().Where(p => p.Codigo == Lote.Codigo).FirstOrDefault();
                 if (LoteData == null)
                 {
-                    objeto = Seguridad.Encriptar(ConexionBD.sp_CrearLote(Lote.Codigo, Lote.Capacidad, Lote.FechaExpiracion).Select(e => e.Value.ToString()).First());
+                    int id = 0;
+                    id = int.Parse(ConexionBD.sp_CrearLote(Lote.Codigo, Lote.Capacidad, Lote.FechaExpiracion).Select(e => e.Value.ToString()).First());
+                    if (id!=0)
+                    {
+                        LoteData = CargarTodosLosLotes().Where(p => Seguridad.DesEncriptar(p.IdLote) == id.ToString()).FirstOrDefault();
+                        return LoteData;
+                    }
+                    //objeto = Seguridad.Encriptar(ConexionBD.sp_CrearLote(Lote.Codigo, Lote.Capacidad, Lote.FechaExpiracion).Select(e => e.Value.ToString()).First());
                 }
                 else
                 {
+                    return "El lote " + LoteData.Codigo + " ya existe";
                     //ConexionBD.sp_AumentarLote(int.Parse(Seguridad.DesEncriptar(LoteData.IdLote)), Lote.Capacidad);
-                    objeto = LoteData;
+                    //objeto = LoteData;
                 }
                 return objeto;
             }

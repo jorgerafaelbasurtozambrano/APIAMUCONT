@@ -37,7 +37,7 @@ namespace API.Controllers
                 //{
                     mensaje = "EXITO";
                     codigo = "200";                
-                    GestionProvincia.IngresoProvincia(Provincia);
+                    //GestionProvincia.IngresoProvincia(Provincia);
                     respuesta = GestionProvincia.IngresoProvincia(Provincia);
                 //}
                 //else

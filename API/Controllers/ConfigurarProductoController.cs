@@ -117,6 +117,10 @@ namespace API.Controllers
                 //{
                 mensaje = "EXITO";
                 codigo = "200";
+                if (ConfigurarProducto.Iva == null || ConfigurarProducto.Iva <=0)
+                {
+                    ConfigurarProducto.Iva = 0;
+                }
                 ConfigurarProducto.IdAsignacionTu = Seguridad.DesEncriptar(ConfigurarProducto.IdAsignacionTu);
                 ConfigurarProducto.IdMedida = Seguridad.DesEncriptar(ConfigurarProducto.IdMedida);
                 ConfigurarProducto.IdPresentacion = Seguridad.DesEncriptar(ConfigurarProducto.IdPresentacion);

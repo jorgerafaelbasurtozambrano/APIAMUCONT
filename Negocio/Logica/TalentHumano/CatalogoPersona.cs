@@ -16,7 +16,6 @@ namespace Negocio.Logica
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         CatalogoUsuario GestionUsuario = new CatalogoUsuario();
         ConsultarUsuariosYPersonas BuscaPersona = new ConsultarUsuariosYPersonas();
-
         public void EliminarPersona(int IdPersona)
         {
             /*PersonaEntidad persona = new PersonaEntidad();
@@ -93,23 +92,66 @@ namespace Negocio.Logica
         {
             try
             {
-                List<PersonaEntidad> persona = new List<PersonaEntidad>();
-                persona = BuscaPersona.ObtenerUsuariosClientes();
-                if (persona.Where(p => p.NumeroDocumento == PersonaEntidad.NumeroDocumento.Trim()).FirstOrDefault() == null)
+                //List<PersonaEntidad> persona = new List<PersonaEntidad>();
+                //persona = BuscaPersona.ObtenerUsuariosClientes();
+                PersonaEntidad _PersonaEntidad = new PersonaEntidad();
+                foreach (var item in ConexionBD.sp_ConsultarPersonaPorIdentificacion(PersonaEntidad.NumeroDocumento.Trim()))
+                {
+                    _PersonaEntidad.IdPersona = item.IdPersona.ToString();
+                }
+                if (_PersonaEntidad.IdPersona == null)
                 {
                     int idPersona = int.Parse(ConexionBD.sp_CrearPersona(PersonaEntidad.NumeroDocumento.Trim(), PersonaEntidad.ApellidoPaterno.ToUpper(), PersonaEntidad.ApellidoMaterno.ToUpper(), PersonaEntidad.PrimerNombre.ToUpper(), PersonaEntidad.SegundoNombre.ToUpper(), int.Parse(PersonaEntidad.IdTipoDocumento)).Select(e => e.Value.ToString()).First());
                     return Seguridad.Encriptar(idPersona.ToString());
                 }
                 else
-                { 
+                {
                     return "false";
                 }
+                //if (persona.Where(p => p.NumeroDocumento == PersonaEntidad.NumeroDocumento.Trim()).FirstOrDefault() == null)
+                //{
+                //    int idPersona = int.Parse(ConexionBD.sp_CrearPersona(PersonaEntidad.NumeroDocumento.Trim(), PersonaEntidad.ApellidoPaterno.ToUpper(), PersonaEntidad.ApellidoMaterno.ToUpper(), PersonaEntidad.PrimerNombre.ToUpper(), PersonaEntidad.SegundoNombre.ToUpper(), int.Parse(PersonaEntidad.IdTipoDocumento)).Select(e => e.Value.ToString()).First());
+                //    return Seguridad.Encriptar(idPersona.ToString());
+                //}
+                //else
+                //{ 
+                //    return "false";
+                //}
             }
             catch (Exception)
             {
                 return "400";
             }
             
+        }
+        public List<PersonaEntidad> ListaPersonasDependiendoDeTipoUsuario(int id_TipoUsuario)
+        {
+            List<PersonaEntidad> ListaPersonaEntidad = new List<PersonaEntidad>();
+            foreach (var item in ConexionBD.sp_ConsultarPersonasDependeDeTipoDeUsuario(id_TipoUsuario))
+            {
+                ListaPersonaEntidad.Add(new PersonaEntidad()
+                {
+                    IdPersona = Seguridad.Encriptar(item.PersonaIdPersona.ToString()),
+                    IdTipoDocumento = Seguridad.Encriptar(item.PersonaIdTipoDocumento.ToString()),
+                    NumeroDocumento = item.PersonaNumeroDocumento,
+                    ApellidoPaterno = item.PersonaApellidoPaterno,
+                    ApellidoMaterno = item.PersonaApellidoMaterno,
+                    PrimerNombre = item.PersonaPrimerNombre,
+                    SegundoNombre = item.PersonaSegundoNombre,
+                    AsignacionTipoUsuario = new AsignacionTipoUsuario() {
+                        IdAsignacionTUEncriptada = Seguridad.Encriptar(item.AsignacionTipoUsuarioIdAsignacionTU.ToString()),
+                        FechaCreacion = item.AsignacionTipoUsuarioFechaCreacion,
+                        Estado = item.AsignacionTipoUsuarioEstado,
+                        TipoUsuario = new TipoUsuario()
+                        {
+                            IdTipoUsuario = Seguridad.Encriptar(item.TipoUsuarioIdTipoUsuario.ToString()),
+                            Descripcion = item.TipoUsuarioDescripcion,
+                            Identificacion = item.TipoUsuarioIdentificacion,
+                        }
+                    },
+                });
+            }
+            return ListaPersonaEntidad;
         }
         
     }

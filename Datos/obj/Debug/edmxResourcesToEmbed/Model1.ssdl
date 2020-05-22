@@ -27,6 +27,8 @@
     <Parameter Name="AplicaDescuento" Type="varchar" Mode="In" />
     <Parameter Name="Faltante" Type="varchar" Mode="In" />
     <Parameter Name="Cantidad" Type="int" Mode="In" />
+    <Parameter Name="PorcentajeDescuento" Type="int" Mode="In" />
+    <Parameter Name="PrecioUnitario" Type="decimal" Mode="In" />
   </Function>
   <Function Name="sp_CrearTipoInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="Identificacion" Type="int" Mode="In" />

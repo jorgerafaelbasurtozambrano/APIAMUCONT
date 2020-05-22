@@ -375,13 +375,6 @@ C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\bin\es\System.W
 C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\obj\Debug\API.csprojResolveAssemblyReference.cache
 C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\obj\Debug\API.dll
 C:\Users\PC\Documents\Visual Studio 2017\Projects\AMUCOMTAPI\API\obj\Debug\API.pdb
-C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.Reflection.Metadata.dll
-C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\ApplicationInsights.config
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csc.exe
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csc.exe.config
@@ -389,18 +382,25 @@ C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csc.rsp
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csi.exe
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csi.rsp
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.AppContext.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.Collections.Immutable.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.Diagnostics.StackTrace.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.IO.FileSystem.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\System.Reflection.Metadata.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\vbc.exe
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\vbc.exe.config
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\vbc.rsp
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\API.dll.config
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\API.xml

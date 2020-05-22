@@ -23,5 +23,6 @@ namespace Datos
         public System.DateTime FechaCreacion { get; set; }
         public System.DateTime FechaActualizacion { get; set; }
         public bool Estado { get; set; }
+        public int Iva { get; set; }
     }
 }

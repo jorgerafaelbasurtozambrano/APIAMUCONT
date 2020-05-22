@@ -33,24 +33,64 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(ConfigurarVenta.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                ConfigurarVenta.IdCabeceraFactura = Seguridad.DesEncriptar(ConfigurarVenta.IdCabeceraFactura);
-                ConfigurarVenta.IdPersona = Seguridad.DesEncriptar(ConfigurarVenta.IdPersona);
-                if (ConfigurarVenta.IdSembrio != null)
+                if (ConfigurarVenta.IdCabeceraFactura != null)
                 {
-                    ConfigurarVenta.IdSembrio = Seguridad.DesEncriptar(ConfigurarVenta.IdSembrio);
+                    ConfigurarVenta.IdSembrio = ConfigurarVenta.IdSembrio.Replace("null", null);
+                    if (ConfigurarVenta.IdSembrio.Replace("null",null)!="")
+                    {
+                        ConfigurarVenta.IdSembrio = Seguridad.DesEncriptar(ConfigurarVenta.IdSembrio);
+                    }
+                    ConfigurarVenta DataVenta = new ConfigurarVenta();
+                    ConfigurarVenta.IdCabeceraFactura = Seguridad.DesEncriptar(ConfigurarVenta.IdCabeceraFactura);
+                    DataVenta = GestionConfigurarVenta.ConsultarConfigurarVentaPorFactura(int.Parse(ConfigurarVenta.IdCabeceraFactura));
+                    string dato = ConfigurarVenta.IdSembrio.ToString();
+                    if (DataVenta.IdConfigurarVenta == null)
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        //ConfigurarVenta.IdCabeceraFactura = Seguridad.DesEncriptar(ConfigurarVenta.IdCabeceraFactura);
+                        ConfigurarVenta.IdPersona = Seguridad.DesEncriptar(ConfigurarVenta.IdPersona);
+                        //ConfigurarVenta.IdSembrio = Seguridad.DesEncriptar(ConfigurarVenta.IdSembrio);
+                        if (ConfigurarVenta.IdConfiguracionInteres != null)
+                        {
+                            ConfigurarVenta.IdConfiguracionInteres = Seguridad.DesEncriptar(ConfigurarVenta.IdConfiguracionInteres);
+                        }
+                        respuesta = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
+                        string Trasnformar = respuesta.ToString();
+                        if (Trasnformar != "Negocio.Entidades.ConfigurarVenta")
+                        {
+                            mensaje = "ERROR";
+                            codigo = "418";
+                            objeto = new { codigo, mensaje };
+                            return objeto;
+                        }
+                        else
+                        {
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                    else
+                    {
+                        mensaje = "La Factura ya se la asignado un cliente";
+                        codigo = "418";
+                        objeto = new { codigo, mensaje };
+                        return objeto;
+                    }
                 }
-                ConfigurarVenta.IdConfiguracionInteres = Seguridad.DesEncriptar(ConfigurarVenta.IdConfiguracionInteres);
-                respuesta = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
+                else
+                {
+                    mensaje = "Ingrese el id cabecera factura";
+                    codigo = "418";
+                    objeto = new { codigo, mensaje };
+                    return objeto;
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
-                return objeto;
             }
             catch (Exception e)
             {

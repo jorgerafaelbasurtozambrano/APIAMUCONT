@@ -26,5 +26,10 @@ namespace Negocio.Entidades
 
         //venta factura
         public List<DetalleVenta> DetalleVenta { get; set; }
+        public ConfigurarVenta ConfigurarVenta { get; set; }
+        public decimal? Subtotal { get; set; }
+        public decimal? Total { get; set; }
+        public decimal? TotalDescuento { get; set; }
+        public decimal? TotalIva { get; set; }
     }
 }

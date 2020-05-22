@@ -8,15 +8,6 @@
       <Parameter Name="TasaInteres" Mode="In" Type="Int32" />
       <Parameter Name="PlazoMeses" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_CrearConfigurarVenta" ReturnType="Collection(Decimal)">
-      <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
-      <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-      <Parameter Name="IdSembrio" Mode="In" Type="Int32" />
-      <Parameter Name="EstadoConfVenta" Mode="In" Type="Boolean" />
-      <Parameter Name="IdConfiguracionInteres" Mode="In" Type="Int32" />
-      <Parameter Name="Efectivo" Mode="In" Type="Boolean" />
-      <Parameter Name="Descuento" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="sp_CrearTipoInteres" ReturnType="Collection(AMUCOMTModel.sp_CrearTipoInteres_Result)">
       <Parameter Name="Identificacion" Mode="In" Type="Int32" />
       <Parameter Name="Descripcion" Mode="In" Type="String" />
@@ -74,12 +65,6 @@
       <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
       <Parameter Name="IdTipoTransaccion" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_CrearDetalleFactura">
-      <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
-      <Parameter Name="IdAsignarProductoLote" Mode="In" Type="Int32" />
-      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
-      <Parameter Name="Faltante" Mode="In" Type="Boolean" />
-    </FunctionImport>
     <FunctionImport Name="sp_CrearLote" ReturnType="Collection(Decimal)">
       <Parameter Name="Codigo" Mode="In" Type="String" />
       <Parameter Name="Capacidad" Mode="In" Type="Int32" />
@@ -88,10 +73,6 @@
     <FunctionImport Name="sp_CrearStock">
       <Parameter Name="Cantidad" Mode="In" Type="Int32" />
       <Parameter Name="AsignarProductoLote" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_DisminuirLote">
-      <Parameter Name="IdLote" Mode="In" Type="Int32" />
-      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="sp_DisminuirStock">
       <Parameter Name="IdStock" Mode="In" Type="Int32" />
@@ -141,14 +122,6 @@
     <FunctionImport Name="sp_CrearAsignarProductoKit">
       <Parameter Name="IdConfigurarProducto" Mode="In" Type="Int32" />
       <Parameter Name="IdAsignarDescuentoKit" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_CrearConfigurarProducto" ReturnType="Collection(AMUCOMTModel.sp_CrearConfigurarProducto_Result)">
-      <Parameter Name="IdAsignacionTipoUsuario" Mode="In" Type="Int32" />
-      <Parameter Name="IdProducto" Mode="In" Type="Int32" />
-      <Parameter Name="IdMedida" Mode="In" Type="Int32" />
-      <Parameter Name="IdPresentacion" Mode="In" Type="Int32" />
-      <Parameter Name="Codigo" Mode="In" Type="String" />
-      <Parameter Name="CantidadMedida" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="sp_CrearDescuento" ReturnType="Collection(Decimal)">
       <Parameter Name="Procentaje" Mode="In" Type="Int32" />
@@ -359,11 +332,6 @@
     <FunctionImport Name="sp_EliminarTelefono">
       <Parameter Name="IdTelefono" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_ModificarAsignacionPC">
-      <Parameter Name="IdAsignacionPP" Mode="In" Type="Int32" />
-      <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-      <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="sp_ModificarCanton">
       <Parameter Name="IdCanton" Mode="In" Type="Int32" />
       <Parameter Name="Descripcion" Mode="In" Type="String" />
@@ -486,13 +454,6 @@
       <Parameter Name="Usuario" Mode="In" Type="String" />
       <Parameter Name="Contrasena" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="sp_CrearDetalleVenta">
-      <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
-      <Parameter Name="IdAsignarProductoLote" Mode="In" Type="Int32" />
-      <Parameter Name="AplicaDescuento" Mode="In" Type="String" />
-      <Parameter Name="Faltante" Mode="In" Type="String" />
-      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="sp_EliminarDetalleVenta">
       <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -500,10 +461,94 @@
       <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
       <Parameter Name="Cantidad" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_ConsultarDetalleVenta" ReturnType="Collection(AMUCOMTModel.sp_ConsultarDetalleVenta_Result)" />
     <FunctionImport Name="sp_SetCantidadDetalleVenta">
       <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
       <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DisminuirLote">
+      <Parameter Name="IdLote" Mode="In" Type="Int32" />
+      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_CrearDetalleVenta">
+      <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
+      <Parameter Name="IdAsignarProductoLote" Mode="In" Type="Int32" />
+      <Parameter Name="AplicaDescuento" Mode="In" Type="String" />
+      <Parameter Name="Faltante" Mode="In" Type="String" />
+      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+      <Parameter Name="PorcentajeDescuento" Mode="In" Type="Int32" />
+      <Parameter Name="PrecioUnitario" Mode="In" Type="Decimal" />
+      <Parameter Name="PerteneceKitCompleto" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ConsultarDetalleVenta" ReturnType="Collection(AMUCOMTModel.sp_ConsultarDetalleVenta_Result2)" />
+    <FunctionImport Name="sp_ConsultarConfigurarVentaPorIdCabeceraFactura" ReturnType="Collection(AMUCOMTModel.sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result)">
+      <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_CrearConfigurarVenta" ReturnType="Collection(AMUCOMTModel.sp_CrearConfigurarVenta_Result5)">
+      <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
+      <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+      <Parameter Name="IdSembrio" Mode="In" Type="Int32" />
+      <Parameter Name="EstadoConfVenta" Mode="In" Type="String" />
+      <Parameter Name="IdConfiguracionInteres" Mode="In" Type="Int32" />
+      <Parameter Name="Efectivo" Mode="In" Type="String" />
+      <Parameter Name="Descuento" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_SetValorUnitarioDetalleFactura">
+      <Parameter Name="IdDetalleFactura" Mode="In" Type="Int32" />
+      <Parameter Name="ValorUnitario" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="sp_CrearDetalleFactura">
+      <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
+      <Parameter Name="IdAsignarProductoLote" Mode="In" Type="Int32" />
+      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+      <Parameter Name="Faltante" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ModificarAsignacionPC">
+      <Parameter Name="IdAsignacionPP" Mode="In" Type="Int32" />
+      <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+      <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ConsultarAsignacionPPporPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarAsignacionPPporPersona_Result)">
+      <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ConsultarPersonaPorIdentificacion" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonaPorIdentificacion_Result)">
+      <Parameter Name="Identifacion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ConsultarPersonasDependeDeTipoDeUsuario" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonasDependeDeTipoDeUsuario_Result1)">
+      <Parameter Name="IdTipoUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_CrearAsignarSeguro" ReturnType="Collection(AMUCOMTModel.sp_CrearAsignarSeguro_Result)">
+      <Parameter Name="IdConfigurarVenta" Mode="In" Type="Int32" />
+      <Parameter Name="IdAsignacionTUResp" Mode="In" Type="Int32" />
+      <Parameter Name="IdAsignacionTUTenc" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ConsultarAsignarSeguroPorConfigurarVenta" ReturnType="Collection(AMUCOMTModel.sp_ConsultarAsignarSeguroPorConfigurarVenta_Result)">
+      <Parameter Name="IdConfigurarVenta" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ConsultarAsignarTipoUsuarioPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarAsignarTipoUsuarioPersona_Result)">
+      <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_CrearAbono" ReturnType="Collection(AMUCOMTModel.sp_CrearAbono_Result)">
+      <Parameter Name="IdConfigurarVenta" Mode="In" Type="Int32" />
+      <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
+      <Parameter Name="Monto" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="sp_CrearConfigurarProducto" ReturnType="Collection(AMUCOMTModel.sp_CrearConfigurarProducto_Result1)">
+      <Parameter Name="IdAsignacionTipoUsuario" Mode="In" Type="Int32" />
+      <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+      <Parameter Name="IdMedida" Mode="In" Type="Int32" />
+      <Parameter Name="IdPresentacion" Mode="In" Type="Int32" />
+      <Parameter Name="Codigo" Mode="In" Type="String" />
+      <Parameter Name="CantidadMedida" Mode="In" Type="Int32" />
+      <Parameter Name="Iva" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_CrearConfigurarProducto1" ReturnType="Collection(AMUCOMTModel.sp_CrearConfigurarProducto1_Result)">
+      <Parameter Name="IdAsignacionTipoUsuario" Mode="In" Type="Int32" />
+      <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+      <Parameter Name="IdMedida" Mode="In" Type="Int32" />
+      <Parameter Name="IdPresentacion" Mode="In" Type="Int32" />
+      <Parameter Name="Codigo" Mode="In" Type="String" />
+      <Parameter Name="CantidadMedida" Mode="In" Type="Int32" />
+      <Parameter Name="Iva" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_ConsultarConfiguracionInteres_Result">
@@ -1301,5 +1346,232 @@
     <Property Type="Boolean" Name="Faltante" Nullable="false" />
     <Property Type="Int32" Name="Cantidad" Nullable="false" />
     <Property Type="Boolean" Name="Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarDetalleVenta_Result1">
+    <Property Type="Int32" Name="IdDetalleVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+    <Property Type="Int32" Name="IdAsignarProductoLote" Nullable="false" />
+    <Property Type="Boolean" Name="AplicaDescuento" Nullable="false" />
+    <Property Type="Boolean" Name="Faltante" Nullable="false" />
+    <Property Type="Int32" Name="Cantidad" Nullable="false" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="PorcentajeDescuento" Nullable="true" />
+    <Property Type="Decimal" Name="PrecioUnitario" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarDetalleVenta_Result2">
+    <Property Type="Int32" Name="IdDetalleVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+    <Property Type="Int32" Name="IdAsignarProductoLote" Nullable="false" />
+    <Property Type="Boolean" Name="AplicaDescuento" Nullable="false" />
+    <Property Type="Boolean" Name="Faltante" Nullable="false" />
+    <Property Type="Int32" Name="Cantidad" Nullable="false" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="PorcentajeDescuento" Nullable="true" />
+    <Property Type="Decimal" Name="PrecioUnitario" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="PerteneceKitCompleto" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_CrearConfigurarVenta_Result">
+    <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="Int32" Name="IdSembrio" Nullable="true" />
+    <Property Type="Boolean" Name="EstadoConfVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="true" />
+    <Property Type="Boolean" Name="Efectivo" Nullable="false" />
+    <Property Type="Int32" Name="Descuento" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_CrearConfigurarVenta_Result1">
+    <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="Int32" Name="IdSembrio" Nullable="true" />
+    <Property Type="Boolean" Name="EstadoConfVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="true" />
+    <Property Type="Boolean" Name="Efectivo" Nullable="false" />
+    <Property Type="Int32" Name="Descuento" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_CrearConfigurarVenta_Result2">
+    <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="Int32" Name="IdSembrio" Nullable="true" />
+    <Property Type="Boolean" Name="EstadoConfVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="true" />
+    <Property Type="Boolean" Name="Efectivo" Nullable="false" />
+    <Property Type="Int32" Name="Descuento" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result">
+    <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="Int32" Name="IdSembrio" Nullable="true" />
+    <Property Type="Boolean" Name="EstadoConfVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="true" />
+    <Property Type="Boolean" Name="Efectivo" Nullable="false" />
+    <Property Type="Int32" Name="Descuento" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_CrearConfigurarVenta_Result3">
+    <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="Int32" Name="IdSembrio" Nullable="true" />
+    <Property Type="Boolean" Name="EstadoConfVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="true" />
+    <Property Type="Boolean" Name="Efectivo" Nullable="false" />
+    <Property Type="Int32" Name="Descuento" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_CrearConfigurarVenta_Result4">
+    <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="Int32" Name="IdSembrio" Nullable="true" />
+    <Property Type="Boolean" Name="EstadoConfVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="true" />
+    <Property Type="Boolean" Name="Efectivo" Nullable="false" />
+    <Property Type="Int32" Name="Descuento" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_CrearConfigurarVenta_Result5">
+    <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="Int32" Name="IdSembrio" Nullable="true" />
+    <Property Type="Boolean" Name="EstadoConfVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="true" />
+    <Property Type="Boolean" Name="Efectivo" Nullable="false" />
+    <Property Type="Int32" Name="Descuento" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarAsignacionPPporPersona_Result">
+    <Property Type="Int32" Name="IdAsignacionPP" Nullable="false" />
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="Int32" Name="IdParroquia" Nullable="false" />
+    <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarPersonaPorIdentificacion_Result">
+    <Property Type="Int32" Name="IdPersona" Nullable="false" />
+    <Property Type="String" Name="NumeroDocumento" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PrimerNombre" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="SegundoNombre" Nullable="false" MaxLength="200" />
+    <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="IdTipoDocumento" Nullable="false" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarPersonasDependeDeTipoDeUsuario_Result">
+    <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
+    <Property Type="String" Name="PersonaNumeroDocumento" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PersonaPrimerNombre" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PersonaSegundoNombre" Nullable="false" MaxLength="200" />
+    <Property Type="DateTime" Name="PersonaFechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="PersonaFechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="PersonaIdTipoDocumento" Nullable="false" />
+    <Property Type="Boolean" Name="PersonaEstado" Nullable="false" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdAsignacionTU" Nullable="false" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdTipoUsuario" Nullable="false" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdUsuario" Nullable="false" />
+    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="AsignacionTipoUsuarioEstado" Nullable="false" />
+    <Property Type="Int32" Name="TipoUsuarioIdTipoUsuario" Nullable="false" />
+    <Property Type="String" Name="TipoUsuarioIdentificacion" Nullable="false" MaxLength="1000" />
+    <Property Type="String" Name="TipoUsuarioDescripcion" Nullable="false" MaxLength="1000" />
+    <Property Type="String" Name="TipoUsuarioIdentificacion1" Nullable="false" MaxLength="1000" />
+    <Property Type="Boolean" Name="TipoUsuarioEstado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarPersonasDependeDeTipoDeUsuario_Result1">
+    <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
+    <Property Type="String" Name="PersonaNumeroDocumento" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PersonaPrimerNombre" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PersonaSegundoNombre" Nullable="false" MaxLength="200" />
+    <Property Type="DateTime" Name="PersonaFechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="PersonaFechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="PersonaIdTipoDocumento" Nullable="false" />
+    <Property Type="Boolean" Name="PersonaEstado" Nullable="false" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdAsignacionTU" Nullable="false" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdTipoUsuario" Nullable="false" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdUsuario" Nullable="false" />
+    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="AsignacionTipoUsuarioEstado" Nullable="false" />
+    <Property Type="Int32" Name="TipoUsuarioIdTipoUsuario" Nullable="false" />
+    <Property Type="String" Name="TipoUsuarioIdentificacion" Nullable="false" MaxLength="1000" />
+    <Property Type="String" Name="TipoUsuarioDescripcion" Nullable="false" MaxLength="1000" />
+    <Property Type="Boolean" Name="TipoUsuarioEstado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_CrearAsignarSeguro_Result">
+    <Property Type="Int32" Name="IdAsignarSeguro" Nullable="false" />
+    <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdAsignacionTUResp" Nullable="false" />
+    <Property Type="Int32" Name="IdAsignacionTUTecn" Nullable="false" />
+    <Property Type="DateTime" Name="FechaAsignacion" Nullable="false" Precision="16" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarAsignarSeguroPorConfigurarVenta_Result">
+    <Property Type="Int32" Name="AsignarSeguroIdAsignarSeguro" Nullable="false" />
+    <Property Type="Int32" Name="AsignarSeguroIdAsignacionTUResp" Nullable="false" />
+    <Property Type="Int32" Name="AsignarSeguroIdAsignacionTUTecn" Nullable="false" />
+    <Property Type="Int32" Name="AsignarSeguroIdConfigurarVenta" Nullable="false" />
+    <Property Type="DateTime" Name="AsignarSeguroFechaAsignacion" Nullable="false" Precision="16" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarAsignarTipoUsuarioPersona_Result">
+    <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
+    <Property Type="String" Name="PersonaPrimerNombre" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PersonaSegundoNombre" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="PersonaNumeroDocumento" Nullable="false" MaxLength="20" />
+    <Property Type="Boolean" Name="PersonaEstado" Nullable="false" />
+    <Property Type="DateTime" Name="PersonaFechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="PersonaFechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="PersonaIdTipoDocumento" Nullable="false" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdAsignacionTU" Nullable="false" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdTipoUsuario" Nullable="false" />
+    <Property Type="Boolean" Name="AsignacionTipoUsuarioEstado" Nullable="false" />
+    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="TipoUsuarioIdTipoUsuario" Nullable="false" />
+    <Property Type="String" Name="TipoUsuarioDescripcion" Nullable="false" MaxLength="1000" />
+    <Property Type="String" Name="TipoUsuarioIdentificacion" Nullable="false" MaxLength="1000" />
+    <Property Type="DateTime" Name="TipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="TipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_CrearAbono_Result">
+    <Property Type="Int32" Name="IdAbono" Nullable="false" />
+    <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdAsignacionTU" Nullable="false" />
+    <Property Type="Decimal" Name="Monto" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="16" />
+  </ComplexType>
+  <ComplexType Name="sp_CrearConfigurarProducto_Result1">
+    <Property Type="Int32" Name="IdConfigurarProducto" Nullable="false" />
+    <Property Type="Int32" Name="IdAsignacionTU" Nullable="false" />
+    <Property Type="Int32" Name="IdProducto" Nullable="false" />
+    <Property Type="Int32" Name="IdMedida" Nullable="false" />
+    <Property Type="Int32" Name="IdPresentacion" Nullable="false" />
+    <Property Type="String" Name="Codigo" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="CantidadMedida" Nullable="false" />
+    <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="FechaActualizacion" Nullable="false" Precision="23" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="Iva" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_CrearConfigurarProducto1_Result">
+    <Property Type="Int32" Name="IdConfigurarProducto" Nullable="false" />
+    <Property Type="Int32" Name="IdAsignacionTU" Nullable="false" />
+    <Property Type="Int32" Name="IdProducto" Nullable="false" />
+    <Property Type="Int32" Name="IdMedida" Nullable="false" />
+    <Property Type="Int32" Name="IdPresentacion" Nullable="false" />
+    <Property Type="String" Name="Codigo" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="CantidadMedida" Nullable="false" />
+    <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="FechaActualizacion" Nullable="false" Precision="23" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="Iva" Nullable="false" />
   </ComplexType>
 </Schema>

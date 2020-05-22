@@ -486,13 +486,6 @@
       <Parameter Name="Usuario" Mode="In" Type="String" />
       <Parameter Name="Contrasena" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="sp_CrearDetalleVenta">
-      <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
-      <Parameter Name="IdAsignarProductoLote" Mode="In" Type="Int32" />
-      <Parameter Name="AplicaDescuento" Mode="In" Type="String" />
-      <Parameter Name="Faltante" Mode="In" Type="String" />
-      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="sp_EliminarDetalleVenta">
       <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -500,10 +493,19 @@
       <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
       <Parameter Name="Cantidad" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_ConsultarDetalleVenta" ReturnType="Collection(AMUCOMTModel.sp_ConsultarDetalleVenta_Result)" />
     <FunctionImport Name="sp_SetCantidadDetalleVenta">
       <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
       <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ConsultarDetalleVenta" ReturnType="Collection(AMUCOMTModel.sp_ConsultarDetalleVenta_Result1)" />
+    <FunctionImport Name="sp_CrearDetalleVenta">
+      <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
+      <Parameter Name="IdAsignarProductoLote" Mode="In" Type="Int32" />
+      <Parameter Name="AplicaDescuento" Mode="In" Type="String" />
+      <Parameter Name="Faltante" Mode="In" Type="String" />
+      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+      <Parameter Name="PorcentajeDescuento" Mode="In" Type="Int32" />
+      <Parameter Name="PrecioUnitario" Mode="In" Type="Decimal" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_ConsultarConfiguracionInteres_Result">
@@ -1301,5 +1303,16 @@
     <Property Type="Boolean" Name="Faltante" Nullable="false" />
     <Property Type="Int32" Name="Cantidad" Nullable="false" />
     <Property Type="Boolean" Name="Estado" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_ConsultarDetalleVenta_Result1">
+    <Property Type="Int32" Name="IdDetalleVenta" Nullable="false" />
+    <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+    <Property Type="Int32" Name="IdAsignarProductoLote" Nullable="false" />
+    <Property Type="Boolean" Name="AplicaDescuento" Nullable="false" />
+    <Property Type="Boolean" Name="Faltante" Nullable="false" />
+    <Property Type="Int32" Name="Cantidad" Nullable="false" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="Int32" Name="PorcentajeDescuento" Nullable="true" />
+    <Property Type="Decimal" Name="PrecioUnitario" Nullable="false" Precision="18" Scale="2" />
   </ComplexType>
 </Schema>

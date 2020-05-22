@@ -9,6 +9,7 @@ namespace Negocio.Entidades
     public class AsignacionTipoUsuario
     {
         public int IdAsignacionTU { get; set; }
+        public string IdAsignacionTUEncriptada { get; set; }
         public int IdUsuario { get; set; }
         public TipoUsuario TipoUsuario { get; set; }
         public DateTime? FechaCreacion { get; set; }

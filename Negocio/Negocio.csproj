@@ -47,12 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entidades\Abono.cs" />
     <Compile Include="Entidades\AsignacionPersonaComunidad.cs" />
     <Compile Include="Entidades\AsignacionPersonaParroquia.cs" />
     <Compile Include="Entidades\AsignacionTipoUsuario.cs" />
     <Compile Include="Entidades\AsignarDescuentoKit.cs" />
     <Compile Include="Entidades\AsignarProductoKit.cs" />
     <Compile Include="Entidades\AsignarProductoLote.cs" />
+    <Compile Include="Entidades\AsignarSeguro.cs" />
     <Compile Include="Entidades\CabeceraFactura.cs" />
     <Compile Include="Entidades\Canton.cs" />
     <Compile Include="Entidades\Clave.cs" />
@@ -103,6 +105,8 @@
     <Compile Include="Entidades\TipoUsuario.cs" />
     <Compile Include="Entidades\Tokens.cs" />
     <Compile Include="Entidades\Usuario.cs" />
+    <Compile Include="Logica\Credito\CaatalogoAbono.cs" />
+    <Compile Include="Logica\Credito\CatalogoAsignarSeguro.cs" />
     <Compile Include="Logica\Credito\CatalogoConfiguracionInteres.cs" />
     <Compile Include="Logica\Credito\CatalogoConfigurarVenta.cs" />
     <Compile Include="Logica\Credito\CatalogoDetalleVenta.cs" />

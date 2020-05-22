@@ -26,7 +26,7 @@ namespace Negocio.Logica.Inventario
                 {
                     if (ListaProductos.Where(p => Seguridad.DesEncriptar(p.Producto.IdProducto) == ConfigurarProducto.IdProducto && Seguridad.DesEncriptar(p.Medida.IdMedida) == ConfigurarProducto.IdMedida && Seguridad.DesEncriptar(p.Presentacion.IdPresentacion) == ConfigurarProducto.IdPresentacion && p.CantidadMedida == ConfigurarProducto.CantidadMedida).FirstOrDefault() == null)
                     {
-                        foreach (var item in ConexionBD.sp_CrearConfigurarProducto(int.Parse(ConfigurarProducto.IdAsignacionTu), int.Parse(ConfigurarProducto.IdProducto), int.Parse(ConfigurarProducto.IdMedida), int.Parse(ConfigurarProducto.IdPresentacion), ConfigurarProducto.Codigo, ConfigurarProducto.CantidadMedida))
+                        foreach (var item in ConexionBD.sp_CrearConfigurarProducto(int.Parse(ConfigurarProducto.IdAsignacionTu), int.Parse(ConfigurarProducto.IdProducto), int.Parse(ConfigurarProducto.IdMedida), int.Parse(ConfigurarProducto.IdPresentacion), ConfigurarProducto.Codigo, ConfigurarProducto.CantidadMedida,ConfigurarProducto.Iva))
                         {
                             ConfigurarProducto.IdConfigurarProducto = Seguridad.Encriptar(item.IdConfigurarProducto.ToString());
                             ConfigurarProducto.IdAsignacionTu = Seguridad.Encriptar(item.IdAsignacionTU.ToString());
@@ -51,7 +51,7 @@ namespace Negocio.Logica.Inventario
                     return "400";
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -86,7 +86,7 @@ namespace Negocio.Logica.Inventario
         {
             try
             {
-                ConexionBD.sp_ModificarConfigurarProducto(int.Parse(ConfigurarProducto.IdConfigurarProducto), int.Parse(ConfigurarProducto.IdAsignacionTu), int.Parse(ConfigurarProducto.IdProducto), int.Parse(ConfigurarProducto.IdMedida), int.Parse(ConfigurarProducto.IdPresentacion),ConfigurarProducto.Codigo, ConfigurarProducto.CantidadMedida);
+                ConexionBD.sp_ModificarConfigurarProducto(int.Parse(ConfigurarProducto.IdConfigurarProducto), int.Parse(ConfigurarProducto.IdAsignacionTu), int.Parse(ConfigurarProducto.IdProducto), int.Parse(ConfigurarProducto.IdMedida), int.Parse(ConfigurarProducto.IdPresentacion),ConfigurarProducto.Codigo, ConfigurarProducto.CantidadMedida, ConfigurarProducto.Iva);
                 return true;
             }
             catch (Exception)
@@ -156,6 +156,7 @@ namespace Negocio.Logica.Inventario
                         FechaCreacion = item.PresentacionFechaCreacion,
                         Estado = item.PresentacionEstado,
                     },
+                    Iva = item.ConfigurarProductoIva
                 });
             }
         }
@@ -249,6 +250,7 @@ namespace Negocio.Logica.Inventario
                         FechaCreacion = item.PresentacionFechaCreacion,
                         Estado = item.PresentacionEstado,
                     },
+                    Iva = item.ConfigurarProductoIva
                 });
             }
             return ListaConfigurarProductos.GroupBy(a => a.IdConfigurarProducto).Select(grp => grp.First()).ToList(); ;

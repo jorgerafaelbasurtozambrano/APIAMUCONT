@@ -20,8 +20,8 @@ namespace Negocio.Entidades
         public bool? estado { get; set; }
         public string encriptada { get; set; }
         public string ConfigurarProductosUtilizado { get; set; }
-
         public PrecioConfigurarProducto PrecioConfigurarProducto { get; set; }
+        public int? Iva { get; set; }
 
     }
 }

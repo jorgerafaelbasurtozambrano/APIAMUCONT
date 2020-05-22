@@ -60,7 +60,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/TalentoHumano/ListaUsuariosClientes")]
         public object ObtenerUsuariosClientes([FromBody] Tokens Tokens)
@@ -97,7 +96,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/TalentoHumano/ConsultarPersonasSinUsuario")]
         public object ListaUsuariosClientesInformacion([FromBody] Tokens Tokens)
@@ -134,9 +132,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
-
-
         [HttpPost]
         [Route("api/TalentoHumano/Login")]
         public object BuscarUsuarioSistema(Login Login)
@@ -178,7 +173,6 @@ namespace API.Controllers
             {
                 mensaje = "ERROR";
                 codigo = "418";
-
                 objeto = new { mensaje, codigo };
                 return objeto;
             }
@@ -224,7 +218,6 @@ namespace API.Controllers
 
 
         }
-
         [HttpPost]
         [Route("api/TalentoHumano/IngresoCredencial")]
         public object IngresoCredenciales(UsuarioEntidad UsuarioEntidad)
@@ -264,7 +257,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/TalentoHumano/EliminarCredencial")]
         public object EliminarCredencial(UsuarioEntidad UsuarioEntidad)
@@ -303,7 +295,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/TalentoHumano/ActualizarCredencial")]
         public object ActualizarCredencial(UsuarioEntidad UsuarioEntidad)
@@ -344,8 +335,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
-
         [HttpPost]
         [Route("api/Usuario/HabilitarUsuario")]
         public object Habilitarusuario(UsuarioEntidad UsuarioEntidad)
@@ -383,7 +372,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Usuarios/ObtenerTipoUsuarioDeUnUsuario")]
         public object ObtenerTipoUsuarioDeunUsuario(UsuarioEntidad UsuarioEntidad)

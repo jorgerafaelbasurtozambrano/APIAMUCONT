@@ -16,5 +16,7 @@ namespace Negocio.Entidades.DatoUsuarios
         public bool Estado { get; set; }
         public string encriptada { get; set; }
         public List<AsignarProductoKit> ListaAsignarProductoKit { get; set; }
+        public bool PermitirAnadir { get; set; }
+        public int CantidadMaxima { get; set; }
     }
 }

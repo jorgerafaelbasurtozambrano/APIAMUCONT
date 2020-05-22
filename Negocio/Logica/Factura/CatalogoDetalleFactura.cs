@@ -31,47 +31,6 @@ namespace Negocio.Logica.Factura
                 return false;
             }
         }
-        /*public string EliminarDetalleFactura(int IdDetalleFactura,string IdCabeceraFactura)
-        {
-            try
-            {
-                CabeceraFactura CabeceraFactura = GestionCabeceraFactura.ConsultarFactura(IdCabeceraFactura).FirstOrDefault();
-                if (CabeceraFactura!=null)
-                {
-                    if (CabeceraFactura.Finalizado==false)
-                    {
-                        DetalleFactura DetalleFactura = ListarDetalleFactura().Where(p => Seguridad.DesEncriptar(p.IdDetalleFactura) == IdDetalleFactura.ToString()).FirstOrDefault();
-                        ConexionBD.sp_EliminarDetalleFactura(IdDetalleFactura);
-                        var cantidad = ConexionBD.sp_ConsultarCantidadDeDetalleDeUnaFactura(int.Parse(IdCabeceraFactura));
-                        foreach (var item in ConexionBD.sp_ConsultarCantidadDeDetalleDeUnaFactura(int.Parse(IdCabeceraFactura)))
-                        {
-                            if (item.Value == 1)
-                            {
-                                ConexionBD.sp_EliminarCabeceraFactura(int.Parse(IdCabeceraFactura));
-                                break;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        return "true";
-                    }
-                    else
-                    {
-                        return "400";
-                    }
-                }
-                else
-                {
-                    return "400";
-                }
-            }
-            catch (Exception)
-            {
-                return "false";
-            }
-        }*/
         public string EliminarDetalleFactura(int IdDetalleFactura, string IdCabeceraFactura)
         {
             try

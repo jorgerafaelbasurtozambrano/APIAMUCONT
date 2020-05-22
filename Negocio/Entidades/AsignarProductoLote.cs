@@ -22,6 +22,8 @@ namespace Negocio.Entidades
 
         public Lote Lote { get; set; }
         public ConfigurarProductos ConfigurarProductos { get; set; }
-        public AsignarProductosKits AsignarProductoKits { get; set; }
+        //public AsignarProductosKits AsignarProductoKits { get; set; }
+        public AsignarProductoKit AsignarProductoKit { get; set; }
+
     }
 }

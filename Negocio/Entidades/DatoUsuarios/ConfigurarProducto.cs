@@ -20,5 +20,6 @@ namespace Negocio.Entidades.DatoUsuarios
         public DateTime FechaActualizacion { get; set; }
         public bool estado { get; set; }
         public string encriptada { get; set; }
+        public int? Iva { get; set; }
     }
 }

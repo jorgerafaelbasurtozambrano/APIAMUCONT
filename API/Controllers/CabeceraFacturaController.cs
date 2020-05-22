@@ -283,6 +283,43 @@ namespace API.Controllers
                 return objeto;
             }
         }
+        [HttpPost]
+        [Route("api/Factura/FacturasNoFinalizadasVenta")]
+        public object FacturasNoFinalizadasVenta([FromBody] Tokens Tokens)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
+                Object resultado = new object();
+                string ClaveGetEncripBD = p.desencriptar(Tokens.encriptada, _claveGet.Clave.Descripcion.Trim());
+                //if (ClaveGetEncripBD == _claveGet.Descripcion)
+                //{
+                mensaje = "EXITO";
+                codigo = "200";
+                respuesta = GestionCabeceraFactura.FacturaVentaNoFinalizadas();
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+                objeto = new { codigo, mensaje, respuesta };
+                return objeto;
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+                codigo = "418";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
+
 
         [HttpPost]
         [Route("api/Factura/ListaFacturaVenta")]
@@ -339,19 +376,40 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(CabeceraFactura.encriptada, _clavePut.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePut.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                CabeceraFactura.IdCabeceraFactura = Seguridad.DesEncriptar(CabeceraFactura.IdCabeceraFactura);
-                respuesta = GestionCabeceraFactura.FinalizarFacturaVenta(int.Parse(CabeceraFactura.IdCabeceraFactura));
-
+                if (CabeceraFactura.IdCabeceraFactura == null)
+                {
+                    mensaje = "Se necesita el id de la factura a finalizar";
+                    codigo = "418";
+                    objeto = new { codigo, mensaje};
+                    return objeto;
+                }
+                else
+                {
+                    ConfigurarVenta _ConfigurarVenta = new ConfigurarVenta();
+                    CabeceraFactura.IdCabeceraFactura = Seguridad.DesEncriptar(CabeceraFactura.IdCabeceraFactura);
+                    _ConfigurarVenta = GestionCabeceraFactura.ConsultarConfigurarVentaPorFactura(int.Parse(CabeceraFactura.IdCabeceraFactura));
+                    if (_ConfigurarVenta.IdConfigurarVenta == null)
+                    {
+                        mensaje = "No se a asignado la factura a ningun cliente";
+                        codigo = "418";
+                        objeto = new { codigo, mensaje};
+                        return objeto;
+                    }
+                    else
+                    {
+                        respuesta = GestionCabeceraFactura.FinalizarFacturaVenta(int.Parse(CabeceraFactura.IdCabeceraFactura));
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
-                return objeto;
             }
             catch (Exception e)
             {
