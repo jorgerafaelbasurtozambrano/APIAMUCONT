@@ -21,5 +21,10 @@ namespace Datos
         public Nullable<int> IdConfiguracionInteres { get; set; }
         public bool Efectivo { get; set; }
         public Nullable<int> Descuento { get; set; }
+        public Nullable<System.DateTime> FechaFinCredito { get; set; }
+        public bool AplicaSeguro { get; set; }
+        public Nullable<decimal> ValorSeguro { get; set; }
+        public Nullable<bool> SeguroCancelado { get; set; }
+        public Nullable<int> IdAsignarTecnicoSembrio { get; set; }
     }
 }

@@ -23,5 +23,6 @@ namespace Datos
         public Nullable<int> PorcentajeDescuento { get; set; }
         public decimal PrecioUnitario { get; set; }
         public Nullable<bool> PerteneceKitCompleto { get; set; }
+        public int Iva { get; set; }
     }
 }

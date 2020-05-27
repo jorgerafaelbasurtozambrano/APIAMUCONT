@@ -45,6 +45,7 @@ namespace Datos
         public Nullable<System.DateTime> ConfigurarProductoFechaCreacion { get; set; }
         public Nullable<System.DateTime> ConfigurarProductoFechaActualizacion { get; set; }
         public Nullable<bool> ConfigurarProductoEstado { get; set; }
+        public Nullable<int> ConfigurarProductoIva { get; set; }
         public Nullable<int> AsignarProductoKitIdAsignarProductoKit { get; set; }
         public Nullable<int> AsignarProductoKitIdConfigurarProducto { get; set; }
         public Nullable<int> AsignarProductoKitIdAsignarDescuentoKit { get; set; }

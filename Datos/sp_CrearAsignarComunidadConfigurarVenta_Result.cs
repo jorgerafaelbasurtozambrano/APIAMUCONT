@@ -11,16 +11,13 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_ConsultarSembrios_Result
+    public partial class sp_CrearAsignarComunidadConfigurarVenta_Result
     {
-        public int IdSembrio { get; set; }
-        public string Descripcion { get; set; }
+        public int IdAsignarComunidadConfigurarVenta { get; set; }
         public int IdComunidad { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public System.DateTime FechaActualizacion { get; set; }
+        public int IdConfigurarVenta { get; set; }
+        public string Observacion { get; set; }
         public bool Estado { get; set; }
-        public string ComunidadDescripcion { get; set; }
-        public bool ComunidadEstado { get; set; }
-        public int ComunidadIdComunidad { get; set; }
+        public System.DateTime FechaAsignacion { get; set; }
     }
 }

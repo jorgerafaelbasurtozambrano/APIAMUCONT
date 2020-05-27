@@ -51,6 +51,7 @@
     <Compile Include="Entidades\AsignacionPersonaComunidad.cs" />
     <Compile Include="Entidades\AsignacionPersonaParroquia.cs" />
     <Compile Include="Entidades\AsignacionTipoUsuario.cs" />
+    <Compile Include="Entidades\AsignarComunidadFactura.cs" />
     <Compile Include="Entidades\AsignarDescuentoKit.cs" />
     <Compile Include="Entidades\AsignarProductoKit.cs" />
     <Compile Include="Entidades\AsignarProductoLote.cs" />
@@ -94,7 +95,6 @@
     <Compile Include="Entidades\Privilegios.cs" />
     <Compile Include="Entidades\Producto.cs" />
     <Compile Include="Entidades\Provincia.cs" />
-    <Compile Include="Entidades\Sembrio.cs" />
     <Compile Include="Entidades\Stock.cs" />
     <Compile Include="Entidades\Telefono.cs" />
     <Compile Include="Entidades\TipoDocumento.cs" />
@@ -106,6 +106,7 @@
     <Compile Include="Entidades\Tokens.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Logica\Credito\CaatalogoAbono.cs" />
+    <Compile Include="Logica\Credito\CatalogoAsignarComunidadFactura.cs" />
     <Compile Include="Logica\Credito\CatalogoAsignarSeguro.cs" />
     <Compile Include="Logica\Credito\CatalogoConfiguracionInteres.cs" />
     <Compile Include="Logica\Credito\CatalogoConfigurarVenta.cs" />
@@ -135,7 +136,6 @@
     <Compile Include="Logica\TalentHumano\CatalogoPersona.cs" />
     <Compile Include="Logica\ConsultarUsuariosYPersonas.cs" />
     <Compile Include="Logica\TalentHumano\CatalogoProvincia.cs" />
-    <Compile Include="Logica\TalentHumano\CatalogoSembrio.cs" />
     <Compile Include="Logica\TalentHumano\CatalogoTelefono.cs" />
     <Compile Include="Logica\TalentHumano\CatalogoTipoDocumento.cs" />
     <Compile Include="Logica\TalentHumano\CatalogoParroquia.cs" />

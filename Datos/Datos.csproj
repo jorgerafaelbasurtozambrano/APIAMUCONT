@@ -80,9 +80,6 @@
     <Compile Include="sp_BuscarDetalleFacturaVenta_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_BuscarDetalleFacturaVenta_Result1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="sp_BuscarModulos_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -104,13 +101,22 @@
     <Compile Include="sp_ConsultarAsignacionTU_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarAsignarComunidadConfigurarVentaPorIdConfigurarVenta_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarAsignarComunidadFacturaPorIdCabeceraFactura_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarAsignarComunidadFacturaPorPersonaYPorComunidad_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarAsignarDescuentoKit_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarAsignarProductoKit_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_ConsultarAsignarProductoKit_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarAsignarProductoLote_Result.cs">
@@ -128,7 +134,13 @@
     <Compile Include="sp_ConsultarCanton_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarComunidad_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarComunidad_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarConfiguracionInteres_Result.cs">
@@ -137,19 +149,16 @@
     <Compile Include="sp_ConsultarConfigurarProductoQueNoTieneUnKit_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_ConsultarConfigurarProductoQueNoTieneUnKit_Result1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="sp_ConsultarConfigurarProducto_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_ConsultarConfigurarProducto_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result2.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarCorreoPersona_Result.cs">
@@ -203,6 +212,30 @@
     <Compile Include="sp_ConsultarPersonasDependeDeTipoDeUsuario_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarPersonasParaRealizarSeguimiento_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasParaRealizarSeguimiento_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasParaSeguimientoPorCanton_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasParaSeguimientoPorCanton_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasParaSeguimientoPorComunidad_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasParaSeguimientoPorComunidad_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasParaSeguimientoPorParroquia_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasParaSeguimientoPorParroquia_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarPersonas_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -231,9 +264,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarResidenciaPersona_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_ConsultarSembrios_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarStock_Result.cs">
@@ -284,6 +314,12 @@
     <Compile Include="sp_CrearAbono_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_CrearAsignarComunidadConfigurarVenta_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearAsignarComunidadFactura_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_CrearAsignarProductoLote_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -303,6 +339,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CrearConfigurarVenta_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearConfigurarVenta_Result2.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CrearTipoInteres_Result.cs">

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Negocio.Entidades
 {
     public class Comunidad
@@ -15,5 +14,7 @@ namespace Negocio.Entidades
         public Boolean Estado { get; set; }
         public Tokens Tokens { get; set; }
         public string ComunidadUtilizado { get; set; }
+        public List<AsignarComunidadFactura> ListaAsignarComunidadFactura { get; set; }
+        public string encriptada { get; set; }
     }
 }

@@ -11,15 +11,16 @@ namespace Negocio.Entidades
         public string IdConfigurarVenta { get; set; }
         public string IdCabeceraFactura { get; set; }
         public string IdPersona { get; set; }
-        public string IdSembrio { get; set; }
         public string EstadoConfVenta { get; set; }
         public string IdConfiguracionInteres { get; set; }
         public string Efectivo { get; set; }
         public int? Descuento { get; set; }
         public string encriptada { get; set; }
-        public Sembrio _Sembrio { get; set; }
         public PersonaEntidad _PersonaEntidad { get; set; }
         public AsignarSeguro _AsignarSeguro { get; set; }
         public DateTime? FechaFinalCredito { get; set; }
+        public string AplicaSeguro { get; set; }
+        public decimal? ValorSeguro { get; set; }
+        public string SeguroCancelado { get; set; }
     }
 }

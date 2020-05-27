@@ -13,56 +13,21 @@ namespace Negocio.Logica.Credito
     {
         AMUCOMTEntities ConexionBD = new AMUCOMTEntities();
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
-        CatalogoSembrio Gestion_Sembrio = new CatalogoSembrio();
         ConsultarUsuariosYPersonas GestionPersona = new ConsultarUsuariosYPersonas();
         CatalogoAsignarSeguro _GestionSeguro = new CatalogoAsignarSeguro();
-        public object InsertarConfigurarVenta(ConfigurarVenta ConfigurarVenta)
+        public ConfigurarVenta InsertarConfigurarVenta(ConfigurarVenta ConfigurarVenta)
         {
-            try
+            ConfigurarVenta DataConfigurarVenta = new ConfigurarVenta();
+            foreach (var item in ConexionBD.sp_CrearConfigurarVenta(int.Parse(ConfigurarVenta.IdCabeceraFactura), int.Parse(ConfigurarVenta.IdPersona), ConfigurarVenta.EstadoConfVenta, null, ConfigurarVenta.Efectivo, null, ConfigurarVenta.FechaFinalCredito, ConfigurarVenta.AplicaSeguro, ConfigurarVenta.ValorSeguro, ConfigurarVenta.SeguroCancelado))
             {
-                //return Seguridad.Encriptar(ConexionBD.sp_CrearConfigurarVenta(int.Parse(ConfigurarVenta.IdCabeceraFactura), int.Parse(ConfigurarVenta.IdPersona), int.Parse(ConfigurarVenta.IdSembrio), Convert.ToBoolean(ConfigurarVenta.EstadoConfVenta), int.Parse(ConfigurarVenta.IdConfiguracionInteres), Convert.ToBoolean(ConfigurarVenta.Efectivo), ConfigurarVenta.Descuento).Select(e => e.Value.ToString()).FirstOrDefault());
-                //if (ConfigurarVenta.Efectivo == "1")
-                //{
-                    if (ConfigurarVenta.IdSembrio.Replace("null", null) != "")
-                    {
-                        ConfigurarVenta DataConfigurarVenta = new ConfigurarVenta();
-                        foreach (var item in ConexionBD.sp_CrearConfigurarVenta(int.Parse(ConfigurarVenta.IdCabeceraFactura), int.Parse(ConfigurarVenta.IdPersona), int.Parse(ConfigurarVenta.IdSembrio),ConfigurarVenta.Efectivo, null, ConfigurarVenta.Efectivo,null, ConfigurarVenta.Efectivo == "1" ? null: ConfigurarVenta.FechaFinalCredito))
-                        {
-                            DataConfigurarVenta.IdConfigurarVenta = Seguridad.Encriptar(item.IdConfigurarVenta.ToString());
-                            DataConfigurarVenta.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());
-                            DataConfigurarVenta.IdPersona = Seguridad.Encriptar(item.IdPersona.ToString());
-                            DataConfigurarVenta.IdSembrio = DataConfigurarVenta.IdPersona = Seguridad.Encriptar(item.IdSembrio.ToString());
-                            DataConfigurarVenta.EstadoConfVenta = item.EstadoConfVenta.ToString();
-                            DataConfigurarVenta.Efectivo = item.Efectivo.ToString();
-                            DataConfigurarVenta.Descuento = null;
-                        }
-                        return DataConfigurarVenta;
-                    }
-                    else
-                    {
-                        ConfigurarVenta DataConfigurarVenta = new ConfigurarVenta();
-                        foreach (var item in ConexionBD.sp_CrearConfigurarVenta(int.Parse(ConfigurarVenta.IdCabeceraFactura), int.Parse(ConfigurarVenta.IdPersona), null ,ConfigurarVenta.Efectivo, null,ConfigurarVenta.Efectivo, null, ConfigurarVenta.Efectivo == "1" ? null : ConfigurarVenta.FechaFinalCredito))
-                        {
-                            DataConfigurarVenta.IdConfigurarVenta = Seguridad.Encriptar(item.IdConfigurarVenta.ToString());
-                            DataConfigurarVenta.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());
-                            DataConfigurarVenta.IdPersona = Seguridad.Encriptar(item.IdPersona.ToString());
-                            DataConfigurarVenta.IdSembrio = null;
-                            DataConfigurarVenta.EstadoConfVenta = item.EstadoConfVenta.ToString();
-                            DataConfigurarVenta.Efectivo = item.Efectivo.ToString();
-                            DataConfigurarVenta.Descuento = null;
-                        }
-                        return DataConfigurarVenta;
-                    }
-                //}
-                //else
-                //{
-                    //return false;
-                //}
+                DataConfigurarVenta.IdConfigurarVenta = Seguridad.Encriptar(item.IdConfigurarVenta.ToString());
+                DataConfigurarVenta.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());
+                DataConfigurarVenta.IdPersona = Seguridad.Encriptar(item.IdPersona.ToString());
+                DataConfigurarVenta.EstadoConfVenta = item.EstadoConfVenta.ToString();
+                DataConfigurarVenta.Efectivo = item.Efectivo.ToString();
+                DataConfigurarVenta.Descuento = null;
             }
-            catch (Exception e)
-            {
-                return false;
-            }
+            return DataConfigurarVenta;
         }
         public ConfigurarVenta ConsultarConfigurarVentaPorFactura(int id_Factura)
         {
@@ -77,13 +42,6 @@ namespace Negocio.Logica.Credito
                 _PersonaEntidad = GestionPersona.BuscarPersona(item3.IdPersona);
                 _ConfigurarVenta._PersonaEntidad = _PersonaEntidad;
                 _ConfigurarVenta.FechaFinalCredito = item3.FechaFinCredito;
-                if (item3.IdSembrio != null)
-                {
-                    Sembrio _Sembrio = new Sembrio();
-                    _Sembrio = Gestion_Sembrio.ConsultarSembrioPorId(item3.IdSembrio);
-                    _ConfigurarVenta.IdSembrio = Seguridad.Encriptar(item3.IdSembrio.ToString());
-                    _ConfigurarVenta._Sembrio = _Sembrio;
-                }
                 _ConfigurarVenta.Efectivo = item3.Efectivo.ToString();
                 if (item3.IdConfiguracionInteres != null)
                 {

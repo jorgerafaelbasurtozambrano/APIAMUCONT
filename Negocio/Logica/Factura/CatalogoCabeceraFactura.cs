@@ -595,10 +595,6 @@ namespace Negocio.Logica.Inventario
                     _ConfigurarVenta.IdCabeceraFactura = Seguridad.Encriptar(item3.IdCabeceraFactura.ToString());
                     _ConfigurarVenta.IdPersona = Seguridad.Encriptar(item3.IdPersona.ToString());
                     _ConfigurarVenta.EstadoConfVenta = item3.IdConfigurarVenta.ToString();
-                    if (item3.IdSembrio != null)
-                    {
-                        _ConfigurarVenta.IdSembrio = Seguridad.Encriptar(item3.IdSembrio.ToString());
-                    }
                     _ConfigurarVenta.Efectivo = item3.Efectivo.ToString();
                     if (item3.IdConfiguracionInteres != null)
                     {
@@ -929,10 +925,6 @@ namespace Negocio.Logica.Inventario
                 _ConfigurarVenta.IdCabeceraFactura = Seguridad.Encriptar(item3.IdCabeceraFactura.ToString());
                 _ConfigurarVenta.IdPersona = Seguridad.Encriptar(item3.IdPersona.ToString());
                 _ConfigurarVenta.EstadoConfVenta = item3.IdConfigurarVenta.ToString();
-                if (item3.IdSembrio != null)
-                {
-                    _ConfigurarVenta.IdSembrio = Seguridad.Encriptar(item3.IdSembrio.ToString());
-                }
                 _ConfigurarVenta.Efectivo = item3.Efectivo.ToString();
                 if (item3.IdConfiguracionInteres != null)
                 {

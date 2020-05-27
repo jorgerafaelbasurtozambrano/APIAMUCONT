@@ -200,6 +200,7 @@
     <Compile Include="Controllers\AbonoController.cs" />
     <Compile Include="Controllers\AsignacionPersonaComunidadController.cs" />
     <Compile Include="Controllers\AsignacionTipoUsuarioController.cs" />
+    <Compile Include="Controllers\AsignarComunidadFacturaController.cs" />
     <Compile Include="Controllers\AsignarDescuentoKitController.cs" />
     <Compile Include="Controllers\AsignarProductoKitController.cs" />
     <Compile Include="Controllers\AsignarProductoLoteController.cs" />
@@ -229,7 +230,6 @@
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\SeguridadController.cs" />
-    <Compile Include="Controllers\SembrioController.cs" />
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\TelefonoController.cs" />
     <Compile Include="Controllers\TipoDocumentoController.cs" />

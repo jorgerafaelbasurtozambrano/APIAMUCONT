@@ -27,5 +27,7 @@ namespace Negocio.Entidades.DatoUsuarios
         public List<AsignacionPersonaParroquia> AsignacionPersonaParroquia { get; set; }
         public AsignacionPersonaParroquia AsignacionPersonaComunidad { get; set; }
         public AsignacionTipoUsuario AsignacionTipoUsuario { get; set; }
+        public TipoDocumento _objTipoDocumento { get; set; }
+        public List<Comunidad> ListaComunidad { get; set; }
     }
 }

@@ -11,17 +11,13 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_BuscarDetalleFacturaVenta_Result1
+    public partial class sp_ConsultarAsignarComunidadFacturaPorPersonaYPorComunidad_Result
     {
-        public int IdDetalleVenta { get; set; }
-        public int IdCabeceraFactura { get; set; }
-        public int IdAsignarProductoLote { get; set; }
-        public bool AplicaDescuento { get; set; }
-        public bool Faltante { get; set; }
-        public int Cantidad { get; set; }
+        public int IdAsignarComunidadFactura { get; set; }
+        public int IdComunidad { get; set; }
         public bool Estado { get; set; }
-        public Nullable<int> PorcentajeDescuento { get; set; }
-        public decimal PrecioUnitario { get; set; }
-        public Nullable<bool> PerteneceKitCompleto { get; set; }
+        public System.DateTime FechaAsignacion { get; set; }
+        public string Observacion { get; set; }
+        public int IdCabeceraFactura { get; set; }
     }
 }
