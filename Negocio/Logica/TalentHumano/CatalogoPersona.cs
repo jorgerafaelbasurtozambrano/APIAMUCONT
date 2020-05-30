@@ -124,10 +124,10 @@ namespace Negocio.Logica
             }
             
         }
-        public List<PersonaEntidad> ListaPersonasDependiendoDeTipoUsuario(int id_TipoUsuario)
+        public List<PersonaEntidad> ListaPersonasDependiendoDeTipoUsuario(int identificador)
         {
             List<PersonaEntidad> ListaPersonaEntidad = new List<PersonaEntidad>();
-            foreach (var item in ConexionBD.sp_ConsultarPersonasDependeDeTipoDeUsuario(id_TipoUsuario))
+            foreach (var item in ConexionBD.sp_ConsultarPersonasDependeDeTipoDeUsuario(identificador))
             {
                 ListaPersonaEntidad.Add(new PersonaEntidad()
                 {

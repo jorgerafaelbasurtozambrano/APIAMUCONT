@@ -194,7 +194,7 @@ namespace API.Controllers
                 string ClaveGetEncripBD = p.desencriptar(TipoUsuario.encriptada, _claveGet.Clave.Descripcion.Trim());
                 //if (ClaveGetEncripBD == _claveGet.Descripcion)
                 //{
-                if (TipoUsuario.IdTipoUsuario == null || string.IsNullOrEmpty(TipoUsuario.IdTipoUsuario))
+                if (TipoUsuario.Identificacion == null || string.IsNullOrEmpty(TipoUsuario.Identificacion))
                 {
                     mensaje = "Ingrese El ID TIPO USUARIO";
                     codigo = "418";
@@ -205,8 +205,7 @@ namespace API.Controllers
                 {
                     mensaje = "EXITO";
                     codigo = "200";
-                    TipoUsuario.IdTipoUsuario = Seguridad.DesEncriptar(TipoUsuario.IdTipoUsuario);
-                    respuesta = GestionPersona.ListaPersonasDependiendoDeTipoUsuario(int.Parse(TipoUsuario.IdTipoUsuario));
+                    respuesta = GestionPersona.ListaPersonasDependiendoDeTipoUsuario(int.Parse(TipoUsuario.Identificacion));
                     objeto = new { codigo, mensaje, respuesta };
                     return objeto;
                 }

@@ -18,7 +18,8 @@ namespace Negocio.Logica.Credito
         public ConfigurarVenta InsertarConfigurarVenta(ConfigurarVenta ConfigurarVenta)
         {
             ConfigurarVenta DataConfigurarVenta = new ConfigurarVenta();
-            foreach (var item in ConexionBD.sp_CrearConfigurarVenta(int.Parse(ConfigurarVenta.IdCabeceraFactura), int.Parse(ConfigurarVenta.IdPersona), ConfigurarVenta.EstadoConfVenta, null, ConfigurarVenta.Efectivo, null, ConfigurarVenta.FechaFinalCredito, ConfigurarVenta.AplicaSeguro, ConfigurarVenta.ValorSeguro, ConfigurarVenta.SeguroCancelado))
+            foreach (var item in ConexionBD.sp_CrearConfigurarVenta(int.Parse(ConfigurarVenta.IdCabeceraFactura), int.Parse(ConfigurarVenta.IdPersona), ConfigurarVenta.EstadoConfVenta, null, ConfigurarVenta.Efectivo, null, ConfigurarVenta.FechaFinalCredito, null, null, null))
+            //foreach (var item in ConexionBD.sp_CrearConfigurarVenta(int.Parse(ConfigurarVenta.IdCabeceraFactura), int.Parse(ConfigurarVenta.IdPersona), ConfigurarVenta.EstadoConfVenta, null, ConfigurarVenta.Efectivo, null, ConfigurarVenta.FechaFinalCredito, ConfigurarVenta.AplicaSeguro, ConfigurarVenta.ValorSeguro, ConfigurarVenta.SeguroCancelado))
             {
                 DataConfigurarVenta.IdConfigurarVenta = Seguridad.Encriptar(item.IdConfigurarVenta.ToString());
                 DataConfigurarVenta.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());
@@ -43,12 +44,13 @@ namespace Negocio.Logica.Credito
                 _ConfigurarVenta._PersonaEntidad = _PersonaEntidad;
                 _ConfigurarVenta.FechaFinalCredito = item3.FechaFinCredito;
                 _ConfigurarVenta.Efectivo = item3.Efectivo.ToString();
+                _ConfigurarVenta.AplicaSeguro = item3.AplicaSeguro.ToString();
                 if (item3.IdConfiguracionInteres != null)
                 {
                     _ConfigurarVenta.IdConfiguracionInteres = Seguridad.Encriptar(item3.IdConfiguracionInteres.ToString());
                 }
                 _ConfigurarVenta.Descuento = item3.Descuento;
-                _ConfigurarVenta._AsignarSeguro = _GestionSeguro.ConsultarAsignarSeguroPorConfigurarVenta(item3.IdConfigurarVenta).FirstOrDefault();
+                //_ConfigurarVenta._AsignarSeguro = _GestionSeguro.ConsultarAsignarSeguroPorConfigurarVenta(item3.IdConfigurarVenta).FirstOrDefault();
             }
             return _ConfigurarVenta;
         }

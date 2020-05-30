@@ -125,6 +125,12 @@
     <Compile Include="sp_ConsultarAsignarSeguroPorConfigurarVenta_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarAsignarTecnicoPersonaComunidadPorPersonaYComunidad_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarAsignarTecnicoPersonaComunidadPorPersona_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarAsignarTipoUsuarioPersona_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -135,6 +141,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarComunidad_Result.cs">
@@ -209,7 +218,16 @@
     <Compile Include="sp_ConsultarPersonaPorIdentificacion_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarPersonasAsignadasAunTecnico_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarPersonasDependeDeTipoDeUsuario_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasDependeDeTipoDeUsuario_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasParaRealizarSeguimientoPorPersona_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarPersonasParaRealizarSeguimiento_Result.cs">
@@ -224,16 +242,25 @@
     <Compile Include="sp_ConsultarPersonasParaSeguimientoPorCanton_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarPersonasParaSeguimientoPorCanton_Result2.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarPersonasParaSeguimientoPorComunidad_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarPersonasParaSeguimientoPorComunidad_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarPersonasParaSeguimientoPorComunidad_Result2.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarPersonasParaSeguimientoPorParroquia_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarPersonasParaSeguimientoPorParroquia_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasParaSeguimientoPorParroquia_Result2.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarPersonas_Result.cs">
@@ -264,6 +291,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarResidenciaPersona_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarSiUsuarioEsTecnico_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarStock_Result.cs">
@@ -326,6 +356,9 @@
     <Compile Include="sp_CrearAsignarSeguro_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_CrearAsignarTecnicoPersonaComunidad_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_CrearCabeceraFactura_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -342,6 +375,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CrearConfigurarVenta_Result2.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearConfigurarVenta_Result3.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CrearTipoInteres_Result.cs">

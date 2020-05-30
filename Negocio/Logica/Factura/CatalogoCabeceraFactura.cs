@@ -20,6 +20,7 @@ namespace Negocio.Logica.Inventario
         CatalogoDetalleVenta GestionDetalleVenta = new CatalogoDetalleVenta();
         CatalogoPrecioConfigurarProducto GestionPrecioConfigurarProducto = new CatalogoPrecioConfigurarProducto();
         CatalogoConfigurarVenta GestionConfigurarVenta = new CatalogoConfigurarVenta();
+        CatalogoAsignarTecnicoPersonaComunidad _TecnicoPersonaComunidad = new CatalogoAsignarTecnicoPersonaComunidad();
         static List<Stock> ListaStock;
 
         static List<CabeceraFactura> ListaCabeceraFactura;
@@ -860,6 +861,13 @@ namespace Negocio.Logica.Inventario
                             }
                         }
                         ConexionBD.sp_FinalizarCabeceraFactura(IdCabeceraFactura);
+                        if (Factura.ConfigurarVenta.AplicaSeguro == "True")
+                        {
+                            AsignarTecnicoPersonaComunidad _DatoAsignarTecnico = new AsignarTecnicoPersonaComunidad();
+                            _DatoAsignarTecnico.IdPersona = Seguridad.DesEncriptar(Factura.ConfigurarVenta.IdPersona);
+                            _DatoAsignarTecnico.IdAsignarTUTecnico = "0";
+                            _TecnicoPersonaComunidad.ListarPersonasParaAsignarPersonasComunidadAlFinalizarUnaFactura1(_DatoAsignarTecnico);
+                        }
                         return true;
                     }
                     else
@@ -870,6 +878,13 @@ namespace Negocio.Logica.Inventario
                 else
                 {
                     ConexionBD.sp_FinalizarCabeceraFactura(IdCabeceraFactura);
+                    if (Factura.ConfigurarVenta.AplicaSeguro == "True")
+                    {
+                        AsignarTecnicoPersonaComunidad _DatoAsignarTecnico = new AsignarTecnicoPersonaComunidad();
+                        _DatoAsignarTecnico.IdPersona = Seguridad.DesEncriptar(Factura.ConfigurarVenta.IdPersona);
+                        _DatoAsignarTecnico.IdAsignarTUTecnico = "0";
+                        _TecnicoPersonaComunidad.ListarPersonasParaAsignarPersonasComunidadAlFinalizarUnaFactura1(_DatoAsignarTecnico);
+                    }
                     return true;
                 }
             }

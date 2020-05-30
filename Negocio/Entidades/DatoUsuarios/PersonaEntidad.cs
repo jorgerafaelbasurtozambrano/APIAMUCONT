@@ -29,5 +29,6 @@ namespace Negocio.Entidades.DatoUsuarios
         public AsignacionTipoUsuario AsignacionTipoUsuario { get; set; }
         public TipoDocumento _objTipoDocumento { get; set; }
         public List<Comunidad> ListaComunidad { get; set; }
+        public List<AsignarTecnicoPersonaComunidad> _AsignarTecnicoPersonaComunidad { get; set; }
     }
 }

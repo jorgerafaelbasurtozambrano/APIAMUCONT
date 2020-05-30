@@ -195,8 +195,6 @@ C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\obj\Release\API.csprojAssemblyRe
 C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\obj\Release\API.csproj.CopyComplete
 C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\obj\Release\API.dll
 C:\Users\jorge\Downloads\amucont\AMUCOMTAPI\API\obj\Release\API.pdb
-C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\ApplicationInsights.config
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csc.exe
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csc.exe.config
@@ -206,7 +204,9 @@ C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\csi.rsp
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.CSharp.Core.targets
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\API\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll

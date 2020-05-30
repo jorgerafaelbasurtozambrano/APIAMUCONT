@@ -205,6 +205,7 @@
     <Compile Include="Controllers\AsignarProductoKitController.cs" />
     <Compile Include="Controllers\AsignarProductoLoteController.cs" />
     <Compile Include="Controllers\AsignarSeguroController.cs" />
+    <Compile Include="Controllers\AsignarTecnicoPersonaComunidadController.cs" />
     <Compile Include="Controllers\CabeceraFacturaController.cs" />
     <Compile Include="Controllers\CantonController.cs" />
     <Compile Include="Controllers\ComunidadController.cs" />
