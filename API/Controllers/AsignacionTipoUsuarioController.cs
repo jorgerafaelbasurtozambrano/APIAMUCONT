@@ -36,11 +36,44 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(AsignacionTipoUsuarioEntidad.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                    mensaje = "EXITO";
-                    codigo = "200";
+                if (AsignacionTipoUsuarioEntidad.IdTipoUsuario == null || string.IsNullOrEmpty(AsignacionTipoUsuarioEntidad.IdTipoUsuario.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el id tipo usuario";
+                }
+                else if(AsignacionTipoUsuarioEntidad.IdUsuario == null || string.IsNullOrEmpty(AsignacionTipoUsuarioEntidad.IdUsuario.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el id usuario";
+                }
+                else
+                {
                     AsignacionTipoUsuarioEntidad.IdTipoUsuario = Seguridad.DesEncriptar(AsignacionTipoUsuarioEntidad.IdTipoUsuario);
                     AsignacionTipoUsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(AsignacionTipoUsuarioEntidad.IdUsuario);
-                    respuesta = GestionTipoUsuario.crearAsignacionTipoUsuario(AsignacionTipoUsuarioEntidad);
+                    AsignacionTipoUsuario DatoAsignacionTipoUsuario = new AsignacionTipoUsuario();
+                    DatoAsignacionTipoUsuario = GestionTipoUsuario.ConsultarTiposUsuarioQueTieneUnUsuario(int.Parse(AsignacionTipoUsuarioEntidad.IdUsuario)).Where(p => Seguridad.DesEncriptar(p.TipoUsuario.IdTipoUsuario) == AsignacionTipoUsuarioEntidad.IdTipoUsuario).FirstOrDefault();
+                    if (DatoAsignacionTipoUsuario == null)
+                    {
+                        DatoAsignacionTipoUsuario = new AsignacionTipoUsuario();
+                        DatoAsignacionTipoUsuario = GestionTipoUsuario.crearAsignacionTipoUsuario(AsignacionTipoUsuarioEntidad);
+                        if (DatoAsignacionTipoUsuario.IdAsignacionTUEncriptada == null || string.IsNullOrEmpty(DatoAsignacionTipoUsuario.IdAsignacionTUEncriptada.Trim()))
+                        {
+                            codigo = "500";
+                            mensaje = "Ocurrio un error al agregar la asignacion";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            respuesta = DatoAsignacionTipoUsuario;
+                        }
+                    }
+                    else
+                    {
+                        mensaje = "No se puede asignar este rol porque ya lo tiene activo";
+                        codigo = "418";
+                    }
+                }
 
                 //}
                 //else
@@ -48,13 +81,13 @@ namespace API.Controllers
                     //mensaje = "ERROR";
                     //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -116,24 +149,66 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(AsignacionTipoUsuarioEntidad.encriptada, _claveDelete.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _claveDelete.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                AsignacionTipoUsuarioEntidad.IdAsignacionTU = Seguridad.DesEncriptar(AsignacionTipoUsuarioEntidad.IdAsignacionTU);
-                GestionTipoUsuario.eliminarAsignacionTipoUsuario(int.Parse(AsignacionTipoUsuarioEntidad.IdAsignacionTU));
-                respuesta = "successful";
+                if (AsignacionTipoUsuarioEntidad.IdAsignacionTU == null || string.IsNullOrEmpty(AsignacionTipoUsuarioEntidad.IdAsignacionTU.Trim()))
+                {
+                    codigo = "500";
+                    mensaje = "Ingrese el id asignacion tu a eliminar";
+                }
+                else
+                {
+                    AsignacionTipoUsuarioEntidad.IdAsignacionTU = Seguridad.DesEncriptar(AsignacionTipoUsuarioEntidad.IdAsignacionTU);
+                    AsignacionTipoUsuario DataAsignacionTipoUsuario = new AsignacionTipoUsuario();
+                    DataAsignacionTipoUsuario = GestionTipoUsuario.ConsultarAsignarTUPorId(int.Parse(AsignacionTipoUsuarioEntidad.IdAsignacionTU)).FirstOrDefault();
+                    if (DataAsignacionTipoUsuario == null)
+                    {
+                        codigo = "418";
+                        mensaje = "El rol que desea eliminar no existe";
+                    }
+                    else
+                    {
+                        if (GestionTipoUsuario.eliminarAsignacionTipoUsuario(int.Parse(AsignacionTipoUsuarioEntidad.IdAsignacionTU)) == true)
+                        {
+                            List<AsignacionTipoUsuario> DatoAsignacionTipoUsuario = new List<AsignacionTipoUsuario>();
+                            DatoAsignacionTipoUsuario = GestionTipoUsuario.ConsultarTiposUsuarioQueTieneUnUsuario(DataAsignacionTipoUsuario.IdUsuario);
+                            if (DatoAsignacionTipoUsuario.Count() == 0)
+                            {
+                                if (GestionTipoUsuario.EliminarUsuario(DataAsignacionTipoUsuario.IdUsuario) == true)
+                                {
+                                    codigo = "201";
+                                    mensaje = "Se elimino el rol y se inhabilito el usuario";
+                                }
+                                else
+                                {
+                                    codigo = "500";
+                                    mensaje = "Ocurrio un error al deshabilitar el usuario";
+                                }
+                            }
+                            else
+                            {
+                                codigo = "200";
+                                mensaje = "Se elimino el rol";
+                            }
+                        }
+                        else
+                        {
+                            codigo = "500";
+                            mensaje = "Ocurrio un error al tratar de eliminar el rol";
+                        }
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

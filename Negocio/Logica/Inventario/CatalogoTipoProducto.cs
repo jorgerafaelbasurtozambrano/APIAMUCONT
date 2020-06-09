@@ -12,25 +12,18 @@ namespace Negocio.Logica.Inventario
         AMUCOMTEntities ConexionBD = new AMUCOMTEntities();
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         static List<TipoProducto> ListaTipoProducto;
-        public string IngresarTipoProducto(TipoProducto TipoProducto)
+        public TipoProducto IngresarTipoProducto(TipoProducto TipoProducto)
         {
-            try
+            foreach (var item in ConexionBD.sp_CrearTipoProducto(TipoProducto.Descripcion.ToUpper()))
             {
-                TipoProducto TipoProducto1 = ListarTipoProductos().Where(p => p.Descripcion.Contains(TipoProducto.Descripcion.ToUpper())).FirstOrDefault();
-                if (TipoProducto1 == null)
-                {
-                    ConexionBD.sp_CrearTipoProducto(TipoProducto.Descripcion.ToUpper());
-                    return "true";
-                }
-                else
-                {
-                    return "400";
-                }
+                TipoProducto.IdTipoProducto = Seguridad.Encriptar(item.IdTipoProducto.ToString());
+                TipoProducto.Descripcion = item.Descripcion;
+                TipoProducto.FechaCreacion = item.FechaCreacion;
+                TipoProducto.FechaModificacion = item.FechaActualizacion;
+                TipoProducto.estado = item.estado;
+                TipoProducto.TipoProductoUtilizado = "0";
             }
-            catch (Exception)
-            {
-                return "false";
-            }
+            return TipoProducto;
         }
         public bool EliminarTipoProducto(int IdTipoProducto)
         {
@@ -44,35 +37,25 @@ namespace Negocio.Logica.Inventario
                 return false;
             }
         }
-        public string ModificarTipoProducto(TipoProducto TipoProducto)
+        public TipoProducto ModificarTipoProducto(TipoProducto TipoProducto)
         {
             try
             {
-                TipoProducto TipoProducto1 = ListarTipoProductos().Where(p => Seguridad.DesEncriptar(p.IdTipoProducto)== Seguridad.DesEncriptar(TipoProducto.IdTipoProducto)).FirstOrDefault();
-                if (TipoProducto1 == null)
-                {                    
-                    return "false";
-                }
-                else
+                foreach (var item in ConexionBD.sp_ModificarTipoProducto(int.Parse(TipoProducto.IdTipoProducto), TipoProducto.Descripcion.ToUpper()))
                 {
-                    if (TipoProducto1.Descripcion.Contains(TipoProducto.Descripcion))
-                    {
-                        ConexionBD.sp_ModificarTipoProducto(int.Parse(TipoProducto.IdTipoProducto), TipoProducto.Descripcion.ToUpper());
-                        return "true";
-                    }
-                    if(ListarTipoProductos().Where(p => p.Descripcion.Contains(TipoProducto.Descripcion.ToUpper())).FirstOrDefault() == null)
-                    {
-                        return "true";
-                    }
-                    else
-                    {
-                        return "400";
-                    }
+                    TipoProducto.IdTipoProducto = Seguridad.Encriptar(item.IdTipoProducto.ToString());
+                    TipoProducto.Descripcion = item.Descripcion;
+                    TipoProducto.FechaCreacion = item.FechaCreacion;
+                    TipoProducto.FechaModificacion = item.FechaActualizacion;
+                    TipoProducto.estado = item.Estado;
+                    TipoProducto.TipoProductoUtilizado = item.TipoProductoUtilizado;
                 }
+                return TipoProducto;
             }
             catch (Exception)
             {
-                return "false";
+                TipoProducto.IdTipoProducto = null;
+                return TipoProducto;
             }
         }
         public void CargarTipoProductos()
@@ -87,7 +70,7 @@ namespace Negocio.Logica.Inventario
                       FechaCreacion = item.FechaCreacion,
                       FechaModificacion = item.FechaActualizacion,
                       estado = item.Estado,
-                      TipoUsuarioUtilizado =item.TipoProductoUtilizado,
+                      TipoProductoUtilizado =item.TipoProductoUtilizado,
                 });
             }
         }
@@ -95,6 +78,39 @@ namespace Negocio.Logica.Inventario
         {
             CargarTipoProductos();
             return ListaTipoProducto.Where(p=>p.estado != false).GroupBy(a => a.IdTipoProducto).Select(grp => grp.First()).ToList();
+        }
+        public List<TipoProducto> ConsultarTipoProductoPorDescripcion(string Descripcion)
+        {
+            ListaTipoProducto = new List<TipoProducto>();
+            foreach (var item in ConexionBD.sp_ConsultarSiExisteTipoProducto(Descripcion))
+            {
+                ListaTipoProducto.Add(new TipoProducto()
+                {
+                    IdTipoProducto = Seguridad.Encriptar(item.IdTipoProducto.ToString()),
+                    Descripcion = item.Descripcion,
+                    FechaCreacion = item.FechaCreacion,
+                    FechaModificacion = item.FechaActualizacion,
+                    estado = item.estado,
+                });
+            }
+            return ListaTipoProducto;
+        }
+        public List<TipoProducto> ConsultarTipoProductoPorId(int idTipoProducto)
+        {
+            ListaTipoProducto = new List<TipoProducto>();
+            foreach (var item in ConexionBD.sp_ConsultarTipoProductoPorId(idTipoProducto))
+            {
+                ListaTipoProducto.Add(new TipoProducto()
+                {
+                    IdTipoProducto = Seguridad.Encriptar(item.IdTipoProducto.ToString()),
+                    Descripcion = item.Descripcion,
+                    FechaCreacion = item.FechaCreacion,
+                    FechaModificacion = item.FechaActualizacion,
+                    estado = item.Estado,
+                    TipoProductoUtilizado = item.TipoProductoUtilizado
+                });
+            }
+            return ListaTipoProducto;
         }
     }
 }

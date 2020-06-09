@@ -13,35 +13,33 @@ namespace Negocio.Logica.Factura
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         //CatalogoAsignarProductoLote GestionAsignarProductoLote = new CatalogoAsignarProductoLote();
         List<Lote> ListaLote;
-        public object IngresarLote(Lote Lote)
+        public Lote IngresarLote(Lote Lote)
         {
-            object objeto = new object();
-            try
+            foreach (var item in ConexionBD.sp_CrearLote(Lote.Codigo, Lote.Capacidad, Lote.FechaExpiracion))
             {
-                Lote LoteData = CargarTodosLosLotes().Where(p => p.Codigo == Lote.Codigo).FirstOrDefault();
-                if (LoteData == null)
-                {
-                    int id = 0;
-                    id = int.Parse(ConexionBD.sp_CrearLote(Lote.Codigo, Lote.Capacidad, Lote.FechaExpiracion).Select(e => e.Value.ToString()).First());
-                    if (id!=0)
-                    {
-                        LoteData = CargarTodosLosLotes().Where(p => Seguridad.DesEncriptar(p.IdLote) == id.ToString()).FirstOrDefault();
-                        return LoteData;
-                    }
-                    //objeto = Seguridad.Encriptar(ConexionBD.sp_CrearLote(Lote.Codigo, Lote.Capacidad, Lote.FechaExpiracion).Select(e => e.Value.ToString()).First());
-                }
-                else
-                {
-                    return "El lote " + LoteData.Codigo + " ya existe";
-                    //ConexionBD.sp_AumentarLote(int.Parse(Seguridad.DesEncriptar(LoteData.IdLote)), Lote.Capacidad);
-                    //objeto = LoteData;
-                }
-                return objeto;
+                Lote.IdLote = Seguridad.Encriptar(item.IdLote.ToString());
+                Lote.Capacidad = item.Capacidad;
+                Lote.Codigo = item.Codigo;
+                Lote.FechaExpiracion = item.FechaExpiracion;
+                Lote.Estado = item.Estado;
             }
-            catch (Exception)
+            return Lote;
+        }
+        public List<Lote> ConsultarLotePorCodigo(string Codigo)
+        {
+            List<Lote> ListaLote = new List<Lote>();
+            foreach (var item in ConexionBD.sp_ConsultarLotePorCodigo(Codigo))
             {
-                return "false";
+                ListaLote.Add(new Lote()
+                {
+                    IdLote = Seguridad.Encriptar(item.IdLote.ToString()),
+                    Codigo = item.Codigo,
+                    FechaExpiracion = item.FechaExpiracion,
+                    Capacidad = item.Capacidad,
+                    Estado = item.Estado
+                });
             }
+            return ListaLote;
         }
         public List<Lote> CargarTodosLosLotes()
         {
@@ -84,5 +82,6 @@ namespace Negocio.Logica.Factura
             CargarDatos(IdCabecera,IdRelacionLogica,PerteneceKit);
             return ListaLote;
         }
+
     }
 }

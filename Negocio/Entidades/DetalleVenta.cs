@@ -13,7 +13,7 @@ namespace Negocio.Entidades
         public string IdAsignarProductoLote { get; set; }
         public string AplicaDescuento { get; set; }
         public string Faltante { get; set; }
-        public int Cantidad { get; set; }
+        public int? Cantidad { get; set; }
         public string encriptada { get; set; }
         public AsignarProductoLote AsignarProductoLote { get; set; }
         public decimal ValorUnitario { get; set; }

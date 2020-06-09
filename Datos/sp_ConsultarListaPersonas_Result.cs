@@ -22,10 +22,6 @@ namespace Datos
         public System.DateTime FechaCreacion { get; set; }
         public int IdTipoDocumento { get; set; }
         public bool Estado { get; set; }
-        public Nullable<int> IdUsuario { get; set; }
-        public Nullable<bool> EstadoUsuario { get; set; }
         public string TipoDocumento { get; set; }
-        public Nullable<bool> AsignacionTipoUsuarioEstado { get; set; }
-        public Nullable<int> IdAsignacionTU { get; set; }
     }
 }

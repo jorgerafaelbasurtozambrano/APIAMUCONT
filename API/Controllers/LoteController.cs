@@ -34,22 +34,70 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Lote.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                respuesta = GestionLote.IngresarLote(Lote);
+                if (Lote.Codigo == null || string.IsNullOrEmpty(Lote.Codigo.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el codigo del lote";
+                }
+                //else if(Lote.Capacidad == null || string.IsNullOrEmpty(Lote.Capacidad.ToString().Trim()))
+                //{
+                //    codigo = "418";
+                //    mensaje = "Ingrese el codigo del lote";
+                //}
+                else if(Lote.FechaExpiracion == null)
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese la fecha de expiracion";
+                }
+                else
+                {
+                    Lote DatoLote = new Lote();
+                    DatoLote = GestionLote.ConsultarLotePorCodigo(Lote.Codigo.Trim()).FirstOrDefault();
+                    if (DatoLote == null)
+                    {
+                        DatoLote = new Lote();
+                        DatoLote = GestionLote.IngresarLote(Lote);
+                        if (DatoLote.IdLote == null || string.IsNullOrEmpty(DatoLote.IdLote.Trim()))
+                        {
+                            mensaje = "Error la intentar guardar el lote";
+                            codigo = "500";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            respuesta = DatoLote;
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                    else
+                    {
+                        if (DatoLote.Estado == true)
+                        {
+                            codigo = "500";
+                            mensaje = "El lote con el codigo " + DatoLote.Codigo + " ya existe";
+                        }
+                        else
+                        {
+                            codigo = "500";
+                            mensaje = "El lote con el codigo " + DatoLote.Codigo + " ya existe y se encuentra deshabilitado";
+                        }
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new {codigo,mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

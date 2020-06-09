@@ -20,14 +20,14 @@ namespace Negocio.Logica.TalentHumano
             ListaCanton = new List<Canton>();
             foreach (var item in ConexionBD.sp_ConsultarCanton().ToList().Where(p=>p.Estado != false && p.ProvinciaEstado != false).ToList())
             {
-                bool estadoCantonEliminacion;
-                if (GestionParroquia.ListarParroquiaCanton(item.IdCanton).ToList().Count > 0)
+                bool estadoCantonEliminacion = false;
+                if (item.CantonUtilizado == "0")
                 {
-                    estadoCantonEliminacion = false;
+                    estadoCantonEliminacion = true;
                 }
                 else
                 {
-                    estadoCantonEliminacion = true;
+                    estadoCantonEliminacion = false;
                 }
                 ListaCanton.Add(new Canton()
                 {
@@ -49,68 +49,71 @@ namespace Negocio.Logica.TalentHumano
         {
             return ListaCanton.GroupBy(a => a.IdCanton).Select(grp => grp.First()).ToList();
         }
-        public string IngresarCanton(CantonEntidad CantonEntidad)
+        public Canton IngresarCanton(CantonEntidad CantonEntidad)
         {
-            try
+            Canton Canton_Dato = new Canton();
+            foreach (var item in ConexionBD.sp_CrearCanton(CantonEntidad.Descripcion.ToUpper(), int.Parse(CantonEntidad.IdProvincia)))
             {
-                Canton Canton1 = ObtenerListaCanton().Where(p => p.Descripcion == CantonEntidad.Descripcion.ToUpper()).FirstOrDefault();
-                if (Canton1 == null)
+                Canton_Dato.IdCanton = Seguridad.Encriptar(item.CantonIdCanton.ToString());
+                Canton_Dato.Descripcion = item.CantonDescripcion;
+                Canton_Dato.FechaCreacion = item.CantonFechaCreacion;
+                Canton_Dato.Estado = item.CantonEstado;
+                Canton_Dato.PermitirEliminacion = true;
+                Canton_Dato.Provincia = new Provincia()
                 {
-                    ConexionBD.sp_CrearCanton(CantonEntidad.Descripcion.ToUpper(), int.Parse(CantonEntidad.IdProvincia));
-                    return "true";
-                }
-                else
-                {
-                    return "400";
-                }
+                    IdProvincia = Seguridad.Encriptar(item.ProvinciaIdProvincia.ToString()),
+                    Descripcion = item.ProvinciaDescripcion,
+                    Estado = item.ProvinciaEstado,
+                };
             }
-            catch (Exception)
-            {
-                return "false";
-            }
+            return Canton_Dato;
         }
         public bool EliminarCanton(int IdCanton)
         {
-            if (GestionParroquia.ListarParroquiaCanton(IdCanton).ToList().Count>0)
-            {
-                return false;
-            }
-            else
+            try
             {
                 ConexionBD.sp_EliminarCanton(IdCanton);
                 return true;
             }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        public string ModificarCanton(CantonEntidad CantonEntidad)
+        public Canton ModificarCanton(CantonEntidad CantonEntidad)
         {
-            Canton Canton1 = ObtenerListaCanton().Where(p => Seguridad.DesEncriptar(p.IdCanton) == CantonEntidad.IdCanton).FirstOrDefault();           
+            Canton Canton_Dato = new Canton();
             try
             {
-                if (Canton1 == null)
+                foreach (var item in ConexionBD.sp_ModificarCanton(int.Parse(CantonEntidad.IdCanton), CantonEntidad.Descripcion.ToUpper(), int.Parse(CantonEntidad.IdProvincia)))
                 {
-                    return "false";
-                }
-                if (Canton1.Descripcion.TrimEnd().TrimStart().Trim().Contains(CantonEntidad.Descripcion.TrimEnd().TrimStart().Trim()))
-                {
-                    ConexionBD.sp_ModificarCanton(int.Parse(CantonEntidad.IdCanton), CantonEntidad.Descripcion.ToUpper(), int.Parse(CantonEntidad.IdProvincia));
-                    return "true";
-                }
-                else
-                {
-                    if (ObtenerListaCanton().Where(p => p.Descripcion.TrimEnd().TrimStart().Trim() == CantonEntidad.Descripcion.ToUpper().TrimEnd().TrimStart().Trim()).FirstOrDefault() == null)
+                    bool PermitirEliminar = false;
+                    if (item.CantonUtilizado == "0")
                     {
-                        ConexionBD.sp_ModificarCanton(int.Parse(CantonEntidad.IdCanton), CantonEntidad.Descripcion.ToUpper(), int.Parse(CantonEntidad.IdProvincia));
-                        return "true";
+                        PermitirEliminar = true;
                     }
                     else
                     {
-                        return "400";
+                        PermitirEliminar = false;
                     }
+                    Canton_Dato.IdCanton = Seguridad.Encriptar(item.CantonIdCanton.ToString());
+                    Canton_Dato.Descripcion = item.CantonDescripcion;
+                    Canton_Dato.FechaCreacion = item.CantonFechaCreacion;
+                    Canton_Dato.Estado = item.CantonEstado;
+                    Canton_Dato.PermitirEliminacion = PermitirEliminar;
+                    Canton_Dato.Provincia = new Provincia()
+                    {
+                        IdProvincia = Seguridad.Encriptar(item.ProvinciaIdProvincia.ToString()),
+                        Descripcion = item.ProvinciaDescripcion,
+                        Estado = item.ProvinciaEstado,
+                    };
                 }
+                return Canton_Dato;
             }
             catch (Exception)
             {
-                return "false";
+                Canton_Dato.IdCanton = null;
+                return Canton_Dato;
             }
         }
         public List<Canton> ListaCantonesProvincia(int IdProvincia)
@@ -129,6 +132,43 @@ namespace Negocio.Logica.TalentHumano
             return ListaCantones;
 
 
+        }
+        public List<Canton> ConsultarCantonPorDescripcion(string Descripcion)
+        {
+            List<Canton> ListaCanton = new List<Canton>();
+            foreach (var item in ConexionBD.sp_ConsultarCantonSiexiste(Descripcion))
+            {
+                ListaCanton.Add(new Canton()
+                {
+                    IdCanton = Seguridad.Encriptar(item.IdCanton.ToString()),
+                    Descripcion = item.Descripcion,
+                });
+            }
+            return ListaCanton;
+        }
+        public List<Canton> ConsultarCantonPorId(int IdCanton)
+        {
+            List<Canton> ListaCanton = new List<Canton>();
+            foreach (var item in ConexionBD.sp_ConsultarCantonPorId(IdCanton))
+            {
+                bool permitirEliminar = false;
+                if (item.CantonUtilizado == "0")
+                {
+                    permitirEliminar = true;
+                }
+                else
+                {
+                    permitirEliminar = false;
+                }
+                ListaCanton.Add(new Canton()
+                {
+                    IdCanton = Seguridad.Encriptar(item.IdCanton.ToString()),
+                    Descripcion = item.Descripcion,
+                    Estado = item.Estado,
+                    PermitirEliminacion = permitirEliminar
+                });
+            }
+            return ListaCanton;
         }
     }
 }

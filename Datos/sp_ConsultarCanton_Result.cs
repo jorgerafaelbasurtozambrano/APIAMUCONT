@@ -22,5 +22,6 @@ namespace Datos
         public int ProvinciaIdProvincia { get; set; }
         public string ProvinciaDescripcion { get; set; }
         public bool ProvinciaEstado { get; set; }
+        public string CantonUtilizado { get; set; }
     }
 }

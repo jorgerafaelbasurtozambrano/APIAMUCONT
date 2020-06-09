@@ -34,22 +34,52 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Presentacion.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                respuesta = GestionPresentacion.InsertarPresentacion(Presentacion);
+                if (Presentacion.Descripcion == null || string.IsNullOrEmpty(Presentacion.Descripcion.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Por favor ingrese la descripcion a guardar";
+                }
+                else
+                {
+                    Presentacion DatoPresentacion = new Presentacion();
+                    DatoPresentacion = GestionPresentacion.ConsultarPresentacionPorDescripcion(Presentacion.Descripcion).FirstOrDefault();
+                    if (DatoPresentacion == null)
+                    {
+                        DatoPresentacion = new Presentacion();
+                        DatoPresentacion = GestionPresentacion.InsertarPresentacion(Presentacion);
+                        if (DatoPresentacion.IdPresentacion == null || string.IsNullOrEmpty(DatoPresentacion.IdPresentacion))
+                        {
+                            mensaje = "Ocurrio un error al ingresar la presentacion";
+                            codigo = "500";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            respuesta = DatoPresentacion;
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                    else
+                    {
+                        mensaje = "La presentacion " + DatoPresentacion.Descripcion + " ya existe";
+                        codigo = "418";
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -71,23 +101,53 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Presentacion.encriptada, _claveDelete.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _claveDelete.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                Presentacion.IdPresentacion = Seguridad.DesEncriptar(Presentacion.IdPresentacion);
-                respuesta = GestionPresentacion.EliminarPresentacion(int.Parse(Presentacion.IdPresentacion));
+                if (Presentacion.IdPresentacion == null || string.IsNullOrEmpty(Presentacion.IdPresentacion.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el id de la presentacion a eliminar";
+                }
+                else
+                {
+                    Presentacion.IdPresentacion = Seguridad.DesEncriptar(Presentacion.IdPresentacion);
+                    Presentacion DatoPresentacion = new Presentacion();
+                    DatoPresentacion = GestionPresentacion.ConsultarPresentacionPorId(int.Parse(Presentacion.IdPresentacion)).FirstOrDefault();
+                    if (DatoPresentacion == null)
+                    {
+                        codigo = "500";
+                        mensaje = "La presentacion que intenta eliminar no existe";
+                    }
+                    else if (DatoPresentacion.PresentacionUtilizado == "1")
+                    {
+                        codigo = "500";
+                        mensaje = "La presentacion que intenta eliminar ya esta siendo usada";
+                    }
+                    else
+                    {
+                        if (GestionPresentacion.EliminarPresentacion(int.Parse(Presentacion.IdPresentacion)) == true)
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                        }
+                        else
+                        {
+                            mensaje = "Ocurrio un error al intentar eliminar la presentacion";
+                            codigo = "500";
+                        }
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -109,24 +169,68 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Presentacion.encriptada, _clavePut.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePut.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                Presentacion.IdPresentacion = Seguridad.DesEncriptar(Presentacion.IdPresentacion);
-                respuesta = GestionPresentacion.ModificarPresentacion(Presentacion);
-
+                if (Presentacion.IdPresentacion == null || string.IsNullOrEmpty(Presentacion.IdPresentacion.Trim()))
+                {
+                    mensaje = "Ingrese el id presentacion";
+                    codigo = "418";
+                }
+                else if (Presentacion.Descripcion == null || string.IsNullOrEmpty(Presentacion.Descripcion.Trim()))
+                {
+                    mensaje = "Ingrese la presentacion";
+                    codigo = "418";
+                }
+                else
+                {
+                    Presentacion DatoPresentacion = new Presentacion();
+                    DatoPresentacion = GestionPresentacion.ConsultarPresentacionPorDescripcion(Presentacion.Descripcion).FirstOrDefault();
+                    if (DatoPresentacion == null)
+                    {
+                        DatoPresentacion = new Presentacion();
+                        Presentacion.IdPresentacion = Seguridad.DesEncriptar(Presentacion.IdPresentacion);
+                        DatoPresentacion = GestionPresentacion.ConsultarPresentacionPorId(int.Parse(Presentacion.IdPresentacion)).FirstOrDefault();
+                        if (DatoPresentacion == null)
+                        {
+                            mensaje = "La presentacion que desea actualizar no existe";
+                            codigo = "500";
+                        }
+                        else
+                        {
+                            DatoPresentacion = new Presentacion();
+                            DatoPresentacion = GestionPresentacion.ModificarPresentacion(Presentacion);
+                            if (DatoPresentacion.IdPresentacion == null || string.IsNullOrEmpty(DatoPresentacion.IdPresentacion.Trim()))
+                            {
+                                mensaje = "Ocurrio un error al tratar de modificar la presentacion";
+                                codigo = "500";
+                            }
+                            else
+                            {
+                                codigo = "200";
+                                mensaje = "EXITO";
+                                respuesta = DatoPresentacion;
+                                objeto = new { codigo, mensaje, respuesta };
+                                return objeto;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        mensaje = "La presentacion"+ DatoPresentacion.Descripcion + " que desea colocar ya existe";
+                        codigo = "418";
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

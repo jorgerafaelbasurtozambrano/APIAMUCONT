@@ -13,21 +13,21 @@ namespace Datos
     
     public partial class sp_ConsultarPersonasParaRealizarSeguimiento_Result
     {
-        public int IdPersona { get; set; }
-        public string ApellidoMaterno { get; set; }
-        public string ApellidoPaterno { get; set; }
-        public bool Estado { get; set; }
-        public Nullable<System.DateTime> FechaActualizacion { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public int IdTipoDocumento { get; set; }
-        public string NumeroDocumento { get; set; }
-        public string PrimerNombre { get; set; }
-        public string SegundoNombre { get; set; }
-        public int IdTipoDocumento1 { get; set; }
-        public string Descripcion { get; set; }
-        public bool Estado1 { get; set; }
-        public Nullable<System.DateTime> FechaActualizacion1 { get; set; }
-        public System.DateTime FechaCreacion1 { get; set; }
-        public int Identificador { get; set; }
+        public int PersonaIdPersona { get; set; }
+        public string PersonaApellidoMaterno { get; set; }
+        public string PersonaApellidoPaterno { get; set; }
+        public bool PersonaEstado { get; set; }
+        public Nullable<System.DateTime> PersonaFechaActualizacion { get; set; }
+        public System.DateTime PersonaFechaCreacion { get; set; }
+        public int PersonaIdTipoDocumento { get; set; }
+        public string PersonaNumeroDocumento { get; set; }
+        public string PersonaPrimerNombre { get; set; }
+        public string PersonaSegundoNombre { get; set; }
+        public int TipoDocumentoIdTipoDocumento { get; set; }
+        public string TipoDocumentoDescripcion { get; set; }
+        public bool TipoDocumentoEstado { get; set; }
+        public Nullable<System.DateTime> TipoDocumentoFechaActualizacion { get; set; }
+        public System.DateTime TipoDocumentoFechaCreacion { get; set; }
+        public int TipoDocumentoIdentificador { get; set; }
     }
 }

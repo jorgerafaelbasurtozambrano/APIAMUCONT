@@ -35,23 +35,43 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(PrecioConfigurarProducto.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                PrecioConfigurarProducto.IdConfigurarProducto = Seguridad.DesEncriptar(PrecioConfigurarProducto.IdConfigurarProducto);
-                respuesta = GestionPrecioConfigurarProducto.InsertarPrecioConfigurarProducto(PrecioConfigurarProducto);
+                if (PrecioConfigurarProducto.IdConfigurarProducto == null || string.IsNullOrEmpty(PrecioConfigurarProducto.IdConfigurarProducto.Trim()))
+                {
+                    mensaje = "Ingrese el id configurar producto";
+                    codigo = "418";
+                }
+                else
+                {
+                    PrecioConfigurarProducto.IdConfigurarProducto = Seguridad.DesEncriptar(PrecioConfigurarProducto.IdConfigurarProducto);
+                    PrecioConfigurarProducto DataPrecio = new PrecioConfigurarProducto();
+                    DataPrecio = GestionPrecioConfigurarProducto.InsertarPrecioConfigurarProducto(PrecioConfigurarProducto);
+                    if (DataPrecio.IdPrecioConfigurarProducto == null || string.IsNullOrEmpty(DataPrecio.IdPrecioConfigurarProducto.Trim()))
+                    {
+                        mensaje = "Error al ingresar el precio del producto";
+                        codigo = "500";
+                    }
+                    else
+                    {
+                        mensaje = "Exito";
+                        codigo = "200";
+                        respuesta = DataPrecio;
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

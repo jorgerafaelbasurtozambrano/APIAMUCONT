@@ -794,6 +794,7 @@ namespace Negocio.Logica.Credito
                 {
                     ListaComunidadesAsignadas.Add(new AsignarTecnicoPersonaComunidad()
                     {
+                        NumeroVisita = item4.NumeroVisitas,
                         IdAsignarTecnicoPersonaComunidad = Seguridad.Encriptar(item4.AsignarTecnicoPersonaComunidadIdAsignarTecnicoPersonaComunidad
                         .ToString()),
                         IdAsignarTUTecnico = Seguridad.Encriptar(item4.AsignarTecnicoPersonaComunidadIdAsignarTUTecnico.ToString()),

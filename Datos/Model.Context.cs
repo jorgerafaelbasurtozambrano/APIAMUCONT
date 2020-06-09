@@ -28,7 +28,7 @@ namespace Datos
         }
     
     
-        public virtual int sp_AumentarDetalleVenta(Nullable<int> idDetalleVenta, Nullable<int> cantidad)
+        public virtual ObjectResult<sp_AumentarDetalleVenta_Result> sp_AumentarDetalleVenta(Nullable<int> idDetalleVenta, Nullable<int> cantidad)
         {
             var idDetalleVentaParameter = idDetalleVenta.HasValue ?
                 new ObjectParameter("IdDetalleVenta", idDetalleVenta) :
@@ -38,7 +38,7 @@ namespace Datos
                 new ObjectParameter("Cantidad", cantidad) :
                 new ObjectParameter("Cantidad", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AumentarDetalleVenta", idDetalleVentaParameter, cantidadParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_AumentarDetalleVenta_Result>("sp_AumentarDetalleVenta", idDetalleVentaParameter, cantidadParameter);
         }
     
         public virtual ObjectResult<sp_BuscarDetalleFacturaVenta_Result> sp_BuscarDetalleFacturaVenta(Nullable<int> idCabeceraFactura, Nullable<int> idAsignarProductoLote, string aplicaDescuento, string perteneceKitCompleto)
@@ -62,6 +62,41 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_BuscarDetalleFacturaVenta_Result>("sp_BuscarDetalleFacturaVenta", idCabeceraFacturaParameter, idAsignarProductoLoteParameter, aplicaDescuentoParameter, perteneceKitCompletoParameter);
         }
     
+        public virtual ObjectResult<sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad_Result> sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad(Nullable<int> idCabeceraFactura, Nullable<int> idComunidad)
+        {
+            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
+                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
+                new ObjectParameter("IdCabeceraFactura", typeof(int));
+    
+            var idComunidadParameter = idComunidad.HasValue ?
+                new ObjectParameter("IdComunidad", idComunidad) :
+                new ObjectParameter("IdComunidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad_Result>("sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad", idCabeceraFacturaParameter, idComunidadParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarAsignarComunidadFacturaPorIdCabeceraFactura_Result> sp_ConsultarAsignarComunidadFacturaPorIdCabeceraFactura(Nullable<int> idCabeceraFactura)
+        {
+            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
+                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
+                new ObjectParameter("IdCabeceraFactura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarComunidadFacturaPorIdCabeceraFactura_Result>("sp_ConsultarAsignarComunidadFacturaPorIdCabeceraFactura", idCabeceraFacturaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarAsignarComunidadFacturaPorPersonaYPorComunidad_Result> sp_ConsultarAsignarComunidadFacturaPorPersonaYPorComunidad(Nullable<int> idPersona, Nullable<int> idComunidad)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            var idComunidadParameter = idComunidad.HasValue ?
+                new ObjectParameter("IdComunidad", idComunidad) :
+                new ObjectParameter("IdComunidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarComunidadFacturaPorPersonaYPorComunidad_Result>("sp_ConsultarAsignarComunidadFacturaPorPersonaYPorComunidad", idPersonaParameter, idComunidadParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarAsignarSeguroPorConfigurarVenta_Result> sp_ConsultarAsignarSeguroPorConfigurarVenta(Nullable<int> idConfigurarVenta)
         {
             var idConfigurarVentaParameter = idConfigurarVenta.HasValue ?
@@ -69,6 +104,98 @@ namespace Datos
                 new ObjectParameter("IdConfigurarVenta", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarSeguroPorConfigurarVenta_Result>("sp_ConsultarAsignarSeguroPorConfigurarVenta", idConfigurarVentaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarAsignarTecnicoPersonaComunidadPorEstado_Result> sp_ConsultarAsignarTecnicoPersonaComunidadPorEstado(Nullable<int> idAsignarTecnicoPersonaComunidad, string estado)
+        {
+            var idAsignarTecnicoPersonaComunidadParameter = idAsignarTecnicoPersonaComunidad.HasValue ?
+                new ObjectParameter("IdAsignarTecnicoPersonaComunidad", idAsignarTecnicoPersonaComunidad) :
+                new ObjectParameter("IdAsignarTecnicoPersonaComunidad", typeof(int));
+    
+            var estadoParameter = estado != null ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarTecnicoPersonaComunidadPorEstado_Result>("sp_ConsultarAsignarTecnicoPersonaComunidadPorEstado", idAsignarTecnicoPersonaComunidadParameter, estadoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarAsignarTecnicoPersonaComunidadPorId_Result> sp_ConsultarAsignarTecnicoPersonaComunidadPorId(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarTecnicoPersonaComunidadPorId_Result>("sp_ConsultarAsignarTecnicoPersonaComunidadPorId", idParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarAsignarTecnicoPersonaComunidadPorPersona_Result> sp_ConsultarAsignarTecnicoPersonaComunidadPorPersona(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarTecnicoPersonaComunidadPorPersona_Result>("sp_ConsultarAsignarTecnicoPersonaComunidadPorPersona", idPersonaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarAsignarTecnicoPersonaComunidadPorPersonaYComunidad_Result> sp_ConsultarAsignarTecnicoPersonaComunidadPorPersonaYComunidad(Nullable<int> idPersona, Nullable<int> idComunidad)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            var idComunidadParameter = idComunidad.HasValue ?
+                new ObjectParameter("IdComunidad", idComunidad) :
+                new ObjectParameter("IdComunidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarTecnicoPersonaComunidadPorPersonaYComunidad_Result>("sp_ConsultarAsignarTecnicoPersonaComunidadPorPersonaYComunidad", idPersonaParameter, idComunidadParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarCantonesParaSeguimientoPorTecnico_Result> sp_ConsultarCantonesParaSeguimientoPorTecnico(Nullable<int> idTecnico, Nullable<int> idProvincia)
+        {
+            var idTecnicoParameter = idTecnico.HasValue ?
+                new ObjectParameter("IdTecnico", idTecnico) :
+                new ObjectParameter("IdTecnico", typeof(int));
+    
+            var idProvinciaParameter = idProvincia.HasValue ?
+                new ObjectParameter("IdProvincia", idProvincia) :
+                new ObjectParameter("IdProvincia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarCantonesParaSeguimientoPorTecnico_Result>("sp_ConsultarCantonesParaSeguimientoPorTecnico", idTecnicoParameter, idProvinciaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona_Result> sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona_Result>("sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona", idPersonaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result> sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico(Nullable<int> idPersona, Nullable<int> idTecnico)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            var idTecnicoParameter = idTecnico.HasValue ?
+                new ObjectParameter("IdTecnico", idTecnico) :
+                new ObjectParameter("IdTecnico", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result>("sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico", idPersonaParameter, idTecnicoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarComunidadesParaSeguimientoPorTecnico_Result> sp_ConsultarComunidadesParaSeguimientoPorTecnico(Nullable<int> idTecnico, Nullable<int> idParroquia)
+        {
+            var idTecnicoParameter = idTecnico.HasValue ?
+                new ObjectParameter("IdTecnico", idTecnico) :
+                new ObjectParameter("IdTecnico", typeof(int));
+    
+            var idParroquiaParameter = idParroquia.HasValue ?
+                new ObjectParameter("IdParroquia", idParroquia) :
+                new ObjectParameter("IdParroquia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarComunidadesParaSeguimientoPorTecnico_Result>("sp_ConsultarComunidadesParaSeguimientoPorTecnico", idTecnicoParameter, idParroquiaParameter);
         }
     
         public virtual int sp_ConsultarComunidadesQueTienenSembriosParaSeguimiento()
@@ -79,6 +206,28 @@ namespace Datos
         public virtual ObjectResult<sp_ConsultarConfiguracionInteres_Result> sp_ConsultarConfiguracionInteres()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarConfiguracionInteres_Result>("sp_ConsultarConfiguracionInteres");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result> sp_ConsultarConfigurarVentaPorIdCabeceraFactura(Nullable<int> idCabeceraFactura)
+        {
+            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
+                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
+                new ObjectParameter("IdCabeceraFactura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result>("sp_ConsultarConfigurarVentaPorIdCabeceraFactura", idCabeceraFacturaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarDetalleFacturaVentaPorKit_Result> sp_ConsultarDetalleFacturaVentaPorKit(Nullable<int> idCabeceraFactura, Nullable<int> idAsignarProductoLote)
+        {
+            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
+                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
+                new ObjectParameter("IdCabeceraFactura", typeof(int));
+    
+            var idAsignarProductoLoteParameter = idAsignarProductoLote.HasValue ?
+                new ObjectParameter("IdAsignarProductoLote", idAsignarProductoLote) :
+                new ObjectParameter("IdAsignarProductoLote", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarDetalleFacturaVentaPorKit_Result>("sp_ConsultarDetalleFacturaVentaPorKit", idCabeceraFacturaParameter, idAsignarProductoLoteParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarDetalleVenta_Result> sp_ConsultarDetalleVenta()
@@ -95,6 +244,161 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarDetalleVentaPorFactura_Result>("sp_ConsultarDetalleVentaPorFactura", idCabeceraFacturaParameter);
         }
     
+        public virtual ObjectResult<sp_ConsultarDetalleVentaPorId_Result> sp_ConsultarDetalleVentaPorId(Nullable<int> idDetalleVenta)
+        {
+            var idDetalleVentaParameter = idDetalleVenta.HasValue ?
+                new ObjectParameter("idDetalleVenta", idDetalleVenta) :
+                new ObjectParameter("idDetalleVenta", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarDetalleVentaPorId_Result>("sp_ConsultarDetalleVentaPorId", idDetalleVentaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarFacturasPendientePorPersona_Result> sp_ConsultarFacturasPendientePorPersona(string numeroDocumento)
+        {
+            var numeroDocumentoParameter = numeroDocumento != null ?
+                new ObjectParameter("NumeroDocumento", numeroDocumento) :
+                new ObjectParameter("NumeroDocumento", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarFacturasPendientePorPersona_Result>("sp_ConsultarFacturasPendientePorPersona", numeroDocumentoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarKitPorFactura_Result> sp_ConsultarKitPorFactura(Nullable<int> idCabeceraFactura, Nullable<int> idKit)
+        {
+            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
+                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
+                new ObjectParameter("IdCabeceraFactura", typeof(int));
+    
+            var idKitParameter = idKit.HasValue ?
+                new ObjectParameter("IdKit", idKit) :
+                new ObjectParameter("IdKit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarKitPorFactura_Result>("sp_ConsultarKitPorFactura", idCabeceraFacturaParameter, idKitParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarParroquiaParaSeguimientoPorTecnico_Result> sp_ConsultarParroquiaParaSeguimientoPorTecnico(Nullable<int> idTecnico, Nullable<int> idCanton)
+        {
+            var idTecnicoParameter = idTecnico.HasValue ?
+                new ObjectParameter("IdTecnico", idTecnico) :
+                new ObjectParameter("IdTecnico", typeof(int));
+    
+            var idCantonParameter = idCanton.HasValue ?
+                new ObjectParameter("IdCanton", idCanton) :
+                new ObjectParameter("IdCanton", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarParroquiaParaSeguimientoPorTecnico_Result>("sp_ConsultarParroquiaParaSeguimientoPorTecnico", idTecnicoParameter, idCantonParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPersonasAsignadasAunTecnico_Result> sp_ConsultarPersonasAsignadasAunTecnico(Nullable<int> idAsignarTU)
+        {
+            var idAsignarTUParameter = idAsignarTU.HasValue ?
+                new ObjectParameter("IdAsignarTU", idAsignarTU) :
+                new ObjectParameter("IdAsignarTU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasAsignadasAunTecnico_Result>("sp_ConsultarPersonasAsignadasAunTecnico", idAsignarTUParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPersonasAsignadasAunTecnicoPorCanton_Result> sp_ConsultarPersonasAsignadasAunTecnicoPorCanton(Nullable<int> idCanton, Nullable<int> idTecnico)
+        {
+            var idCantonParameter = idCanton.HasValue ?
+                new ObjectParameter("IdCanton", idCanton) :
+                new ObjectParameter("IdCanton", typeof(int));
+    
+            var idTecnicoParameter = idTecnico.HasValue ?
+                new ObjectParameter("IdTecnico", idTecnico) :
+                new ObjectParameter("IdTecnico", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasAsignadasAunTecnicoPorCanton_Result>("sp_ConsultarPersonasAsignadasAunTecnicoPorCanton", idCantonParameter, idTecnicoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPersonasAsignadasAunTecnicoPorComunidad_Result> sp_ConsultarPersonasAsignadasAunTecnicoPorComunidad(Nullable<int> idComunidad, Nullable<int> idTecnico)
+        {
+            var idComunidadParameter = idComunidad.HasValue ?
+                new ObjectParameter("IdComunidad", idComunidad) :
+                new ObjectParameter("IdComunidad", typeof(int));
+    
+            var idTecnicoParameter = idTecnico.HasValue ?
+                new ObjectParameter("IdTecnico", idTecnico) :
+                new ObjectParameter("IdTecnico", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasAsignadasAunTecnicoPorComunidad_Result>("sp_ConsultarPersonasAsignadasAunTecnicoPorComunidad", idComunidadParameter, idTecnicoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPersonasAsignadasAunTecnicoPorParroquia_Result> sp_ConsultarPersonasAsignadasAunTecnicoPorParroquia(Nullable<int> idParroquia, Nullable<int> idTecnico)
+        {
+            var idParroquiaParameter = idParroquia.HasValue ?
+                new ObjectParameter("IdParroquia", idParroquia) :
+                new ObjectParameter("IdParroquia", typeof(int));
+    
+            var idTecnicoParameter = idTecnico.HasValue ?
+                new ObjectParameter("IdTecnico", idTecnico) :
+                new ObjectParameter("IdTecnico", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasAsignadasAunTecnicoPorParroquia_Result>("sp_ConsultarPersonasAsignadasAunTecnicoPorParroquia", idParroquiaParameter, idTecnicoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPersonasDeUnaComunidadPorTecnico_Result> sp_ConsultarPersonasDeUnaComunidadPorTecnico(Nullable<int> idTecnico, Nullable<int> idComunidad)
+        {
+            var idTecnicoParameter = idTecnico.HasValue ?
+                new ObjectParameter("IdTecnico", idTecnico) :
+                new ObjectParameter("IdTecnico", typeof(int));
+    
+            var idComunidadParameter = idComunidad.HasValue ?
+                new ObjectParameter("IdComunidad", idComunidad) :
+                new ObjectParameter("IdComunidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasDeUnaComunidadPorTecnico_Result>("sp_ConsultarPersonasDeUnaComunidadPorTecnico", idTecnicoParameter, idComunidadParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPersonasParaRealizarSeguimiento_Result> sp_ConsultarPersonasParaRealizarSeguimiento()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasParaRealizarSeguimiento_Result>("sp_ConsultarPersonasParaRealizarSeguimiento");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPersonasParaRealizarSeguimientoPorPersona_Result> sp_ConsultarPersonasParaRealizarSeguimientoPorPersona(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasParaRealizarSeguimientoPorPersona_Result>("sp_ConsultarPersonasParaRealizarSeguimientoPorPersona", idPersonaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPersonasParaSeguimientoPorCanton_Result> sp_ConsultarPersonasParaSeguimientoPorCanton(Nullable<int> idCanton)
+        {
+            var idCantonParameter = idCanton.HasValue ?
+                new ObjectParameter("IdCanton", idCanton) :
+                new ObjectParameter("IdCanton", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasParaSeguimientoPorCanton_Result>("sp_ConsultarPersonasParaSeguimientoPorCanton", idCantonParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPersonasParaSeguimientoPorComunidad_Result> sp_ConsultarPersonasParaSeguimientoPorComunidad(Nullable<int> idComunidad)
+        {
+            var idComunidadParameter = idComunidad.HasValue ?
+                new ObjectParameter("IdComunidad", idComunidad) :
+                new ObjectParameter("IdComunidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasParaSeguimientoPorComunidad_Result>("sp_ConsultarPersonasParaSeguimientoPorComunidad", idComunidadParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPersonasParaSeguimientoPorParroquia_Result> sp_ConsultarPersonasParaSeguimientoPorParroquia(Nullable<int> idParroquia)
+        {
+            var idParroquiaParameter = idParroquia.HasValue ?
+                new ObjectParameter("IdParroquia", idParroquia) :
+                new ObjectParameter("IdParroquia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasParaSeguimientoPorParroquia_Result>("sp_ConsultarPersonasParaSeguimientoPorParroquia", idParroquiaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarProvinciasParaSeguimientoPorTecnico_Result> sp_ConsultarProvinciasParaSeguimientoPorTecnico(Nullable<int> idTecnico)
+        {
+            var idTecnicoParameter = idTecnico.HasValue ?
+                new ObjectParameter("IdTecnico", idTecnico) :
+                new ObjectParameter("IdTecnico", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarProvinciasParaSeguimientoPorTecnico_Result>("sp_ConsultarProvinciasParaSeguimientoPorTecnico", idTecnicoParameter);
+        }
+    
         public virtual int sp_ConsultarSembriosDeFacturasPorComunidad(Nullable<int> idComunidad)
         {
             var idComunidadParameter = idComunidad.HasValue ?
@@ -104,9 +408,36 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ConsultarSembriosDeFacturasPorComunidad", idComunidadParameter);
         }
     
+        public virtual ObjectResult<sp_ConsultarSiUsuarioEsTecnico_Result> sp_ConsultarSiUsuarioEsTecnico(Nullable<int> idAsignacionTU)
+        {
+            var idAsignacionTUParameter = idAsignacionTU.HasValue ?
+                new ObjectParameter("IdAsignacionTU", idAsignacionTU) :
+                new ObjectParameter("IdAsignacionTU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarSiUsuarioEsTecnico_Result>("sp_ConsultarSiUsuarioEsTecnico", idAsignacionTUParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarTipoInteres_Result> sp_ConsultarTipoInteres()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTipoInteres_Result>("sp_ConsultarTipoInteres");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarVisita_Result> sp_ConsultarVisita(Nullable<int> idAsignarTecnicoPersonaComunidad)
+        {
+            var idAsignarTecnicoPersonaComunidadParameter = idAsignarTecnicoPersonaComunidad.HasValue ?
+                new ObjectParameter("IdAsignarTecnicoPersonaComunidad", idAsignarTecnicoPersonaComunidad) :
+                new ObjectParameter("IdAsignarTecnicoPersonaComunidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarVisita_Result>("sp_ConsultarVisita", idAsignarTecnicoPersonaComunidadParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarVisitaPorIdVisita_Result> sp_ConsultarVisitaPorIdVisita(Nullable<int> idVisita)
+        {
+            var idVisitaParameter = idVisita.HasValue ?
+                new ObjectParameter("IdVisita", idVisita) :
+                new ObjectParameter("IdVisita", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarVisitaPorIdVisita_Result>("sp_ConsultarVisitaPorIdVisita", idVisitaParameter);
         }
     
         public virtual ObjectResult<sp_CrearAbono_Result> sp_CrearAbono(Nullable<int> idConfigurarVenta, Nullable<int> idAsignacionTU, Nullable<decimal> monto)
@@ -126,6 +457,23 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearAbono_Result>("sp_CrearAbono", idConfigurarVentaParameter, idAsignacionTUParameter, montoParameter);
         }
     
+        public virtual ObjectResult<sp_CrearAsignarComunidadFactura_Result> sp_CrearAsignarComunidadFactura(Nullable<int> idComunidad, Nullable<int> idCabeceraFactura, string observacion)
+        {
+            var idComunidadParameter = idComunidad.HasValue ?
+                new ObjectParameter("IdComunidad", idComunidad) :
+                new ObjectParameter("IdComunidad", typeof(int));
+    
+            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
+                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
+                new ObjectParameter("IdCabeceraFactura", typeof(int));
+    
+            var observacionParameter = observacion != null ?
+                new ObjectParameter("Observacion", observacion) :
+                new ObjectParameter("Observacion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearAsignarComunidadFactura_Result>("sp_CrearAsignarComunidadFactura", idComunidadParameter, idCabeceraFacturaParameter, observacionParameter);
+        }
+    
         public virtual ObjectResult<sp_CrearAsignarSeguro_Result> sp_CrearAsignarSeguro(Nullable<int> idConfigurarVenta, Nullable<int> idAsignacionTUResp, Nullable<int> idAsignacionTUTenc)
         {
             var idConfigurarVentaParameter = idConfigurarVenta.HasValue ?
@@ -141,6 +489,23 @@ namespace Datos
                 new ObjectParameter("IdAsignacionTUTenc", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearAsignarSeguro_Result>("sp_CrearAsignarSeguro", idConfigurarVentaParameter, idAsignacionTURespParameter, idAsignacionTUTencParameter);
+        }
+    
+        public virtual ObjectResult<sp_CrearAsignarTecnicoPersonaComunidad_Result> sp_CrearAsignarTecnicoPersonaComunidad(Nullable<int> idAsignarTUTecnico, Nullable<int> idPersona, Nullable<int> idComunidad)
+        {
+            var idAsignarTUTecnicoParameter = idAsignarTUTecnico.HasValue ?
+                new ObjectParameter("IdAsignarTUTecnico", idAsignarTUTecnico) :
+                new ObjectParameter("IdAsignarTUTecnico", typeof(int));
+    
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            var idComunidadParameter = idComunidad.HasValue ?
+                new ObjectParameter("IdComunidad", idComunidad) :
+                new ObjectParameter("IdComunidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearAsignarTecnicoPersonaComunidad_Result>("sp_CrearAsignarTecnicoPersonaComunidad", idAsignarTUTecnicoParameter, idPersonaParameter, idComunidadParameter);
         }
     
         public virtual ObjectResult<sp_CrearConfiguracionInteres_Result> sp_CrearConfiguracionInteres(Nullable<int> idTipoInteres, Nullable<int> tasaInteres, Nullable<int> plazoMeses)
@@ -160,7 +525,52 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearConfiguracionInteres_Result>("sp_CrearConfiguracionInteres", idTipoInteresParameter, tasaInteresParameter, plazoMesesParameter);
         }
     
-        public virtual int sp_CrearDetalleVenta(Nullable<int> idCabeceraFactura, Nullable<int> idAsignarProductoLote, string aplicaDescuento, string faltante, Nullable<int> cantidad, Nullable<int> porcentajeDescuento, Nullable<decimal> precioUnitario, string perteneceKitCompleto, Nullable<int> iva)
+        public virtual ObjectResult<sp_CrearConfigurarVenta_Result> sp_CrearConfigurarVenta(Nullable<int> idCabeceraFactura, Nullable<int> idPersona, string estadoConfVenta, Nullable<int> idConfiguracionInteres, string efectivo, Nullable<int> descuento, Nullable<System.DateTime> fechaFinCredito, string aplicaSeguro, Nullable<decimal> valorSeguro, string seguroCancelado)
+        {
+            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
+                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
+                new ObjectParameter("IdCabeceraFactura", typeof(int));
+    
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            var estadoConfVentaParameter = estadoConfVenta != null ?
+                new ObjectParameter("EstadoConfVenta", estadoConfVenta) :
+                new ObjectParameter("EstadoConfVenta", typeof(string));
+    
+            var idConfiguracionInteresParameter = idConfiguracionInteres.HasValue ?
+                new ObjectParameter("IdConfiguracionInteres", idConfiguracionInteres) :
+                new ObjectParameter("IdConfiguracionInteres", typeof(int));
+    
+            var efectivoParameter = efectivo != null ?
+                new ObjectParameter("Efectivo", efectivo) :
+                new ObjectParameter("Efectivo", typeof(string));
+    
+            var descuentoParameter = descuento.HasValue ?
+                new ObjectParameter("Descuento", descuento) :
+                new ObjectParameter("Descuento", typeof(int));
+    
+            var fechaFinCreditoParameter = fechaFinCredito.HasValue ?
+                new ObjectParameter("FechaFinCredito", fechaFinCredito) :
+                new ObjectParameter("FechaFinCredito", typeof(System.DateTime));
+    
+            var aplicaSeguroParameter = aplicaSeguro != null ?
+                new ObjectParameter("AplicaSeguro", aplicaSeguro) :
+                new ObjectParameter("AplicaSeguro", typeof(string));
+    
+            var valorSeguroParameter = valorSeguro.HasValue ?
+                new ObjectParameter("ValorSeguro", valorSeguro) :
+                new ObjectParameter("ValorSeguro", typeof(decimal));
+    
+            var seguroCanceladoParameter = seguroCancelado != null ?
+                new ObjectParameter("SeguroCancelado", seguroCancelado) :
+                new ObjectParameter("SeguroCancelado", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearConfigurarVenta_Result>("sp_CrearConfigurarVenta", idCabeceraFacturaParameter, idPersonaParameter, estadoConfVentaParameter, idConfiguracionInteresParameter, efectivoParameter, descuentoParameter, fechaFinCreditoParameter, aplicaSeguroParameter, valorSeguroParameter, seguroCanceladoParameter);
+        }
+    
+        public virtual ObjectResult<sp_CrearDetalleVenta_Result> sp_CrearDetalleVenta(Nullable<int> idCabeceraFactura, Nullable<int> idAsignarProductoLote, string aplicaDescuento, string faltante, Nullable<int> cantidad, Nullable<int> porcentajeDescuento, Nullable<decimal> precioUnitario, string perteneceKitCompleto, Nullable<int> iva)
         {
             var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
                 new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
@@ -198,7 +608,7 @@ namespace Datos
                 new ObjectParameter("Iva", iva) :
                 new ObjectParameter("Iva", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearDetalleVenta", idCabeceraFacturaParameter, idAsignarProductoLoteParameter, aplicaDescuentoParameter, faltanteParameter, cantidadParameter, porcentajeDescuentoParameter, precioUnitarioParameter, perteneceKitCompletoParameter, ivaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearDetalleVenta_Result>("sp_CrearDetalleVenta", idCabeceraFacturaParameter, idAsignarProductoLoteParameter, aplicaDescuentoParameter, faltanteParameter, cantidadParameter, porcentajeDescuentoParameter, precioUnitarioParameter, perteneceKitCompletoParameter, ivaParameter);
         }
     
         public virtual ObjectResult<sp_CrearTipoInteres_Result> sp_CrearTipoInteres(Nullable<int> identificacion, string descripcion)
@@ -214,6 +624,41 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearTipoInteres_Result>("sp_CrearTipoInteres", identificacionParameter, descripcionParameter);
         }
     
+        public virtual ObjectResult<sp_CrearVisita_Result> sp_CrearVisita(Nullable<int> idAsignarTecnicoPersonaComunidad, Nullable<int> idAsignarTU, string observacion)
+        {
+            var idAsignarTecnicoPersonaComunidadParameter = idAsignarTecnicoPersonaComunidad.HasValue ?
+                new ObjectParameter("IdAsignarTecnicoPersonaComunidad", idAsignarTecnicoPersonaComunidad) :
+                new ObjectParameter("IdAsignarTecnicoPersonaComunidad", typeof(int));
+    
+            var idAsignarTUParameter = idAsignarTU.HasValue ?
+                new ObjectParameter("IdAsignarTU", idAsignarTU) :
+                new ObjectParameter("IdAsignarTU", typeof(int));
+    
+            var observacionParameter = observacion != null ?
+                new ObjectParameter("Observacion", observacion) :
+                new ObjectParameter("Observacion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearVisita_Result>("sp_CrearVisita", idAsignarTecnicoPersonaComunidadParameter, idAsignarTUParameter, observacionParameter);
+        }
+    
+        public virtual int sp_EliminarAsignacionPersonaDeUnTecnico(Nullable<int> idPersona)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarAsignacionPersonaDeUnTecnico", idPersonaParameter);
+        }
+    
+        public virtual int sp_EliminarAsignarComunidadFactura(Nullable<int> idAsignarComunidadFactura)
+        {
+            var idAsignarComunidadFacturaParameter = idAsignarComunidadFactura.HasValue ?
+                new ObjectParameter("IdAsignarComunidadFactura", idAsignarComunidadFactura) :
+                new ObjectParameter("IdAsignarComunidadFactura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarAsignarComunidadFactura", idAsignarComunidadFacturaParameter);
+        }
+    
         public virtual int sp_EliminarDetalleVenta(Nullable<int> idDetalleVenta)
         {
             var idDetalleVentaParameter = idDetalleVenta.HasValue ?
@@ -221,6 +666,41 @@ namespace Datos
                 new ObjectParameter("IdDetalleVenta", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarDetalleVenta", idDetalleVentaParameter);
+        }
+    
+        public virtual int sp_EliminarVisita(Nullable<int> idVisita)
+        {
+            var idVisitaParameter = idVisita.HasValue ?
+                new ObjectParameter("IdVisita", idVisita) :
+                new ObjectParameter("IdVisita", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarVisita", idVisitaParameter);
+        }
+    
+        public virtual int sp_FinalizarAsignarTecnicoPersonaComunidad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_FinalizarAsignarTecnicoPersonaComunidad", idParameter);
+        }
+    
+        public virtual ObjectResult<sp_ModificarVisita_Result> sp_ModificarVisita(Nullable<int> idVisita, Nullable<int> idAsignacionTU, string observacion)
+        {
+            var idVisitaParameter = idVisita.HasValue ?
+                new ObjectParameter("IdVisita", idVisita) :
+                new ObjectParameter("IdVisita", typeof(int));
+    
+            var idAsignacionTUParameter = idAsignacionTU.HasValue ?
+                new ObjectParameter("IdAsignacionTU", idAsignacionTU) :
+                new ObjectParameter("IdAsignacionTU", typeof(int));
+    
+            var observacionParameter = observacion != null ?
+                new ObjectParameter("Observacion", observacion) :
+                new ObjectParameter("Observacion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarVisita_Result>("sp_ModificarVisita", idVisitaParameter, idAsignacionTUParameter, observacionParameter);
         }
     
         public virtual int sp_SetCantidadDetalleVenta(Nullable<int> idDetalleVenta, Nullable<int> cantidad)
@@ -320,6 +800,15 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarProductoLote_Result>("sp_ConsultarAsignarProductoLote");
         }
     
+        public virtual ObjectResult<sp_ConsultarAsignarProductoLotePorId_Result> sp_ConsultarAsignarProductoLotePorId(Nullable<int> idAsignarProductoLote)
+        {
+            var idAsignarProductoLoteParameter = idAsignarProductoLote.HasValue ?
+                new ObjectParameter("IdAsignarProductoLote", idAsignarProductoLote) :
+                new ObjectParameter("IdAsignarProductoLote", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarProductoLotePorId_Result>("sp_ConsultarAsignarProductoLotePorId", idAsignarProductoLoteParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarCabeceraFactura_Result> sp_ConsultarCabeceraFactura()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarCabeceraFactura_Result>("sp_ConsultarCabeceraFactura");
@@ -341,6 +830,15 @@ namespace Datos
                 new ObjectParameter("IdCabeceraFactura", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarDetalleFactura_Result>("sp_ConsultarDetalleFactura", idCabeceraFacturaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarDetalleFacturaCompraPorId_Result> sp_ConsultarDetalleFacturaCompraPorId(Nullable<int> idDetalleFactura)
+        {
+            var idDetalleFacturaParameter = idDetalleFactura.HasValue ?
+                new ObjectParameter("IdDetalleFactura", idDetalleFactura) :
+                new ObjectParameter("IdDetalleFactura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarDetalleFacturaCompraPorId_Result>("sp_ConsultarDetalleFacturaCompraPorId", idDetalleFacturaParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarDetalleFacturaExiste_Result> sp_ConsultarDetalleFacturaExiste(Nullable<int> idCabeceraFactura, Nullable<int> idRelacionLogica, Nullable<bool> perteneceKit, string fechaExpiracion, Nullable<int> tieneFecha)
@@ -368,6 +866,28 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarDetalleFacturaExiste_Result>("sp_ConsultarDetalleFacturaExiste", idCabeceraFacturaParameter, idRelacionLogicaParameter, perteneceKitParameter, fechaExpiracionParameter, tieneFechaParameter);
         }
     
+        public virtual ObjectResult<sp_ConsultarDetalleFacturaPorId_Result> sp_ConsultarDetalleFacturaPorId(Nullable<int> idDetalleFactura)
+        {
+            var idDetalleFacturaParameter = idDetalleFactura.HasValue ?
+                new ObjectParameter("IdDetalleFactura", idDetalleFactura) :
+                new ObjectParameter("IdDetalleFactura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarDetalleFacturaPorId_Result>("sp_ConsultarDetalleFacturaPorId", idDetalleFacturaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarDetalleFacturaPorIdAsignarProductoLote_Result> sp_ConsultarDetalleFacturaPorIdAsignarProductoLote(Nullable<int> idAsignarProductoLote, Nullable<int> idCabeceraFactura)
+        {
+            var idAsignarProductoLoteParameter = idAsignarProductoLote.HasValue ?
+                new ObjectParameter("idAsignarProductoLote", idAsignarProductoLote) :
+                new ObjectParameter("idAsignarProductoLote", typeof(int));
+    
+            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
+                new ObjectParameter("idCabeceraFactura", idCabeceraFactura) :
+                new ObjectParameter("idCabeceraFactura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarDetalleFacturaPorIdAsignarProductoLote_Result>("sp_ConsultarDetalleFacturaPorIdAsignarProductoLote", idAsignarProductoLoteParameter, idCabeceraFacturaParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarLote_Result> sp_ConsultarLote(Nullable<int> idCabecera, Nullable<int> idRelacionLogica, Nullable<bool> perteneceKit)
         {
             var idCabeceraParameter = idCabecera.HasValue ?
@@ -385,9 +905,57 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarLote_Result>("sp_ConsultarLote", idCabeceraParameter, idRelacionLogicaParameter, perteneceKitParameter);
         }
     
+        public virtual ObjectResult<sp_ConsultarLotePorCodigo_Result> sp_ConsultarLotePorCodigo(string codigo)
+        {
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarLotePorCodigo_Result>("sp_ConsultarLotePorCodigo", codigoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarLotePorId_Result> sp_ConsultarLotePorId(Nullable<int> idLote)
+        {
+            var idLoteParameter = idLote.HasValue ?
+                new ObjectParameter("IdLote", idLote) :
+                new ObjectParameter("IdLote", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarLotePorId_Result>("sp_ConsultarLotePorId", idLoteParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarSiExisteAsignarProductoLote_Result> sp_ConsultarSiExisteAsignarProductoLote(Nullable<int> idRelacionLogica, Nullable<bool> perteneceKit, string fechaExpiracion, Nullable<int> tieneFecha)
+        {
+            var idRelacionLogicaParameter = idRelacionLogica.HasValue ?
+                new ObjectParameter("IdRelacionLogica", idRelacionLogica) :
+                new ObjectParameter("IdRelacionLogica", typeof(int));
+    
+            var perteneceKitParameter = perteneceKit.HasValue ?
+                new ObjectParameter("PerteneceKit", perteneceKit) :
+                new ObjectParameter("PerteneceKit", typeof(bool));
+    
+            var fechaExpiracionParameter = fechaExpiracion != null ?
+                new ObjectParameter("FechaExpiracion", fechaExpiracion) :
+                new ObjectParameter("FechaExpiracion", typeof(string));
+    
+            var tieneFechaParameter = tieneFecha.HasValue ?
+                new ObjectParameter("TieneFecha", tieneFecha) :
+                new ObjectParameter("TieneFecha", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarSiExisteAsignarProductoLote_Result>("sp_ConsultarSiExisteAsignarProductoLote", idRelacionLogicaParameter, perteneceKitParameter, fechaExpiracionParameter, tieneFechaParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarStock_Result> sp_ConsultarStock()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarStock_Result>("sp_ConsultarStock");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarStockPorIdAsignarProductoLote_Result> sp_ConsultarStockPorIdAsignarProductoLote(Nullable<int> idAsignarProductoLote)
+        {
+            var idAsignarProductoLoteParameter = idAsignarProductoLote.HasValue ?
+                new ObjectParameter("IdAsignarProductoLote", idAsignarProductoLote) :
+                new ObjectParameter("IdAsignarProductoLote", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarStockPorIdAsignarProductoLote_Result>("sp_ConsultarStockPorIdAsignarProductoLote", idAsignarProductoLoteParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarTiposTransaccion_Result> sp_ConsultarTiposTransaccion()
@@ -438,7 +1006,7 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearCabeceraFactura_Result>("sp_CrearCabeceraFactura", idAsignacionTUParameter, idTipoTransaccionParameter);
         }
     
-        public virtual int sp_CrearDetalleFactura(Nullable<int> idCabeceraFactura, Nullable<int> idAsignarProductoLote, Nullable<int> cantidad, Nullable<bool> faltante)
+        public virtual ObjectResult<sp_CrearDetalleFactura_Result> sp_CrearDetalleFactura(Nullable<int> idCabeceraFactura, Nullable<int> idAsignarProductoLote, Nullable<int> cantidad, Nullable<bool> faltante)
         {
             var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
                 new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
@@ -456,10 +1024,10 @@ namespace Datos
                 new ObjectParameter("Faltante", faltante) :
                 new ObjectParameter("Faltante", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearDetalleFactura", idCabeceraFacturaParameter, idAsignarProductoLoteParameter, cantidadParameter, faltanteParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearDetalleFactura_Result>("sp_CrearDetalleFactura", idCabeceraFacturaParameter, idAsignarProductoLoteParameter, cantidadParameter, faltanteParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> sp_CrearLote(string codigo, Nullable<int> capacidad, Nullable<System.DateTime> fechaExpiracion)
+        public virtual ObjectResult<sp_CrearLote_Result> sp_CrearLote(string codigo, Nullable<int> capacidad, Nullable<System.DateTime> fechaExpiracion)
         {
             var codigoParameter = codigo != null ?
                 new ObjectParameter("Codigo", codigo) :
@@ -473,7 +1041,7 @@ namespace Datos
                 new ObjectParameter("FechaExpiracion", fechaExpiracion) :
                 new ObjectParameter("FechaExpiracion", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_CrearLote", codigoParameter, capacidadParameter, fechaExpiracionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearLote_Result>("sp_CrearLote", codigoParameter, capacidadParameter, fechaExpiracionParameter);
         }
     
         public virtual int sp_CrearStock(Nullable<int> cantidad, Nullable<int> asignarProductoLote)
@@ -591,6 +1159,15 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarDescuentoKit_Result>("sp_ConsultarAsignarDescuentoKit");
         }
     
+        public virtual ObjectResult<sp_ConsultarAsignarDescuentoKitPorKit_Result> sp_ConsultarAsignarDescuentoKitPorKit(Nullable<int> idKit)
+        {
+            var idKitParameter = idKit.HasValue ?
+                new ObjectParameter("idKit", idKit) :
+                new ObjectParameter("idKit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarDescuentoKitPorKit_Result>("sp_ConsultarAsignarDescuentoKitPorKit", idKitParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarAsignarProductoKit_Result> sp_ConsultarAsignarProductoKit(Nullable<int> idKit)
         {
             var idKitParameter = idKit.HasValue ?
@@ -600,9 +1177,36 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarProductoKit_Result>("sp_ConsultarAsignarProductoKit", idKitParameter);
         }
     
+        public virtual ObjectResult<sp_ConsultarAsignarProductoKitPorId_Result> sp_ConsultarAsignarProductoKitPorId(Nullable<int> idAsignarProductoKit)
+        {
+            var idAsignarProductoKitParameter = idAsignarProductoKit.HasValue ?
+                new ObjectParameter("IdAsignarProductoKit", idAsignarProductoKit) :
+                new ObjectParameter("IdAsignarProductoKit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarProductoKitPorId_Result>("sp_ConsultarAsignarProductoKitPorId", idAsignarProductoKitParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarAsignarProductoKitPorIdAsignarProductoKit_Result> sp_ConsultarAsignarProductoKitPorIdAsignarProductoKit(Nullable<int> idAsignarPKit)
+        {
+            var idAsignarPKitParameter = idAsignarPKit.HasValue ?
+                new ObjectParameter("IdAsignarPKit", idAsignarPKit) :
+                new ObjectParameter("IdAsignarPKit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarProductoKitPorIdAsignarProductoKit_Result>("sp_ConsultarAsignarProductoKitPorIdAsignarProductoKit", idAsignarPKitParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarConfigurarProducto_Result> sp_ConsultarConfigurarProducto()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarConfigurarProducto_Result>("sp_ConsultarConfigurarProducto");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarConfigurarProductoPorId_Result> sp_ConsultarConfigurarProductoPorId(Nullable<int> idConfigurarProducto)
+        {
+            var idConfigurarProductoParameter = idConfigurarProducto.HasValue ?
+                new ObjectParameter("IdConfigurarProducto", idConfigurarProducto) :
+                new ObjectParameter("IdConfigurarProducto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarConfigurarProductoPorId_Result>("sp_ConsultarConfigurarProductoPorId", idConfigurarProductoParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarConfigurarProductoQueNoTieneUnKit_Result> sp_ConsultarConfigurarProductoQueNoTieneUnKit(Nullable<int> idKit)
@@ -624,9 +1228,27 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarKit_Result>("sp_ConsultarKit");
         }
     
+        public virtual ObjectResult<sp_ConsultarKitPorId_Result> sp_ConsultarKitPorId(Nullable<int> idKit)
+        {
+            var idKitParameter = idKit.HasValue ?
+                new ObjectParameter("IdKit", idKit) :
+                new ObjectParameter("IdKit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarKitPorId_Result>("sp_ConsultarKitPorId", idKitParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarMedida_Result> sp_ConsultarMedida()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarMedida_Result>("sp_ConsultarMedida");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarMedidaPorId_Result> sp_ConsultarMedidaPorId(Nullable<int> idMedida)
+        {
+            var idMedidaParameter = idMedida.HasValue ?
+                new ObjectParameter("IdMedida", idMedida) :
+                new ObjectParameter("IdMedida", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarMedidaPorId_Result>("sp_ConsultarMedidaPorId", idMedidaParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarPrecioConfiguracionProducto_Result> sp_ConsultarPrecioConfiguracionProducto()
@@ -634,9 +1256,45 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPrecioConfiguracionProducto_Result>("sp_ConsultarPrecioConfiguracionProducto");
         }
     
+        public virtual ObjectResult<sp_ConsultarPrecioProductoPorConfigurarProducto_Result> sp_ConsultarPrecioProductoPorConfigurarProducto(Nullable<int> idConfigurarProducto)
+        {
+            var idConfigurarProductoParameter = idConfigurarProducto.HasValue ?
+                new ObjectParameter("IdConfigurarProducto", idConfigurarProducto) :
+                new ObjectParameter("IdConfigurarProducto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPrecioProductoPorConfigurarProducto_Result>("sp_ConsultarPrecioProductoPorConfigurarProducto", idConfigurarProductoParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarPresentacion_Result> sp_ConsultarPresentacion()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPresentacion_Result>("sp_ConsultarPresentacion");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPresentacionPorId_Result> sp_ConsultarPresentacionPorId(Nullable<int> idPresentacion)
+        {
+            var idPresentacionParameter = idPresentacion.HasValue ?
+                new ObjectParameter("IdPresentacion", idPresentacion) :
+                new ObjectParameter("IdPresentacion", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPresentacionPorId_Result>("sp_ConsultarPresentacionPorId", idPresentacionParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarProductoPorId_Result> sp_ConsultarProductoPorId(Nullable<int> idProducto)
+        {
+            var idProductoParameter = idProducto.HasValue ?
+                new ObjectParameter("IdProducto", idProducto) :
+                new ObjectParameter("IdProducto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarProductoPorId_Result>("sp_ConsultarProductoPorId", idProductoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarProductoPorNombre_Result> sp_ConsultarProductoPorNombre(string nombre)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarProductoPorNombre_Result>("sp_ConsultarProductoPorNombre", nombreParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarProductos_Result> sp_ConsultarProductos()
@@ -644,12 +1302,57 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarProductos_Result>("sp_ConsultarProductos");
         }
     
+        public virtual ObjectResult<sp_ConsultarSiExisteKitPorCodigo_Result> sp_ConsultarSiExisteKitPorCodigo(string codigo)
+        {
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarSiExisteKitPorCodigo_Result>("sp_ConsultarSiExisteKitPorCodigo", codigoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarSiExisteMedida_Result> sp_ConsultarSiExisteMedida(string descripcion)
+        {
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarSiExisteMedida_Result>("sp_ConsultarSiExisteMedida", descripcionParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarSiExistePresentacion_Result> sp_ConsultarSiExistePresentacion(string descripcion)
+        {
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarSiExistePresentacion_Result>("sp_ConsultarSiExistePresentacion", descripcionParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarSiExisteTipoProducto_Result> sp_ConsultarSiExisteTipoProducto(string descripcion)
+        {
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarSiExisteTipoProducto_Result>("sp_ConsultarSiExisteTipoProducto", descripcionParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarTipoProducto_Result> sp_ConsultarTipoProducto()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTipoProducto_Result>("sp_ConsultarTipoProducto");
         }
     
-        public virtual int sp_CrearAsignarDescuentoKit(Nullable<int> idDescuento, Nullable<int> idKit)
+        public virtual ObjectResult<sp_ConsultarTipoProductoPorId_Result> sp_ConsultarTipoProductoPorId(Nullable<int> idTipoProducto)
+        {
+            var idTipoProductoParameter = idTipoProducto.HasValue ?
+                new ObjectParameter("IdTipoProducto", idTipoProducto) :
+                new ObjectParameter("IdTipoProducto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTipoProductoPorId_Result>("sp_ConsultarTipoProductoPorId", idTipoProductoParameter);
+        }
+    
+        public virtual ObjectResult<sp_CrearAsignarDescuentoKit_Result> sp_CrearAsignarDescuentoKit(Nullable<int> idDescuento, Nullable<int> idKit)
         {
             var idDescuentoParameter = idDescuento.HasValue ?
                 new ObjectParameter("IdDescuento", idDescuento) :
@@ -659,7 +1362,7 @@ namespace Datos
                 new ObjectParameter("IdKit", idKit) :
                 new ObjectParameter("IdKit", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearAsignarDescuentoKit", idDescuentoParameter, idKitParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearAsignarDescuentoKit_Result>("sp_CrearAsignarDescuentoKit", idDescuentoParameter, idKitParameter);
         }
     
         public virtual int sp_CrearAsignarProductoKit(Nullable<int> idConfigurarProducto, Nullable<int> idAsignarDescuentoKit)
@@ -708,16 +1411,16 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearConfigurarProducto_Result>("sp_CrearConfigurarProducto", idAsignacionTipoUsuarioParameter, idProductoParameter, idMedidaParameter, idPresentacionParameter, codigoParameter, cantidadMedidaParameter, ivaParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> sp_CrearDescuento(Nullable<int> procentaje)
+        public virtual ObjectResult<sp_CrearDescuento_Result> sp_CrearDescuento(Nullable<int> procentaje)
         {
             var procentajeParameter = procentaje.HasValue ?
                 new ObjectParameter("Procentaje", procentaje) :
                 new ObjectParameter("Procentaje", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_CrearDescuento", procentajeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearDescuento_Result>("sp_CrearDescuento", procentajeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> sp_CrearKit(string codigo, string descripcion)
+        public virtual ObjectResult<sp_CrearKit_Result> sp_CrearKit(string codigo, string descripcion)
         {
             var codigoParameter = codigo != null ?
                 new ObjectParameter("Codigo", codigo) :
@@ -727,19 +1430,19 @@ namespace Datos
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_CrearKit", codigoParameter, descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearKit_Result>("sp_CrearKit", codigoParameter, descripcionParameter);
         }
     
-        public virtual int sp_CrearMedida(string descripcion)
+        public virtual ObjectResult<sp_CrearMedida_Result> sp_CrearMedida(string descripcion)
         {
             var descripcionParameter = descripcion != null ?
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearMedida", descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearMedida_Result>("sp_CrearMedida", descripcionParameter);
         }
     
-        public virtual int sp_CrearPrecioConfiguracionProducto(Nullable<int> idConfigurarProducto, Nullable<decimal> precio)
+        public virtual ObjectResult<sp_CrearPrecioConfiguracionProducto_Result> sp_CrearPrecioConfiguracionProducto(Nullable<int> idConfigurarProducto, Nullable<decimal> precio)
         {
             var idConfigurarProductoParameter = idConfigurarProducto.HasValue ?
                 new ObjectParameter("IdConfigurarProducto", idConfigurarProducto) :
@@ -749,19 +1452,19 @@ namespace Datos
                 new ObjectParameter("Precio", precio) :
                 new ObjectParameter("Precio", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearPrecioConfiguracionProducto", idConfigurarProductoParameter, precioParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearPrecioConfiguracionProducto_Result>("sp_CrearPrecioConfiguracionProducto", idConfigurarProductoParameter, precioParameter);
         }
     
-        public virtual int sp_CrearPresentacion(string descripcion)
+        public virtual ObjectResult<sp_CrearPresentacion_Result> sp_CrearPresentacion(string descripcion)
         {
             var descripcionParameter = descripcion != null ?
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearPresentacion", descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearPresentacion_Result>("sp_CrearPresentacion", descripcionParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> sp_CrearProducto(Nullable<int> idTipoProducto, string descripcion, string nombre)
+        public virtual ObjectResult<sp_CrearProducto_Result> sp_CrearProducto(Nullable<int> idTipoProducto, string descripcion, string nombre)
         {
             var idTipoProductoParameter = idTipoProducto.HasValue ?
                 new ObjectParameter("IdTipoProducto", idTipoProducto) :
@@ -775,16 +1478,16 @@ namespace Datos
                 new ObjectParameter("Nombre", nombre) :
                 new ObjectParameter("Nombre", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_CrearProducto", idTipoProductoParameter, descripcionParameter, nombreParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearProducto_Result>("sp_CrearProducto", idTipoProductoParameter, descripcionParameter, nombreParameter);
         }
     
-        public virtual int sp_CrearTipoProducto(string descripcion)
+        public virtual ObjectResult<sp_CrearTipoProducto_Result> sp_CrearTipoProducto(string descripcion)
         {
             var descripcionParameter = descripcion != null ?
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearTipoProducto", descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearTipoProducto_Result>("sp_CrearTipoProducto", descripcionParameter);
         }
     
         public virtual int sp_EliminarAsignacionProductoKit(Nullable<int> idAsignarProductoKit)
@@ -803,6 +1506,15 @@ namespace Datos
                 new ObjectParameter("IdAsignarDescuentoKit", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarAsignarDescuentoKit", idAsignarDescuentoKitParameter);
+        }
+    
+        public virtual int sp_EliminarAsignarDescuentoKitPorKit(Nullable<int> idKit)
+        {
+            var idKitParameter = idKit.HasValue ?
+                new ObjectParameter("idKit", idKit) :
+                new ObjectParameter("idKit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarAsignarDescuentoKitPorKit", idKitParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> sp_EliminarConfiguracionYProducto(Nullable<int> idProducto)
@@ -912,7 +1624,7 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarAsignacionProductoKit", idAsignarProductoKitParameter, idConfigurarProductoParameter, idAsignarDescuentoKitParameter);
         }
     
-        public virtual int sp_ModificarAsignarDescuentoKit(Nullable<int> idAsignarDescuentoKit, Nullable<int> idDescuento, Nullable<int> idKit)
+        public virtual ObjectResult<sp_ModificarAsignarDescuentoKit_Result> sp_ModificarAsignarDescuentoKit(Nullable<int> idAsignarDescuentoKit, Nullable<int> idDescuento, Nullable<int> idKit)
         {
             var idAsignarDescuentoKitParameter = idAsignarDescuentoKit.HasValue ?
                 new ObjectParameter("IdAsignarDescuentoKit", idAsignarDescuentoKit) :
@@ -926,10 +1638,10 @@ namespace Datos
                 new ObjectParameter("IdKit", idKit) :
                 new ObjectParameter("IdKit", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarAsignarDescuentoKit", idAsignarDescuentoKitParameter, idDescuentoParameter, idKitParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarAsignarDescuentoKit_Result>("sp_ModificarAsignarDescuentoKit", idAsignarDescuentoKitParameter, idDescuentoParameter, idKitParameter);
         }
     
-        public virtual int sp_ModificarConfigurarProducto(Nullable<int> idConfigurarProducto, Nullable<int> idAsignacionTipoUsuario, Nullable<int> idProducto, Nullable<int> idMedida, Nullable<int> idPresentacion, string codigo, Nullable<int> cantidadMedida, Nullable<int> iva)
+        public virtual ObjectResult<sp_ModificarConfigurarProducto_Result> sp_ModificarConfigurarProducto(Nullable<int> idConfigurarProducto, Nullable<int> idAsignacionTipoUsuario, Nullable<int> idProducto, Nullable<int> idMedida, Nullable<int> idPresentacion, string codigo, Nullable<int> cantidadMedida, Nullable<int> iva)
         {
             var idConfigurarProductoParameter = idConfigurarProducto.HasValue ?
                 new ObjectParameter("IdConfigurarProducto", idConfigurarProducto) :
@@ -963,7 +1675,7 @@ namespace Datos
                 new ObjectParameter("Iva", iva) :
                 new ObjectParameter("Iva", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarConfigurarProducto", idConfigurarProductoParameter, idAsignacionTipoUsuarioParameter, idProductoParameter, idMedidaParameter, idPresentacionParameter, codigoParameter, cantidadMedidaParameter, ivaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarConfigurarProducto_Result>("sp_ModificarConfigurarProducto", idConfigurarProductoParameter, idAsignacionTipoUsuarioParameter, idProductoParameter, idMedidaParameter, idPresentacionParameter, codigoParameter, cantidadMedidaParameter, ivaParameter);
         }
     
         public virtual int sp_ModificarDescuento(Nullable<int> procentaje, Nullable<int> idDescuento)
@@ -979,7 +1691,7 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarDescuento", procentajeParameter, idDescuentoParameter);
         }
     
-        public virtual int sp_ModificarKit(Nullable<int> idKit, string codigo, string descripcion)
+        public virtual ObjectResult<sp_ModificarKit_Result> sp_ModificarKit(Nullable<int> idKit, string codigo, string descripcion)
         {
             var idKitParameter = idKit.HasValue ?
                 new ObjectParameter("IdKit", idKit) :
@@ -993,10 +1705,10 @@ namespace Datos
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarKit", idKitParameter, codigoParameter, descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarKit_Result>("sp_ModificarKit", idKitParameter, codigoParameter, descripcionParameter);
         }
     
-        public virtual int sp_ModificarMedida(Nullable<int> idMedida, string descripcion)
+        public virtual ObjectResult<sp_ModificarMedida_Result> sp_ModificarMedida(Nullable<int> idMedida, string descripcion)
         {
             var idMedidaParameter = idMedida.HasValue ?
                 new ObjectParameter("IdMedida", idMedida) :
@@ -1006,10 +1718,10 @@ namespace Datos
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarMedida", idMedidaParameter, descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarMedida_Result>("sp_ModificarMedida", idMedidaParameter, descripcionParameter);
         }
     
-        public virtual int sp_ModificarPresentacion(Nullable<int> idPresentacion, string descripcion)
+        public virtual ObjectResult<sp_ModificarPresentacion_Result> sp_ModificarPresentacion(Nullable<int> idPresentacion, string descripcion)
         {
             var idPresentacionParameter = idPresentacion.HasValue ?
                 new ObjectParameter("IdPresentacion", idPresentacion) :
@@ -1019,7 +1731,7 @@ namespace Datos
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarPresentacion", idPresentacionParameter, descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarPresentacion_Result>("sp_ModificarPresentacion", idPresentacionParameter, descripcionParameter);
         }
     
         public virtual int sp_ModificarProducto(Nullable<int> idProducto, Nullable<int> idTipoProducto, string descripcion, string nombre)
@@ -1043,7 +1755,7 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarProducto", idProductoParameter, idTipoProductoParameter, descripcionParameter, nombreParameter);
         }
     
-        public virtual int sp_ModificarTipoProducto(Nullable<int> idTipoProducto, string descripcion)
+        public virtual ObjectResult<sp_ModificarTipoProducto_Result> sp_ModificarTipoProducto(Nullable<int> idTipoProducto, string descripcion)
         {
             var idTipoProductoParameter = idTipoProducto.HasValue ?
                 new ObjectParameter("IdTipoProducto", idTipoProducto) :
@@ -1053,7 +1765,37 @@ namespace Datos
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarTipoProducto", idTipoProductoParameter, descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarTipoProducto_Result>("sp_ModificarTipoProducto", idTipoProductoParameter, descripcionParameter);
+        }
+    
+        public virtual ObjectResult<spConsultarConfigurarProductoPorCodigo_Result> spConsultarConfigurarProductoPorCodigo(string codigo)
+        {
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spConsultarConfigurarProductoPorCodigo_Result>("spConsultarConfigurarProductoPorCodigo", codigoParameter);
+        }
+    
+        public virtual ObjectResult<spConsultarSiExisteYaUnaConfiguracion_Result> spConsultarSiExisteYaUnaConfiguracion(Nullable<int> idProducto, Nullable<int> idMedida, Nullable<int> idPresentacion, Nullable<int> cantidadMedida)
+        {
+            var idProductoParameter = idProducto.HasValue ?
+                new ObjectParameter("idProducto", idProducto) :
+                new ObjectParameter("idProducto", typeof(int));
+    
+            var idMedidaParameter = idMedida.HasValue ?
+                new ObjectParameter("idMedida", idMedida) :
+                new ObjectParameter("idMedida", typeof(int));
+    
+            var idPresentacionParameter = idPresentacion.HasValue ?
+                new ObjectParameter("idPresentacion", idPresentacion) :
+                new ObjectParameter("idPresentacion", typeof(int));
+    
+            var cantidadMedidaParameter = cantidadMedida.HasValue ?
+                new ObjectParameter("cantidadMedida", cantidadMedida) :
+                new ObjectParameter("cantidadMedida", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spConsultarSiExisteYaUnaConfiguracion_Result>("spConsultarSiExisteYaUnaConfiguracion", idProductoParameter, idMedidaParameter, idPresentacionParameter, cantidadMedidaParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarTokens_Result> sp_ConsultarTokens()
@@ -1116,6 +1858,51 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarCanton_Result>("sp_ConsultarCanton");
         }
     
+        public virtual ObjectResult<sp_ConsultarCantonPorId_Result> sp_ConsultarCantonPorId(Nullable<int> idCanton)
+        {
+            var idCantonParameter = idCanton.HasValue ?
+                new ObjectParameter("idCanton", idCanton) :
+                new ObjectParameter("idCanton", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarCantonPorId_Result>("sp_ConsultarCantonPorId", idCantonParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarCantonSiexiste_Result> sp_ConsultarCantonSiexiste(string canton)
+        {
+            var cantonParameter = canton != null ?
+                new ObjectParameter("Canton", canton) :
+                new ObjectParameter("Canton", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarCantonSiexiste_Result>("sp_ConsultarCantonSiexiste", cantonParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarComunidad_Result> sp_ConsultarComunidad()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarComunidad_Result>("sp_ConsultarComunidad");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarComunidadPorId_Result> sp_ConsultarComunidadPorId(Nullable<int> idComunidad)
+        {
+            var idComunidadParameter = idComunidad.HasValue ?
+                new ObjectParameter("idComunidad", idComunidad) :
+                new ObjectParameter("idComunidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarComunidadPorId_Result>("sp_ConsultarComunidadPorId", idComunidadParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarComunidadSiexiste_Result> sp_ConsultarComunidadSiexiste(string comunidad, Nullable<int> idParroquia)
+        {
+            var comunidadParameter = comunidad != null ?
+                new ObjectParameter("Comunidad", comunidad) :
+                new ObjectParameter("Comunidad", typeof(string));
+    
+            var idParroquiaParameter = idParroquia.HasValue ?
+                new ObjectParameter("IdParroquia", idParroquia) :
+                new ObjectParameter("IdParroquia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarComunidadSiexiste_Result>("sp_ConsultarComunidadSiexiste", comunidadParameter, idParroquiaParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarCorreo_Result> sp_ConsultarCorreo()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarCorreo_Result>("sp_ConsultarCorreo");
@@ -1130,6 +1917,28 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarCorreoPersona_Result>("sp_ConsultarCorreoPersona", idPersonaParameter);
         }
     
+        public virtual ObjectResult<sp_ConsultarCorreoPorId_Result> sp_ConsultarCorreoPorId(Nullable<int> idCorreo)
+        {
+            var idCorreoParameter = idCorreo.HasValue ?
+                new ObjectParameter("IdCorreo", idCorreo) :
+                new ObjectParameter("IdCorreo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarCorreoPorId_Result>("sp_ConsultarCorreoPorId", idCorreoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarCorreoPorPersona_Result> sp_ConsultarCorreoPorPersona(Nullable<int> idPersona, string correo)
+        {
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarCorreoPorPersona_Result>("sp_ConsultarCorreoPorPersona", idPersonaParameter, correoParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarListaPersonas_Result> sp_ConsultarListaPersonas()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarListaPersonas_Result>("sp_ConsultarListaPersonas");
@@ -1138,6 +1947,24 @@ namespace Datos
         public virtual ObjectResult<sp_ConsultarParroquia_Result> sp_ConsultarParroquia()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarParroquia_Result>("sp_ConsultarParroquia");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarParroquiaPorId_Result> sp_ConsultarParroquiaPorId(Nullable<int> idParroquia)
+        {
+            var idParroquiaParameter = idParroquia.HasValue ?
+                new ObjectParameter("idParroquia", idParroquia) :
+                new ObjectParameter("idParroquia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarParroquiaPorId_Result>("sp_ConsultarParroquiaPorId", idParroquiaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarParroquiaSiexiste_Result> sp_ConsultarParroquiaSiexiste(string parroquia)
+        {
+            var parroquiaParameter = parroquia != null ?
+                new ObjectParameter("Parroquia", parroquia) :
+                new ObjectParameter("Parroquia", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarParroquiaSiexiste_Result>("sp_ConsultarParroquiaSiexiste", parroquiaParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarPersona_Result> sp_ConsultarPersona()
@@ -1159,9 +1986,32 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonas_Result>("sp_ConsultarPersonas");
         }
     
+        public virtual ObjectResult<sp_ConsultarPersonasSinUsuario_Result> sp_ConsultarPersonasSinUsuario()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasSinUsuario_Result>("sp_ConsultarPersonasSinUsuario");
+        }
+    
         public virtual ObjectResult<sp_ConsultarProvincia_Result> sp_ConsultarProvincia()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarProvincia_Result>("sp_ConsultarProvincia");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarProvinciaPorId_Result> sp_ConsultarProvinciaPorId(Nullable<int> idProvincia)
+        {
+            var idProvinciaParameter = idProvincia.HasValue ?
+                new ObjectParameter("idProvincia", idProvincia) :
+                new ObjectParameter("idProvincia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarProvinciaPorId_Result>("sp_ConsultarProvinciaPorId", idProvinciaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarProvinciaSiexiste_Result> sp_ConsultarProvinciaSiexiste(string provincia)
+        {
+            var provinciaParameter = provincia != null ?
+                new ObjectParameter("Provincia", provincia) :
+                new ObjectParameter("Provincia", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarProvinciaSiexiste_Result>("sp_ConsultarProvinciaSiexiste", provinciaParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarResidenciaPersona_Result> sp_ConsultarResidenciaPersona(Nullable<int> idPersona)
@@ -1197,20 +2047,7 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTipoTelefono_Result>("sp_ConsultarTipoTelefono");
         }
     
-        public virtual int sp_CrearAsigancionPP(Nullable<int> idPersona, Nullable<int> idParroquia)
-        {
-            var idPersonaParameter = idPersona.HasValue ?
-                new ObjectParameter("IdPersona", idPersona) :
-                new ObjectParameter("IdPersona", typeof(int));
-    
-            var idParroquiaParameter = idParroquia.HasValue ?
-                new ObjectParameter("IdParroquia", idParroquia) :
-                new ObjectParameter("IdParroquia", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearAsigancionPP", idPersonaParameter, idParroquiaParameter);
-        }
-    
-        public virtual int sp_CrearCanton(string descripcion, Nullable<int> idProvincia)
+        public virtual ObjectResult<sp_CrearCanton_Result> sp_CrearCanton(string descripcion, Nullable<int> idProvincia)
         {
             var descripcionParameter = descripcion != null ?
                 new ObjectParameter("Descripcion", descripcion) :
@@ -1220,10 +2057,10 @@ namespace Datos
                 new ObjectParameter("IdProvincia", idProvincia) :
                 new ObjectParameter("IdProvincia", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearCanton", descripcionParameter, idProvinciaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearCanton_Result>("sp_CrearCanton", descripcionParameter, idProvinciaParameter);
         }
     
-        public virtual int sp_CrearComunidad(Nullable<int> idParroquia, string descripcion)
+        public virtual ObjectResult<sp_CrearComunidad_Result> sp_CrearComunidad(Nullable<int> idParroquia, string descripcion)
         {
             var idParroquiaParameter = idParroquia.HasValue ?
                 new ObjectParameter("IdParroquia", idParroquia) :
@@ -1233,23 +2070,10 @@ namespace Datos
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearComunidad", idParroquiaParameter, descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearComunidad_Result>("sp_CrearComunidad", idParroquiaParameter, descripcionParameter);
         }
     
-        public virtual int sp_CrearCorreo(Nullable<int> idPersona, string correo)
-        {
-            var idPersonaParameter = idPersona.HasValue ?
-                new ObjectParameter("idPersona", idPersona) :
-                new ObjectParameter("idPersona", typeof(int));
-    
-            var correoParameter = correo != null ?
-                new ObjectParameter("Correo", correo) :
-                new ObjectParameter("Correo", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearCorreo", idPersonaParameter, correoParameter);
-        }
-    
-        public virtual int sp_CrearParroquia(string descripcion, Nullable<int> idCanton)
+        public virtual ObjectResult<sp_CrearParroquia_Result> sp_CrearParroquia(string descripcion, Nullable<int> idCanton)
         {
             var descripcionParameter = descripcion != null ?
                 new ObjectParameter("Descripcion", descripcion) :
@@ -1259,7 +2083,7 @@ namespace Datos
                 new ObjectParameter("IdCanton", idCanton) :
                 new ObjectParameter("IdCanton", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearParroquia", descripcionParameter, idCantonParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearParroquia_Result>("sp_CrearParroquia", descripcionParameter, idCantonParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> sp_CrearPersona(string numeroDocumento, string apellidoPaterno, string apellidoMaterno, string primerNombre, string segundoNombre, Nullable<int> idTipoDocument)
@@ -1291,16 +2115,16 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_CrearPersona", numeroDocumentoParameter, apellidoPaternoParameter, apellidoMaternoParameter, primerNombreParameter, segundoNombreParameter, idTipoDocumentParameter);
         }
     
-        public virtual int sp_CrearProvincia(string descripcion)
+        public virtual ObjectResult<sp_CrearProvincia_Result> sp_CrearProvincia(string descripcion)
         {
             var descripcionParameter = descripcion != null ?
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearProvincia", descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearProvincia_Result>("sp_CrearProvincia", descripcionParameter);
         }
     
-        public virtual int sp_CrearTelefono(Nullable<int> idPersona, string numero, Nullable<int> idTipoTelefono)
+        public virtual ObjectResult<sp_CrearTelefono_Result> sp_CrearTelefono(Nullable<int> idPersona, string numero, Nullable<int> idTipoTelefono)
         {
             var idPersonaParameter = idPersona.HasValue ?
                 new ObjectParameter("idPersona", idPersona) :
@@ -1314,7 +2138,7 @@ namespace Datos
                 new ObjectParameter("idTipoTelefono", idTipoTelefono) :
                 new ObjectParameter("idTipoTelefono", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearTelefono", idPersonaParameter, numeroParameter, idTipoTelefonoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearTelefono_Result>("sp_CrearTelefono", idPersonaParameter, numeroParameter, idTipoTelefonoParameter);
         }
     
         public virtual int sp_EliminarAsignacionPC(Nullable<int> idAsignacionPP)
@@ -1389,6 +2213,19 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarTelefono", idTelefonoParameter);
         }
     
+        public virtual int sp_HabilitarCorreo(Nullable<int> idCorreo, Nullable<int> idPersona)
+        {
+            var idCorreoParameter = idCorreo.HasValue ?
+                new ObjectParameter("IdCorreo", idCorreo) :
+                new ObjectParameter("IdCorreo", typeof(int));
+    
+            var idPersonaParameter = idPersona.HasValue ?
+                new ObjectParameter("IdPersona", idPersona) :
+                new ObjectParameter("IdPersona", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_HabilitarCorreo", idCorreoParameter, idPersonaParameter);
+        }
+    
         public virtual int sp_ModificarAsignacionPC(Nullable<int> idAsignacionPP, Nullable<int> idPersona, Nullable<int> idParroquia)
         {
             var idAsignacionPPParameter = idAsignacionPP.HasValue ?
@@ -1406,7 +2243,7 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarAsignacionPC", idAsignacionPPParameter, idPersonaParameter, idParroquiaParameter);
         }
     
-        public virtual int sp_ModificarCanton(Nullable<int> idCanton, string descripcion, Nullable<int> idProvincia)
+        public virtual ObjectResult<sp_ModificarCanton_Result> sp_ModificarCanton(Nullable<int> idCanton, string descripcion, Nullable<int> idProvincia)
         {
             var idCantonParameter = idCanton.HasValue ?
                 new ObjectParameter("IdCanton", idCanton) :
@@ -1420,10 +2257,10 @@ namespace Datos
                 new ObjectParameter("IdProvincia", idProvincia) :
                 new ObjectParameter("IdProvincia", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarCanton", idCantonParameter, descripcionParameter, idProvinciaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarCanton_Result>("sp_ModificarCanton", idCantonParameter, descripcionParameter, idProvinciaParameter);
         }
     
-        public virtual int sp_ModificarComunidad(Nullable<int> idComunidad, string descripcion, Nullable<int> idParroquia)
+        public virtual ObjectResult<sp_ModificarComunidad_Result> sp_ModificarComunidad(Nullable<int> idComunidad, string descripcion, Nullable<int> idParroquia)
         {
             var idComunidadParameter = idComunidad.HasValue ?
                 new ObjectParameter("IdComunidad", idComunidad) :
@@ -1437,10 +2274,10 @@ namespace Datos
                 new ObjectParameter("IdParroquia", idParroquia) :
                 new ObjectParameter("IdParroquia", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarComunidad", idComunidadParameter, descripcionParameter, idParroquiaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarComunidad_Result>("sp_ModificarComunidad", idComunidadParameter, descripcionParameter, idParroquiaParameter);
         }
     
-        public virtual int sp_ModificarCorreo(Nullable<int> idCorreo, Nullable<int> idPersona, string correo)
+        public virtual ObjectResult<sp_ModificarCorreo_Result> sp_ModificarCorreo(Nullable<int> idCorreo, Nullable<int> idPersona, string correo)
         {
             var idCorreoParameter = idCorreo.HasValue ?
                 new ObjectParameter("IdCorreo", idCorreo) :
@@ -1454,10 +2291,10 @@ namespace Datos
                 new ObjectParameter("Correo", correo) :
                 new ObjectParameter("Correo", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarCorreo", idCorreoParameter, idPersonaParameter, correoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarCorreo_Result>("sp_ModificarCorreo", idCorreoParameter, idPersonaParameter, correoParameter);
         }
     
-        public virtual int sp_ModificarParroquia(Nullable<int> idParroquia, string descripcion, Nullable<int> idCanton)
+        public virtual ObjectResult<sp_ModificarParroquia_Result> sp_ModificarParroquia(Nullable<int> idParroquia, string descripcion, Nullable<int> idCanton)
         {
             var idParroquiaParameter = idParroquia.HasValue ?
                 new ObjectParameter("IdParroquia", idParroquia) :
@@ -1471,10 +2308,10 @@ namespace Datos
                 new ObjectParameter("IdCanton", idCanton) :
                 new ObjectParameter("IdCanton", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarParroquia", idParroquiaParameter, descripcionParameter, idCantonParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarParroquia_Result>("sp_ModificarParroquia", idParroquiaParameter, descripcionParameter, idCantonParameter);
         }
     
-        public virtual int sp_ModificarPersona(Nullable<int> idPersona, string numeroDocumento, string apellidoPaterno, string apellidoMaterno, string primerNombre, string segundoNombre, Nullable<int> idTipoDocument)
+        public virtual ObjectResult<sp_ModificarPersona_Result> sp_ModificarPersona(Nullable<int> idPersona, string numeroDocumento, string apellidoPaterno, string apellidoMaterno, string primerNombre, string segundoNombre, Nullable<int> idTipoDocument)
         {
             var idPersonaParameter = idPersona.HasValue ?
                 new ObjectParameter("IdPersona", idPersona) :
@@ -1504,10 +2341,10 @@ namespace Datos
                 new ObjectParameter("IdTipoDocument", idTipoDocument) :
                 new ObjectParameter("IdTipoDocument", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarPersona", idPersonaParameter, numeroDocumentoParameter, apellidoPaternoParameter, apellidoMaternoParameter, primerNombreParameter, segundoNombreParameter, idTipoDocumentParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarPersona_Result>("sp_ModificarPersona", idPersonaParameter, numeroDocumentoParameter, apellidoPaternoParameter, apellidoMaternoParameter, primerNombreParameter, segundoNombreParameter, idTipoDocumentParameter);
         }
     
-        public virtual int sp_ModificarProvincia(Nullable<int> idProvincia, string descripcion)
+        public virtual ObjectResult<sp_ModificarProvincia_Result> sp_ModificarProvincia(Nullable<int> idProvincia, string descripcion)
         {
             var idProvinciaParameter = idProvincia.HasValue ?
                 new ObjectParameter("IdProvincia", idProvincia) :
@@ -1517,7 +2354,7 @@ namespace Datos
                 new ObjectParameter("Descripcion", descripcion) :
                 new ObjectParameter("Descripcion", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarProvincia", idProvinciaParameter, descripcionParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarProvincia_Result>("sp_ModificarProvincia", idProvinciaParameter, descripcionParameter);
         }
     
         public virtual int sp_ModificarTelefono(Nullable<int> idTelefono, Nullable<int> idPersona, string numero, Nullable<int> idTipoTelefono)
@@ -1555,6 +2392,15 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignacionTU_Result>("sp_ConsultarAsignacionTU");
         }
     
+        public virtual ObjectResult<sp_ConsultarAsignacionTUPorId_Result> sp_ConsultarAsignacionTUPorId(Nullable<int> idAsignacionTU)
+        {
+            var idAsignacionTUParameter = idAsignacionTU.HasValue ?
+                new ObjectParameter("idAsignacionTU", idAsignacionTU) :
+                new ObjectParameter("idAsignacionTU", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignacionTUPorId_Result>("sp_ConsultarAsignacionTUPorId", idAsignacionTUParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarAsignarTipoUsuarioPersona_Result> sp_ConsultarAsignarTipoUsuarioPersona(Nullable<int> idAsignacionTU)
         {
             var idAsignacionTUParameter = idAsignacionTU.HasValue ?
@@ -1583,6 +2429,15 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarModuloTipo_Result>("sp_ConsultarModuloTipo");
         }
     
+        public virtual ObjectResult<sp_ConsultarPersonasDependeDeTipoDeUsuario_Result> sp_ConsultarPersonasDependeDeTipoDeUsuario(Nullable<int> identificador)
+        {
+            var identificadorParameter = identificador.HasValue ?
+                new ObjectParameter("Identificador", identificador) :
+                new ObjectParameter("Identificador", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasDependeDeTipoDeUsuario_Result>("sp_ConsultarPersonasDependeDeTipoDeUsuario", identificadorParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarPrivilegioMT_Result> sp_ConsultarPrivilegioMT()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPrivilegioMT_Result>("sp_ConsultarPrivilegioMT");
@@ -1600,6 +2455,15 @@ namespace Datos
                 new ObjectParameter("idModuloTipo", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPrivilegiosDeUnModulo_Result>("sp_ConsultarPrivilegiosDeUnModulo", idModuloTipoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarTiposDeUsuariosQueNoTieneUnUsuario_Result> sp_ConsultarTiposDeUsuariosQueNoTieneUnUsuario(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTiposDeUsuariosQueNoTieneUnUsuario_Result>("sp_ConsultarTiposDeUsuariosQueNoTieneUnUsuario", idUsuarioParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarTiposUsuarioDeUnaPersona_Result> sp_ConsultarTiposUsuarioDeUnaPersona(Nullable<int> idUsuario)
@@ -1626,6 +2490,24 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarUsuario_Result>("sp_ConsultarUsuario");
         }
     
+        public virtual ObjectResult<sp_ConsultarUsuarioPorId_Result> sp_ConsultarUsuarioPorId(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarUsuarioPorId_Result>("sp_ConsultarUsuarioPorId", idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarUsuarioPorUsuario_Result> sp_ConsultarUsuarioPorUsuario(string usuario)
+        {
+            var usuarioParameter = usuario != null ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarUsuarioPorUsuario_Result>("sp_ConsultarUsuarioPorUsuario", usuarioParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarUsuarios_Result> sp_ConsultarUsuarios()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarUsuarios_Result>("sp_ConsultarUsuarios");
@@ -1636,7 +2518,7 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ConsultarUsuariosYPersonas");
         }
     
-        public virtual int sp_CrearAsignacionTU(Nullable<int> idUsuario, Nullable<int> idTipoUsuario)
+        public virtual ObjectResult<sp_CrearAsignacionTU_Result> sp_CrearAsignacionTU(Nullable<int> idUsuario, Nullable<int> idTipoUsuario)
         {
             var idUsuarioParameter = idUsuario.HasValue ?
                 new ObjectParameter("IdUsuario", idUsuario) :
@@ -1646,7 +2528,7 @@ namespace Datos
                 new ObjectParameter("IdTipoUsuario", idTipoUsuario) :
                 new ObjectParameter("IdTipoUsuario", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearAsignacionTU", idUsuarioParameter, idTipoUsuarioParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearAsignacionTU_Result>("sp_CrearAsignacionTU", idUsuarioParameter, idTipoUsuarioParameter);
         }
     
         public virtual int sp_CrearModuloTipo(Nullable<int> idTipoUsuario, Nullable<int> idModulo)
@@ -1675,7 +2557,7 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearPrivilegioMT", idPrivilegioParameter, idModuloTipoParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> sp_CrearUsuario(Nullable<int> idPersona, string usuario, string contrasena)
+        public virtual ObjectResult<sp_CrearUsuario_Result> sp_CrearUsuario(Nullable<int> idPersona, string usuario, string contrasena)
         {
             var idPersonaParameter = idPersona.HasValue ?
                 new ObjectParameter("IdPersona", idPersona) :
@@ -1689,7 +2571,7 @@ namespace Datos
                 new ObjectParameter("Contrasena", contrasena) :
                 new ObjectParameter("Contrasena", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_CrearUsuario", idPersonaParameter, usuarioParameter, contrasenaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearUsuario_Result>("sp_CrearUsuario", idPersonaParameter, usuarioParameter, contrasenaParameter);
         }
     
         public virtual int sp_EliminarAsignacionTU(Nullable<int> idAsignacionTU)
@@ -1797,7 +2679,7 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarPrivilegioMT", idPRivilegioMTParameter, idPrivilegioParameter, idModuloTipoParameter);
         }
     
-        public virtual int sp_ModificarUsuario(Nullable<int> idUsuario, Nullable<int> idPersona, string usuario, string contrasena)
+        public virtual ObjectResult<sp_ModificarUsuario_Result> sp_ModificarUsuario(Nullable<int> idUsuario, Nullable<int> idPersona, string usuario, string contrasena)
         {
             var idUsuarioParameter = idUsuario.HasValue ?
                 new ObjectParameter("IdUsuario", idUsuario) :
@@ -1815,265 +2697,80 @@ namespace Datos
                 new ObjectParameter("Contrasena", contrasena) :
                 new ObjectParameter("Contrasena", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarUsuario", idUsuarioParameter, idPersonaParameter, usuarioParameter, contrasenaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarUsuario_Result>("sp_ModificarUsuario", idUsuarioParameter, idPersonaParameter, usuarioParameter, contrasenaParameter);
         }
     
-        public virtual ObjectResult<sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result2> sp_ConsultarConfigurarVentaPorIdCabeceraFactura(Nullable<int> idCabeceraFactura)
+        public virtual ObjectResult<Nullable<decimal>> sp_CrearPersona1(string numeroDocumento, string apellidoPaterno, string apellidoMaterno, string primerNombre, string segundoNombre, Nullable<int> idTipoDocument)
         {
-            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
-                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
-                new ObjectParameter("IdCabeceraFactura", typeof(int));
+            var numeroDocumentoParameter = numeroDocumento != null ?
+                new ObjectParameter("NumeroDocumento", numeroDocumento) :
+                new ObjectParameter("NumeroDocumento", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result2>("sp_ConsultarConfigurarVentaPorIdCabeceraFactura", idCabeceraFacturaParameter);
+            var apellidoPaternoParameter = apellidoPaterno != null ?
+                new ObjectParameter("ApellidoPaterno", apellidoPaterno) :
+                new ObjectParameter("ApellidoPaterno", typeof(string));
+    
+            var apellidoMaternoParameter = apellidoMaterno != null ?
+                new ObjectParameter("ApellidoMaterno", apellidoMaterno) :
+                new ObjectParameter("ApellidoMaterno", typeof(string));
+    
+            var primerNombreParameter = primerNombre != null ?
+                new ObjectParameter("PrimerNombre", primerNombre) :
+                new ObjectParameter("PrimerNombre", typeof(string));
+    
+            var segundoNombreParameter = segundoNombre != null ?
+                new ObjectParameter("SegundoNombre", segundoNombre) :
+                new ObjectParameter("SegundoNombre", typeof(string));
+    
+            var idTipoDocumentParameter = idTipoDocument.HasValue ?
+                new ObjectParameter("IdTipoDocument", idTipoDocument) :
+                new ObjectParameter("IdTipoDocument", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_CrearPersona1", numeroDocumentoParameter, apellidoPaternoParameter, apellidoMaternoParameter, primerNombreParameter, segundoNombreParameter, idTipoDocumentParameter);
         }
     
-        public virtual ObjectResult<sp_ConsultarAsignarComunidadFacturaPorIdCabeceraFactura_Result> sp_ConsultarAsignarComunidadFacturaPorIdCabeceraFactura(Nullable<int> idCabeceraFactura)
-        {
-            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
-                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
-                new ObjectParameter("IdCabeceraFactura", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarComunidadFacturaPorIdCabeceraFactura_Result>("sp_ConsultarAsignarComunidadFacturaPorIdCabeceraFactura", idCabeceraFacturaParameter);
-        }
-    
-        public virtual ObjectResult<sp_CrearAsignarComunidadFactura_Result> sp_CrearAsignarComunidadFactura(Nullable<int> idComunidad, Nullable<int> idCabeceraFactura, string observacion)
-        {
-            var idComunidadParameter = idComunidad.HasValue ?
-                new ObjectParameter("IdComunidad", idComunidad) :
-                new ObjectParameter("IdComunidad", typeof(int));
-    
-            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
-                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
-                new ObjectParameter("IdCabeceraFactura", typeof(int));
-    
-            var observacionParameter = observacion != null ?
-                new ObjectParameter("Observacion", observacion) :
-                new ObjectParameter("Observacion", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearAsignarComunidadFactura_Result>("sp_CrearAsignarComunidadFactura", idComunidadParameter, idCabeceraFacturaParameter, observacionParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarComunidad_Result1> sp_ConsultarComunidad()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarComunidad_Result1>("sp_ConsultarComunidad");
-        }
-    
-        public virtual int sp_EliminarAsignarComunidadFactura(Nullable<int> idAsignarComunidadFactura)
-        {
-            var idAsignarComunidadFacturaParameter = idAsignarComunidadFactura.HasValue ?
-                new ObjectParameter("IdAsignarComunidadFactura", idAsignarComunidadFactura) :
-                new ObjectParameter("IdAsignarComunidadFactura", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarAsignarComunidadFactura", idAsignarComunidadFacturaParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad_Result> sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad(Nullable<int> idCabeceraFactura, Nullable<int> idComunidad)
-        {
-            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
-                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
-                new ObjectParameter("IdCabeceraFactura", typeof(int));
-    
-            var idComunidadParameter = idComunidad.HasValue ?
-                new ObjectParameter("IdComunidad", idComunidad) :
-                new ObjectParameter("IdComunidad", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad_Result>("sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad", idCabeceraFacturaParameter, idComunidadParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarPersonasParaRealizarSeguimiento_Result1> sp_ConsultarPersonasParaRealizarSeguimiento()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasParaRealizarSeguimiento_Result1>("sp_ConsultarPersonasParaRealizarSeguimiento");
-        }
-    
-        public virtual ObjectResult<sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona_Result> sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona(Nullable<int> idPersona)
+        public virtual ObjectResult<sp_ConsultarPersonaPorId_Result1> sp_ConsultarPersonaPorId(Nullable<int> idPersona)
         {
             var idPersonaParameter = idPersona.HasValue ?
                 new ObjectParameter("IdPersona", idPersona) :
                 new ObjectParameter("IdPersona", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona_Result>("sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona", idPersonaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonaPorId_Result1>("sp_ConsultarPersonaPorId", idPersonaParameter);
         }
     
-        public virtual ObjectResult<sp_ConsultarAsignarComunidadFacturaPorPersonaYPorComunidad_Result> sp_ConsultarAsignarComunidadFacturaPorPersonaYPorComunidad(Nullable<int> idPersona, Nullable<int> idComunidad)
+        public virtual ObjectResult<sp_ConsultarTiposDeUsuariosQueTieneUnUsuario_Result1> sp_ConsultarTiposDeUsuariosQueTieneUnUsuario(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTiposDeUsuariosQueTieneUnUsuario_Result1>("sp_ConsultarTiposDeUsuariosQueTieneUnUsuario", idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<sp_CrearAsigancionPP_Result1> sp_CrearAsigancionPP(Nullable<int> idPersona, Nullable<int> idParroquia)
         {
             var idPersonaParameter = idPersona.HasValue ?
                 new ObjectParameter("IdPersona", idPersona) :
                 new ObjectParameter("IdPersona", typeof(int));
     
-            var idComunidadParameter = idComunidad.HasValue ?
-                new ObjectParameter("IdComunidad", idComunidad) :
-                new ObjectParameter("IdComunidad", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarComunidadFacturaPorPersonaYPorComunidad_Result>("sp_ConsultarAsignarComunidadFacturaPorPersonaYPorComunidad", idPersonaParameter, idComunidadParameter);
-        }
-    
-        public virtual ObjectResult<sp_CrearAsignarTecnicoPersonaComunidad_Result> sp_CrearAsignarTecnicoPersonaComunidad(Nullable<int> idAsignarTUTecnico, Nullable<int> idPersona, Nullable<int> idComunidad)
-        {
-            var idAsignarTUTecnicoParameter = idAsignarTUTecnico.HasValue ?
-                new ObjectParameter("IdAsignarTUTecnico", idAsignarTUTecnico) :
-                new ObjectParameter("IdAsignarTUTecnico", typeof(int));
-    
-            var idPersonaParameter = idPersona.HasValue ?
-                new ObjectParameter("IdPersona", idPersona) :
-                new ObjectParameter("IdPersona", typeof(int));
-    
-            var idComunidadParameter = idComunidad.HasValue ?
-                new ObjectParameter("IdComunidad", idComunidad) :
-                new ObjectParameter("IdComunidad", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearAsignarTecnicoPersonaComunidad_Result>("sp_CrearAsignarTecnicoPersonaComunidad", idAsignarTUTecnicoParameter, idPersonaParameter, idComunidadParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarPersonasParaRealizarSeguimientoPorPersona_Result> sp_ConsultarPersonasParaRealizarSeguimientoPorPersona(Nullable<int> idPersona)
-        {
-            var idPersonaParameter = idPersona.HasValue ?
-                new ObjectParameter("IdPersona", idPersona) :
-                new ObjectParameter("IdPersona", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasParaRealizarSeguimientoPorPersona_Result>("sp_ConsultarPersonasParaRealizarSeguimientoPorPersona", idPersonaParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarAsignarTecnicoPersonaComunidadPorPersona_Result> sp_ConsultarAsignarTecnicoPersonaComunidadPorPersona(Nullable<int> idPersona)
-        {
-            var idPersonaParameter = idPersona.HasValue ?
-                new ObjectParameter("IdPersona", idPersona) :
-                new ObjectParameter("IdPersona", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarTecnicoPersonaComunidadPorPersona_Result>("sp_ConsultarAsignarTecnicoPersonaComunidadPorPersona", idPersonaParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarAsignarTecnicoPersonaComunidadPorPersonaYComunidad_Result> sp_ConsultarAsignarTecnicoPersonaComunidadPorPersonaYComunidad(Nullable<int> idPersona, Nullable<int> idComunidad)
-        {
-            var idPersonaParameter = idPersona.HasValue ?
-                new ObjectParameter("IdPersona", idPersona) :
-                new ObjectParameter("IdPersona", typeof(int));
-    
-            var idComunidadParameter = idComunidad.HasValue ?
-                new ObjectParameter("IdComunidad", idComunidad) :
-                new ObjectParameter("IdComunidad", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarTecnicoPersonaComunidadPorPersonaYComunidad_Result>("sp_ConsultarAsignarTecnicoPersonaComunidadPorPersonaYComunidad", idPersonaParameter, idComunidadParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarPersonasParaSeguimientoPorCanton_Result2> sp_ConsultarPersonasParaSeguimientoPorCanton(Nullable<int> idCanton)
-        {
-            var idCantonParameter = idCanton.HasValue ?
-                new ObjectParameter("IdCanton", idCanton) :
-                new ObjectParameter("IdCanton", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasParaSeguimientoPorCanton_Result2>("sp_ConsultarPersonasParaSeguimientoPorCanton", idCantonParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarPersonasParaSeguimientoPorComunidad_Result2> sp_ConsultarPersonasParaSeguimientoPorComunidad(Nullable<int> idComunidad)
-        {
-            var idComunidadParameter = idComunidad.HasValue ?
-                new ObjectParameter("IdComunidad", idComunidad) :
-                new ObjectParameter("IdComunidad", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasParaSeguimientoPorComunidad_Result2>("sp_ConsultarPersonasParaSeguimientoPorComunidad", idComunidadParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarPersonasParaSeguimientoPorParroquia_Result2> sp_ConsultarPersonasParaSeguimientoPorParroquia(Nullable<int> idParroquia)
-        {
             var idParroquiaParameter = idParroquia.HasValue ?
                 new ObjectParameter("IdParroquia", idParroquia) :
                 new ObjectParameter("IdParroquia", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasParaSeguimientoPorParroquia_Result2>("sp_ConsultarPersonasParaSeguimientoPorParroquia", idParroquiaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearAsigancionPP_Result1>("sp_CrearAsigancionPP", idPersonaParameter, idParroquiaParameter);
         }
     
-        public virtual ObjectResult<sp_ConsultarPersonasAsignadasAunTecnico_Result> sp_ConsultarPersonasAsignadasAunTecnico(Nullable<int> idAsignarTU)
-        {
-            var idAsignarTUParameter = idAsignarTU.HasValue ?
-                new ObjectParameter("IdAsignarTU", idAsignarTU) :
-                new ObjectParameter("IdAsignarTU", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasAsignadasAunTecnico_Result>("sp_ConsultarPersonasAsignadasAunTecnico", idAsignarTUParameter);
-        }
-    
-        public virtual int sp_EliminarAsignacionPersonaDeUnTecnico(Nullable<int> idPersona)
+        public virtual ObjectResult<sp_CrearCorreo_Result1> sp_CrearCorreo(Nullable<int> idPersona, string correo)
         {
             var idPersonaParameter = idPersona.HasValue ?
-                new ObjectParameter("IdPersona", idPersona) :
-                new ObjectParameter("IdPersona", typeof(int));
+                new ObjectParameter("idPersona", idPersona) :
+                new ObjectParameter("idPersona", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarAsignacionPersonaDeUnTecnico", idPersonaParameter);
-        }
+            var correoParameter = correo != null ?
+                new ObjectParameter("Correo", correo) :
+                new ObjectParameter("Correo", typeof(string));
     
-        public virtual ObjectResult<sp_CrearConfigurarVenta_Result3> sp_CrearConfigurarVenta(Nullable<int> idCabeceraFactura, Nullable<int> idPersona, string estadoConfVenta, Nullable<int> idConfiguracionInteres, string efectivo, Nullable<int> descuento, Nullable<System.DateTime> fechaFinCredito, string aplicaSeguro, Nullable<decimal> valorSeguro, string seguroCancelado)
-        {
-            var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
-                new ObjectParameter("IdCabeceraFactura", idCabeceraFactura) :
-                new ObjectParameter("IdCabeceraFactura", typeof(int));
-    
-            var idPersonaParameter = idPersona.HasValue ?
-                new ObjectParameter("IdPersona", idPersona) :
-                new ObjectParameter("IdPersona", typeof(int));
-    
-            var estadoConfVentaParameter = estadoConfVenta != null ?
-                new ObjectParameter("EstadoConfVenta", estadoConfVenta) :
-                new ObjectParameter("EstadoConfVenta", typeof(string));
-    
-            var idConfiguracionInteresParameter = idConfiguracionInteres.HasValue ?
-                new ObjectParameter("IdConfiguracionInteres", idConfiguracionInteres) :
-                new ObjectParameter("IdConfiguracionInteres", typeof(int));
-    
-            var efectivoParameter = efectivo != null ?
-                new ObjectParameter("Efectivo", efectivo) :
-                new ObjectParameter("Efectivo", typeof(string));
-    
-            var descuentoParameter = descuento.HasValue ?
-                new ObjectParameter("Descuento", descuento) :
-                new ObjectParameter("Descuento", typeof(int));
-    
-            var fechaFinCreditoParameter = fechaFinCredito.HasValue ?
-                new ObjectParameter("FechaFinCredito", fechaFinCredito) :
-                new ObjectParameter("FechaFinCredito", typeof(System.DateTime));
-    
-            var aplicaSeguroParameter = aplicaSeguro != null ?
-                new ObjectParameter("AplicaSeguro", aplicaSeguro) :
-                new ObjectParameter("AplicaSeguro", typeof(string));
-    
-            var valorSeguroParameter = valorSeguro.HasValue ?
-                new ObjectParameter("ValorSeguro", valorSeguro) :
-                new ObjectParameter("ValorSeguro", typeof(decimal));
-    
-            var seguroCanceladoParameter = seguroCancelado != null ?
-                new ObjectParameter("SeguroCancelado", seguroCancelado) :
-                new ObjectParameter("SeguroCancelado", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearConfigurarVenta_Result3>("sp_CrearConfigurarVenta", idCabeceraFacturaParameter, idPersonaParameter, estadoConfVentaParameter, idConfiguracionInteresParameter, efectivoParameter, descuentoParameter, fechaFinCreditoParameter, aplicaSeguroParameter, valorSeguroParameter, seguroCanceladoParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result> sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico(Nullable<int> idPersona, Nullable<int> idTecnico)
-        {
-            var idPersonaParameter = idPersona.HasValue ?
-                new ObjectParameter("IdPersona", idPersona) :
-                new ObjectParameter("IdPersona", typeof(int));
-    
-            var idTecnicoParameter = idTecnico.HasValue ?
-                new ObjectParameter("IdTecnico", idTecnico) :
-                new ObjectParameter("IdTecnico", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result>("sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico", idPersonaParameter, idTecnicoParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarSiUsuarioEsTecnico_Result> sp_ConsultarSiUsuarioEsTecnico(Nullable<int> idAsignacionTU)
-        {
-            var idAsignacionTUParameter = idAsignacionTU.HasValue ?
-                new ObjectParameter("IdAsignacionTU", idAsignacionTU) :
-                new ObjectParameter("IdAsignacionTU", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarSiUsuarioEsTecnico_Result>("sp_ConsultarSiUsuarioEsTecnico", idAsignacionTUParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarPersonasDependeDeTipoDeUsuario_Result1> sp_ConsultarPersonasDependeDeTipoDeUsuario(Nullable<int> identificador)
-        {
-            var identificadorParameter = identificador.HasValue ?
-                new ObjectParameter("Identificador", identificador) :
-                new ObjectParameter("Identificador", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPersonasDependeDeTipoDeUsuario_Result1>("sp_ConsultarPersonasDependeDeTipoDeUsuario", identificadorParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearCorreo_Result1>("sp_CrearCorreo", idPersonaParameter, correoParameter);
         }
     }
 }

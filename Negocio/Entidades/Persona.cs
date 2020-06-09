@@ -30,6 +30,7 @@ namespace Negocio.Entidades
 
 
         public Tokens Tokens { get; set; }
+        public string encriptada { get; set; }
 
     }
 }

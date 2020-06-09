@@ -14,69 +14,57 @@ namespace Negocio.Logica.TalentHumano
         static List<Provincia> ListaProvincia;
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         CatalogoCanton GestionCanton = new CatalogoCanton();
-        public string IngresoProvincia(Provincia Provincia)
+        public Provincia IngresoProvincia(Provincia Provincia)
         {
-            Provincia Provincia1 = ConsultarProvincias().Where(p => p.Descripcion == Provincia.Descripcion.ToUpper()).FirstOrDefault();
-            try
+            foreach (var item in ConexionBD.sp_CrearProvincia(Provincia.Descripcion.ToUpper()))
             {
-                if (Provincia1 == null)
-                {
-                    ConexionBD.sp_CrearProvincia(Provincia.Descripcion.ToUpper());
-                    return "true";
-                }
-                else
-                {
-                    return "400";
-                }
+                Provincia.IdProvincia = Seguridad.Encriptar(item.IdProvincia.ToString());
+                Provincia.Descripcion = item.Descripcion;
+                Provincia.Estado = item.Estado;
+                Provincia.FechaCreacion = item.FechaCreacion;
+                Provincia.PermitirEliminacion = true;
             }
-            catch (Exception)
-            {
-                return "false";
-            }
-
+            return Provincia;
         }
         public bool EliminarProvincia(int IdProvincia)
         {
-            if (GestionCanton.ListaCantonesProvincia(IdProvincia).ToList().Count >0 )
-            {
-                return false;
-            }
-            else
+            try
             {
                 ConexionBD.sp_EliminarProvincia(IdProvincia);
                 return true;
             }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        public string ModificarProvincia(Provincia Provincia)
+        public Provincia ModificarProvincia(Provincia Provincia)
         {
-            Provincia Provincia1 = ConsultarProvincias().Where(p => Seguridad.DesEncriptar(p.IdProvincia) == Provincia.IdProvincia).FirstOrDefault();
             try
             {
-                if (Provincia1 == null)
+                foreach (var item in ConexionBD.sp_ModificarProvincia(int.Parse(Provincia.IdProvincia), Provincia.Descripcion.ToUpper()))
                 {
-                    return "false";
-                }
-                if (Provincia1.Descripcion.Trim().Contains(Provincia.Descripcion.Trim()))
-                {
-                    ConexionBD.sp_ModificarProvincia(int.Parse(Provincia.IdProvincia), Provincia.Descripcion.ToUpper());
-                    return "true";
-                }
-                else
-                {
-                    if (ConsultarProvincias().Where(p => p.Descripcion.Trim() == Provincia.Descripcion.ToUpper().Trim()).FirstOrDefault() == null)
+                    bool PermitirEliminar = false;
+                    if (item.ProvinciaUtilizado == "0")
                     {
-                        ConexionBD.sp_ModificarProvincia(int.Parse(Provincia.IdProvincia), Provincia.Descripcion.ToUpper());
-                        return "true";
+                        PermitirEliminar = true;
                     }
                     else
                     {
-                        return "400";
+                        PermitirEliminar = false;
                     }
+                    Provincia.IdProvincia = Seguridad.Encriptar(item.IdProvincia.ToString());
+                    Provincia.Descripcion = item.Descripcion;
+                    Provincia.Estado = item.Estado;
+                    Provincia.FechaCreacion = item.FechaCreacion;
+                    Provincia.PermitirEliminacion = PermitirEliminar;
                 }
+                return Provincia;
             }
             catch (Exception)
             {
-                return "false";
+                Provincia.IdProvincia = null;
+                return Provincia;
             }
         }
         public CatalogoProvincia()
@@ -84,14 +72,14 @@ namespace Negocio.Logica.TalentHumano
             ListaProvincia = new List<Provincia>();
             foreach (var item in ConexionBD.sp_ConsultarProvincia())
             {
-                bool estadoProvinciaEliminacion;
-                if (GestionCanton.ListaCantonesProvincia(item.IdProvincia).ToList().Count > 0)
+                bool estadoProvinciaEliminacion = false;
+                if (item.ProvinciaUtilizado == "0")
                 {
-                    estadoProvinciaEliminacion = false;
+                    estadoProvinciaEliminacion = true;
                 }
                 else
                 {
-                    estadoProvinciaEliminacion = true;
+                    estadoProvinciaEliminacion = false;
                 }
                 ListaProvincia.Add(new Provincia()
                 {
@@ -100,7 +88,6 @@ namespace Negocio.Logica.TalentHumano
                     FechaCreacion = item.FechaCreacion,
                     Estado = item.Estado,
                     PermitirEliminacion = estadoProvinciaEliminacion,
-
                 });
             }
         }
@@ -108,6 +95,42 @@ namespace Negocio.Logica.TalentHumano
         {
             return ListaProvincia.Where(p=>p.Estado != false).GroupBy(a => a.IdProvincia).Select(grp => grp.First()).ToList();
         }
-
+        public List<Provincia> ConsultarProvinciaPorDescripcion(string Descripcion)
+        {
+            List<Provincia> ListaProvincia = new List<Provincia>();
+            foreach (var item in ConexionBD.sp_ConsultarProvinciaSiexiste(Descripcion))
+            {
+                ListaProvincia.Add(new Provincia()
+                {
+                    IdProvincia = Seguridad.Encriptar(item.IdProvincia.ToString()),
+                    Descripcion = item.Descripcion,
+                });
+            }
+            return ListaProvincia;
+        }
+        public List<Provincia> ConsultarProvinciaPorId(int IdProvincia)
+        {
+            List<Provincia> ListaProvincia = new List<Provincia>();
+            foreach (var item in ConexionBD.sp_ConsultarProvinciaPorId(IdProvincia))
+            {
+                bool permitirEliminar = false;
+                if (item.ProvinciaUtilizado=="0")
+                {
+                    permitirEliminar = true;
+                }
+                else
+                {
+                    permitirEliminar = false;
+                }
+                ListaProvincia.Add(new Provincia()
+                {
+                    IdProvincia = Seguridad.Encriptar(item.IdProvincia.ToString()),
+                    Descripcion = item.Descripcion,
+                    Estado = item.Estado,
+                    PermitirEliminacion = permitirEliminar
+                });
+            }
+            return ListaProvincia;
+        }
     }
 }

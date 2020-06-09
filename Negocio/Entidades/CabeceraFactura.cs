@@ -32,4 +32,22 @@ namespace Negocio.Entidades
         public decimal? TotalDescuento { get; set; }
         public decimal? TotalIva { get; set; }
     }
+
+    public class FacturasPendientePorPersona
+    {
+        public string IdCabeceraFactura { get; set; }
+        public string Codigo { get; set; }
+        public string IdAsignacionTU { get; set; }
+        public string IdTipoTransaccion { get; set; }
+        public DateTime? FechaGeneracion { get; set; }
+        public bool EstadoCabeceraFactura { get; set; }
+        public bool Finalizado { get; set; }
+        public string encriptada { get; set; }
+        public TipoTransaccion TipoTransaccion { get; set; }
+        public decimal? Subtotal { get; set; }
+        public decimal? Total { get; set; }
+        public decimal? TotalDescuento { get; set; }
+        public decimal? TotalIva { get; set; }
+        public ConfigurarVenta ConfigurarVenta { get; set; }
+    }
 }

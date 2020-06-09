@@ -30,5 +30,6 @@ namespace Negocio.Entidades.DatoUsuarios
         public TipoDocumento _objTipoDocumento { get; set; }
         public List<Comunidad> ListaComunidad { get; set; }
         public List<AsignarTecnicoPersonaComunidad> _AsignarTecnicoPersonaComunidad { get; set; }
+        public string Correo { get; set; }
     }
 }

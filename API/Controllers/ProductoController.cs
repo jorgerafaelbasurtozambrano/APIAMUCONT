@@ -37,23 +37,58 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Producto.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                Producto.IdTipoProducto = Seguridad.DesEncriptar(Producto.IdTipoProducto);
-                respuesta = GestionProducto.IngresarProducto(Producto);
+                if (Producto.IdTipoProducto == null || string.IsNullOrEmpty(Producto.IdTipoProducto.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Por favor ingrese el id tipo producto";
+                }
+                else if(Producto.Nombre == null || string.IsNullOrEmpty(Producto.Nombre.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Por favor ingrese el nombre del producto";
+                }
+                else
+                {
+                    Producto.IdTipoProducto = Seguridad.DesEncriptar(Producto.IdTipoProducto);
+                    Producto DatoProducto = new Producto();
+                    DatoProducto = GestionProducto.ConsultarProductoPorNombre(Producto.Nombre).FirstOrDefault();
+                    if (DatoProducto == null)
+                    {
+                        DatoProducto = new Producto();
+                        DatoProducto = GestionProducto.IngresarProducto(Producto);
+                        if (DatoProducto.IdProducto == null || string.IsNullOrEmpty(DatoProducto.IdProducto))
+                        {
+                            codigo = "500";
+                            mensaje = "Ocurrio un error al intentar guardar el producto";
+                        }
+                        else
+                        {
+                            codigo = "200";
+                            mensaje = "Exito";
+                            respuesta = DatoProducto;
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                    else
+                    {
+                        codigo = "500";
+                        mensaje = "El producto "+DatoProducto.Nombre + " ya existe";
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

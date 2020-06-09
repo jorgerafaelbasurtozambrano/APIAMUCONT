@@ -10,9 +10,9 @@ namespace Negocio.Entidades
     {
         public string IdLote { get; set; }
         public string Codigo { get; set; }
-        public int Capacidad { get; set; }
-        public DateTime FechaExpiracion { get; set; }
-        public bool Estado { get; set; }
+        public int? Capacidad { get; set; }
+        public DateTime? FechaExpiracion { get; set; }
+        public bool? Estado { get; set; }
         public string encriptada { get; set; }
         public string LoteUtilizado { get; set; }
         public AsignarProductoLote AsignarProductoLote { get; set; }

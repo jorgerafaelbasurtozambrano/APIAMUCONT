@@ -16,15 +16,14 @@ namespace Datos
         public int IdConfigurarVenta { get; set; }
         public int IdCabeceraFactura { get; set; }
         public int IdPersona { get; set; }
-        public Nullable<int> IdSembrio { get; set; }
         public bool EstadoConfVenta { get; set; }
         public Nullable<int> IdConfiguracionInteres { get; set; }
         public bool Efectivo { get; set; }
         public Nullable<int> Descuento { get; set; }
         public Nullable<System.DateTime> FechaFinCredito { get; set; }
-        public bool AplicaSeguro { get; set; }
+        public Nullable<bool> AplicaSeguro { get; set; }
         public Nullable<decimal> ValorSeguro { get; set; }
         public Nullable<bool> SeguroCancelado { get; set; }
-        public Nullable<int> IdAsignarTecnicoSembrio { get; set; }
+        public Nullable<int> IdAsignarTecnicoPersonaComunidad { get; set; }
     }
 }

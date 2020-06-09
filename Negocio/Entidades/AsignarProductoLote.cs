@@ -24,6 +24,7 @@ namespace Negocio.Entidades
         public ConfigurarProductos ConfigurarProductos { get; set; }
         //public AsignarProductosKits AsignarProductoKits { get; set; }
         public AsignarProductoKit AsignarProductoKit { get; set; }
+        public string Utilizado { get; set; }
 
     }
 }

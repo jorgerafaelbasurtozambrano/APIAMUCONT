@@ -17,76 +17,117 @@ namespace Negocio.Logica.Inventario
         AMUCOMTEntities ConexionBD = new AMUCOMTEntities();
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         static List<ConfigurarProductos> ListaConfigurarProductos;
-        public object InsertarConfigurarProducto(ConfigurarProducto ConfigurarProducto)
+        public ConfigurarProducto InsertarConfigurarProducto(ConfigurarProducto ConfigurarProducto)
         {
-            try
+            foreach (var item in ConexionBD.sp_CrearConfigurarProducto(int.Parse(ConfigurarProducto.IdAsignacionTu), int.Parse(ConfigurarProducto.IdProducto), int.Parse(ConfigurarProducto.IdMedida), int.Parse(ConfigurarProducto.IdPresentacion), ConfigurarProducto.Codigo, ConfigurarProducto.CantidadMedida, ConfigurarProducto.Iva))
             {
-                var ListaProductos = ListarConfigurarProductosTodos();
-                if (ListaProductos.Where(p => p.Codigo == ConfigurarProducto.Codigo).FirstOrDefault() == null)
+                ConfigurarProducto.IdConfigurarProducto = Seguridad.Encriptar(item.IdConfigurarProducto.ToString());
+                ConfigurarProducto.IdAsignacionTu = Seguridad.Encriptar(item.IdAsignacionTU.ToString());
+                ConfigurarProducto.IdProducto = Seguridad.Encriptar(item.IdProducto.ToString());
+                ConfigurarProducto.IdMedida = Seguridad.Encriptar(item.IdMedida.ToString());
+                ConfigurarProducto.IdPresentacion = Seguridad.Encriptar(item.IdPresentacion.ToString());
+                ConfigurarProducto.Codigo = item.Codigo;
+                ConfigurarProducto.CantidadMedida = item.CantidadMedida;
+                ConfigurarProducto.FechaCreacion = item.FechaCreacion;
+                ConfigurarProducto.FechaActualizacion = item.FechaActualizacion;
+                ConfigurarProducto.estado = item.Estado;
+            }
+            return ConfigurarProducto;
+        }
+        public List<ConfigurarProductos> ConsultarConfigurarProductoPorId(int IdConfigurarProducto)
+        {
+            List<ConfigurarProductos> ListaConfiguracion = new List<ConfigurarProductos>();
+            foreach (var item in ConexionBD.sp_ConsultarConfigurarProductoPorId(IdConfigurarProducto))
+            {
+                string estado = "0";
+                if (item.ConfiguracionUtilizado == "1" || item.ConfiguracionUtilizado1 == "1")
                 {
-                    if (ListaProductos.Where(p => Seguridad.DesEncriptar(p.Producto.IdProducto) == ConfigurarProducto.IdProducto && Seguridad.DesEncriptar(p.Medida.IdMedida) == ConfigurarProducto.IdMedida && Seguridad.DesEncriptar(p.Presentacion.IdPresentacion) == ConfigurarProducto.IdPresentacion && p.CantidadMedida == ConfigurarProducto.CantidadMedida).FirstOrDefault() == null)
+                    estado = "1";
+                }
+                else
+                {
+                    estado = "0";
+                }
+                ListaConfiguracion.Add(new ConfigurarProductos()
+                {
+                    IdConfigurarProducto = Seguridad.Encriptar(item.ConfigurarProductoIdConfigurarProducto.ToString()),
+                    CantidadMedida = item.ConfigurarProductoCantidadMedida,
+                    FechaCreacion = item.ConfigurarProductoFechaCreacion,
+                    FechaActualizacion = item.ConfigurarProductoFechaActualizacion,
+                    estado = item.ConfigurarProductoEstado,
+                    ConfigurarProductosUtilizado = estado,
+                    IdAsignacionTu = Seguridad.Encriptar(item.ConfigurarProductoIdAsignacionTU.ToString()),
+                    Codigo = item.ConfigurarProductoCodigo,
+                    PrecioConfigurarProducto = new PrecioConfigurarProducto()
                     {
-                        foreach (var item in ConexionBD.sp_CrearConfigurarProducto(int.Parse(ConfigurarProducto.IdAsignacionTu), int.Parse(ConfigurarProducto.IdProducto), int.Parse(ConfigurarProducto.IdMedida), int.Parse(ConfigurarProducto.IdPresentacion), ConfigurarProducto.Codigo, ConfigurarProducto.CantidadMedida,ConfigurarProducto.Iva))
+                        IdPrecioConfigurarProducto = Seguridad.Encriptar(item.PrecioConfiguracionProductoIdPrecioConfiguracionProducto.ToString()),
+                        IdConfigurarProducto = Seguridad.Encriptar(item.PrecioConfiguracionProductoIdConfigurarProducto.ToString()),
+                        FechaRegistro = item.PrecioConfiguracionProductoFechaRegistro,
+                        Precio = item.PrecioConfiguracionProductoPrecio,
+                        Estado = item.PrecioConfiguracionProductoEstado.ToString()
+                    },
+                    Producto = new Producto()
+                    {
+                        IdProducto = Seguridad.Encriptar(item.ProductoIdProducto.ToString()),
+                        IdTipoProducto = Seguridad.Encriptar(item.ProductoIdTipoProducto.ToString()),
+                        Descripcion = item.ProductoDescripcion,
+                        Nombre = item.ProductoNombre,
+                        FechaCreacion = item.ProductoFechaCreacion,
+                        FechaActualizacion = item.TipoProductoFechaActualizacion,
+                        Estado = item.ProductoEstado,
+                        TipoProducto = new TipoProducto()
                         {
-                            ConfigurarProducto.IdConfigurarProducto = Seguridad.Encriptar(item.IdConfigurarProducto.ToString());
-                            ConfigurarProducto.IdAsignacionTu = Seguridad.Encriptar(item.IdAsignacionTU.ToString());
-                            ConfigurarProducto.IdProducto = Seguridad.Encriptar(item.IdProducto.ToString());
-                            ConfigurarProducto.IdMedida = Seguridad.Encriptar(item.IdMedida.ToString());
-                            ConfigurarProducto.IdPresentacion = Seguridad.Encriptar(item.IdPresentacion.ToString());
-                            ConfigurarProducto.Codigo = item.Codigo;
-                            ConfigurarProducto.CantidadMedida = item.CantidadMedida;
-                            ConfigurarProducto.FechaCreacion = item.FechaCreacion;
-                            ConfigurarProducto.FechaActualizacion = item.FechaActualizacion;
-                            ConfigurarProducto.estado = item.Estado;
-                        }
-                        return ConfigurarProducto;
-                    }
-                    else
+                            IdTipoProducto = Seguridad.Encriptar(item.TipoProductoIdTipoProducto.ToString()),
+                            Descripcion = item.TipoProductoDescripcion,
+                            FechaCreacion = item.TipoProductoFechaCreacion,
+                            FechaModificacion = item.TipoProductoFechaActualizacion,
+                            estado = item.TipoProductoestado,
+                        },
+                    },
+                    Medida = new Medida()
                     {
-                        return "400";
-                    }
-                }
-                else
-                {
-                    return "400";
-                }
+                        IdMedida = Seguridad.Encriptar(item.MedidaIdMedida.ToString()),
+                        Descripcion = item.MedidaDescripcion,
+                        FechaCreacion = item.MedidaFechaCreacion,
+                        Estado = item.MedidaEstado,
+                    },
+                    Presentacion = new Presentacion()
+                    {
+                        IdPresentacion = Seguridad.Encriptar(item.PresentacionIdPresentacion.ToString()),
+                        Descripcion = item.PresentacionDescripcion,
+                        FechaActualizacion = item.PresentacionFechaActualizacion,
+                        FechaCreacion = item.PresentacionFechaCreacion,
+                        Estado = item.PresentacionEstado,
+                    },
+                    Iva = item.ConfigurarProductoIva
+                });
             }
-            catch (Exception e)
-            {
-                return false;
-            }
+            return ListaConfiguracion;
         }
-        public bool EliminarConfigurarProducto(int IdConfigurarProducto,int IdProducto)
+        public List<Producto> ConsultarProductoPorId(int idProducto)
+        {
+            List<Producto> ListaProducto = new List<Producto>();
+            foreach (var item in ConexionBD.sp_ConsultarProductoPorId(idProducto))
+            {
+                ListaProducto.Add(new Producto()
+                {
+                    IdProducto = Seguridad.Encriptar(item.IdProducto.ToString()),
+                    ProductoUtilizado = item.ProductoUtilizado
+                });
+            }
+            return ListaProducto;
+        }
+        public bool EliminarConfigurarProducto(ConfigurarProductos _ConfigurarProducto)
         {
             try
             {
-                var listaPrecio = GestionPrecioConfigurarProducto.ListarPrecioConfigurarProducto().Where(p => Seguridad.DesEncriptar(p.IdConfigurarProducto) == IdConfigurarProducto.ToString()).ToList();
-                foreach (var item in listaPrecio)
+                ConexionBD.sp_EliminarConfigurarProducto(int.Parse(Seguridad.DesEncriptar(_ConfigurarProducto.IdConfigurarProducto)));
+                Producto DatoProducto = new Producto();
+                DatoProducto = ConsultarProductoPorId(int.Parse(Seguridad.DesEncriptar(_ConfigurarProducto.Producto.IdProducto))).FirstOrDefault();
+                if (DatoProducto.ProductoUtilizado == "0")
                 {
-                    ConexionBD.sp_EliminarTotalmentePrecioConfiguracionProducto(int.Parse(Seguridad.DesEncriptar(item.IdPrecioConfigurarProducto)));
+                    GestionProducto.EliminarProducto(int.Parse(Seguridad.DesEncriptar(_ConfigurarProducto.Producto.IdProducto)));
                 }
-                if (ConexionBD.sp_EliminarConfiguracionYProducto(IdProducto).Count()==1)
-                {
-                    ConexionBD.sp_EliminarConfigurarProducto(IdConfigurarProducto);
-                    GestionProducto.EliminarProducto(IdProducto);
-                    return true;
-                }
-                else
-                {
-                    ConexionBD.sp_EliminarConfigurarProducto(IdConfigurarProducto);
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-        public bool ModificarConfigurarProducto(ConfigurarProducto ConfigurarProducto)
-        {
-            try
-            {
-                ConexionBD.sp_ModificarConfigurarProducto(int.Parse(ConfigurarProducto.IdConfigurarProducto), int.Parse(ConfigurarProducto.IdAsignacionTu), int.Parse(ConfigurarProducto.IdProducto), int.Parse(ConfigurarProducto.IdMedida), int.Parse(ConfigurarProducto.IdPresentacion),ConfigurarProducto.Codigo, ConfigurarProducto.CantidadMedida, ConfigurarProducto.Iva);
                 return true;
             }
             catch (Exception)
@@ -94,15 +135,87 @@ namespace Negocio.Logica.Inventario
                 return false;
             }
         }
+        public ConfigurarProductos ModificarConfigurarProducto(ConfigurarProducto ConfigurarProducto)
+        {
+            ConfigurarProductos DatoConfigurarProducto = new ConfigurarProductos();
+            try
+            {
+                foreach (var item in ConexionBD.sp_ModificarConfigurarProducto(int.Parse(ConfigurarProducto.IdConfigurarProducto), int.Parse(ConfigurarProducto.IdAsignacionTu), int.Parse(ConfigurarProducto.IdProducto), int.Parse(ConfigurarProducto.IdMedida), int.Parse(ConfigurarProducto.IdPresentacion), ConfigurarProducto.Codigo, ConfigurarProducto.CantidadMedida, ConfigurarProducto.Iva))
+                {
+                    string estado = "0";
+                    if (item.ConfiguracionProductoUtilizado == "1" || item.ConfiguracionUtilizado1 == "1")
+                    {
+                        estado = "1";
+                    }
+                    else
+                    {
+                        estado = "0";
+                    }
+                    DatoConfigurarProducto.IdConfigurarProducto = Seguridad.Encriptar(item.ConfigurarProductoIdConfigurarProducto.ToString());
+                    DatoConfigurarProducto.CantidadMedida = item.ConfigurarProductoCantidadMedida;
+                    DatoConfigurarProducto.FechaCreacion = item.ConfigurarProductoFechaCreacion;
+                    DatoConfigurarProducto.FechaActualizacion = item.ConfigurarProductoFechaActualizacion;
+                    DatoConfigurarProducto.estado = item.ConfigurarProductoEstado;
+                    DatoConfigurarProducto.ConfigurarProductosUtilizado = estado;
+                    DatoConfigurarProducto.IdAsignacionTu = Seguridad.Encriptar(item.ConfigurarProductoIdAsignacionTU.ToString());
+                    DatoConfigurarProducto.Codigo = item.ConfigurarProductoCodigo;
+                    DatoConfigurarProducto.PrecioConfigurarProducto = new PrecioConfigurarProducto()
+                    {
+                        IdPrecioConfigurarProducto = Seguridad.Encriptar(item.PrecioConfiguracionProductoIdPrecioConfiguracionProducto.ToString()),
+                        IdConfigurarProducto = Seguridad.Encriptar(item.PrecioConfiguracionProductoIdConfigurarProducto.ToString()),
+                        FechaRegistro = item.PrecioConfiguracionProductoFechaRegistro,
+                        Precio = item.PrecioConfiguracionProductoPrecio,
+                        Estado = item.PrecioConfiguracionProductoEstado.ToString()
+                    };
+                    DatoConfigurarProducto.Producto = new Producto()
+                    {
+                        IdProducto = Seguridad.Encriptar(item.ProductoIdProducto.ToString()),
+                        IdTipoProducto = Seguridad.Encriptar(item.ProductoIdTipoProducto.ToString()),
+                        Descripcion = item.ProductoDescripcion,
+                        Nombre = item.ProductoNombre,
+                        FechaCreacion = item.ProductoFechaCreacion,
+                        FechaActualizacion = item.TipoProductoFechaActualizacion,
+                        Estado = item.ProductoEstado,
+                        TipoProducto = new TipoProducto()
+                        {
+                            IdTipoProducto = Seguridad.Encriptar(item.TipoProductoIdTipoProducto.ToString()),
+                            Descripcion = item.TipoProductoDescripcion,
+                            FechaCreacion = item.TipoProductoFechaCreacion,
+                            FechaModificacion = item.TipoProductoFechaActualizacion,
+                        },
+                    };
+                    DatoConfigurarProducto.Medida = new Medida()
+                    {
+                        IdMedida = Seguridad.Encriptar(item.MedidaIdMedida.ToString()),
+                        Descripcion = item.MedidaDescripcion,
+                        FechaCreacion = item.MedidaFechaCreacion,
+                        Estado = item.MedidaEstado,
+                    };
+                    DatoConfigurarProducto.Presentacion = new Presentacion()
+                    {
+                        IdPresentacion = Seguridad.Encriptar(item.PresentacionIdPresentacion.ToString()),
+                        Descripcion = item.PresentacionDescripcion,
+                        FechaActualizacion = item.PresentacionFechaActualizacion,
+                        FechaCreacion = item.PresentacionFechaCreacion,
+                        Estado = item.PresentacionEstado,
+                    };
+                    DatoConfigurarProducto.Iva = item.ConfigurarProductoIva;
+                }
+                return DatoConfigurarProducto;
+            }
+            catch (Exception)
+            {
+                DatoConfigurarProducto.IdConfigurarProducto = null;
+                return DatoConfigurarProducto;
+            }
+        }
         public void CargarConfigurarProductos()
         {
-            var listaAsignarProductoLote = CargarDatosAsignarProductoLoteQueNoPerteneceaAkit();
             ListaConfigurarProductos = new List<ConfigurarProductos>();
-            var ListaPrecios = GestionPrecioConfigurarProducto.ListarPrecioConfigurarProducto();
             foreach (var item in ConexionBD.sp_ConsultarConfigurarProducto())
             {
                 string estado = "0";
-                if (item.ConfiguracionProductoUtilizado == "1" || listaAsignarProductoLote.Where(p=>Seguridad.DesEncriptar(p.IdRelacionLogica) == item.ConfigurarProductoIdConfigurarProducto.ToString()).FirstOrDefault() != null)
+                if (item.ConfiguracionProductoUtilizado == "1" || item.ConfiguracionUtilizado1 == "1")
                 {
                     estado = "1";
                 }
@@ -117,11 +230,17 @@ namespace Negocio.Logica.Inventario
                     FechaCreacion = item.ConfigurarProductoFechaCreacion,
                     FechaActualizacion = item.ConfigurarProductoFechaActualizacion,
                     estado = item.ConfigurarProductoEstado,
-                    //ConfigurarProductosUtilizado = item.ConfiguracionProductoUtilizado,
                     ConfigurarProductosUtilizado = estado,
                     IdAsignacionTu = Seguridad.Encriptar(item.ConfigurarProductoIdAsignacionTU.ToString()),
                     Codigo =item.ConfigurarProductoCodigo,
-                    PrecioConfigurarProducto = ListaPrecios.Where(p=> Seguridad.DesEncriptar(p.IdConfigurarProducto) == item.ConfigurarProductoIdConfigurarProducto.ToString() && p.Estado == "True").FirstOrDefault(),
+                    PrecioConfigurarProducto = new PrecioConfigurarProducto()
+                    {
+                        IdPrecioConfigurarProducto = Seguridad.Encriptar(item.PrecioConfiguracionProductoIdPrecioConfiguracionProducto.ToString()),
+                        IdConfigurarProducto = Seguridad.Encriptar(item.PrecioConfiguracionProductoIdConfigurarProducto.ToString()),
+                        FechaRegistro = item.PrecioConfiguracionProductoFechaRegistro,
+                        Precio = item.PrecioConfiguracionProductoPrecio,
+                        Estado = item.PrecioConfiguracionProductoEstado.ToString()
+                    },
                     Producto = new Producto()
                     {
                         IdProducto = Seguridad.Encriptar(item.ProductoIdProducto.ToString()),
@@ -254,6 +373,42 @@ namespace Negocio.Logica.Inventario
                 });
             }
             return ListaConfigurarProductos.GroupBy(a => a.IdConfigurarProducto).Select(grp => grp.First()).ToList(); ;
+        }
+        public List<ConfigurarProductos> ConsultarConfiguracionProductoPorCodigo(string Codigo)
+        {
+            List<ConfigurarProductos> DatoConfigurarProducto = new List<ConfigurarProductos>();
+            foreach (var item in ConexionBD.spConsultarConfigurarProductoPorCodigo(Codigo.Trim()))
+            {
+                DatoConfigurarProducto.Add(new ConfigurarProductos()
+                {
+                    IdConfigurarProducto = Seguridad.Encriptar(item.IdConfigurarProducto.ToString()),
+                    CantidadMedida = item.CantidadMedida,
+                    FechaCreacion = item.FechaCreacion,
+                    FechaActualizacion = item.FechaActualizacion,
+                    estado = item.Estado,
+                    IdAsignacionTu = Seguridad.Encriptar(item.IdAsignacionTU.ToString()),
+                    Codigo = item.Codigo,
+                });
+            }
+            return DatoConfigurarProducto;
+        }
+        public List<ConfigurarProducto> ConsultarSiExisteYaUnaConfiguracion(ConfigurarProducto _ConfigurarProductos)
+        {
+            List<ConfigurarProducto> DatoConfigurarProducto = new List<ConfigurarProducto>();
+            foreach (var item in ConexionBD.spConsultarSiExisteYaUnaConfiguracion(int.Parse(_ConfigurarProductos.IdProducto),int.Parse(_ConfigurarProductos.IdMedida),int.Parse(_ConfigurarProductos.IdPresentacion), _ConfigurarProductos.CantidadMedida))
+            {
+                DatoConfigurarProducto.Add(new ConfigurarProducto()
+                {
+                    IdConfigurarProducto = Seguridad.Encriptar(item.IdConfigurarProducto.ToString()),
+                    CantidadMedida = item.CantidadMedida,
+                    FechaCreacion = item.FechaCreacion,
+                    FechaActualizacion = item.FechaActualizacion,
+                    estado = item.Estado,
+                    IdAsignacionTu = Seguridad.Encriptar(item.IdAsignacionTU.ToString()),
+                    Codigo = item.Codigo,
+                });
+            }
+            return DatoConfigurarProducto;
         }
     }
 }

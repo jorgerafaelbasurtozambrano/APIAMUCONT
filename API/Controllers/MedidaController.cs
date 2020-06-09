@@ -34,22 +34,53 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Medida.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                respuesta = GestionMedida.InsertarMedida(Medida);
+                if (Medida.Descripcion == null || string.IsNullOrEmpty(Medida.Descripcion.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Por favor ingrese la descripcion a guardar";
+                }
+                else
+                {
+                    Medida DatoMedida = new Medida();
+                    DatoMedida = GestionMedida.ConsultarMedidaPorDescripcion(Medida.Descripcion).FirstOrDefault();
+                    if (DatoMedida == null)
+                    {
+                        DatoMedida = new Medida();
+                        DatoMedida = GestionMedida.InsertarMedida(Medida);
+                        if (DatoMedida.IdMedida == null || string.IsNullOrEmpty(DatoMedida.IdMedida))
+                        {
+                            mensaje = "Ocurrio un error al ingresar la medida";
+                            codigo = "500";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            respuesta = DatoMedida;
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                    else
+                    {
+                        mensaje = "La medida "+ DatoMedida.Descripcion+ " ya existe";
+                        codigo = "500";
+                    }
+                }
+                
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -71,24 +102,53 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Medida.encriptada, _claveDelete.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _claveDelete.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                Medida.IdMedida = Seguridad.DesEncriptar(Medida.IdMedida);
-
-                respuesta = GestionMedida.EliminarMedida(int.Parse(Medida.IdMedida));
+                if (Medida.IdMedida == null || string.IsNullOrEmpty(Medida.IdMedida.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el id de la medida a eliminar";
+                }
+                else
+                {
+                    Medida.IdMedida = Seguridad.DesEncriptar(Medida.IdMedida);
+                    Medida DatoMedida = new Medida();
+                    DatoMedida = GestionMedida.ConsultarMedidaPorId(int.Parse(Medida.IdMedida)).FirstOrDefault();
+                    if (DatoMedida == null)
+                    {
+                        codigo = "500";
+                        mensaje = "La medida que intenta eliminar no existe";
+                    }
+                    else if(DatoMedida.MedidaUtilizado == "1")
+                    {
+                        codigo = "500";
+                        mensaje = "La medida que intenta eliminar ya esta siendo usada";
+                    }
+                    else
+                    {
+                        if (GestionMedida.EliminarMedida(int.Parse(Medida.IdMedida)) == true)
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                        }
+                        else
+                        {
+                            mensaje = "Ocurrio un error al intentar eliminar la medida";
+                            codigo = "500";
+                        }
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -110,10 +170,55 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Medida.encriptada, _clavePut.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePut.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                Medida.IdMedida = Seguridad.DesEncriptar(Medida.IdMedida);
-                respuesta = GestionMedida.ModificarMedida(Medida);
+                if (Medida.IdMedida == null || string.IsNullOrEmpty(Medida.IdMedida.Trim()))
+                {
+                    mensaje = "Ingrese el id medida";
+                    codigo = "418";
+                }
+                else if(Medida.Descripcion == null || string.IsNullOrEmpty(Medida.Descripcion.Trim()))
+                {
+                    mensaje = "Ingrese la medida";
+                    codigo = "418";
+                }
+                else
+                {
+                    Medida DatoMedida = new Medida();
+                    DatoMedida = GestionMedida.ConsultarMedidaPorDescripcion(Medida.Descripcion).FirstOrDefault();
+                    if (DatoMedida == null)
+                    {
+                        DatoMedida = new Medida();
+                        Medida.IdMedida = Seguridad.DesEncriptar(Medida.IdMedida);
+                        DatoMedida = GestionMedida.ConsultarMedidaPorId(int.Parse(Medida.IdMedida)).FirstOrDefault();
+                        if (DatoMedida == null)
+                        {
+                            mensaje = "La medida que desea actualizar no existe";
+                            codigo = "500";
+                        }
+                        else
+                        {
+                            DatoMedida = new Medida();
+                            DatoMedida = GestionMedida.ModificarMedida(Medida);
+                            if (DatoMedida.IdMedida == null || string.IsNullOrEmpty(DatoMedida.IdMedida.Trim()))
+                            {
+                                mensaje = "Ocurrio un error al tratar de modificar la medida";
+                                codigo = "500";
+                            }
+                            else
+                            {
+                                codigo = "200";
+                                mensaje = "EXITO";
+                                respuesta = DatoMedida;
+                                objeto = new { codigo, mensaje, respuesta };
+                                return objeto;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        mensaje = "La medida "+ DatoMedida.Descripcion+ " ya existe";
+                        codigo = "418";
+                    }
+                }
 
                 //}
                 //else
@@ -121,13 +226,13 @@ namespace API.Controllers
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

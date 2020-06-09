@@ -22,5 +22,6 @@ namespace Datos
         public int CantonIdCanton { get; set; }
         public string CantonDescripcion { get; set; }
         public bool CantonEstado { get; set; }
+        public string ParroquiaUtilizado { get; set; }
     }
 }

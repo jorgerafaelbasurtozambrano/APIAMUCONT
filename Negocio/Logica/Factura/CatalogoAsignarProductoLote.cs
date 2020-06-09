@@ -19,12 +19,48 @@ namespace Negocio.Logica.Factura
         CatalogoConfigurarProducto GestionConfigurarProducto = new CatalogoConfigurarProducto();
         CatalogoLote GestionLote = new CatalogoLote();
 
+        public AsignarProductoLote CrearAsignarProductoLote(AsignarProductoLote _AsignarProductoLote)
+        {
+            foreach (var item in ConexionBD.sp_CrearAsignarProductoLote(null, int.Parse(_AsignarProductoLote.IdRelacionLogica), Convert.ToBoolean(_AsignarProductoLote.PerteneceKit), _AsignarProductoLote.FechaExpiracion, _AsignarProductoLote.ValorUnitario))
+            {
+                _AsignarProductoLote.IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString());
+                _AsignarProductoLote.IdLote = Seguridad.Encriptar(item.IdLote.ToString());
+                _AsignarProductoLote.IdRelacionLogica = Seguridad.Encriptar(item.IdRelacionLogica.ToString());
+                _AsignarProductoLote.PerteneceKit = item.PerteneceKit.ToString();
+                _AsignarProductoLote.FechaExpiracion = item.FechaExpiracion;
+            }
+            return _AsignarProductoLote;
+        }
+        public AsignarProductoLote CrearAsignarProductoLoteConLote(AsignarProductoLote _AsignarProductoLote)
+        {
+            foreach (var item in ConexionBD.sp_CrearAsignarProductoLote(int.Parse(_AsignarProductoLote.IdLote), int.Parse(_AsignarProductoLote.IdRelacionLogica), Convert.ToBoolean(_AsignarProductoLote.PerteneceKit), null, _AsignarProductoLote.ValorUnitario))
+            {
+                _AsignarProductoLote.IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString());
+                _AsignarProductoLote.IdLote = Seguridad.Encriptar(item.IdLote.ToString());
+                _AsignarProductoLote.IdRelacionLogica = Seguridad.Encriptar(item.IdRelacionLogica.ToString());
+                _AsignarProductoLote.PerteneceKit = item.PerteneceKit.ToString();
+                _AsignarProductoLote.FechaExpiracion = item.FechaExpiracion;
+            }
+            return _AsignarProductoLote;
+        }
+        public bool AumentarDetalleFactura(DetalleFactura DataDetalleFactura)
+        {
+            try
+            {
+                ConexionBD.sp_AumentarDetalleFactura(int.Parse(Seguridad.DesEncriptar(DataDetalleFactura.IdDetalleFactura)), DataDetalleFactura.Cantidad);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         public object InsertarAsignarProductoLote(AsignarProductoLote AsignarProductoLote)
         {
             if (AsignarProductoLote.Cantidad > 0 )
             {
-                AsignarProductoLote.IdCabeceraFactura = Seguridad.DesEncriptar(AsignarProductoLote.IdCabeceraFactura);
-                AsignarProductoLote.PerteneceKit = Convert.ToBoolean(AsignarProductoLote.PerteneceKit).ToString();
+                //AsignarProductoLote.IdCabeceraFactura = Seguridad.DesEncriptar(AsignarProductoLote.IdCabeceraFactura);
+                //AsignarProductoLote.PerteneceKit = Convert.ToBoolean(AsignarProductoLote.PerteneceKit).ToString();
                 if (AsignarProductoLote.IdLote == null)
                 {
                     List<DetalleFactura> DetalleFactura = new List<DetalleFactura>();
@@ -386,6 +422,117 @@ namespace Negocio.Logica.Factura
                 });
             }
             return _DataAsignarProductoLote;
+        }
+        public List<AsignarProductoLote> ConsultarSiExisteAsignarProductoLote(AsignarProductoLote _AsignarProductoLote)
+        {
+            List<AsignarProductoLote> Lista = new List<AsignarProductoLote>();
+            if (_AsignarProductoLote.FechaExpiracion == null)
+            {
+                foreach (var item in ConexionBD.sp_ConsultarSiExisteAsignarProductoLote(int.Parse(_AsignarProductoLote.IdRelacionLogica), Convert.ToBoolean(_AsignarProductoLote.PerteneceKit), _AsignarProductoLote.FechaExpiracion.ToString(), 0))
+                {
+                    if (item.AsignarProductoLoteIdLote != null)
+                    {
+                        Lista.Add(new AsignarProductoLote()
+                        {
+                            IdLote = Seguridad.Encriptar(item.AsignarProductoLoteIdLote.ToString()),
+                            IdAsignarProductoLote = Seguridad.Encriptar(item.AsignarProductoLoteIdAsignarProductoLote.ToString()),
+                            IdRelacionLogica = Seguridad.Encriptar(item.AsignarProductoLoteIdRelacionLogica.ToString()),
+                            PerteneceKit = item.AsignarProductoLotePerteneceKit.ToString(),
+                            ValorUnitario = item.AsignarProductoLoteValorUnitario,
+                        });
+                    }
+                    else
+                    {
+                        Lista.Add(new AsignarProductoLote()
+                        {
+                            IdLote = "",
+                            IdAsignarProductoLote = Seguridad.Encriptar(item.AsignarProductoLoteIdAsignarProductoLote.ToString()),
+                            IdRelacionLogica = Seguridad.Encriptar(item.AsignarProductoLoteIdRelacionLogica.ToString()),
+                            PerteneceKit = item.AsignarProductoLotePerteneceKit.ToString(),
+                            ValorUnitario = item.AsignarProductoLoteValorUnitario,
+                        });
+                    }
+                }
+            }
+            else
+            {
+                string Mes, Dia;
+                if (_AsignarProductoLote.FechaExpiracion.Value.Month >= 1 && _AsignarProductoLote.FechaExpiracion.Value.Month <= 9)
+                {
+                    Mes = "0" + _AsignarProductoLote.FechaExpiracion.Value.Month.ToString();
+                }
+                else
+                {
+                    Mes = _AsignarProductoLote.FechaExpiracion.Value.Month.ToString();
+                }
+                if (_AsignarProductoLote.FechaExpiracion.Value.Day >= 1 && _AsignarProductoLote.FechaExpiracion.Value.Day <= 9)
+                {
+                    Dia = "0" + _AsignarProductoLote.FechaExpiracion.Value.Day.ToString();
+                }
+                else
+                {
+                    Dia = _AsignarProductoLote.FechaExpiracion.Value.Day.ToString();
+                }
+                string Fecha = (_AsignarProductoLote.FechaExpiracion.Value.Year + "-" + Mes + "-" + Dia + " " + _AsignarProductoLote.FechaExpiracion.Value.TimeOfDay);
+                foreach (var item in ConexionBD.sp_ConsultarSiExisteAsignarProductoLote( int.Parse(_AsignarProductoLote.IdRelacionLogica), Convert.ToBoolean(_AsignarProductoLote.PerteneceKit), Fecha, 1))
+                {
+                    if (item.AsignarProductoLoteIdLote != null)
+                    {
+                        Lista.Add(new AsignarProductoLote()
+                        {
+                            IdLote = Seguridad.Encriptar(item.AsignarProductoLoteIdLote.ToString()),
+                            IdAsignarProductoLote = Seguridad.Encriptar(item.AsignarProductoLoteIdAsignarProductoLote.ToString()),
+                            IdRelacionLogica = Seguridad.Encriptar(item.AsignarProductoLoteIdRelacionLogica.ToString()),
+                            PerteneceKit = item.AsignarProductoLotePerteneceKit.ToString(),
+                            ValorUnitario = item.AsignarProductoLoteValorUnitario,
+                        });
+                    }
+                    else
+                    {
+                        Lista.Add(new AsignarProductoLote()
+                        {
+                            IdLote = "",
+                            IdAsignarProductoLote = Seguridad.Encriptar(item.AsignarProductoLoteIdAsignarProductoLote.ToString()),
+                            IdRelacionLogica = Seguridad.Encriptar(item.AsignarProductoLoteIdRelacionLogica.ToString()),
+                            PerteneceKit = item.AsignarProductoLotePerteneceKit.ToString(),
+                            ValorUnitario = item.AsignarProductoLoteValorUnitario,
+                        });
+                    }
+                }
+            }
+            return Lista;
+        }
+        public List<Lote> ConsultarLotePorId(int IdLote)
+        {
+            List<Lote> ListaLote = new List<Lote>();
+            foreach (var item in ConexionBD.sp_ConsultarLotePorId(IdLote))
+            {
+                ListaLote.Add(new Lote()
+                {
+                    IdLote = Seguridad.Encriptar(item.IdLote.ToString()),
+                    Codigo = item.Codigo,
+                    FechaExpiracion = item.FechaExpiracion,
+                    Capacidad = item.Capacidad,
+                    Estado = item.Estado,
+                    LoteUtilizado = item.LoteUtilizado
+                });
+            }
+            return ListaLote;
+        }
+        public List<DetalleFactura> ConsultarDetalleFacturaPorFacturaYAsignarProductoLote(DetalleFactura _DetalleFactura)
+        {
+            List<DetalleFactura> DetalleFacturaDato = new List<DetalleFactura>();
+            foreach (var item in ConexionBD.sp_ConsultarDetalleFacturaPorIdAsignarProductoLote(int.Parse(_DetalleFactura.IdAsignarProductoLote),int.Parse(_DetalleFactura.IdCabeceraFactura)))
+            {
+                DetalleFacturaDato.Add(new DetalleFactura()
+                {
+                    IdDetalleFactura = Seguridad.Encriptar(item.IdDetalleFactura.ToString()),
+                    IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString()),
+                    IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString()),
+                    Cantidad = item.Cantidad
+                });
+            }
+            return DetalleFacturaDato;
         }
     }
 }

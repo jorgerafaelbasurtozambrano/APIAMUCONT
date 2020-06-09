@@ -15,30 +15,58 @@ namespace Negocio.Logica.Inventario
         //CatalogoAsignarProductoLote GestionAsignarProductoLote = new CatalogoAsignarProductoLote();
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         List<PrecioConfigurarProducto> ListaPrecioConfigurarProducto;
-        public bool InsertarPrecioConfigurarProducto(PrecioConfigurarProducto PrecioConfigurarProducto)
+        public PrecioConfigurarProducto InsertarPrecioConfigurarProducto(PrecioConfigurarProducto PrecioConfigurarProducto)
         {
-            try
+            PrecioConfigurarProducto DatoPrecio = new PrecioConfigurarProducto();
+            DatoPrecio = ListarPrecioPorConfigurarProducto(int.Parse(PrecioConfigurarProducto.IdConfigurarProducto)).FirstOrDefault();
+            if (DatoPrecio == null)
             {
-                //var id = Seguridad.DesEncriptar(ListarPrecioConfigurarProducto().FirstOrDefault().IdConfigurarProducto);
-                var ListaPrecios = ListarPrecioConfigurarProducto().Where(p => Seguridad.DesEncriptar(p.IdConfigurarProducto) == PrecioConfigurarProducto.IdConfigurarProducto && p.Estado == "True").FirstOrDefault();
-                if (ListaPrecios == null)
+                
+                foreach (var item in ConexionBD.sp_CrearPrecioConfiguracionProducto(int.Parse(PrecioConfigurarProducto.IdConfigurarProducto), PrecioConfigurarProducto.Precio))
                 {
-                    ConexionBD.sp_CrearPrecioConfiguracionProducto(int.Parse(PrecioConfigurarProducto.IdConfigurarProducto), PrecioConfigurarProducto.Precio);
+                    PrecioConfigurarProducto.IdPrecioConfigurarProducto = Seguridad.Encriptar(item.IdPrecioConfiguracionProducto.ToString());
+                    PrecioConfigurarProducto.Precio = item.Precio;
+                    PrecioConfigurarProducto.IdConfigurarProducto = Seguridad.Encriptar(PrecioConfigurarProducto.IdConfigurarProducto.ToString());
+                    PrecioConfigurarProducto.FechaRegistro = item.FechaRegistro;
+                    PrecioConfigurarProducto.Estado = item.Estado.ToString();
+                }
+            }
+            else
+            {
+                if (DatoPrecio.Precio != PrecioConfigurarProducto.Precio)
+                {
+                    ConexionBD.sp_EliminarPrecioConfigurarProducto(int.Parse(Seguridad.DesEncriptar(DatoPrecio.IdPrecioConfigurarProducto)));
+                    foreach (var item in ConexionBD.sp_CrearPrecioConfiguracionProducto(int.Parse(PrecioConfigurarProducto.IdConfigurarProducto), PrecioConfigurarProducto.Precio))
+                    {
+                        PrecioConfigurarProducto.IdPrecioConfigurarProducto = Seguridad.Encriptar(item.IdPrecioConfiguracionProducto.ToString());
+                        PrecioConfigurarProducto.Precio = item.Precio;
+                        PrecioConfigurarProducto.IdConfigurarProducto = Seguridad.Encriptar(PrecioConfigurarProducto.IdConfigurarProducto.ToString());
+                        PrecioConfigurarProducto.FechaRegistro = item.FechaRegistro;
+                        PrecioConfigurarProducto.Estado = item.Estado.ToString();
+                    }
                 }
                 else
                 {
-                    if (ListaPrecios.Precio != PrecioConfigurarProducto.Precio)
-                    {
-                        ConexionBD.sp_EliminarPrecioConfigurarProducto(int.Parse(Seguridad.DesEncriptar(ListaPrecios.IdPrecioConfigurarProducto)));
-                        ConexionBD.sp_CrearPrecioConfiguracionProducto(int.Parse(PrecioConfigurarProducto.IdConfigurarProducto), PrecioConfigurarProducto.Precio);
-                    }
+                    PrecioConfigurarProducto = DatoPrecio;
                 }
-                return true;
             }
-            catch (Exception)
+            return PrecioConfigurarProducto;
+        }
+        public List<PrecioConfigurarProducto> ListarPrecioPorConfigurarProducto(int idConfigurarProducto)
+        {
+            List<PrecioConfigurarProducto> Precio = new List<PrecioConfigurarProducto>();
+            foreach (var item in ConexionBD.sp_ConsultarPrecioProductoPorConfigurarProducto(idConfigurarProducto))
             {
-                return false;
+                Precio.Add(new PrecioConfigurarProducto()
+                {
+                    IdPrecioConfigurarProducto = Seguridad.Encriptar(item.IdPrecioConfiguracionProducto.ToString()),
+                    IdConfigurarProducto = Seguridad.Encriptar(item.IdConfigurarProducto.ToString()),
+                    FechaRegistro = item.FechaRegistro,
+                    Precio = item.Precio,
+                    Estado = item.Estado.ToString()
+                });
             }
+            return Precio;
         }
         public void CargarDatos()
         {

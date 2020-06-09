@@ -24,12 +24,23 @@
   <Function Name="sp_ConsultarAsignarSeguroPorConfigurarVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdConfigurarVenta" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarAsignarTecnicoPersonaComunidadPorEstado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdAsignarTecnicoPersonaComunidad" Type="int" Mode="In" />
+    <Parameter Name="Estado" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarAsignarTecnicoPersonaComunidadPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarAsignarTecnicoPersonaComunidadPorPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarAsignarTecnicoPersonaComunidadPorPersonaYComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
     <Parameter Name="IdComunidad" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarCantonesParaSeguimientoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdTecnico" Type="int" Mode="In" />
+    <Parameter Name="IdProvincia" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
@@ -38,17 +49,55 @@
     <Parameter Name="IdPersona" Type="int" Mode="In" />
     <Parameter Name="IdTecnico" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarComunidadesParaSeguimientoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdTecnico" Type="int" Mode="In" />
+    <Parameter Name="IdParroquia" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarComunidadesQueTienenSembriosParaSeguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
   <Function Name="sp_ConsultarConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
   <Function Name="sp_ConsultarConfigurarVentaPorIdCabeceraFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarDetalleFacturaVentaPorKit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
+    <Parameter Name="IdAsignarProductoLote" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
   <Function Name="sp_ConsultarDetalleVentaPorFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="idCabeceraFactura" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarDetalleVentaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="idDetalleVenta" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarFacturasPendientePorPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="NumeroDocumento" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarKitPorFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
+    <Parameter Name="IdKit" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarParroquiaParaSeguimientoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdTecnico" Type="int" Mode="In" />
+    <Parameter Name="IdCanton" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarPersonasAsignadasAunTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdAsignarTU" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarPersonasAsignadasAunTecnicoPorCanton" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdCanton" Type="int" Mode="In" />
+    <Parameter Name="IdTecnico" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarPersonasAsignadasAunTecnicoPorComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdComunidad" Type="int" Mode="In" />
+    <Parameter Name="IdTecnico" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarPersonasAsignadasAunTecnicoPorParroquia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdParroquia" Type="int" Mode="In" />
+    <Parameter Name="IdTecnico" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarPersonasDeUnaComunidadPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdTecnico" Type="int" Mode="In" />
+    <Parameter Name="IdComunidad" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarPersonasParaRealizarSeguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
   <Function Name="sp_ConsultarPersonasParaRealizarSeguimientoPorPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
@@ -63,6 +112,9 @@
   <Function Name="sp_ConsultarPersonasParaSeguimientoPorParroquia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdParroquia" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarProvinciasParaSeguimientoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdTecnico" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarSembriosDeFacturasPorComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="idComunidad" Type="int" Mode="In" />
   </Function>
@@ -70,6 +122,12 @@
     <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarTipoInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
+  <Function Name="sp_ConsultarVisita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdAsignarTecnicoPersonaComunidad" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarVisitaPorIdVisita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdVisita" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_CrearAbono" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdConfigurarVenta" Type="int" Mode="In" />
     <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
@@ -122,6 +180,11 @@
     <Parameter Name="Identificacion" Type="int" Mode="In" />
     <Parameter Name="Descripcion" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="sp_CrearVisita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdAsignarTecnicoPersonaComunidad" Type="int" Mode="In" />
+    <Parameter Name="IdAsignarTU" Type="int" Mode="In" />
+    <Parameter Name="Observacion" Type="nvarchar(max)" Mode="In" />
+  </Function>
   <Function Name="sp_EliminarAsignacionPersonaDeUnTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
@@ -130,6 +193,17 @@
   </Function>
   <Function Name="sp_EliminarDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdDetalleVenta" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarVisita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdVisita" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_FinalizarAsignarTecnicoPersonaComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ModificarVisita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdVisita" Type="int" Mode="In" />
+    <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
+    <Parameter Name="Observacion" Type="nvarchar(max)" Mode="In" />
   </Function>
   <Function Name="sp_SetCantidadDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdDetalleVenta" Type="int" Mode="In" />
@@ -161,12 +235,18 @@
     <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarAsignarProductoLote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura" />
+  <Function Name="sp_ConsultarAsignarProductoLotePorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
+    <Parameter Name="IdAsignarProductoLote" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarCabeceraFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura" />
   <Function Name="sp_ConsultarCantidadDeDetalleDeUnaFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarDetalleFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarDetalleFacturaCompraPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
+    <Parameter Name="IdDetalleFactura" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarDetalleFacturaExiste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
@@ -175,12 +255,34 @@
     <Parameter Name="FechaExpiracion" Type="varchar" Mode="In" />
     <Parameter Name="TieneFecha" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarDetalleFacturaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
+    <Parameter Name="IdDetalleFactura" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarDetalleFacturaPorIdAsignarProductoLote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
+    <Parameter Name="idAsignarProductoLote" Type="int" Mode="In" />
+    <Parameter Name="idCabeceraFactura" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarLote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
     <Parameter Name="IdCabecera" Type="int" Mode="In" />
     <Parameter Name="IdRelacionLogica" Type="int" Mode="In" />
     <Parameter Name="PerteneceKit" Type="bit" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarLotePorCodigo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
+    <Parameter Name="Codigo" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarLotePorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
+    <Parameter Name="IdLote" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarSiExisteAsignarProductoLote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
+    <Parameter Name="IdRelacionLogica" Type="int" Mode="In" />
+    <Parameter Name="PerteneceKit" Type="bit" Mode="In" />
+    <Parameter Name="FechaExpiracion" Type="varchar" Mode="In" />
+    <Parameter Name="TieneFecha" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura" />
+  <Function Name="sp_ConsultarStockPorIdAsignarProductoLote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
+    <Parameter Name="IdAsignarProductoLote" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarTiposTransaccion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura" />
   <Function Name="sp_ConsultarTodosDetallesFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura" />
   <Function Name="sp_CrearAsignarProductoLote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
@@ -240,20 +342,65 @@
   </Function>
   <Function Name="sp_MostrarTodosLosLotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura" />
   <Function Name="sp_ConsultarAsignarDescuentoKit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario" />
+  <Function Name="sp_ConsultarAsignarDescuentoKitPorKit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="idKit" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarAsignarProductoKit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
     <Parameter Name="IdKit" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarAsignarProductoKitPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="IdAsignarProductoKit" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarAsignarProductoKitPorIdAsignarProductoKit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="IdAsignarPKit" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarConfigurarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario" />
+  <Function Name="sp_ConsultarConfigurarProductoPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="IdConfigurarProducto" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarConfigurarProductoQueNoTieneUnKit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
     <Parameter Name="IdKit" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarDescuento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario" />
   <Function Name="sp_ConsultarKit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario" />
+  <Function Name="sp_ConsultarKitPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="IdKit" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarMedida" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario" />
+  <Function Name="sp_ConsultarMedidaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="IdMedida" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarPrecioConfiguracionProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario" />
+  <Function Name="sp_ConsultarPrecioProductoPorConfigurarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="IdConfigurarProducto" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarPresentacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario" />
+  <Function Name="sp_ConsultarPresentacionPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="IdPresentacion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarProductoPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="IdProducto" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarProductoPorNombre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="Nombre" Type="nvarchar(max)" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario" />
+  <Function Name="sp_ConsultarSiExisteKitPorCodigo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="Codigo" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarSiExisteMedida" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarSiExistePresentacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarSiExisteTipoProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="Descripcion" Type="nvarchar(max)" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarTipoProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario" />
+  <Function Name="sp_ConsultarTipoProductoPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="IdTipoProducto" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_CrearAsignarDescuentoKit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
     <Parameter Name="IdDescuento" Type="int" Mode="In" />
     <Parameter Name="IdKit" Type="int" Mode="In" />
@@ -301,6 +448,9 @@
   </Function>
   <Function Name="sp_EliminarAsignarDescuentoKit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
     <Parameter Name="IdAsignarDescuentoKit" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarAsignarDescuentoKitPorKit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="idKit" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_EliminarConfiguracionYProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
     <Parameter Name="IdProducto" Type="int" Mode="In" />
@@ -379,6 +529,15 @@
     <Parameter Name="IdTipoProducto" Type="int" Mode="In" />
     <Parameter Name="Descripcion" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="spConsultarConfigurarProductoPorCodigo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="Codigo" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="spConsultarSiExisteYaUnaConfiguracion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
+    <Parameter Name="idProducto" Type="int" Mode="In" />
+    <Parameter Name="idMedida" Type="int" Mode="In" />
+    <Parameter Name="idPresentacion" Type="int" Mode="In" />
+    <Parameter Name="cantidadMedida" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarTokens" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seguridad" />
   <Function Name="ConsultarCantonesDeUnaProvincia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="idProvincia" Type="int" Mode="In" />
@@ -397,19 +556,55 @@
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarCanton" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
+  <Function Name="sp_ConsultarCantonPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="idCanton" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarCantonSiexiste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="Canton" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
+  <Function Name="sp_ConsultarComunidadPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="idComunidad" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarComunidadSiexiste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="Comunidad" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdParroquia" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarCorreo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
   <Function Name="sp_ConsultarCorreoPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarCorreoPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="IdCorreo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarCorreoPorPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="IdPersona" Type="int" Mode="In" />
+    <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarListaPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
   <Function Name="sp_ConsultarParroquia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
+  <Function Name="sp_ConsultarParroquiaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="idParroquia" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarParroquiaSiexiste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="Parroquia" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
+  <Function Name="sp_ConsultarPersonaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="IdPersona" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarPersonaPorIdentificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="Identifacion" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
+  <Function Name="sp_ConsultarPersonasSinUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
   <Function Name="sp_ConsultarProvincia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
+  <Function Name="sp_ConsultarProvinciaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="idProvincia" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarProvinciaSiexiste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="Provincia" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarResidenciaPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
@@ -440,6 +635,14 @@
     <Parameter Name="IdCanton" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_CrearPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="NumeroDocumento" Type="nvarchar" Mode="In" />
+    <Parameter Name="ApellidoPaterno" Type="nvarchar" Mode="In" />
+    <Parameter Name="ApellidoMaterno" Type="nvarchar" Mode="In" />
+    <Parameter Name="PrimerNombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="SegundoNombre" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdTipoDocument" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_CrearPersona1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="NumeroDocumento" Type="nvarchar" Mode="In" />
     <Parameter Name="ApellidoPaterno" Type="nvarchar" Mode="In" />
     <Parameter Name="ApellidoMaterno" Type="nvarchar" Mode="In" />
@@ -478,6 +681,10 @@
   </Function>
   <Function Name="sp_EliminarTelefono" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="IdTelefono" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_HabilitarCorreo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="IdCorreo" Type="int" Mode="In" />
+    <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ModificarAsignacionPC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="IdAsignacionPP" Type="int" Mode="In" />
@@ -527,6 +734,9 @@
     <Parameter Name="IdTipoUsuario" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarAsignacionTU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios" />
+  <Function Name="sp_ConsultarAsignacionTUPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+    <Parameter Name="idAsignacionTU" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarAsignarTipoUsuarioPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
     <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
   </Function>
@@ -543,12 +753,24 @@
   <Function Name="sp_ConsultarPrivilegiosDeUnModulo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
     <Parameter Name="idModuloTipo" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarTiposDeUsuariosQueNoTieneUnUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+    <Parameter Name="IdUsuario" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarTiposDeUsuariosQueTieneUnUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+    <Parameter Name="IdUsuario" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarTiposUsuarioDeUnaPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
     <Parameter Name="IdUsuario" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarTipoUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios" />
   <Function Name="sp_ConsultarTodosLosUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios" />
   <Function Name="sp_ConsultarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios" />
+  <Function Name="sp_ConsultarUsuarioPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+    <Parameter Name="IdUsuario" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarUsuarioPorUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+    <Parameter Name="Usuario" Type="nvarchar(max)" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios" />
   <Function Name="sp_ConsultarUsuariosYPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios" />
   <Function Name="sp_CrearAsignacionTU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">

@@ -28,5 +28,21 @@ namespace Negocio.Logica.TalentHumano
             }
             return ListaTipoDocumento;
         }
+        public List<TipoDocumento> ListarTiposDocumentosPorId(int idTipoDocumento)
+        {
+            ListaTipoDocumento = new List<TipoDocumento>();
+            foreach (var item in ConexionBD.sp_ConsultarTipoDocumento().Where(p=>p.IdTipoDocumento == idTipoDocumento).ToList())
+            {
+                ListaTipoDocumento.Add(new TipoDocumento()
+                {
+                    IdTipoDocumento = Seguridad.Encriptar(item.IdTipoDocumento.ToString()),
+                    Documento = item.Descripcion,
+                    Identificador = item.Identificador,
+                    FechaCreacion = item.FechaCreacion,
+                    Estado = item.Estado,
+                });
+            }
+            return ListaTipoDocumento;
+        }
     }
 }

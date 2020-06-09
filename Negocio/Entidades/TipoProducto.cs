@@ -13,7 +13,7 @@ namespace Negocio.Entidades
         public DateTime? FechaCreacion { get; set; }
         public DateTime? FechaModificacion { get; set; }
         public bool? estado { get; set; }
-        public string TipoUsuarioUtilizado { get; set; }
+        public string TipoProductoUtilizado { get; set; }
         public string encriptada { get; set; }
     }
 }

@@ -42,5 +42,6 @@ namespace Datos
         public bool ProvinciaEstado { get; set; }
         public System.DateTime ProvinciaFechaCreacion { get; set; }
         public Nullable<System.DateTime> ProvinciaFechaActualizacion { get; set; }
+        public Nullable<int> NumeroVisitas { get; set; }
     }
 }

@@ -16,5 +16,6 @@ namespace Negocio.Entidades
         public string ComunidadUtilizado { get; set; }
         public List<AsignarComunidadFactura> ListaAsignarComunidadFactura { get; set; }
         public string encriptada { get; set; }
+        public bool PermitirEliminacion { get; set; }
     }
 }

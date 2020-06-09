@@ -30,67 +30,296 @@ namespace Negocio.Logica.Credito
             }
             return ListaPrecioConfigurarProducto.FirstOrDefault();
         }
-        public string InsertarDetalleVenta(DetalleVenta DetalleVenta)
+        public List<Stock> ListarStockPorIdAsignarProductoLote(int idAsignarProductoLote)
         {
-            try
+            List<Stock> _DatosStock = new List<Stock>();
+            foreach (var item in ConexionBD.sp_ConsultarStockPorIdAsignarProductoLote(idAsignarProductoLote))
             {
-                //var DataDetalleVenta = ListarDetalleVenta().Where(p => Seguridad.DesEncriptar(p.IdCabeceraFactura) == DetalleVenta.IdCabeceraFactura && Seguridad.DesEncriptar(p.IdAsignarProductoLote) == DetalleVenta.IdAsignarProductoLote && p.AplicaDescuento == (DetalleVenta.AplicaDescuento == "1" ? "True": "False") && p.PerteneceKitCompleto == false).FirstOrDefault();
-                var DataDetalleVenta = FiltrarDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote),DetalleVenta.AplicaDescuento, "0").FirstOrDefault();
-                //var Stock = GestionStock.ListarStock().Where(p => Seguridad.DesEncriptar(p.IdAsignarProductoLote) == DetalleVenta.IdAsignarProductoLote).FirstOrDefault();
-                var Stock = GestionStock.ListarStockPorIdAsignarProductoLote(int.Parse(DetalleVenta.IdAsignarProductoLote)).FirstOrDefault();
-                if (Stock == null)
+                List<ConfigurarProductos> ConfigurarProductos = new List<ConfigurarProductos>();
+                List<AsignarProductoKit> AsignarProducoKit = new List<AsignarProductoKit>();
+                if (item.AsignarProductoLotePerteneceKit == true)
                 {
-                    return "No hay stock de este producto";
+                    foreach (var item1 in ConexionBD.sp_ConsultarAsignarProductoKitPorId(item.AsignarProductoLoteIdRelacionLogica))
+                    {
+                        AsignarProducoKit.Add(new AsignarProductoKit()
+                        {
+                            IdAsignarProductoKit = Seguridad.Encriptar(item1.AsignarProductoKitIdAsignarProductoKit.ToString()),
+                            IdConfigurarProducto = Seguridad.Encriptar(item1.AsignarProductoKitIdConfigurarProducto.ToString()),
+                            IdAsignarDescuentoKit = Seguridad.Encriptar(item1.AsignarProductoKitIdAsignarDescuentoKit.ToString()),
+                            FechaCreacion = item1.AsignarProductoKitFechaCreacion,
+                            FechaActualizacion = item1.AsignarProductoKitFechaActualizacion,
+                            Estado = item1.AsignarProductoKitEstado,
+                            ListaProductos = new ConfigurarProductos()
+                            {
+                                IdConfigurarProducto = Seguridad.Encriptar(item1.ConfigurarProductoIdConfigurarProducto.ToString()),
+                                CantidadMedida = item1.ConfigurarProductoCantidadMedida,
+                                FechaCreacion = item1.ConfigurarProductoFechaCreacion,
+                                FechaActualizacion = item1.ConfigurarProductoFechaActualizacion,
+                                estado = item1.ConfigurarProductoEstado,
+                                Codigo = item1.ConfigurarProductoCodigo,
+                                Producto = new Producto()
+                                {
+                                    IdProducto = Seguridad.Encriptar(item1.ProductoIdProducto.ToString()),
+                                    IdTipoProducto = Seguridad.Encriptar(item1.ProductoIdTipoProducto.ToString()),
+                                    Descripcion = item1.ProductoDescripcion,
+                                    Nombre = item1.ProductoNombre,
+                                    FechaCreacion = item1.ProductoFechaCreacion,
+                                    FechaActualizacion = item1.ProductoFechaActualizacion,
+                                    Estado = item1.ProductoEstado,
+                                    TipoProducto = new TipoProducto()
+                                    {
+                                        IdTipoProducto = Seguridad.Encriptar(item1.TipoProductoIdTipoProducto.ToString()),
+                                        Descripcion = item1.TipoProductoDescripcion,
+                                        FechaCreacion = item1.TipoProductoFechaCreacion,
+                                        FechaModificacion = item1.TipoProductoFechaActualizacion,
+                                    },
+                                },
+                                Medida = new Medida()
+                                {
+                                    IdMedida = Seguridad.Encriptar(item1.MedidaIdMedida.ToString()),
+                                    Descripcion = item1.MedidaDescripcion,
+                                    FechaCreacion = item1.MedidaFechaCreacion,
+                                    Estado = item1.MedidaEstado,
+                                },
+                                Presentacion = new Presentacion()
+                                {
+                                    IdPresentacion = Seguridad.Encriptar(item1.PresentacionIdPresentacion.ToString()),
+                                    Descripcion = item1.PresentacionDescripcion,
+                                    FechaCreacion = item1.PresentacionFechaCreacion,
+                                    Estado = item1.PresentacionEstado,
+                                },
+                                Iva = item1.ConfigurarProductoIva
+                            },
+                            Kit = new Kit()
+                            {
+                                IdKit = Seguridad.Encriptar(item1.KitIdKit.ToString()),
+                                Codigo = item1.KitCodigo,
+                                Descripcion = item1.KitDescripcion,
+                                FechaActualizacion = item1.KitFechaActualizacion,
+                                FechaCreacion = item1.KitFechaCreacion,
+                                AsignarDescuentoKit = new AsignarDescuentoKit()
+                                {
+                                    IdAsignarDescuentoKit = Seguridad.Encriptar(item1.AsignarDescuentoKitIdAsignarDescuentoKit.ToString()),
+                                    IdDescuento = Seguridad.Encriptar(item1.AsignarDescuentoKitIdDescuento.ToString()),
+                                    Descuento = new Descuento()
+                                    {
+                                        IdDescuento = Seguridad.Encriptar(item1.DescuentoIdDescuento.ToString()),
+                                        Porcentaje = item1.DescuentoPorcentaje
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
                 else
                 {
-                    if (DetalleVenta.Cantidad <= Stock.Cantidad)
+                    foreach (var item1 in ConexionBD.sp_ConsultarConfigurarProductoPorId(item.AsignarProductoLoteIdRelacionLogica))
                     {
-                        if (DataDetalleVenta == null)
+                        ConfigurarProductos.Add(new ConfigurarProductos()
                         {
-                            PrecioConfigurarProducto Precio = new PrecioConfigurarProducto();
-                            if (Stock.AsignarProductoLote.PerteneceKit == "True")
+                            IdConfigurarProducto = Seguridad.Encriptar(item1.ConfigurarProductoIdConfigurarProducto.ToString()),
+                            CantidadMedida = item1.ConfigurarProductoCantidadMedida,
+                            FechaCreacion = item1.ConfigurarProductoFechaCreacion,
+                            FechaActualizacion = item1.ConfigurarProductoFechaActualizacion,
+                            estado = item1.ConfigurarProductoEstado,
+                            IdAsignacionTu = Seguridad.Encriptar(item1.ConfigurarProductoIdAsignacionTU.ToString()),
+                            Codigo = item1.ConfigurarProductoCodigo,
+                            PrecioConfigurarProducto = new PrecioConfigurarProducto()
                             {
-                                Precio = CargarDatosPrecioPorProducto(int.Parse(Seguridad.DesEncriptar(Stock.AsignarProductoLote.AsignarProductoKit.IdConfigurarProducto)));
-                                if (DetalleVenta.AplicaDescuento == "1")
-                                {
-                                    ConexionBD.sp_CrearDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, DetalleVenta.Faltante, DetalleVenta.Cantidad,DetalleVenta.PorcentajeDescuento, Precio.Precio, "0", Stock.AsignarProductoLote.AsignarProductoKit.ListaProductos.Iva);
-                                    //Stock.AsignarProductoLote.AsignarProductoKit.Kit.AsignarDescuentoKit.Descuento.Porcentaje
-                                }
-                                else
-                                {
-                                    ConexionBD.sp_CrearDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, DetalleVenta.Faltante, DetalleVenta.Cantidad, null, Precio.Precio, "0", Stock.AsignarProductoLote.AsignarProductoKit.ListaProductos.Iva);
-                                }
-                            }
-                            else
+                                IdPrecioConfigurarProducto = Seguridad.Encriptar(item1.PrecioConfiguracionProductoIdPrecioConfiguracionProducto.ToString()),
+                                IdConfigurarProducto = Seguridad.Encriptar(item1.PrecioConfiguracionProductoIdConfigurarProducto.ToString()),
+                                FechaRegistro = item1.PrecioConfiguracionProductoFechaRegistro,
+                                Precio = item1.PrecioConfiguracionProductoPrecio,
+                                Estado = item1.PrecioConfiguracionProductoEstado.ToString()
+                            },
+                            Producto = new Producto()
                             {
-                                Precio = CargarDatosPrecioPorProducto(int.Parse(Seguridad.DesEncriptar(Stock.AsignarProductoLote.ConfigurarProductos.IdConfigurarProducto)));
-                                if (DetalleVenta.AplicaDescuento == "1")
+                                IdProducto = Seguridad.Encriptar(item1.ProductoIdProducto.ToString()),
+                                IdTipoProducto = Seguridad.Encriptar(item1.ProductoIdTipoProducto.ToString()),
+                                Descripcion = item1.ProductoDescripcion,
+                                Nombre = item1.ProductoNombre,
+                                FechaCreacion = item1.ProductoFechaCreacion,
+                                FechaActualizacion = item1.TipoProductoFechaActualizacion,
+                                Estado = item1.ProductoEstado,
+                                TipoProducto = new TipoProducto()
                                 {
-                                    ConexionBD.sp_CrearDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, DetalleVenta.Faltante, DetalleVenta.Cantidad,DetalleVenta.PorcentajeDescuento, Precio.Precio, "0", Stock.AsignarProductoLote.ConfigurarProductos.Iva);
-                                }
-                                else
-                                {
-                                    ConexionBD.sp_CrearDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, DetalleVenta.Faltante, DetalleVenta.Cantidad, null, Precio.Precio, "0", Stock.AsignarProductoLote.ConfigurarProductos.Iva);
-                                }
+                                    IdTipoProducto = Seguridad.Encriptar(item1.TipoProductoIdTipoProducto.ToString()),
+                                    Descripcion = item1.TipoProductoDescripcion,
+                                    FechaCreacion = item1.TipoProductoFechaCreacion,
+                                    FechaModificacion = item1.TipoProductoFechaActualizacion
+                                },
+                            },
+                            Medida = new Medida()
+                            {
+                                IdMedida = Seguridad.Encriptar(item1.MedidaIdMedida.ToString()),
+                                Descripcion = item1.MedidaDescripcion,
+                                FechaCreacion = item1.MedidaFechaCreacion,
+                                Estado = item1.MedidaEstado,
+                            },
+                            Presentacion = new Presentacion()
+                            {
+                                IdPresentacion = Seguridad.Encriptar(item1.PresentacionIdPresentacion.ToString()),
+                                Descripcion = item1.PresentacionDescripcion,
+                                FechaActualizacion = item1.PresentacionFechaActualizacion,
+                                FechaCreacion = item1.PresentacionFechaCreacion,
+                                Estado = item1.PresentacionEstado,
+                            },
+                            Iva = item1.ConfigurarProductoIva
+                        });
+                    }
+                }
+
+                if (item.AsignarProductoLoteIdLote != null)
+                {
+                    _DatosStock.Add(new Stock()
+                    {
+                        IdStock = Seguridad.Encriptar(item.StockIdStock.ToString()),
+                        Cantidad = item.StockCantidad,
+                        IdAsignarProductoLote = Seguridad.Encriptar(item.StockIdAsignarProductoLote.ToString()),
+                        FechaActualizacion = item.StockFechaActualizacion,
+                        AsignarProductoLote = new AsignarProductoLote()
+                        {
+                            IdAsignarProductoLote = Seguridad.Encriptar(item.AsignarProductoLoteIdAsignarProductoLote.ToString()),
+                            FechaExpiracion = item.AsignarProductoLoteFechaExpiracion,
+                            IdRelacionLogica = Seguridad.Encriptar(item.AsignarProductoLoteIdRelacionLogica.ToString()),
+                            PerteneceKit = item.AsignarProductoLotePerteneceKit.ToString(),
+                            ValorUnitario = item.AsignarProductoLoteValorUnitario,
+                            IdLote = Seguridad.Encriptar(item.AsignarProductoLoteIdLote.ToString()),
+                            ConfigurarProductos = ConfigurarProductos.FirstOrDefault(),
+                            AsignarProductoKit = AsignarProducoKit.FirstOrDefault(),
+                            Lote = new Lote()
+                            {
+                                IdLote = Seguridad.Encriptar(item.LoteIdLote.ToString()),
+                                Capacidad = item.LoteCapacidad,
+                                Codigo = item.LoteCodigo,
+                                Estado = item.LoteEstado,
+                                FechaExpiracion = item.LoteFechaExpiracion,
                             }
                         }
-                        else
+                    });
+                }
+                else
+                {
+                    _DatosStock.Add(new Stock()
+                    {
+                        IdStock = Seguridad.Encriptar(item.StockIdStock.ToString()),
+                        Cantidad = item.StockCantidad,
+                        IdAsignarProductoLote = Seguridad.Encriptar(item.StockIdAsignarProductoLote.ToString()),
+                        FechaActualizacion = item.StockFechaActualizacion,
+                        AsignarProductoLote = new AsignarProductoLote()
                         {
-                            ConexionBD.sp_AumentarDetalleVenta(int.Parse(Seguridad.DesEncriptar(DataDetalleVenta.IdDetalleVenta)), DetalleVenta.Cantidad);
+                            IdAsignarProductoLote = Seguridad.Encriptar(item.AsignarProductoLoteIdAsignarProductoLote.ToString()),
+                            FechaExpiracion = item.AsignarProductoLoteFechaExpiracion,
+                            IdRelacionLogica = Seguridad.Encriptar(item.AsignarProductoLoteIdRelacionLogica.ToString()),
+                            PerteneceKit = item.AsignarProductoLotePerteneceKit.ToString(),
+                            ValorUnitario = item.AsignarProductoLoteValorUnitario,
+                            ConfigurarProductos = ConfigurarProductos.FirstOrDefault(),
+                            AsignarProductoKit = AsignarProducoKit.FirstOrDefault(),
                         }
-                        return "true";
+                    });
+                }
+            }
+            return _DatosStock;
+        }
+        public DetalleVenta InsertarDetalleVenta(DetalleVenta DetalleVenta)
+        {
+            Stock DatoStock = new Stock();
+            DatoStock = ListarStockPorIdAsignarProductoLote(int.Parse(DetalleVenta.IdAsignarProductoLote)).FirstOrDefault();
+            DetalleVenta _ObjDetalleVenta = new DetalleVenta();
+            _ObjDetalleVenta = FiltrarDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, "0").FirstOrDefault();
+            PrecioConfigurarProducto Precio = new PrecioConfigurarProducto();
+            if (_ObjDetalleVenta == null)
+            {
+                if (DatoStock.AsignarProductoLote.PerteneceKit == "True")
+                {
+                    Precio = CargarDatosPrecioPorProducto(int.Parse(Seguridad.DesEncriptar(DatoStock.AsignarProductoLote.AsignarProductoKit.IdConfigurarProducto)));
+                    if (DetalleVenta.AplicaDescuento == "1")
+                    {
+                        foreach (var item in ConexionBD.sp_CrearDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, DetalleVenta.Faltante, DetalleVenta.Cantidad, DetalleVenta.PorcentajeDescuento, Precio.Precio, "0", DatoStock.AsignarProductoLote.AsignarProductoKit.ListaProductos.Iva))
+                        {
+                            DetalleVenta.IdDetalleVenta = Seguridad.Encriptar(item.IdDetalleVenta.ToString());
+                            DetalleVenta.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());
+                            DetalleVenta.IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString());
+                            DetalleVenta.AplicaDescuento = item.AplicaDescuento.ToString();
+                            DetalleVenta.Faltante = item.Faltante.ToString();
+                            DetalleVenta.Cantidad = item.Cantidad;
+                            DetalleVenta.PorcentajeDescuento = item.PorcentajeDescuento;
+                            DetalleVenta.ValorUnitario = item.PrecioUnitario;
+                            DetalleVenta.PerteneceKitCompleto = item.PerteneceKitCompleto;
+                            DetalleVenta.Iva = item.Iva;
+                        }
+                    }
+                    else
+                    {      
+                        foreach (var item in ConexionBD.sp_CrearDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, DetalleVenta.Faltante, DetalleVenta.Cantidad, null, Precio.Precio, "0", DatoStock.AsignarProductoLote.AsignarProductoKit.ListaProductos.Iva))
+                        {
+                            DetalleVenta.IdDetalleVenta = Seguridad.Encriptar(item.IdDetalleVenta.ToString());
+                            DetalleVenta.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());
+                            DetalleVenta.IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString());
+                            DetalleVenta.AplicaDescuento = item.AplicaDescuento.ToString();
+                            DetalleVenta.Faltante = item.Faltante.ToString();
+                            DetalleVenta.Cantidad = item.Cantidad;
+                            DetalleVenta.PorcentajeDescuento = item.PorcentajeDescuento;
+                            DetalleVenta.ValorUnitario = item.PrecioUnitario;
+                            DetalleVenta.PerteneceKitCompleto = item.PerteneceKitCompleto;
+                            DetalleVenta.Iva = item.Iva;
+                        }
+                    }
+                }
+                else
+                {
+                    Precio = CargarDatosPrecioPorProducto(int.Parse(Seguridad.DesEncriptar(DatoStock.AsignarProductoLote.ConfigurarProductos.IdConfigurarProducto)));
+                    if (DetalleVenta.AplicaDescuento == "1")
+                    {
+                        foreach (var item in ConexionBD.sp_CrearDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, DetalleVenta.Faltante, DetalleVenta.Cantidad, DetalleVenta.PorcentajeDescuento, Precio.Precio, "0", DatoStock.AsignarProductoLote.ConfigurarProductos.Iva))
+                        {
+                            DetalleVenta.IdDetalleVenta = Seguridad.Encriptar(item.IdDetalleVenta.ToString());
+                            DetalleVenta.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());
+                            DetalleVenta.IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString());
+                            DetalleVenta.AplicaDescuento = item.AplicaDescuento.ToString();
+                            DetalleVenta.Faltante = item.Faltante.ToString();
+                            DetalleVenta.Cantidad = item.Cantidad;
+                            DetalleVenta.PorcentajeDescuento = item.PorcentajeDescuento;
+                            DetalleVenta.ValorUnitario = item.PrecioUnitario;
+                            DetalleVenta.PerteneceKitCompleto = item.PerteneceKitCompleto;
+                            DetalleVenta.Iva = item.Iva;
+                        }
                     }
                     else
                     {
-                        return "No Hay esta cantidad disponible, existe en stock solo " + Stock.Cantidad.ToString() + " Unidades";
+                        foreach (var item in ConexionBD.sp_CrearDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, DetalleVenta.Faltante, DetalleVenta.Cantidad, null, Precio.Precio, "0", DatoStock.AsignarProductoLote.ConfigurarProductos.Iva))
+                        {
+                            DetalleVenta.IdDetalleVenta = Seguridad.Encriptar(item.IdDetalleVenta.ToString());
+                            DetalleVenta.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());
+                            DetalleVenta.IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString());
+                            DetalleVenta.AplicaDescuento = item.AplicaDescuento.ToString();
+                            DetalleVenta.Faltante = item.Faltante.ToString();
+                            DetalleVenta.Cantidad = item.Cantidad;
+                            DetalleVenta.PorcentajeDescuento = item.PorcentajeDescuento;
+                            DetalleVenta.ValorUnitario = item.PrecioUnitario;
+                            DetalleVenta.PerteneceKitCompleto = item.PerteneceKitCompleto;
+                            DetalleVenta.Iva = item.Iva;
+                        }
                     }
                 }
             }
-            catch (Exception)
+            else
             {
-                return "false";
+                foreach (var item in ConexionBD.sp_AumentarDetalleVenta(int.Parse(Seguridad.DesEncriptar(_ObjDetalleVenta.IdDetalleVenta)), DetalleVenta.Cantidad))
+                {
+                    DetalleVenta.IdDetalleVenta = Seguridad.Encriptar(item.IdDetalleVenta.ToString());
+                    DetalleVenta.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());
+                    DetalleVenta.IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString());
+                    DetalleVenta.AplicaDescuento = item.AplicaDescuento.ToString();
+                    DetalleVenta.Faltante = item.Faltante.ToString();
+                    DetalleVenta.Cantidad = item.Cantidad;
+                    DetalleVenta.PorcentajeDescuento = item.PorcentajeDescuento;
+                    DetalleVenta.ValorUnitario = item.PrecioUnitario;
+                    DetalleVenta.PerteneceKitCompleto = item.PerteneceKitCompleto;
+                    DetalleVenta.Iva = item.Iva;
+                }
             }
+            return DetalleVenta;
         }
         public void CargarDatos()
         {
@@ -111,39 +340,42 @@ namespace Negocio.Logica.Credito
                 });
             }
         }
+        public List<DetalleVenta> CargarKitDeUnaFactura(DetalleVenta _DetalleVenta)
+        {
+            List<DetalleVenta> ListaKit = new List<DetalleVenta>();
+            foreach (var item in ConexionBD.sp_ConsultarKitPorFactura(int.Parse(_DetalleVenta.IdCabeceraFactura),int.Parse(_DetalleVenta.IdKit)))
+            {
+                ListaKit.Add(new DetalleVenta()
+                {
+                    IdDetalleVenta = Seguridad.Encriptar(item.IdDetalleVenta.ToString()),
+                    IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString()),
+                    Cantidad = item.Cantidad,
+                    AplicaDescuento = item.AplicaDescuento.ToString(),
+                    Faltante = item.Faltante.ToString(),
+                    IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString()),
+                    ValorUnitario = item.PrecioUnitario,
+                    PorcentajeDescuento = item.PorcentajeDescuento,
+                    PerteneceKitCompleto = item.PerteneceKitCompleto
+                });
+            }
+            return ListaKit;
+        }
         public List<DetalleVenta> ListarDetalleVenta()
         {
             CargarDatos();
             return ListaDetalleVenta;
         }
-        public object AumentarDetalleVenta(DetalleVenta DetalleVenta)
+        public bool AumentarDetalleVenta(DetalleVenta DetalleVenta)
         {
             try
             {
-                var DataDetalleVenta = ListarDetalleVenta().Where(p => Seguridad.DesEncriptar(p.IdDetalleVenta) == DetalleVenta.IdDetalleVenta).FirstOrDefault();
-                var Stock = GestionStock.ListarStock().Where(p => Seguridad.DesEncriptar(p.IdAsignarProductoLote) == Seguridad.DesEncriptar(DataDetalleVenta.IdAsignarProductoLote)).FirstOrDefault();
-                if (Stock == null)
-                {
-                    return "No hay stock de este producto";
-                }
-                else
-                {
-                    if (DetalleVenta.Cantidad <= Stock.Cantidad)
-                    {
-                        ConexionBD.sp_SetCantidadDetalleVenta(int.Parse(DetalleVenta.IdDetalleVenta), DetalleVenta.Cantidad);
-                        return "true";
-                    }
-                    else
-                    {
-                        return "No Hay esta cantidad disponible, existe en stock solo " + Stock.Cantidad.ToString() + " Unidades";
-                    }
-                }
+                ConexionBD.sp_SetCantidadDetalleVenta(int.Parse(DetalleVenta.IdDetalleVenta), DetalleVenta.Cantidad);
+                return true;
             }
             catch (Exception)
             {
-                return "false";
+                return false;
             }
-            
         }
         public bool EliminarDetalleVenta(int IdDetalleVenta)
         {
@@ -161,6 +393,26 @@ namespace Negocio.Logica.Credito
         {
             List<DetalleVenta> _DataDetalleVenta = new List<DetalleVenta>();
             foreach (var item in ConexionBD.sp_BuscarDetalleFacturaVenta(idCabeceraFactura,idAsignarProductoLote,aplicaDescuento,perteneceKitCompleto))
+            {
+                _DataDetalleVenta.Add(new DetalleVenta()
+                {
+                    IdDetalleVenta = Seguridad.Encriptar(item.IdDetalleVenta.ToString()),
+                    IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString()),
+                    Cantidad = item.Cantidad,
+                    AplicaDescuento = item.AplicaDescuento.ToString(),
+                    Faltante = item.Faltante.ToString(),
+                    IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString()),
+                    ValorUnitario = item.PrecioUnitario,
+                    PorcentajeDescuento = item.PorcentajeDescuento,
+                    PerteneceKitCompleto = item.PerteneceKitCompleto
+                });
+            }
+            return _DataDetalleVenta;
+        }
+        public List<DetalleVenta> ConsultarDetalleVentaPorId(int idDetalleVenta)
+        {
+            List<DetalleVenta> _DataDetalleVenta = new List<DetalleVenta>();
+            foreach (var item in ConexionBD.sp_ConsultarDetalleVentaPorId(idDetalleVenta))
             {
                 _DataDetalleVenta.Add(new DetalleVenta()
                 {
@@ -198,5 +450,6 @@ namespace Negocio.Logica.Credito
             }
             return _DataDetalleVenta;
         }
+        
     }
 }

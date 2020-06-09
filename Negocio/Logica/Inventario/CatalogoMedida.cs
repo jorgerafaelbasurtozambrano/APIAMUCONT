@@ -12,25 +12,18 @@ namespace Negocio.Logica.Inventario
         AMUCOMTEntities ConexionBD = new AMUCOMTEntities();
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         static List<Medida> ListaMedida;
-        public string InsertarMedida(Medida Medida)
+        public Medida InsertarMedida(Medida Medida)
         {
-            Medida Medida1 = ListarMedidas().Where(p => p.Descripcion == Medida.Descripcion.ToUpper()).FirstOrDefault();
-            try
+            foreach (var item in ConexionBD.sp_CrearMedida(Medida.Descripcion.ToUpper()))
             {
-                if (Medida1 == null)
-                {
-                    ConexionBD.sp_CrearMedida(Medida.Descripcion.ToUpper());
-                    return "true";
-                }
-                else
-                {
-                    return "400";
-                }
+                Medida.IdMedida = Seguridad.Encriptar(item.IdMedida.ToString());
+                Medida.Descripcion = item.Descripcion;
+                Medida.FechaActualizacion = item.FechaActualizacion;
+                Medida.FechaCreacion = item.FechaCreacion;
+                Medida.Estado = item.Estado;
+                Medida.MedidaUtilizado = "0";
             }
-            catch (Exception)
-            {
-                return "false";
-            }
+            return Medida;
         }
         public bool EliminarMedida(int IdMedida)
         {
@@ -44,24 +37,25 @@ namespace Negocio.Logica.Inventario
                 return false;
             }
         }
-        public string ModificarMedida(Medida Medida)
+        public Medida ModificarMedida(Medida Medida)
         {
-            Medida Medida1 = ListarMedidas().Where(p => p.Descripcion == Medida.Descripcion.ToUpper()).FirstOrDefault();
             try
             {
-                if (Medida1 == null)
+                foreach (var item in ConexionBD.sp_ModificarMedida(int.Parse(Medida.IdMedida), Medida.Descripcion.ToUpper()))
                 {
-                    ConexionBD.sp_ModificarMedida(int.Parse(Medida.IdMedida), Medida.Descripcion.ToUpper());
-                    return "true";
+                    Medida.IdMedida = Seguridad.Encriptar(item.IdMedida.ToString());
+                    Medida.Descripcion = item.Descripcion;
+                    Medida.FechaActualizacion = item.FechaActualizacion;
+                    Medida.FechaCreacion = item.FechaCreacion;
+                    Medida.Estado = item.Estado;
+                    Medida.MedidaUtilizado = item.MedidaUtilizado;
                 }
-                else
-                {
-                    return "400";
-                }
+                return Medida;
             }
             catch (Exception)
             {
-                return "false";
+                Medida.IdMedida = null;
+                return Medida;
             }
         }
         public void CargarMedidas()
@@ -84,6 +78,39 @@ namespace Negocio.Logica.Inventario
         {
             CargarMedidas();
             return ListaMedida.GroupBy(a => a.IdMedida).Select(grp => grp.First()).Where(p => p.Estado != false).ToList();
+        }
+        public List<Medida> ConsultarMedidaPorDescripcion(string Descripcion)
+        {
+            ListaMedida = new List<Medida>();
+            foreach (var item in ConexionBD.sp_ConsultarSiExisteMedida(Descripcion))
+            {
+                ListaMedida.Add(new Medida()
+                {
+                    IdMedida = Seguridad.Encriptar(item.IdMedida.ToString()),
+                    Descripcion = item.Descripcion,
+                    FechaActualizacion = item.FechaActualizacion,
+                    FechaCreacion = item.FechaCreacion,
+                    Estado = item.Estado,
+                });
+            }
+            return ListaMedida;
+        }
+        public List<Medida> ConsultarMedidaPorId(int IdMedida)
+        {
+            ListaMedida = new List<Medida>();
+            foreach (var item in ConexionBD.sp_ConsultarMedidaPorId(IdMedida))
+            {
+                ListaMedida.Add(new Medida()
+                {
+                    IdMedida = Seguridad.Encriptar(item.IdMedida.ToString()),
+                    Descripcion = item.Descripcion,
+                    FechaActualizacion = item.FechaActualizacion,
+                    FechaCreacion = item.FechaCreacion,
+                    Estado = item.Estado,
+                    MedidaUtilizado = item.MedidaUtilizado
+                });
+            }
+            return ListaMedida;
         }
     }
 }

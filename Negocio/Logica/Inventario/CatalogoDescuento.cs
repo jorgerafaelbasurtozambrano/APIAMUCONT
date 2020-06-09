@@ -12,26 +12,14 @@ namespace Negocio.Logica.Inventario
         AMUCOMTEntities ConexionBD = new AMUCOMTEntities();
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         static List<Descuento> ListaDescuento;
-        public object InsertarDescuento(Descuento Descuento)
+        public Descuento InsertarDescuento(Descuento Descuento)
         {
-            try
+            foreach (var item in ConexionBD.sp_CrearDescuento(Descuento.Porcentaje))
             {
-                object objeto = new object();
-                List<Descuento> DatoDescuento = ListarDescuento();
-                if (DatoDescuento.Where(p=>p.Porcentaje==Descuento.Porcentaje).Count()==0)
-                {
-                    objeto = Seguridad.Encriptar(ConexionBD.sp_CrearDescuento(Descuento.Porcentaje).Select(e => e.Value.ToString()).First());                    
-                }
-                else
-                {
-                    objeto = DatoDescuento.Where(p => p.Porcentaje == Descuento.Porcentaje).FirstOrDefault();                    
-                }
-                return objeto;
+                Descuento.IdDescuento = Seguridad.Encriptar(item.IdDescuento.ToString());
+                Descuento.Porcentaje = item.Porcentaje;
             }
-            catch (Exception)
-            {
-                return "false";
-            }
+            return Descuento;
         }
         public void CargarDescuentos()
         {

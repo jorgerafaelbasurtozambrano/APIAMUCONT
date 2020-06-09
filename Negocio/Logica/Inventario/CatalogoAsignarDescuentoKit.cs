@@ -13,18 +13,61 @@ namespace Negocio.Logica.Inventario
         AMUCOMTEntities ConexionBD = new AMUCOMTEntities();
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         List<AsignarDescuentoKit> ListaAsignarDescuentoKit;
-        public bool InsertarAsignarDescuentoKit(AsignarDescuentoKit AsignarDescuentoKit)
+        public AsignarDescuentoKit InsertarAsignarDescuentoKit(AsignarDescuentoKit AsignarDescuentoKit)
         {
             try
             {
-                EliminarAsignacionDescuentoKit(AsignarDescuentoKit.IdKit);
-                ConexionBD.sp_CrearAsignarDescuentoKit(int.Parse(AsignarDescuentoKit.IdDescuento), int.Parse(AsignarDescuentoKit.IdKit));
-                return true;
+                AsignarDescuentoKit DatoAsignarDescuentoKit = new AsignarDescuentoKit();
+                DatoAsignarDescuentoKit = CargarAsignarDescuentoKitPorIdKit(int.Parse(AsignarDescuentoKit.IdKit)).FirstOrDefault();
+                if (DatoAsignarDescuentoKit == null)
+                {
+                    foreach (var item in ConexionBD.sp_CrearAsignarDescuentoKit(int.Parse(AsignarDescuentoKit.IdDescuento), int.Parse(AsignarDescuentoKit.IdKit)))
+                    {
+                        AsignarDescuentoKit.IdAsignarDescuentoKit = Seguridad.Encriptar(item.IdAsignarDescuentoKit.ToString());
+                        AsignarDescuentoKit.IdDescuento = Seguridad.Encriptar(item.IdDescuento.ToString());
+                        AsignarDescuentoKit.IdKit = Seguridad.Encriptar(item.IdKit.ToString());
+                        AsignarDescuentoKit.FechaCreacion = item.FechaCreacion;
+                        AsignarDescuentoKit.FechaActualizacion = item.FechaModificacion;
+                        AsignarDescuentoKit.Estado = item.Estado;
+                    }
+                }
+                else
+                {
+                    EliminarAsignacionDescuentoKit(AsignarDescuentoKit.IdKit);
+                    foreach (var item in ConexionBD.sp_CrearAsignarDescuentoKit(int.Parse(AsignarDescuentoKit.IdDescuento), int.Parse(AsignarDescuentoKit.IdKit)))
+                    {
+                        AsignarDescuentoKit.IdAsignarDescuentoKit = Seguridad.Encriptar(item.IdAsignarDescuentoKit.ToString());
+                        AsignarDescuentoKit.IdDescuento = Seguridad.Encriptar(item.IdDescuento.ToString());
+                        AsignarDescuentoKit.IdKit = Seguridad.Encriptar(item.IdKit.ToString());
+                        AsignarDescuentoKit.FechaCreacion = item.FechaCreacion;
+                        AsignarDescuentoKit.FechaActualizacion = item.FechaModificacion;
+                        AsignarDescuentoKit.Estado = item.Estado;
+                    }
+                }
+                return AsignarDescuentoKit;
             }
             catch (Exception)
             {
-                return false;
+                AsignarDescuentoKit.IdAsignarDescuentoKit = null;
+                return AsignarDescuentoKit;
             }
+        }
+        public List<AsignarDescuentoKit> CargarAsignarDescuentoKitPorIdKit(int idKit)
+        {
+            ListaAsignarDescuentoKit = new List<AsignarDescuentoKit>();
+            foreach (var item in ConexionBD.sp_ConsultarAsignarDescuentoKitPorKit(idKit))
+            {
+                ListaAsignarDescuentoKit.Add(new AsignarDescuentoKit()
+                {
+                    IdAsignarDescuentoKit = Seguridad.Encriptar(item.IdAsignarDescuentoKit.ToString()),
+                    IdDescuento = Seguridad.Encriptar(item.IdDescuento.ToString()),
+                    IdKit = Seguridad.Encriptar(item.IdKit.ToString()),
+                    FechaCreacion = item.FechaCreacion,
+                    FechaActualizacion = item.FechaModificacion,
+                    Estado = item.Estado,
+                });
+            }
+            return ListaAsignarDescuentoKit;
         }
         public void CargarDatos()
         {

@@ -61,6 +61,7 @@
     <Compile Include="Entidades\Canton.cs" />
     <Compile Include="Entidades\Clave.cs" />
     <Compile Include="Entidades\Comunidad.cs" />
+    <Compile Include="Entidades\ProvinciaSeguimientoPersonas.cs" />
     <Compile Include="Entidades\ConfiguracionInteres.cs" />
     <Compile Include="Entidades\ConfigurarProductos.cs" />
     <Compile Include="Entidades\ConfigurarVenta.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Entidades\TipoUsuario.cs" />
     <Compile Include="Entidades\Tokens.cs" />
     <Compile Include="Entidades\Usuario.cs" />
+    <Compile Include="Entidades\Visita.cs" />
     <Compile Include="Logica\Credito\CaatalogoAbono.cs" />
     <Compile Include="Logica\Credito\CatalogoAsignarComunidadFactura.cs" />
     <Compile Include="Logica\Credito\CatalogoAsignarSeguro.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="Logica\Credito\CatalogoConfigurarVenta.cs" />
     <Compile Include="Logica\Credito\CatalogoDetalleVenta.cs" />
     <Compile Include="Logica\Credito\CatalogoTipoInteres.cs" />
+    <Compile Include="Logica\Credito\CatalogoVisita.cs" />
     <Compile Include="Logica\Factura\CatalogoAsignarProductoLote.cs" />
     <Compile Include="Logica\Factura\CatalogoDetalleFactura.cs" />
     <Compile Include="Logica\Factura\CatalogoLote.cs" />

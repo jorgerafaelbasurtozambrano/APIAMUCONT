@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Datos;
 using Negocio.Entidades.DatoUsuarios;
+using Negocio.Entidades;
 namespace Negocio.Logica.Usuarios
 {
     public class CatalogoUsuario
@@ -13,18 +14,46 @@ namespace Negocio.Logica.Usuarios
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         static List<UsuarioEntidad> ListaDatos;
         Negocio.Metodos.Seguridad seguridad = new Metodos.Seguridad();
-        public bool IngresarUsuario(UsuarioEntidad UsuarioEntidad)
+        public UsuariosSistema IngresarUsuario(UsuarioEntidad UsuarioEntidad)
         {
-            if (ConexionBD.sp_ConsultarTodosLosUsuarios().ToList().Where(p => p.Usuario.Trim() == UsuarioEntidad.UsuarioLogin.Trim()).Count() > 0)
+            UsuariosSistema DatoUsuariosSistema = new UsuariosSistema();
+            foreach (var item in ConexionBD.sp_CrearUsuario(int.Parse(UsuarioEntidad.IdPersona), UsuarioEntidad.UsuarioLogin.Trim(), UsuarioEntidad.Contrasena.Trim()))
             {
-                return false;
+                DatoUsuariosSistema.IdPersona = seguridad.Encriptar(item.PersonaIdPersona.ToString());
+                DatoUsuariosSistema.NumeroDocumento = item.PersonaNumeroDocumento;
+                DatoUsuariosSistema.ApellidoPaterno = item.PersonaApellidoPaterno;
+                DatoUsuariosSistema.ApellidoMaterno = item.PersonaApellidoMaterno;
+                DatoUsuariosSistema.PrimerNombre = item.PersonaPrimerNombre;
+                DatoUsuariosSistema.SegundoNombre = item.PersonaSegundoNombre;
+
+                DatoUsuariosSistema.IdUsuario = seguridad.Encriptar(item.UsuarioIdUsuario.ToString());
+                DatoUsuariosSistema.UsuarioLogin = item.Usuario;
+                DatoUsuariosSistema.Contrasena = item.Contrasena;
+                DatoUsuariosSistema.EstadoUsuario = item.UsuarioEstado;
             }
-            else
+            return DatoUsuariosSistema;
+        }
+
+        public List<UsuariosSistema> ConsultarUsuario(string UsuarioLogin)
+        {
+            List<UsuariosSistema> ListaDatos = new List<UsuariosSistema>();
+            foreach (var item in ConexionBD.sp_ConsultarUsuarioPorUsuario(UsuarioLogin))
             {
-                //return int.Parse(ConexionBD.sp_CrearUsuario(int.Parse(UsuarioEntidad.IdPersona), UsuarioEntidad.UsuarioLogin.Trim(), UsuarioEntidad.Contrasena.Trim()).Select(e => e.Value.ToString()).First());
-                int.Parse(ConexionBD.sp_CrearUsuario(int.Parse(UsuarioEntidad.IdPersona), UsuarioEntidad.UsuarioLogin.Trim(), UsuarioEntidad.Contrasena.Trim()).Select(e => e.Value.ToString()).First());
-                return true;
+                ListaDatos.Add(new UsuariosSistema()
+                {
+                    IdPersona = seguridad.Encriptar(item.PersonaIdPersona.ToString()),
+                    NumeroDocumento = item.PersonaNumeroDocumento,
+                    ApellidoPaterno = item.PersonaApellidoPaterno,
+                    ApellidoMaterno = item.PersonaApellidoMaterno,
+                    PrimerNombre = item.PersonaPrimerNombre,
+                    SegundoNombre = item.PersonaSegundoNombre,
+                    IdUsuario = seguridad.Encriptar(item.UsuarioIdUsuario.ToString()),
+                    UsuarioLogin = item.UsuarioUsuario,
+                    Contrasena = item.UsuarioContrasena,
+                    EstadoUsuario = item.UsuarioEstado,
+                });
             }
+            return ListaDatos;
         }
         private List<UsuarioEntidad> ListarUsuarios()
         {
@@ -39,49 +68,44 @@ namespace Negocio.Logica.Usuarios
             }
             return Lista;
         }
-        public bool ModificarUsuario(UsuarioEntidad UsuarioEntidad)
+        public UsuariosSistema ModificarUsuario(UsuarioEntidad UsuarioEntidad)
+        {
+            UsuariosSistema DatoUsuariosSistema = new UsuariosSistema();
+            try
+            {
+                foreach (var item in ConexionBD.sp_ModificarUsuario(int.Parse(UsuarioEntidad.IdUsuario), int.Parse(UsuarioEntidad.IdPersona), UsuarioEntidad.UsuarioLogin.Trim(), UsuarioEntidad.Contrasena.Trim()))
+                {
+                    DatoUsuariosSistema.IdPersona = seguridad.Encriptar(item.PersonaIdPersona.ToString());
+                    DatoUsuariosSistema.NumeroDocumento = item.PersonaNumeroDocumento;
+                    DatoUsuariosSistema.ApellidoPaterno = item.PersonaApellidoPaterno;
+                    DatoUsuariosSistema.ApellidoMaterno = item.PersonaApellidoMaterno;
+                    DatoUsuariosSistema.PrimerNombre = item.PersonaPrimerNombre;
+                    DatoUsuariosSistema.SegundoNombre = item.PersonaSegundoNombre;
+
+                    DatoUsuariosSistema.IdUsuario = seguridad.Encriptar(item.UsuarioIdUsuario.ToString());
+                    DatoUsuariosSistema.UsuarioLogin = item.Usuario;
+                    DatoUsuariosSistema.Contrasena = item.Contrasena;
+                    DatoUsuariosSistema.EstadoUsuario = item.UsuarioEstado;
+                }
+                return DatoUsuariosSistema;
+            }
+            catch (Exception)
+            {
+                DatoUsuariosSistema.IdUsuario = null;
+                return DatoUsuariosSistema;
+            }
+        }
+        public bool EliminarUsuario(int IdUsuarioEntidad)
         {
             try
             {
-                ConexionBD.sp_ModificarUsuario(int.Parse(UsuarioEntidad.IdUsuario), int.Parse(UsuarioEntidad.IdPersona), UsuarioEntidad.UsuarioLogin.Trim(), UsuarioEntidad.Contrasena.Trim());
+                ConexionBD.sp_EliminarUsuario(IdUsuarioEntidad);
                 return true;
             }
             catch (Exception)
             {
                 return false;
             }
-            /*UsuarioEntidad Usuario = new UsuarioEntidad();
-            //UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
-            Usuario = ListarUsuarios().Where(p => p.IdUsuario == UsuarioEntidad.IdUsuario).FirstOrDefault();
-            if (Usuario!=null)
-            {
-                if (Usuario.UsuarioLogin == UsuarioEntidad.UsuarioLogin)
-                {
-                        ConexionBD.sp_ModificarUsuario(int.Parse(UsuarioEntidad.IdUsuario), int.Parse(UsuarioEntidad.IdPersona), UsuarioEntidad.UsuarioLogin.Trim(), UsuarioEntidad.Contrasena.Trim());
-                        return true;                    
-                }
-                else
-                {
-                    if (ConexionBD.sp_ConsultarTodosLosUsuarios().ToList().Where(p => p.Usuario.Trim() == UsuarioEntidad.UsuarioLogin.Trim()).Count() > 0)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        ConexionBD.sp_ModificarUsuario(int.Parse(UsuarioEntidad.IdUsuario), int.Parse(UsuarioEntidad.IdPersona), UsuarioEntidad.UsuarioLogin.Trim(), UsuarioEntidad.Contrasena.Trim());
-                        return true;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }*/
-            
-        }
-        public void EliminarUsuario(int IdUsuarioEntidad)
-        {
-            ConexionBD.sp_EliminarUsuario(IdUsuarioEntidad);
         }
         public UsuarioEntidad ObtenerUsuario(int IdUsuarioEntidad)
         {
@@ -102,7 +126,6 @@ namespace Negocio.Logica.Usuarios
             }
             return Usuario;
         }
-
         public void CargarDatos()
         {
             ListaDatos = new List<UsuarioEntidad>();
@@ -117,5 +140,59 @@ namespace Negocio.Logica.Usuarios
                 });
             }
         }
+
+
+        public List<TipoUsuario> ConsultarTiposUsuarioQueNoTieneUnUsuario(int idUsuario)
+        {
+            List<TipoUsuario> Tipousuarios = new List<TipoUsuario>();
+            foreach (var item in ConexionBD.sp_ConsultarTiposDeUsuariosQueNoTieneUnUsuario(idUsuario))
+            {
+                Tipousuarios.Add(new TipoUsuario()
+                {
+                    IdTipoUsuario = seguridad.Encriptar(item.IdTipoUsuario.ToString()),
+                    Descripcion = item.Descripcion,
+                    Estado = item.Estado,
+                    FechaCreacion = item.FechaCreacion
+                });
+            }
+            return Tipousuarios;
+        }
+        public List<AsignacionTipoUsuario> ConsultarTiposUsuarioQueTieneUnUsuario(int idUsuario)
+        {
+            List<AsignacionTipoUsuario> ListaAsignarTipoUsuario = new List<AsignacionTipoUsuario>();
+            foreach (var item in ConexionBD.sp_ConsultarTiposDeUsuariosQueTieneUnUsuario(idUsuario))
+            {
+                ListaAsignarTipoUsuario.Add(new AsignacionTipoUsuario()
+                {
+                    IdAsignacionTUEncriptada = seguridad.Encriptar(item.AsignacionTipoUsuarioIdAsignacionTU.ToString()),
+                    Estado = item.AsignacionTipoUsuarioEstado,
+                    FechaCreacion = item.AsignacionTipoUsuarioFechaCreacion,
+                    TipoUsuario = new TipoUsuario()
+                    {
+                        IdTipoUsuario = seguridad.Encriptar(item.TipoUsuarioIdTipoUsuario.ToString()),
+                        Descripcion = item.TipoUsuarioDescripcion,
+                        Estado = item.TipoUsuarioEstado,
+                        FechaCreacion = item.TipoUsuarioFechaCreacion
+                    }
+                });
+            }
+            return ListaAsignarTipoUsuario;
+        }
+        public List<UsuariosSistema> ConsultarUsuarioPorId(int idUsuario)
+        {
+            List<UsuariosSistema> Usuarios = new List<UsuariosSistema>();
+            foreach (var item in ConexionBD.sp_ConsultarUsuarioPorId(idUsuario))
+            {
+                Usuarios.Add(new UsuariosSistema()
+                {
+                    IdUsuario = seguridad.Encriptar(item.IdUsuario.ToString()),
+                    UsuarioLogin = item.Usuario,
+                    Contrasena = item.Contrasena,
+                    EstadoUsuario = item.Estado
+                });
+            }
+            return Usuarios;
+        }
+
     }
 }

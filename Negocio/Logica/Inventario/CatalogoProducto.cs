@@ -12,45 +12,54 @@ namespace Negocio.Logica.Inventario
         AMUCOMTEntities ConexionBD = new AMUCOMTEntities();
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         static List<Producto> ListaProductos;
-        public string IngresarProducto(Producto Producto)
+        public Producto IngresarProducto(Producto Producto)
         {
-            Producto Producto1 = ListarProductos().Where(p => p.Nombre == Producto.Nombre.ToUpper()).FirstOrDefault();
-            try
+            if (Producto.Descripcion == null)
             {
-                /*
-                if (Producto1 == null)
+                foreach (var item in ConexionBD.sp_CrearProducto(int.Parse(Producto.IdTipoProducto), null, Producto.Nombre.ToUpper()))
                 {
-                    return Seguridad.Encriptar((int.Parse(ConexionBD.sp_CrearProducto(int.Parse(Producto.IdTipoProducto), Producto.Descripcion.ToUpper(), Producto.Nombre.ToUpper()).Select(e => e.Value.ToString()).First())).ToString());
-                }
-                else
-                {
-                    return "400";
-                }
-                */
-                if (Producto1 == null)
-                {
-                    if (Producto.Descripcion == null)
-                    {
-                        return Seguridad.Encriptar((int.Parse(ConexionBD.sp_CrearProducto(int.Parse(Producto.IdTipoProducto),null, Producto.Nombre.ToUpper()).Select(e => e.Value.ToString()).First())).ToString());
-
-                    }
-                    else
-                    {
-                        return Seguridad.Encriptar((int.Parse(ConexionBD.sp_CrearProducto(int.Parse(Producto.IdTipoProducto), Producto.Descripcion.ToUpper(), Producto.Nombre.ToUpper()).Select(e => e.Value.ToString()).First())).ToString());
-
-                    }
-                }
-                else
-                {
-                    return Producto1.IdProducto;
+                    Producto.IdProducto = Seguridad.Encriptar(item.IdProducto.ToString());
+                    Producto.IdTipoProducto = Seguridad.Encriptar(item.IdTipoProducto.ToString());
+                    Producto.Nombre = item.Nombre;
+                    Producto.Descripcion = item.Descripcion;
+                    Producto.FechaActualizacion = item.FechaActualizacion;
+                    Producto.FechaCreacion = item.FechaCreacion;
+                    Producto.Estado = item.Estado;
                 }
             }
-            catch (Exception)
+            else
             {
-                return "false";
+                foreach (var item in ConexionBD.sp_CrearProducto(int.Parse(Producto.IdTipoProducto), Producto.Descripcion.ToUpper(), Producto.Nombre.ToUpper()))
+                {
+                    Producto.IdProducto = Seguridad.Encriptar(item.IdProducto.ToString());
+                    Producto.IdTipoProducto = Seguridad.Encriptar(item.IdTipoProducto.ToString());
+                    Producto.Nombre = item.Nombre;
+                    Producto.Descripcion = item.Descripcion;
+                    Producto.FechaActualizacion = item.FechaActualizacion;
+                    Producto.FechaCreacion = item.FechaCreacion;
+                    Producto.Estado = item.Estado;
+                }                
             }
+            return Producto;
         }
-
+        public List<Producto> ConsultarProductoPorNombre(string Nombre)
+        {
+            List<Producto> ListaProducto = new List<Producto>();
+            foreach (var item in ConexionBD.sp_ConsultarProductoPorNombre(Nombre))
+            {
+                ListaProducto.Add(new Producto()
+                {
+                    IdProducto = Seguridad.Encriptar(item.IdProducto.ToString()),
+                    IdTipoProducto = Seguridad.Encriptar(item.IdTipoProducto.ToString()),
+                    Descripcion = item.Descripcion,
+                    Nombre = item.Nombre,
+                    FechaCreacion = item.FechaCreacion,
+                    FechaActualizacion = item.FechaActualizacion,
+                    Estado = item.Estado
+                });
+            }
+            return ListaProducto;
+        }
         public bool EliminarProducto(int IdProducto)
         {
             try
@@ -63,7 +72,6 @@ namespace Negocio.Logica.Inventario
                 return false;
             }
         }
-
         public string ModificarProducto(Producto Producto)
         {
             Producto Producto1 = ListarProductos().Where(p => p.Nombre == Producto.Nombre.ToUpper()).FirstOrDefault();
@@ -85,7 +93,6 @@ namespace Negocio.Logica.Inventario
                 return "false";
             }
         }
-
         public void CargarProductos()
         {
             ListaProductos = new List<Producto>();

@@ -12,25 +12,18 @@ namespace Negocio.Logica.Inventario
         AMUCOMTEntities ConexionBD = new AMUCOMTEntities();
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
         static List<Presentacion> ListaPresentaciones;
-        public string InsertarPresentacion(Presentacion Presentacion)
+        public Presentacion InsertarPresentacion(Presentacion Presentacion)
         {
-            Presentacion Presentacion1 = ListarPresentaciones().Where(p => p.Descripcion == Presentacion.Descripcion.ToUpper()).FirstOrDefault();
-            try
+            foreach (var item in ConexionBD.sp_CrearPresentacion(Presentacion.Descripcion.ToUpper()))
             {
-                if (Presentacion1==null)
-                {
-                    ConexionBD.sp_CrearPresentacion(Presentacion.Descripcion.ToUpper());
-                    return "true";
-                }
-                else
-                {
-                    return "400";
-                }
+                Presentacion.IdPresentacion = Seguridad.Encriptar(item.IdPresentacion.ToString());
+                Presentacion.Descripcion = item.Descripcion;
+                Presentacion.FechaActualizacion = item.FechaActualizacion;
+                Presentacion.FechaCreacion = item.FechaCreacion;
+                Presentacion.Estado = item.Estado;
+                Presentacion.PresentacionUtilizado = "0";
             }
-            catch (Exception)
-            {
-                return "false";
-            }
+            return Presentacion;
         }
         public bool EliminarPresentacion(int IdPresentacion)
         {
@@ -44,24 +37,25 @@ namespace Negocio.Logica.Inventario
                 return false;
             }
         }
-        public string ModificarPresentacion(Presentacion Presentacion)
+        public Presentacion ModificarPresentacion(Presentacion Presentacion)
         {
-            Presentacion Presentacion1 = ListarPresentaciones().Where(p => p.Descripcion == Presentacion.Descripcion.ToUpper()).FirstOrDefault();
             try
             {
-                if (Presentacion1 == null)
+                foreach (var item in ConexionBD.sp_ModificarPresentacion(int.Parse(Presentacion.IdPresentacion), Presentacion.Descripcion.ToUpper()))
                 {
-                    ConexionBD.sp_ModificarPresentacion(int.Parse(Presentacion.IdPresentacion), Presentacion.Descripcion.ToUpper());
-                    return "true";
+                    Presentacion.IdPresentacion = Seguridad.Encriptar(item.IdPresentacion.ToString());
+                    Presentacion.Descripcion = item.Descripcion;
+                    Presentacion.FechaActualizacion = item.FechaActualizacion;
+                    Presentacion.FechaCreacion = item.FechaCreacion;
+                    Presentacion.Estado = item.Estado;
+                    Presentacion.PresentacionUtilizado = item.PresentacionUtilizado;
                 }
-                else
-                {
-                    return "400";
-                }
+                return Presentacion;
             }
             catch (Exception)
             {
-                return "false";
+                Presentacion.IdPresentacion = null;
+                return Presentacion;
             }
         }
         public void CargarPresentaciones()
@@ -84,6 +78,39 @@ namespace Negocio.Logica.Inventario
         {
             CargarPresentaciones();
             return ListaPresentaciones.GroupBy(a => a.IdPresentacion).Select(grp => grp.First()).Where(p => p.Estado != false).ToList();
+        }
+        public List<Presentacion> ConsultarPresentacionPorDescripcion(string Descripcion)
+        {
+            ListaPresentaciones = new List<Presentacion>();
+            foreach (var item in ConexionBD.sp_ConsultarSiExistePresentacion(Descripcion))
+            {
+                ListaPresentaciones.Add(new Presentacion()
+                {
+                    IdPresentacion = Seguridad.Encriptar(item.IdPresentacion.ToString()),
+                    Descripcion = item.Descripcion,
+                    FechaActualizacion = item.FechaActualizacion,
+                    FechaCreacion = item.FechaCreacion,
+                    Estado = item.Estado
+                });
+            }
+            return ListaPresentaciones;
+        }
+        public List<Presentacion> ConsultarPresentacionPorId(int idPresentacion)
+        {
+            ListaPresentaciones = new List<Presentacion>();
+            foreach (var item in ConexionBD.sp_ConsultarPresentacionPorId(idPresentacion))
+            {
+                ListaPresentaciones.Add(new Presentacion()
+                {
+                    IdPresentacion = Seguridad.Encriptar(item.IdPresentacion.ToString()),
+                    Descripcion = item.Descripcion,
+                    FechaActualizacion = item.FechaActualizacion,
+                    FechaCreacion = item.FechaCreacion,
+                    Estado = item.Estado,
+                    PresentacionUtilizado = item.PresentacionUtilizado
+                });
+            }
+            return ListaPresentaciones;
         }
     }
 }

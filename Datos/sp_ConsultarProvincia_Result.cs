@@ -13,10 +13,11 @@ namespace Datos
     
     public partial class sp_ConsultarProvincia_Result
     {
-        public int IdProvincia { get; set; }
         public string Descripcion { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public Nullable<System.DateTime> FechaActualizacion { get; set; }
         public bool Estado { get; set; }
+        public Nullable<System.DateTime> FechaActualizacion { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
+        public int IdProvincia { get; set; }
+        public string ProvinciaUtilizado { get; set; }
     }
 }

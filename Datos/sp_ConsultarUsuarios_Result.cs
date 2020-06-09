@@ -32,37 +32,5 @@ namespace Datos
         public int TipoDocumentoIdentificador { get; set; }
         public System.DateTime TipoDocumentoFechaCreacion { get; set; }
         public bool TipoDocumentoEstado { get; set; }
-        public int IdAsignacionTU { get; set; }
-        public int AsignacionTipoUsuarioIdUsuario { get; set; }
-        public int AsigancionTipoUsuarioIdTipoUsuario { get; set; }
-        public Nullable<System.DateTime> AsignacionTipoUsuarioFechaCreacion { get; set; }
-        public bool AsignacionTipoUsuarioEstado { get; set; }
-        public int TipoUsuarioIdTipoUsuario { get; set; }
-        public string TipoUsuarioDescripcion { get; set; }
-        public string TipoUsuarioIdentificacion { get; set; }
-        public Nullable<System.DateTime> TipoUsuarioFechaCreacion { get; set; }
-        public bool TipoUsuarioEstado { get; set; }
-        public int IdModuloTipo { get; set; }
-        public int ModuloTipoIdTipoUsuario { get; set; }
-        public int ModuloTipoIdModulo { get; set; }
-        public Nullable<System.DateTime> ModuloTipoFechaCreacion { get; set; }
-        public bool ModuloTipoEstado { get; set; }
-        public int IdModulo { get; set; }
-        public string ModuloDescripcion { get; set; }
-        public string Controlador { get; set; }
-        public string Metodo { get; set; }
-        public int ModuloIdentificador { get; set; }
-        public Nullable<System.DateTime> ModuloFechaCreacion { get; set; }
-        public bool ModuloEstado { get; set; }
-        public int IdPrivilegioModuloTipo { get; set; }
-        public int PrivilegioModuloTipoIdPrivilegio { get; set; }
-        public int PrivilegioModuloTipoIdModuloTipo { get; set; }
-        public Nullable<System.DateTime> PrivilegioModuloTipoFechaCreacion { get; set; }
-        public bool PrivilegioModuloTipoEstado { get; set; }
-        public int IdPrivilegios { get; set; }
-        public string PrivilegiosDescripcion { get; set; }
-        public int PrivilegiosIdentificador { get; set; }
-        public Nullable<System.DateTime> PrivilegioFechaCreacion { get; set; }
-        public bool PrivilegioEstado { get; set; }
     }
 }

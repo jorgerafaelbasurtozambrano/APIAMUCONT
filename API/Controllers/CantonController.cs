@@ -19,6 +19,7 @@ namespace API.Controllers
         CatalogoSeguridad GestionSeguridad = new CatalogoSeguridad();
         Prueba p = new Prueba();
         Negocio.Metodos.Seguridad Seguridad = new Negocio.Metodos.Seguridad();
+        CatalogoProvincia GestionProvincia = new CatalogoProvincia();
         [HttpPost]
         [Route("api/TalentoHumano/IngresoCanton")]
         public object IngresoCanton(CantonEntidad CantonEntidad)
@@ -35,29 +36,72 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(CantonEntidad.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                    mensaje = "EXITO";
-                    codigo = "200";
+                if (CantonEntidad.Descripcion == null || string.IsNullOrEmpty(CantonEntidad.Descripcion.Trim()))
+                {
+                    codigo = "400";
+                    mensaje = "Falta la descripcion del canton";
+                }
+                else if (CantonEntidad.IdProvincia == null || string.IsNullOrEmpty(CantonEntidad.IdProvincia.Trim()))
+                {
+                    codigo = "400";
+                    mensaje = "Falta la provincia a la que quiere asignar el canton";
+                }
+                else
+                {
                     CantonEntidad.IdProvincia = Seguridad.DesEncriptar(CantonEntidad.IdProvincia);
-                    respuesta = GestionCanton.IngresarCanton(CantonEntidad);
+                    Provincia _DatoProvincia = new Provincia();
+                    _DatoProvincia = GestionProvincia.ConsultarProvinciaPorId(int.Parse(CantonEntidad.IdProvincia)).FirstOrDefault();
+                    if (_DatoProvincia != null)
+                    {
+                        Canton DatoCanton = new Canton();
+                        DatoCanton = GestionCanton.ConsultarCantonPorDescripcion(CantonEntidad.Descripcion.ToUpper()).FirstOrDefault();
+                        if (DatoCanton == null)
+                        {
+                            DatoCanton = new Canton();
+                            DatoCanton = GestionCanton.IngresarCanton(CantonEntidad);
+                            if (DatoCanton.IdCanton == null || string.IsNullOrEmpty(DatoCanton.IdCanton.Trim()))
+                            {
+                                codigo = "500";
+                                mensaje = "Ocurrio un error en el servidor";
+                            }
+                            else
+                            {
+                                respuesta = DatoCanton;
+                                codigo = "200";
+                                mensaje = "EXITO";
+                                objeto = new { codigo, mensaje, respuesta };
+                                return objeto;
+                            }
+                        }
+                        else
+                        {
+                            codigo = "418";
+                            mensaje = "Ya existe el canton que quiere insertar";
+                        }
+                    }
+                    else
+                    {
+                        codigo = "500";
+                        mensaje = "La provincia a la que desea asignar no existe";
+                    }
+                }
+                objeto = new { codigo, mensaje };
+                return objeto;
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
-                return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
         }
-
-
         [HttpPost]
         [Route("api/TalentoHumano/EliminarCanton")]
         public object EliminarCanton(CantonEntidad CantonEntidad)
@@ -74,24 +118,56 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(CantonEntidad.encriptada, _claveDelete.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _claveDelete.Descripcion)
                 //{
-                    mensaje = "EXITO";
-                    codigo = "200";
+                if (CantonEntidad.IdCanton == null || string.IsNullOrEmpty(CantonEntidad.IdCanton.Trim()))
+                {
+                    codigo = "400";
+                    mensaje = "Falta el id del canton a eliminar";
+                }
+                else
+                {
                     CantonEntidad.IdCanton = Seguridad.DesEncriptar(CantonEntidad.IdCanton);
-                    
-                    respuesta = GestionCanton.EliminarCanton(int.Parse(CantonEntidad.IdCanton));
+                    Canton DatoCanton = new Canton();
+                    DatoCanton = GestionCanton.ConsultarCantonPorId(int.Parse(CantonEntidad.IdCanton)).FirstOrDefault();
+                    if (DatoCanton == null)
+                    {
+                        codigo = "418";
+                        mensaje = "El canton que intenta eliminar no existe";
+                    }
+                    else
+                    {
+                        if (DatoCanton.PermitirEliminacion == true)
+                        {
+                            if (GestionCanton.EliminarCanton(int.Parse(CantonEntidad.IdCanton)) == true)
+                            {
+                                mensaje = "EXITO";
+                                codigo = "200";
+                            }
+                            else
+                            {
+                                codigo = "500";
+                                mensaje = "Ocurrio un error al intentar eliminar el canton";
+                            }
+                        }
+                        else
+                        {
+                            codigo = "500";
+                            mensaje = "No se puede eliminar el canton porque esta siendo usado";
+                        }
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new {codigo,mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -113,25 +189,76 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(CantonEntidad.encriptada, _clavePut.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePut.Descripcion)
                 //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    CantonEntidad.IdCanton = Seguridad.DesEncriptar(CantonEntidad.IdCanton);
+                if (CantonEntidad.IdCanton == null || string.IsNullOrEmpty(CantonEntidad.IdCanton.Trim()))
+                {
+                    codigo = "400";
+                    mensaje = "Falta la descripcion del canton";
+                }
+                else if (CantonEntidad.Descripcion == null || string.IsNullOrEmpty(CantonEntidad.Descripcion.Trim()))
+                {
+                    codigo = "400";
+                    mensaje = "Falta la descripcion del canton";
+                }
+                else if (CantonEntidad.IdProvincia == null || string.IsNullOrEmpty(CantonEntidad.IdProvincia.Trim()))
+                {
+                    codigo = "400";
+                    mensaje = "Falta la provincia a la que quiere asignar el canton";
+                }
+                else
+                {
                     CantonEntidad.IdProvincia = Seguridad.DesEncriptar(CantonEntidad.IdProvincia);
-                    
-                    respuesta = GestionCanton.ModificarCanton(CantonEntidad);
+                    Provincia _DatoProvincia = new Provincia();
+                    _DatoProvincia = GestionProvincia.ConsultarProvinciaPorId(int.Parse(CantonEntidad.IdProvincia)).FirstOrDefault();
+                    if (_DatoProvincia != null)
+                    {
+                        CantonEntidad.IdCanton = Seguridad.DesEncriptar(CantonEntidad.IdCanton);
+                        Canton DatoCanton = new Canton();
+                        DatoCanton = GestionCanton.ConsultarCantonPorId(int.Parse(CantonEntidad.IdCanton)).FirstOrDefault();
+                        if (DatoCanton == null)
+                        {
+                            codigo = "418";
+                            mensaje = "El canton que intenta modificar no existe";
+                        }
+                        else
+                        {
+                            DatoCanton = new Canton();
+                            DatoCanton = GestionCanton.ModificarCanton(CantonEntidad);
+                            if (DatoCanton.IdCanton == null || string.IsNullOrEmpty(DatoCanton.IdCanton))
+                            {
+                                codigo = "500";
+                                mensaje = "Ocurrio un error al intentar modificar el canton";
+                            }
+                            else
+                            {
+                                respuesta = DatoCanton;
+                                mensaje = "EXITO";
+                                codigo = "200";
+                                objeto = new { codigo, mensaje, respuesta };
+                                return objeto;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        codigo = "500";
+                        mensaje = "La provincia a la que desea asignar no existe";
+                    }
+                }
+                objeto = new { codigo, mensaje };
+                return objeto;
+
+
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
-                return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

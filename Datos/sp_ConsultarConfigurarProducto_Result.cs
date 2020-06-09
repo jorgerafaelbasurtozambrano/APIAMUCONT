@@ -18,34 +18,40 @@ namespace Datos
         public System.DateTime TipoProductoFechaCreacion { get; set; }
         public System.DateTime TipoProductoFechaActualizacion { get; set; }
         public bool TipoProductoEstado { get; set; }
-        public Nullable<int> ProductoIdProducto { get; set; }
-        public Nullable<int> ProductoIdTipoProducto { get; set; }
+        public int ProductoIdProducto { get; set; }
+        public int ProductoIdTipoProducto { get; set; }
         public string ProductoDescripcion { get; set; }
         public string ProductoNombre { get; set; }
-        public Nullable<System.DateTime> ProductoFechaCreacion { get; set; }
-        public Nullable<System.DateTime> ProductoFechaActualizacion { get; set; }
-        public Nullable<bool> ProductoEstado { get; set; }
-        public Nullable<int> MedidaIdMedida { get; set; }
+        public System.DateTime ProductoFechaCreacion { get; set; }
+        public System.DateTime ProductoFechaActualizacion { get; set; }
+        public bool ProductoEstado { get; set; }
+        public int MedidaIdMedida { get; set; }
         public string MedidaDescripcion { get; set; }
-        public Nullable<System.DateTime> MedidaFechaCreacion { get; set; }
-        public Nullable<System.DateTime> MedidaFechaActualizacion { get; set; }
-        public Nullable<bool> MedidaEstado { get; set; }
-        public Nullable<int> PresentacionIdPresentacion { get; set; }
+        public System.DateTime MedidaFechaCreacion { get; set; }
+        public System.DateTime MedidaFechaActualizacion { get; set; }
+        public bool MedidaEstado { get; set; }
+        public int PresentacionIdPresentacion { get; set; }
         public string PresentacionDescripcion { get; set; }
-        public Nullable<System.DateTime> PresentacionFechaCreacion { get; set; }
-        public Nullable<System.DateTime> PresentacionFechaActualizacion { get; set; }
-        public Nullable<bool> PresentacionEstado { get; set; }
-        public Nullable<int> ConfigurarProductoIdConfigurarProducto { get; set; }
-        public Nullable<int> ConfigurarProductoIdAsignacionTU { get; set; }
-        public Nullable<int> ConfigurarProductoIdProducto { get; set; }
-        public Nullable<int> ConfigurarProductoIdMedida { get; set; }
-        public Nullable<int> ConfigurarProductoIdPresentacion { get; set; }
+        public System.DateTime PresentacionFechaCreacion { get; set; }
+        public System.DateTime PresentacionFechaActualizacion { get; set; }
+        public bool PresentacionEstado { get; set; }
+        public int ConfigurarProductoIdConfigurarProducto { get; set; }
+        public int ConfigurarProductoIdAsignacionTU { get; set; }
+        public int ConfigurarProductoIdProducto { get; set; }
+        public int ConfigurarProductoIdMedida { get; set; }
+        public int ConfigurarProductoIdPresentacion { get; set; }
         public string ConfigurarProductoCodigo { get; set; }
-        public Nullable<int> ConfigurarProductoCantidadMedida { get; set; }
-        public Nullable<System.DateTime> ConfigurarProductoFechaCreacion { get; set; }
-        public Nullable<System.DateTime> ConfigurarProductoFechaActualizacion { get; set; }
-        public Nullable<bool> ConfigurarProductoEstado { get; set; }
-        public Nullable<int> ConfigurarProductoIva { get; set; }
+        public int ConfigurarProductoCantidadMedida { get; set; }
+        public System.DateTime ConfigurarProductoFechaCreacion { get; set; }
+        public System.DateTime ConfigurarProductoFechaActualizacion { get; set; }
+        public bool ConfigurarProductoEstado { get; set; }
+        public int ConfigurarProductoIva { get; set; }
+        public bool PrecioConfiguracionProductoEstado { get; set; }
+        public System.DateTime PrecioConfiguracionProductoFechaRegistro { get; set; }
+        public int PrecioConfiguracionProductoIdConfigurarProducto { get; set; }
+        public int PrecioConfiguracionProductoIdPrecioConfiguracionProducto { get; set; }
+        public decimal PrecioConfiguracionProductoPrecio { get; set; }
         public string ConfiguracionProductoUtilizado { get; set; }
+        public string ConfiguracionUtilizado1 { get; set; }
     }
 }

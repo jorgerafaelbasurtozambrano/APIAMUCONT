@@ -19,11 +19,20 @@ namespace Negocio.Logica.TalentHumano
             ListaComunidad = new List<Comunidad>();
             foreach (var item in ConexionBD.sp_ConsultarComunidad().Where(p=>p.Estado != false && p.ParroquiaEstado != false).ToList())
             {
+                bool estadoComunidadEliminacion = false;
+                if (item.ComunidadUtilizado == "0")
+                {
+                    estadoComunidadEliminacion = true;
+                }
+                else
+                {
+                    estadoComunidadEliminacion = false;
+                }
                 ListaComunidad.Add(new Comunidad()
                 {
                     IdComunidad = Seguridad.Encriptar(item.IdComunidad.ToString()),
                     Descripcion = item.Descripcion,
-                    ComunidadUtilizado = item.ComunidadUtilizado,
+                    PermitirEliminacion = estadoComunidadEliminacion,
                     Parroquia = new Parroquia()
                     {
                         IdParroquia = Seguridad.Encriptar(item.IdParroquia.ToString()),
@@ -35,62 +44,72 @@ namespace Negocio.Logica.TalentHumano
                 });
             }
         }
-        public string IngresarComunidad(ComunidadEntidad ComunidadEntidad)
+        public Comunidad IngresarComunidad(ComunidadEntidad ComunidadEntidad)
+        {
+            Comunidad _DatoComunidad = new Comunidad();
+            foreach (var item in ConexionBD.sp_CrearComunidad(int.Parse(ComunidadEntidad.IdParroquia), ComunidadEntidad.Descripcion.ToUpper()))
+            {
+                _DatoComunidad.IdComunidad = Seguridad.Encriptar(item.ComunidadIdComunidad.ToString());
+                _DatoComunidad.Descripcion = item.ComunidadDescripcion;
+                _DatoComunidad.PermitirEliminacion = true;
+                _DatoComunidad.FechaCreacion = item.ComunidadFechaCreacion;
+                _DatoComunidad.Estado = item.ComunidadEstado;
+                _DatoComunidad.Parroquia = new Parroquia()
+                {
+                     IdParroquia = Seguridad.Encriptar(item.ParroquiaIdParroquia.ToString()),
+                     Descripcion = item.ParroquiaDescripcion,
+                     Estado = item.ParroquiaEstado,
+                };
+            }
+            return _DatoComunidad;
+        }
+        public bool EliminarComunidad(int IdComunidad)
         {
             try
             {
-                Comunidad Comunidad1 = ObtenerListaComunidad().Where(p => p.Descripcion == ComunidadEntidad.Descripcion.ToUpper()).FirstOrDefault();
-                if (Comunidad1 == null)
-                {
-                    ConexionBD.sp_CrearComunidad(int.Parse(ComunidadEntidad.IdParroquia), ComunidadEntidad.Descripcion.ToUpper());
-                    return "true";
-                }
-                else
-                {
-                    return "400";
-                }
+                ConexionBD.sp_EliminarComunidad(IdComunidad);
+                return true;
             }
             catch (Exception)
             {
-                return "false";
+                return false;
             }
         }
-        public void EliminarComunidad(int IdComunidad)
+        public Comunidad ModificarComunidad(ComunidadEntidad ComunidadEntidad)
         {
-            ConexionBD.sp_EliminarComunidad(IdComunidad);
-        }
-        public string ModificarComunidad(ComunidadEntidad ComunidadEntidad)
-        {
-            Comunidad Comunidad1 = ObtenerListaComunidad().Where(p => Seguridad.DesEncriptar(p.IdComunidad) == ComunidadEntidad.IdComunidad).FirstOrDefault();
+            Comunidad _DatoComunidad = new Comunidad();
             try
             {
-                if (Comunidad1 == null)
+                foreach (var item in ConexionBD.sp_ModificarComunidad(int.Parse(ComunidadEntidad.IdComunidad), ComunidadEntidad.Descripcion.ToUpper(), int.Parse(ComunidadEntidad.IdParroquia)))
                 {
-                    return "false";
-                }
-                if (Comunidad1.Descripcion.Trim().Contains(ComunidadEntidad.Descripcion.Trim()))
-                {
-                    ConexionBD.sp_ModificarComunidad(int.Parse(ComunidadEntidad.IdComunidad), ComunidadEntidad.Descripcion.ToUpper(), int.Parse(ComunidadEntidad.IdParroquia));
-                    return "true";
-                }
-                else
-                {
-                    if (ObtenerListaComunidad().Where(p => p.Descripcion.Trim() == ComunidadEntidad.Descripcion.ToUpper().Trim()).FirstOrDefault() == null)
+                    bool PermitirEliminar = false;
+                    if (item.ComunidadUtilizado == "0")
                     {
-                        ConexionBD.sp_ModificarComunidad(int.Parse(ComunidadEntidad.IdComunidad), ComunidadEntidad.Descripcion.ToUpper(), int.Parse(ComunidadEntidad.IdParroquia));
-                        return "true";
+                        PermitirEliminar = true;
                     }
                     else
                     {
-                        return "400";
+                        PermitirEliminar = false;
                     }
+                    _DatoComunidad.IdComunidad = Seguridad.Encriptar(item.ComunidadIdComunidad.ToString());
+                    _DatoComunidad.Descripcion = item.ComunidadDescripcion;
+                    _DatoComunidad.PermitirEliminacion = PermitirEliminar;
+                    _DatoComunidad.FechaCreacion = item.ComunidadFechaCreacion;
+                    _DatoComunidad.Estado = item.ComunidadEstado;
+                    _DatoComunidad.Parroquia = new Parroquia()
+                    {
+                        IdParroquia = Seguridad.Encriptar(item.ParroquiaIdParroquia.ToString()),
+                        Descripcion = item.ParroquiaDescripcion,
+                        Estado = item.ParroquiaEstado,
+                    };
                 }
+                return _DatoComunidad;
             }
             catch (Exception)
             {
-                return "false";
+                _DatoComunidad.IdComunidad = null;
+                return _DatoComunidad;
             }
-
         }
         public List<Comunidad> ObtenerListaComunidad()
         {
@@ -113,5 +132,43 @@ namespace Negocio.Logica.TalentHumano
             }
             return ListaComunidades;
         }
+        public List<Comunidad> ConsultarComunidadPorDescripcion(ComunidadEntidad _ComunidadEntidad)
+        {
+            List<Comunidad> ListaComunidad = new List<Comunidad>();
+            foreach (var item in ConexionBD.sp_ConsultarComunidadSiexiste(_ComunidadEntidad.Descripcion,int.Parse(_ComunidadEntidad.IdParroquia)))
+            {
+                ListaComunidad.Add(new Comunidad()
+                {
+                    IdComunidad = Seguridad.Encriptar(item.IdComunidad.ToString()),
+                    Descripcion = item.Descripcion,
+                });
+            }
+            return ListaComunidad;
+        }
+        public List<Comunidad> ConsultarComunidadPorId(int IdComunidad)
+        {
+            List<Comunidad> ListaComunidad = new List<Comunidad>();
+            foreach (var item in ConexionBD.sp_ConsultarComunidadPorId(IdComunidad))
+            {
+                bool permitirEliminar = false;
+                if (item.ComunidadUtilizado == "0")
+                {
+                    permitirEliminar = true;
+                }
+                else
+                {
+                    permitirEliminar = false;
+                }
+                ListaComunidad.Add(new Comunidad()
+                {
+                    IdComunidad = Seguridad.Encriptar(item.IdComunidad.ToString()),
+                    Descripcion = item.Descripcion,
+                    Estado = item.Estado,
+                    PermitirEliminacion = permitirEliminar
+                });
+            }
+            return ListaComunidad;
+        }
+
     }
 }

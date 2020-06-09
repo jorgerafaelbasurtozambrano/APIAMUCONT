@@ -35,28 +35,57 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Provincia.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                    mensaje = "EXITO";
-                    codigo = "200";                
-                    //GestionProvincia.IngresoProvincia(Provincia);
-                    respuesta = GestionProvincia.IngresoProvincia(Provincia);
+                if (Provincia.Descripcion == null || string.IsNullOrEmpty(Provincia.Descripcion.Trim()))
+                {
+                    codigo = "400";
+                    mensaje = "Falta la descripcion de la provincia";
+                }
+                else
+                {
+                    Provincia DatoProvincia = new Provincia();
+                    DatoProvincia = GestionProvincia.ConsultarProvinciaPorDescripcion(Provincia.Descripcion.ToUpper()).FirstOrDefault();
+                    if (DatoProvincia == null)
+                    {
+                        DatoProvincia = new Provincia();
+                        DatoProvincia = GestionProvincia.IngresoProvincia(Provincia);
+                        if (DatoProvincia.IdProvincia == null || string.IsNullOrEmpty(DatoProvincia.IdProvincia.Trim()))
+                        {
+                            codigo = "500";
+                            mensaje = "Ocurrio un error en el servidor";
+                        }
+                        else
+                        {
+                            respuesta = DatoProvincia;
+                            codigo = "200";
+                            mensaje = "EXITO";
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                    else
+                    {
+                        codigo = "418";
+                        mensaje = "Ya existe la provincia que quiere insertar";
+                    }
+                }
+                objeto = new {codigo, mensaje};
+                return objeto;
+                //GestionProvincia.IngresoProvincia(Provincia);
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
-                return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/TalentoHumano/EliminarProvincia")]
         public object EliminarProvincia(Provincia Provincia)
@@ -73,30 +102,60 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Provincia.encriptada, _claveDelete.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _claveDelete.Descripcion)
                 //{
-                    mensaje = "EXITO";
-                    codigo = "200";
+                if (Provincia.IdProvincia == null || string.IsNullOrEmpty(Provincia.IdProvincia.Trim()))
+                {
+                    codigo = "400";
+                    mensaje = "Falta el id de la provincia";
+                }
+                else
+                {
+                    Provincia DatoProvincia = new Provincia();
                     Provincia.IdProvincia = Seguridad.DesEncriptar(Provincia.IdProvincia);
-                    
-                    respuesta = GestionProvincia.EliminarProvincia(int.Parse(Provincia.IdProvincia));
+                    DatoProvincia = GestionProvincia.ConsultarProvinciaPorId(int.Parse(Provincia.IdProvincia)).FirstOrDefault();
+                    if (DatoProvincia == null)
+                    {
+                        codigo = "500";
+                        mensaje = "La provincia que quiere eliminar no existe";
+                    }
+                    else
+                    {
+                        if (DatoProvincia.PermitirEliminacion == true)
+                        {
+                            if (GestionProvincia.EliminarProvincia(int.Parse(Provincia.IdProvincia))== true)
+                            {
+                                codigo = "200";
+                                mensaje = "EXITO";
+                            }
+                            else
+                            {
+                                codigo = "500";
+                                mensaje = "Ocurrio un error al eliminar la provincia";
+                            }
+                        }
+                        else
+                        {
+                            codigo = "500";
+                            mensaje = "No se puede eliminar porque esta siendo utilizado";
+                        }
+                    }
+                }   
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
+                mensaje = e.Message;
                 codigo = "418";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
         }
-
-
         [HttpPost]
         [Route("api/TalentoHumano/ActualizarProvincia")]
         public object ActualizarProvincia(Provincia Provincia)
@@ -113,23 +172,67 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Provincia.encriptada, _clavePut.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePut.Descripcion)
                 //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    Provincia.IdProvincia = Seguridad.DesEncriptar(Provincia.IdProvincia);
-                    
-                    respuesta = GestionProvincia.ModificarProvincia(Provincia);
+                if (Provincia.IdProvincia == null || string.IsNullOrEmpty(Provincia.IdProvincia.Trim()))
+                {
+                    codigo = "400";
+                    mensaje = "Falta el id de la provincia";
+                }
+                else if (Provincia.Descripcion == null || string.IsNullOrEmpty(Provincia.Descripcion.Trim()))
+                {
+                    codigo = "400";
+                    mensaje = "Falta la descripcion de la provincia";
+                }
+                else
+                {
+                    Provincia DatoProvincia = new Provincia();
+                    DatoProvincia = GestionProvincia.ConsultarProvinciaPorDescripcion(Provincia.Descripcion.ToUpper()).FirstOrDefault();
+                    if (DatoProvincia == null)
+                    {
+                        Provincia.IdProvincia = Seguridad.DesEncriptar(Provincia.IdProvincia);
+                        DatoProvincia = new Provincia();
+                        DatoProvincia = GestionProvincia.ConsultarProvinciaPorId(int.Parse(Provincia.IdProvincia)).FirstOrDefault();
+                        if (DatoProvincia == null)
+                        {
+                            codigo = "500";
+                            mensaje = "La provincia que quiere modificar no existe";
+                        }
+                        else
+                        {
+                            DatoProvincia = new Provincia();
+                            DatoProvincia = GestionProvincia.ModificarProvincia(Provincia);
+                            if (DatoProvincia.IdProvincia == null)
+                            {
+                                codigo = "500";
+                                mensaje = "Ocurrio un error en el servidor";
+                            }
+                            else
+                            {
+                                respuesta = DatoProvincia;
+                                codigo = "200";
+                                mensaje = "EXITO";
+                                objeto = new { codigo, mensaje, respuesta };
+                                return objeto;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        codigo = "418";
+                        mensaje = "Ya existe la provincia que quiere modificar";
+                    }
+                }
+                objeto = new { codigo, mensaje };
+                return objeto;
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
-                return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
+                mensaje = e.Message;
                 codigo = "418";
                 objeto = new { codigo, mensaje };
                 return objeto;

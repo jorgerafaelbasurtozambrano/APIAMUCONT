@@ -33,24 +33,49 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(CabeceraFactura.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                CabeceraFactura.IdTipoTransaccion = Seguridad.DesEncriptar(CabeceraFactura.IdTipoTransaccion);
-                CabeceraFactura.IdAsignacionTU = Seguridad.DesEncriptar(CabeceraFactura.IdAsignacionTU);
-                respuesta = GestionCabeceraFactura.InsertarCabeceraFactura(CabeceraFactura);
+                if (CabeceraFactura.IdTipoTransaccion == null || string.IsNullOrEmpty(CabeceraFactura.IdTipoTransaccion.Trim()))
+                {
+                    mensaje = "Se necesita el id del tipo de transaccion";
+                    codigo = "418";
+                }
+                else if (CabeceraFactura.IdAsignacionTU == null || string.IsNullOrEmpty(CabeceraFactura.IdAsignacionTU.Trim()))
+                {
+                    mensaje = "Se necesita el id de la la persona quien realiza la factura";
+                    codigo = "418";
+                }
+                else
+                {
+                    CabeceraFactura.IdTipoTransaccion = Seguridad.DesEncriptar(CabeceraFactura.IdTipoTransaccion);
+                    CabeceraFactura.IdAsignacionTU = Seguridad.DesEncriptar(CabeceraFactura.IdAsignacionTU);
+                    CabeceraFactura DatoCabeceraFactura = new CabeceraFactura();
+                    DatoCabeceraFactura = GestionCabeceraFactura.InsertarCabeceraFactura(CabeceraFactura);
+                    if (DatoCabeceraFactura.IdCabeceraFactura == null || string.IsNullOrEmpty(DatoCabeceraFactura.IdCabeceraFactura.Trim()))
+                    {
+                        mensaje = "Ocurrio un error al intentar crear la factura";
+                        codigo = "500";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        respuesta = DatoCabeceraFactura;
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -112,24 +137,38 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(CabeceraFactura.encriptada, _clavePut.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePut.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                CabeceraFactura.IdCabeceraFactura = Seguridad.DesEncriptar(CabeceraFactura.IdCabeceraFactura);
-                respuesta = GestionCabeceraFactura.FinalizarCabeceraFactura(int.Parse(CabeceraFactura.IdCabeceraFactura));
-
+                if (CabeceraFactura.IdCabeceraFactura == null || string.IsNullOrEmpty(CabeceraFactura.IdCabeceraFactura.Trim()))
+                {
+                    mensaje = "Ingrese el id de la factura a finalizar";
+                    codigo = "418";
+                }
+                else
+                {
+                    CabeceraFactura.IdCabeceraFactura = Seguridad.DesEncriptar(CabeceraFactura.IdCabeceraFactura.Trim());
+                    if (GestionCabeceraFactura.FinalizarCabeceraFactura(int.Parse(CabeceraFactura.IdCabeceraFactura.Trim())) == true)
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                    }
+                    else
+                    {
+                        mensaje = "Ocurrio un error al intentar finalizar la factura";
+                        codigo = "500";
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -380,8 +419,6 @@ namespace API.Controllers
                 {
                     mensaje = "Se necesita el id de la factura a finalizar";
                     codigo = "418";
-                    objeto = new { codigo, mensaje};
-                    return objeto;
                 }
                 else
                 {
@@ -392,18 +429,43 @@ namespace API.Controllers
                     {
                         mensaje = "No se a asignado la factura a ningun cliente";
                         codigo = "418";
-                        objeto = new { codigo, mensaje};
-                        return objeto;
                     }
                     else
                     {
-                        respuesta = GestionCabeceraFactura.FinalizarFacturaVenta(int.Parse(CabeceraFactura.IdCabeceraFactura));
-                        mensaje = "EXITO";
-                        codigo = "200";
-                        objeto = new { codigo, mensaje, respuesta };
-                        return objeto;
+                        CabeceraFactura Factura = new CabeceraFactura();
+                        Factura = GestionCabeceraFactura.ListarCabeceraFacturaVentaNoFinalizadas(int.Parse(CabeceraFactura.IdCabeceraFactura)).FirstOrDefault();
+                        if (Factura == null)
+                        {
+                            mensaje = "La factura que intenta finalizar no existe";
+                            codigo = "500";
+                        }
+                        else if(Factura.DetalleVenta.Count == 0)
+                        {
+                            mensaje = "No se puede finalizar la factura porque no contiene ningun detalle";
+                            codigo = "500";
+                        }
+                        else if (Factura.DetalleVenta.Where(p=>p.PermitirVender == false).ToList().Count > 0)
+                        {
+                            mensaje = "No se puede finalizar la factura porque existe producto dentro de la factura que no hay disponible";
+                            codigo = "500";
+                        }
+                        else
+                        {
+                            if (GestionCabeceraFactura.FinalizarFacturaVenta(Factura) == true)
+                            {
+                                mensaje = "EXITO";
+                                codigo = "200";
+                            }
+                            else
+                            {
+                                mensaje = "Ocurrio un error al intentar finalizar la factura";
+                                codigo = "500";
+                            }
+                        }
                     }
                 }
+                objeto = new { codigo, mensaje };
+                return objeto;
                 //}
                 //else
                 //{
@@ -413,12 +475,60 @@ namespace API.Controllers
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
         }
+
+        [Route("api/Credito/ConsultarFacturasPendientesPorPersona")]
+        public object ConsultarFacturasPendientesPorPersona(Persona _Persona)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
+                Object resultado = new object();
+                string ClaveGetEncripBD = p.desencriptar(_Persona.encriptada, _claveGet.Clave.Descripcion.Trim());
+                //if (ClaveGetEncripBD == _claveGet.Descripcion)
+                //{
+                if (_Persona.NumeroDocumento == null || string.IsNullOrEmpty(_Persona.NumeroDocumento.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el numero de documento de la persona";
+                }
+                else
+                {
+                    respuesta = GestionCabeceraFactura.FacturasPendientePorPagarPorPersona(_Persona.NumeroDocumento.Trim());
+                    mensaje = "EXITO";
+                    codigo = "200";
+                    objeto = new { codigo, mensaje,respuesta};
+                    return objeto;
+                }                
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+                objeto = new { codigo, mensaje};
+                return objeto;
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+                codigo = "500";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
+
+
 
     }
 }

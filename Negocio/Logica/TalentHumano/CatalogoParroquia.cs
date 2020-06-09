@@ -20,22 +20,14 @@ namespace Negocio.Logica.TalentHumano
             ListaParroquia = new List<Parroquia>();
             foreach (var item in ConexionBD.sp_ConsultarParroquia().ToList().Where(p=>p.Estado !=false && p.CantonEstado != false).ToList())
             {
-                bool estadoParroquiaEliminacion;
-
-                if (GestionComunidad.ListarComunidadParroquia(item.IdParroquia).ToList().Count > 0)
+                bool estadoParroquiaEliminacion = false;
+                if (item.ParroquiaUtilizado == "0")
                 {
-                    estadoParroquiaEliminacion =  false;
+                    estadoParroquiaEliminacion = true;
                 }
                 else
                 {
-                    if (ConexionBD.sp_ConsultarAsignacionPPersonas(item.IdParroquia).ToList().Count > 0)
-                    {
-                        estadoParroquiaEliminacion = false;
-                    }
-                    else
-                    {
-                        estadoParroquiaEliminacion = true;
-                    }
+                    estadoParroquiaEliminacion = false;
                 }
                 ListaParroquia.Add(new Parroquia()
                 {
@@ -53,76 +45,71 @@ namespace Negocio.Logica.TalentHumano
                 });
             }
         }
-        public string IngresarParroquia(ParroquiaEntidad ParroquiaEntidad)
+        public Parroquia IngresarParroquia(ParroquiaEntidad ParroquiaEntidad)
         {
-            try
+            Parroquia _DatoParroquia = new Parroquia();
+            foreach (var item in ConexionBD.sp_CrearParroquia(ParroquiaEntidad.Descripcion.ToUpper(), int.Parse(ParroquiaEntidad.IdCanton)))
             {
-                Parroquia Parroquia1 = ObtenerListaParroquia().Where(p => p.Descripcion == ParroquiaEntidad.Descripcion.ToUpper()).FirstOrDefault();
-                if (Parroquia1 == null)
+                _DatoParroquia.IdParroquia = Seguridad.Encriptar(item.ParroquiaIdParroquia.ToString());
+                _DatoParroquia.Descripcion = item.ParroquiaDescripcion;
+                _DatoParroquia.FechaCreacion = item.ParroquiaFechaCreacion;
+                _DatoParroquia.Estado = item.ParroquiaEstado;
+                _DatoParroquia.PermitirEliminacion = true;
+                _DatoParroquia.Canton = new Canton()
                 {
-                    ConexionBD.sp_CrearParroquia(ParroquiaEntidad.Descripcion.ToUpper(), int.Parse(ParroquiaEntidad.IdCanton));
-                    return "true";
-                }
-                else
-                {
-                    return "400";
-                }
+                    IdCanton = Seguridad.Encriptar(item.CantonIdCanton.ToString()),
+                    Descripcion = item.CantonDescripcion,
+                    Estado = item.CantonEstado,
+                };
             }
-            catch (Exception)
-            {
-                return "false";
-            }
+            return _DatoParroquia;
         }
         public bool EliminarParroquia(int IdParroquia)
         {
-            if (GestionComunidad.ListarComunidadParroquia(IdParroquia).ToList().Count>0)
+            try
+            {
+                ConexionBD.sp_EliminarParroquia(IdParroquia);
+                return true;
+            }
+            catch (Exception e)
             {
                 return false;
             }
-            else
-            {
-                if (ConexionBD.sp_ConsultarAsignacionPPersonas(IdParroquia).ToList().Count>0)
-                {
-                    return false;
-                }
-                else
-                {
-                    ConexionBD.sp_EliminarParroquia(IdParroquia);
-                    return true;
-                }
-            }
-            
         }
-        public string ModificarParroquia(ParroquiaEntidad ParroquiaEntidad)
+        public Parroquia ModificarParroquia(ParroquiaEntidad ParroquiaEntidad)
         {
-            Parroquia Parroquia1 = ObtenerListaParroquia().Where(p => Seguridad.DesEncriptar(p.IdParroquia) == ParroquiaEntidad.IdParroquia).FirstOrDefault();
+            Parroquia _DatoParroquia = new Parroquia();
             try
-            {
-                if (Parroquia1 == null)
+            {                
+                foreach (var item in ConexionBD.sp_ModificarParroquia(int.Parse(ParroquiaEntidad.IdParroquia), ParroquiaEntidad.Descripcion.ToUpper(), int.Parse(ParroquiaEntidad.IdCanton)))
                 {
-                    return "false";
-                }
-                if (Parroquia1.Descripcion.TrimEnd().TrimStart().Trim().Contains(ParroquiaEntidad.Descripcion.TrimEnd().TrimStart().Trim()))
-                {
-                    ConexionBD.sp_ModificarParroquia(int.Parse(ParroquiaEntidad.IdParroquia), ParroquiaEntidad.Descripcion.ToUpper(), int.Parse(ParroquiaEntidad.IdCanton));
-                    return "true";
-                }
-                else
-                {
-                    if (ObtenerListaParroquia().Where(p => p.Descripcion.TrimEnd().TrimStart().Trim() == ParroquiaEntidad.Descripcion.ToUpper().TrimEnd().TrimStart().Trim()).FirstOrDefault() == null)
+                    bool PermitirEliminar = false;
+                    if (item.ParroquiaUtilizado == "0")
                     {
-                        ConexionBD.sp_ModificarParroquia(int.Parse(ParroquiaEntidad.IdParroquia), ParroquiaEntidad.Descripcion.ToUpper(), int.Parse(ParroquiaEntidad.IdCanton));
-                        return "true";
+                        PermitirEliminar = true;
                     }
                     else
                     {
-                        return "400";
+                        PermitirEliminar = false;
                     }
+                    _DatoParroquia.IdParroquia = Seguridad.Encriptar(item.ParroquiaIdParroquia.ToString());
+                    _DatoParroquia.Descripcion = item.ParroquiaDescripcion;
+                    _DatoParroquia.FechaCreacion = item.ParroquiaFechaCreacion;
+                    _DatoParroquia.Estado = item.ParroquiaEstado;
+                    _DatoParroquia.PermitirEliminacion = PermitirEliminar;
+                    _DatoParroquia.Canton = new Canton()
+                    {
+                        IdCanton = Seguridad.Encriptar(item.CantonIdCanton.ToString()),
+                        Descripcion = item.CantonDescripcion,
+                        Estado = item.CantonEstado,
+                    };
                 }
+                return _DatoParroquia;
             }
             catch (Exception)
             {
-                return "false";
+                _DatoParroquia.IdParroquia = null;
+                return _DatoParroquia;
             }
         }
         public List<Parroquia> ObtenerListaParroquia()
@@ -146,6 +133,42 @@ namespace Negocio.Logica.TalentHumano
             }
             return ListaParroquias;
         }
-
+        public List<Parroquia> ConsultarParroquiaPorDescripcion(string Descripcion)
+        {
+            List<Parroquia> ListaParroquia = new List<Parroquia>();
+            foreach (var item in ConexionBD.sp_ConsultarParroquiaSiexiste(Descripcion))
+            {
+                ListaParroquia.Add(new Parroquia()
+                {
+                    IdParroquia = Seguridad.Encriptar(item.IdParroquia.ToString()),
+                    Descripcion = item.Descripcion,
+                });
+            }
+            return ListaParroquia;
+        }
+        public List<Parroquia> ConsultarParroquiaPorId(int IdParroquia)
+        {
+            List<Parroquia> ListaParroquia = new List<Parroquia>();
+            foreach (var item in ConexionBD.sp_ConsultarParroquiaPorId(IdParroquia))
+            {
+                bool permitirEliminar = false;
+                if (item.ParroquiaUtilizado == "0")
+                {
+                    permitirEliminar = true;
+                }
+                else
+                {
+                    permitirEliminar = false;
+                }
+                ListaParroquia.Add(new Parroquia()
+                {
+                    IdParroquia = Seguridad.Encriptar(item.IdParroquia.ToString()),
+                    Descripcion = item.Descripcion,
+                    Estado = item.Estado,
+                    PermitirEliminacion = permitirEliminar
+                });
+            }
+            return ListaParroquia;
+        }
     }
 }

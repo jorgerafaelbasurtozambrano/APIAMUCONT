@@ -33,22 +33,53 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(TipoProducto.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                respuesta = GestionTipoProducto.IngresarTipoProducto(TipoProducto);
+                if (TipoProducto.Descripcion == null || string.IsNullOrEmpty(TipoProducto.Descripcion.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el tipo de producto";
+                }
+                else
+                {
+                    TipoProducto DatoTipoProducto = new TipoProducto();
+                    DatoTipoProducto = GestionTipoProducto.ConsultarTipoProductoPorDescripcion(TipoProducto.Descripcion).FirstOrDefault();
+                    if (DatoTipoProducto == null)
+                    {
+                        DatoTipoProducto = new TipoProducto();
+                        DatoTipoProducto = GestionTipoProducto.IngresarTipoProducto(TipoProducto);
+                        if (DatoTipoProducto.IdTipoProducto == null || string.IsNullOrEmpty(DatoTipoProducto.IdTipoProducto.Trim()))
+                        {
+                            codigo = "500";
+                            mensaje = "Ocurrio un error al ingresar el tipo de producto";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            respuesta = DatoTipoProducto;
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                    else
+                    {
+                        codigo = "418";
+                        mensaje = "El tipo de producto "+ DatoTipoProducto.Descripcion+ " ya existe";
+                    }
+                }
+                
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -70,24 +101,58 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(TipoProducto.encriptada, _claveDelete.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _claveDelete.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                TipoProducto.IdTipoProducto = Seguridad.DesEncriptar(TipoProducto.IdTipoProducto);
+                if (TipoProducto.IdTipoProducto == null || string.IsNullOrEmpty(TipoProducto.IdTipoProducto.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el id del tipo de producto a eliminar";
+                }
+                else
+                {
+                    TipoProducto.IdTipoProducto = Seguridad.DesEncriptar(TipoProducto.IdTipoProducto);
+                    TipoProducto DatoTipoProducto = new TipoProducto();
+                    DatoTipoProducto = GestionTipoProducto.ConsultarTipoProductoPorId(int.Parse(TipoProducto.IdTipoProducto)).FirstOrDefault();
+                    if (DatoTipoProducto == null)
+                    {
+                        codigo = "500";
+                        mensaje = "El tipo de producto a eliminar no existe";
+                    }
+                    else
+                    {
+                        if (DatoTipoProducto.TipoProductoUtilizado == "1")
+                        {
+                            mensaje = "No se puede eliminar el tipo producto porque esta siendo usado";
+                            codigo = "500";
+                        }
+                        else
+                        {
+                            if (GestionTipoProducto.EliminarTipoProducto(int.Parse(TipoProducto.IdTipoProducto)) == true)
+                            {
+                                mensaje = "EXITO";
+                                codigo = "200";
+                            }
+                            else
+                            {
+                                mensaje = "Ocurrio un error al eliminar el tipo de promocion";
+                                codigo = "500";
+                            }
+                        }
+                    }
+                }
 
-                respuesta = GestionTipoProducto.EliminarTipoProducto(int.Parse(TipoProducto.IdTipoProducto));
+                
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -109,24 +174,68 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(TipoProducto.encriptada, _clavePut.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePut.Descripcion)
                 //{
-                mensaje = "EXITO";
-                codigo = "200";
-                TipoProducto.IdTipoProducto = Seguridad.DesEncriptar(TipoProducto.IdTipoProducto);
-                respuesta = GestionTipoProducto.ModificarTipoProducto(TipoProducto);
-
+                if (TipoProducto.IdTipoProducto == null || string.IsNullOrEmpty(TipoProducto.IdTipoProducto.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el id tipo de producto";
+                }
+                else if(TipoProducto.Descripcion == null || string.IsNullOrEmpty(TipoProducto.Descripcion.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el tipo de producto";
+                }
+                else
+                {
+                    TipoProducto DatoTipoProducto = new TipoProducto();
+                    DatoTipoProducto = GestionTipoProducto.ConsultarTipoProductoPorDescripcion(TipoProducto.Descripcion).FirstOrDefault();
+                    if (DatoTipoProducto == null)
+                    {
+                        TipoProducto.IdTipoProducto = Seguridad.DesEncriptar(TipoProducto.IdTipoProducto);
+                        DatoTipoProducto = new TipoProducto();
+                        DatoTipoProducto = GestionTipoProducto.ConsultarTipoProductoPorId(int.Parse(TipoProducto.IdTipoProducto)).FirstOrDefault();
+                        if (DatoTipoProducto == null)
+                        {
+                            codigo = "500";
+                            mensaje = "El tipo de producto a eliminar no existe";
+                        }
+                        else
+                        {
+                            DatoTipoProducto = new TipoProducto();
+                            DatoTipoProducto = GestionTipoProducto.ModificarTipoProducto(TipoProducto);
+                            if (DatoTipoProducto.IdTipoProducto == null || string.IsNullOrEmpty(DatoTipoProducto.IdTipoProducto.Trim()))
+                            {
+                                codigo = "500";
+                                mensaje = "Ocurrio un error al modificar el tipo de producto";
+                            }
+                            else
+                            {
+                                mensaje = "EXITO";
+                                codigo = "200";
+                                respuesta = DatoTipoProducto;
+                                objeto = new { codigo, mensaje, respuesta };
+                                return objeto;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        codigo = "418";
+                        mensaje = "El tipo producto "+ DatoTipoProducto.Descripcion+ " ya existe";
+                    }
+                }
                 //}
                 //else
                 //{
                 //mensaje = "ERROR";
                 //codigo = "401";
                 //}
-                objeto = new { codigo, mensaje, respuesta };
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

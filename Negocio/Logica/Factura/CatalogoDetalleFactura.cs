@@ -19,11 +19,64 @@ namespace Negocio.Logica.Factura
         CatalogoAsignarProductoLote GestionAsignarProductoLote = new CatalogoAsignarProductoLote();
         CatalogoLote GestionLote = new CatalogoLote();
 
-        public bool InsertarDetalleFactura(DetalleFactura DetalleFactura)
+        public DetalleFactura InsertarDetalleFactura(DetalleFactura DetalleFactura)
+        {
+            foreach (var item in ConexionBD.sp_CrearDetalleFactura(int.Parse(DetalleFactura.IdCabeceraFactura), int.Parse(DetalleFactura.IdAsignarProductoLote), DetalleFactura.Cantidad, DetalleFactura.Faltante))
+            {
+                DetalleFactura.IdDetalleFactura = Seguridad.Encriptar(item.IdDetalleFactura.ToString());
+                DetalleFactura.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());
+                DetalleFactura.IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString());
+                DetalleFactura.Cantidad = item.Cantidad;
+            }
+            return DetalleFactura;
+        }
+        public List<AsignarProductoLote> ConsultarAsignarProductoLotePorId(int _IdAsignarProductoLote)
+        {
+            List<AsignarProductoLote> ListaAPL = new List<AsignarProductoLote>();
+            foreach (var item in ConexionBD.sp_ConsultarAsignarProductoLotePorId(_IdAsignarProductoLote))
+            {
+                ListaAPL.Add(new AsignarProductoLote()
+                {
+                    IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString()),
+                    IdLote = item.IdLote.ToString(),
+                    IdRelacionLogica = item.IdRelacionLogica.ToString(),
+                    Utilizado = item.AsignarProductoUtilizado
+                });
+            }
+            return ListaAPL;
+        }
+        public bool EliminarDetalleFactura(DetalleFacturaVenta _DetalleFacturaVenta)
         {
             try
             {
-                ConexionBD.sp_CrearDetalleFactura(int.Parse(DetalleFactura.IdCabeceraFactura), int.Parse(DetalleFactura.IdAsignarProductoLote), DetalleFactura.Cantidad, DetalleFactura.Faltante);
+                ConexionBD.sp_EliminarDetalleFactura(int.Parse(Seguridad.DesEncriptar(_DetalleFacturaVenta.IdDetalleFactura)));
+                AsignarProductoLote DatoAPL = new AsignarProductoLote();
+                DatoAPL = ConsultarAsignarProductoLotePorId(int.Parse(Seguridad.DesEncriptar(_DetalleFacturaVenta.IdAsignarProductoLote))).FirstOrDefault();
+                //if (DatoAPL.Utilizado == "0")
+                //{
+                //    ConexionBD.sp_EliminarAsignarProductoLote(int.Parse(Seguridad.DesEncriptar(_DetalleFacturaVenta.IdAsignarProductoLote)));
+                //}
+                if (_DetalleFacturaVenta.AsignarProductoLote.IdLote != "")
+                {
+                    Lote Lote = new Lote();
+                    Lote = ConsultarLotePorId(int.Parse(Seguridad.DesEncriptar(_DetalleFacturaVenta.AsignarProductoLote.IdLote))).FirstOrDefault();
+                    if (Lote != null)
+                    {
+                        if (Lote.LoteUtilizado == "0")
+                        {
+                            ConexionBD.sp_EliminarLote(int.Parse(Seguridad.DesEncriptar(Lote.IdLote)));
+                        }
+                        //else
+                        //{
+                        //    ConexionBD.sp_DisminuirLote(int.Parse(Seguridad.DesEncriptar(Lote.IdLote)), _DetalleFacturaVenta.Cantidad);
+                        //}
+                    }
+                }
+                //int Cantidad = ConexionBD.sp_ConsultarCantidadDeDetalleDeUnaFactura(int.Parse(Seguridad.DesEncriptar(_DetalleFacturaVenta.CabeceraFactura.IdCabeceraFactura))).Select(p => p.Value).First();
+                //if (Cantidad == 0)
+                //{
+                  //  ConexionBD.sp_EliminarCabeceraFactura(int.Parse(Seguridad.DesEncriptar(_DetalleFacturaVenta.CabeceraFactura.IdCabeceraFactura)));
+                //}
                 return true;
             }
             catch (Exception)
@@ -31,60 +84,21 @@ namespace Negocio.Logica.Factura
                 return false;
             }
         }
-        public string EliminarDetalleFactura(int IdDetalleFactura, string IdCabeceraFactura)
+        public bool EliminarCabeceraFactura(int _idCabeceraFactura)
         {
             try
             {
-                CabeceraFactura CabeceraFactura = GestionCabeceraFactura.ConsultarFactura(IdCabeceraFactura).FirstOrDefault();
-                if (CabeceraFactura != null)
-                {
-                    string Respuesta = "true";
-                    if (CabeceraFactura.Finalizado == false)
-                    {
-                        DetalleFactura DetalleFactura = ListarDetalleFactura().Where(p => Seguridad.DesEncriptar(p.IdDetalleFactura) == IdDetalleFactura.ToString()).FirstOrDefault();
-                        AsignarProductoLote AsignarProductoLote = GestionAsignarProductoLote.ListarAsignarProductoLote().Where(p => Seguridad.DesEncriptar(p.IdAsignarProductoLote) == Seguridad.DesEncriptar(DetalleFactura.IdAsignarProductoLote)).First();
-                        ConexionBD.sp_EliminarDetalleFactura(IdDetalleFactura);
-                        ConexionBD.sp_EliminarAsignarProductoLote(int.Parse(Seguridad.DesEncriptar(DetalleFactura.IdAsignarProductoLote)));
-                        Respuesta = "true";
-                        if (AsignarProductoLote.IdLote != "")
-                        {
-                            Lote Lote = new Lote();
-                            List<Lote> ListaDeLotes = new List<Lote>();
-                            ListaDeLotes = GestionLote.CargarTodosLosLotes();
-                            //Lote = GestionLote.CargarTodosLosLotes().Where(p => Seguridad.DesEncriptar(p.IdLote) == Seguridad.DesEncriptar(AsignarProductoLote.IdLote)).First();
-                            Lote = ListaDeLotes.Where(p => Seguridad.DesEncriptar(p.IdLote) == Seguridad.DesEncriptar(AsignarProductoLote.IdLote)).First();
-                            if (Lote.LoteUtilizado == "0")
-                            {
-                                ConexionBD.sp_EliminarLote(int.Parse(Seguridad.DesEncriptar(Lote.IdLote)));
-                            }
-                            else
-                            {
-                                ConexionBD.sp_DisminuirLote(int.Parse(Seguridad.DesEncriptar(Lote.IdLote)), DetalleFactura.Cantidad);
-                                //ConexionBD.sp_AumentarLote(int.Parse(Seguridad.DesEncriptar(Lote.IdLote)), DetalleFactura.Cantidad);
-                            }
-                        }
-                        int Cantidad = ConexionBD.sp_ConsultarCantidadDeDetalleDeUnaFactura(int.Parse(IdCabeceraFactura)).Select(p => p.Value).First();
-                        if (Cantidad == 0)
-                        {
-                            ConexionBD.sp_EliminarCabeceraFactura(int.Parse(IdCabeceraFactura));
-                            Respuesta = "0";
-                        }
-                        return Respuesta;
-                    }
-                    else
-                    {
-                        return "400";
-                    }
-                }
-                else
-                {
-                    return "400";
-                }
+                ConexionBD.sp_EliminarCabeceraFactura(_idCabeceraFactura);
+                return true;
             }
             catch (Exception)
             {
-                return "false";
+                return false;
             }
+        }
+        public int CantidadDetalleFactura(int _idCabeceraFactura)
+        {
+            return ConexionBD.sp_ConsultarCantidadDeDetalleDeUnaFactura(_idCabeceraFactura).Select(p => p.Value).First();
         }
         public List<DetalleFactura> ListarDetalleFactura()
         {
@@ -100,6 +114,61 @@ namespace Negocio.Logica.Factura
                 });
             }
             return ListaDetalle;
+        }
+        public List<DetalleFacturaVenta> ConsultarDetalleFacturaPorId(int idDetalleFactura)
+        {
+            List<DetalleFacturaVenta> ListaDetalleFactura = new List<DetalleFacturaVenta>();
+            foreach (var item in ConexionBD.sp_ConsultarDetalleFacturaPorId(idDetalleFactura))
+            {
+                string idLote = "";
+                if (item.AsignarProductoLoteIdLote!=null)
+                {
+                    idLote = Seguridad.Encriptar(item.AsignarProductoLoteIdLote.ToString());
+                }
+                ListaDetalleFactura.Add(new DetalleFacturaVenta()
+                {
+                    IdDetalleFactura = Seguridad.Encriptar(item.DetalleFacturaIdDetalleFactura.ToString()),
+                    IdAsignarProductoLote = Seguridad.Encriptar(item.DetalleFacturaIdAsignarProductoLote.ToString()),
+                    Faltante = item.DetalleFacturaFaltante,
+                    Cantidad = item.DetalleFacturaCantidad,
+                    AsignarProductoLote = new AsignarProductoLote()
+                    {
+                        IdAsignarProductoLote = Seguridad.Encriptar(item.AsignarProductoLoteIdAsignarProductoLote.ToString()),
+                        FechaExpiracion = item.AsignarProductoLoteFechaExpiracion,
+                        IdRelacionLogica = item.AsignarProductoLoteIdRelacionLogica.ToString(),
+                        PerteneceKit = item.AsignarProductoLotePerteneceKit.ToString(),
+                        ValorUnitario = item.AsignarProductoLoteValorUnitario,
+                        IdLote = idLote
+                    },
+                    CabeceraFactura = new CabeceraFactura()
+                    {
+                        IdCabeceraFactura = Seguridad.Encriptar(item.CabeceraFacturaIdCabeceraFactura.ToString()),
+                        Codigo = item.CabeceraFacturaCodigo,
+                        EstadoCabeceraFactura = item.CabeceraFacturaEstado_Cabecera_Factura,
+                        FechaGeneracion = item.CabeceraFacturaFechaGeneracion,
+                        Finalizado = item.CabeceraFacturaFinalizado,
+                        IdAsignacionTU = Seguridad.Encriptar(item.CabeceraFacturaIdAsignacionTU.ToString()),
+                        IdTipoTransaccion = Seguridad.Encriptar(item.CabeceraFacturaIdTipoTransaccion.ToString()),
+                    }
+                });
+            }
+            return ListaDetalleFactura;
+        }
+        public List<Lote> ConsultarLotePorId(int _idlote)
+        {
+            List<Lote> ListaLote = new List<Lote>();
+            foreach (var item in ConexionBD.sp_ConsultarLotePorId(_idlote))
+            {
+                ListaLote.Add(new Lote()
+                {
+                    IdLote = Seguridad.Encriptar(item.IdLote.ToString()),
+                    Codigo = item.Codigo,
+                    FechaExpiracion = item.FechaExpiracion,
+                    Capacidad = item.Capacidad,
+                    LoteUtilizado = item.LoteUtilizado
+                });
+            }
+            return ListaLote;
         }
         static List<Stock> ListaStock;
         public void CargarDatos()
@@ -122,7 +191,7 @@ namespace Negocio.Logica.Factura
             CargarDatos();
             return ListaStock;
         }
-        public bool AumentarDetalle(int IdDetalleFactura,int Cantidad)
+        public bool AumentarDetalle(int IdDetalleFactura,int? Cantidad)
         {
             try
             {
@@ -133,6 +202,22 @@ namespace Negocio.Logica.Factura
             {
                 return false;
             }
+        }
+
+        public List<DetalleFactura> ConsultarDetalleFacturaCompraPorId(int _idDetalleFactura)
+        {
+            List<DetalleFactura> ListaDetalleFactura = new List<DetalleFactura>();
+            foreach (var item in ConexionBD.sp_ConsultarDetalleFacturaCompraPorId(_idDetalleFactura))
+            {
+                ListaDetalleFactura.Add(new DetalleFactura()
+                {
+                    IdDetalleFactura = Seguridad.Encriptar(item.IdDetalleFactura.ToString()),
+                    IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString()),
+                    IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString()),
+                    Cantidad = item.Cantidad
+                });
+            }
+            return ListaDetalleFactura;
         }
     }
 }
