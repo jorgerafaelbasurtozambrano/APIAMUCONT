@@ -272,6 +272,7 @@ namespace Negocio.Logica.Credito
                 {
                     ListaAsignacionPersonaParroquia.Add(new AsignacionPersonaParroquia()
                     {
+                        Referencia = item3.AsignacionPersonaParroquiaReferencia,
                         IdPersona = Seguridad.Encriptar(item3.AsignacionPersonaComunidadIdPersona.ToString()),
                         IdAsignacionPC = Seguridad.Encriptar(item3.AsignacionPersonaParroquiaIdAsignacionPersonaParroquia.ToString()),
                         FechaCreacion = item3.AsignacionPersonaParroquiaFechaCreacion,
@@ -379,6 +380,7 @@ namespace Negocio.Logica.Credito
                                 {
                                     ListaAsignacionPersonaParroquia.Add(new AsignacionPersonaParroquia()
                                     {
+                                        Referencia = item7.AsignacionPersonaParroquiaReferencia,
                                         IdPersona = Seguridad.Encriptar(item7.AsignacionPersonaComunidadIdPersona.ToString()),
                                         IdAsignacionPC = Seguridad.Encriptar(item7.AsignacionPersonaParroquiaIdAsignacionPersonaParroquia.ToString()),
                                         FechaCreacion = item7.AsignacionPersonaParroquiaFechaCreacion,
@@ -487,6 +489,19 @@ namespace Negocio.Logica.Credito
             try
             {
                 ConexionBD.sp_FinalizarAsignarTecnicoPersonaComunidad(id);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool TransferirTecnico(TrasnferirTecnico _TrasnferirTecnico)
+        {
+            try
+            {
+                ConexionBD.sp_TrasnferirPersonasAOtroTecnico(int.Parse(_TrasnferirTecnico.IdAsignarTUAntiguo), int.Parse(_TrasnferirTecnico.IdAsignarTUNuevo));
                 return true;
             }
             catch (Exception)

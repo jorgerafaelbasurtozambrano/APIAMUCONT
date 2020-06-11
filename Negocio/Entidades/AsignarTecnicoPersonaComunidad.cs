@@ -21,4 +21,11 @@ namespace Negocio.Entidades
         public string IdCanton { get; set; }
         public string IdParroquia { get; set; }
     }
+
+    public class TrasnferirTecnico
+    {
+        public string IdAsignarTUAntiguo { get; set; }
+        public string IdAsignarTUNuevo { get; set; }
+        public string encriptada { get; set; }
+    }
 }

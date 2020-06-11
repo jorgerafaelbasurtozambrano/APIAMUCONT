@@ -11,12 +11,15 @@ using Negocio.Entidades.DatoUsuarios;
 using Negocio.Logica.Seguridad;
 using Negocio.Logica.Usuarios;
 using Negocio;
+using Negocio.Logica.Credito;
+
 namespace API.Controllers
 {
     public class AsignacionTipoUsuarioController : ApiController
     {
-        static ConsultarUsuariosYPersonas GestionUsuarios = new ConsultarUsuariosYPersonas();
+        //static ConsultarUsuariosYPersonas GestionUsuarios = new ConsultarUsuariosYPersonas();
         CatalogoAsignacionTipoUsuario GestionTipoUsuario = new CatalogoAsignacionTipoUsuario();
+        CatalogoAsignarComunidadFactura _GestionAsignarComunidadConfigurarVenta = new CatalogoAsignarComunidadFactura();
         Prueba p = new Prueba();
         CatalogoSeguridad GestionSeguridad = new CatalogoSeguridad();
         Negocio.Metodos.Seguridad Seguridad = new Negocio.Metodos.Seguridad();
@@ -166,33 +169,46 @@ namespace API.Controllers
                     }
                     else
                     {
-                        if (GestionTipoUsuario.eliminarAsignacionTipoUsuario(int.Parse(AsignacionTipoUsuarioEntidad.IdAsignacionTU)) == true)
+                        List<PersonaEntidad> PersonasAsignadas = new List<PersonaEntidad>();
+                        PersonasAsignadas = _GestionAsignarComunidadConfigurarVenta.ConsultarPersonasAsignadasPorTecnico(int.Parse(AsignacionTipoUsuarioEntidad.IdAsignacionTU));
+                        if (PersonasAsignadas.Count == 0)
                         {
-                            List<AsignacionTipoUsuario> DatoAsignacionTipoUsuario = new List<AsignacionTipoUsuario>();
-                            DatoAsignacionTipoUsuario = GestionTipoUsuario.ConsultarTiposUsuarioQueTieneUnUsuario(DataAsignacionTipoUsuario.IdUsuario);
-                            if (DatoAsignacionTipoUsuario.Count() == 0)
+                            if (GestionTipoUsuario.eliminarAsignacionTipoUsuario(int.Parse(AsignacionTipoUsuarioEntidad.IdAsignacionTU)) == true)
                             {
-                                if (GestionTipoUsuario.EliminarUsuario(DataAsignacionTipoUsuario.IdUsuario) == true)
+                                List<AsignacionTipoUsuario> DatoAsignacionTipoUsuario = new List<AsignacionTipoUsuario>();
+                                DatoAsignacionTipoUsuario = GestionTipoUsuario.ConsultarTiposUsuarioQueTieneUnUsuario(DataAsignacionTipoUsuario.IdUsuario);
+                                if (DatoAsignacionTipoUsuario.Count() == 0)
                                 {
-                                    codigo = "201";
-                                    mensaje = "Se elimino el rol y se inhabilito el usuario";
+                                    if (GestionTipoUsuario.EliminarUsuario(DataAsignacionTipoUsuario.IdUsuario) == true)
+                                    {
+                                        codigo = "201";
+                                        mensaje = "Se elimino el rol y se inhabilito el usuario";
+                                    }
+                                    else
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error al deshabilitar el usuario";
+                                    }
                                 }
                                 else
                                 {
-                                    codigo = "500";
-                                    mensaje = "Ocurrio un error al deshabilitar el usuario";
+                                    codigo = "200";
+                                    mensaje = "Se elimino el rol";
                                 }
                             }
                             else
                             {
-                                codigo = "200";
-                                mensaje = "Se elimino el rol";
+                                codigo = "500";
+                                mensaje = "Ocurrio un error al tratar de eliminar el rol";
                             }
                         }
                         else
                         {
-                            codigo = "500";
-                            mensaje = "Ocurrio un error al tratar de eliminar el rol";
+                            codigo = "409";
+                            mensaje = "No se puede eliminar este rol porque tiene cliente para seguimiento asignados, por favor vaya a la seccion de trasnferencia de técnico";
+                            respuesta = PersonasAsignadas;
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
                         }
                     }
                 }

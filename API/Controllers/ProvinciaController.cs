@@ -276,6 +276,41 @@ namespace API.Controllers
             }
         }
 
-
+        [HttpPost]
+        [Route("api/TalentoHumano/ConsultarProvinciaParaSeguimiento")]
+        public object ConsultarProvinciaParaSeguimiento([FromBody] Tokens Tokens)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
+                Object resultado = new object();
+                string ClaveGetEncripBD = p.desencriptar(Tokens.encriptada, _claveGet.Clave.Descripcion.Trim());
+                //if (ClaveGetEncripBD == _claveGet.Descripcion)
+                //{
+                mensaje = "EXITO";
+                codigo = "200";
+                respuesta = GestionProvincia.ConsultarProvinciaParaSeguimiento();
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+                objeto = new { codigo, mensaje, respuesta };
+                return objeto;
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+                codigo = "500";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
     }
 }

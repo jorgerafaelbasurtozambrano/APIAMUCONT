@@ -50,11 +50,18 @@ namespace Negocio.Logica
                 ModificarTelefono(new TelefonoEntidad() {IdTelefono = PersonaEntidad.ListaTelefono[0].IdTelefono,IdPersona = PersonaEntidad.ListaTelefono[0].IdPersona , Numero = PersonaEntidad.ListaTelefono[0].Numero, IdTipoTelefono = PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono });
                 ModificarTelefono(new TelefonoEntidad() { IdTelefono = PersonaEntidad.ListaTelefono[1].IdTelefono, IdPersona = PersonaEntidad.ListaTelefono[1].IdPersona, Numero = PersonaEntidad.ListaTelefono[1].Numero, IdTipoTelefono = PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono });
 
-                IngresoAsignacionPersonaComunidad(new AsignacionPersonaParroquiaEntidad() { IdPersona = PersonaEntidad.IdPersona, IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia });
 
                 if (PersonaEntidad.Correo!=null)
                 {
                     IngresoCorreo(new Correo() {IdPersona  = PersonaEntidad.IdPersona ,CorreoValor = PersonaEntidad.Correo});
+                }
+                if (PersonaEntidad.AsignacionPersonaComunidad.Estado == false)
+                {
+                    ModificarAsignacionPersonaParroquia(new AsignacionPersonaParroquiaEntidad() {IdAsignacionPC = PersonaEntidad.AsignacionPersonaComunidad.IdAsignacionPC, IdPersona = PersonaEntidad.IdPersona, IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia, Referencia = PersonaEntidad.AsignacionPersonaComunidad.Referencia });
+                }
+                else
+                {
+                    IngresoAsignacionPersonaComunidad(new AsignacionPersonaParroquiaEntidad() { IdPersona = PersonaEntidad.IdPersona, IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia, Referencia = PersonaEntidad.AsignacionPersonaComunidad.Referencia });
                 }
                 DatoNuevoPersona = ConsultarPersonaPorId(int.Parse(PersonaEntidad.IdPersona)).FirstOrDefault();
                 DatoNuevoPersona.IdUsuario = "1";
@@ -74,7 +81,7 @@ namespace Negocio.Logica
             PersonaEntidad DatoPersonaEntidad = new PersonaEntidad();
             try
             {
-                IdPersona = int.Parse(ConexionBD.sp_CrearPersona1(PersonaEntidad.NumeroDocumento.Trim(), PersonaEntidad.ApellidoPaterno.ToUpper(), PersonaEntidad.ApellidoMaterno.ToUpper(), PersonaEntidad.PrimerNombre.ToUpper(), PersonaEntidad.SegundoNombre.ToUpper(), int.Parse(PersonaEntidad.IdTipoDocumento)).Select(x => x.Value.ToString()).FirstOrDefault());
+                IdPersona = int.Parse(ConexionBD.sp_CrearPersona(PersonaEntidad.NumeroDocumento.Trim(), PersonaEntidad.ApellidoPaterno.ToUpper(), PersonaEntidad.ApellidoMaterno.ToUpper(), PersonaEntidad.PrimerNombre.ToUpper(), PersonaEntidad.SegundoNombre.ToUpper(), int.Parse(PersonaEntidad.IdTipoDocumento)).Select(x => x.Value.ToString()).FirstOrDefault());
                 if (IdPersona != 0)
                 {
                     //revisar si tiene correo
@@ -134,7 +141,7 @@ namespace Negocio.Logica
 
                     //AsignarPersonaParroquia
                     AsignacionPersonaParroquia DatoAsignacionPersonaParroquia = new AsignacionPersonaParroquia();
-                    DatoAsignacionPersonaParroquia = IngresoAsignacionPersonaComunidad(new AsignacionPersonaParroquiaEntidad() { IdPersona = IdPersona.ToString(), IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia });
+                    DatoAsignacionPersonaParroquia = IngresoAsignacionPersonaComunidad(new AsignacionPersonaParroquiaEntidad() { IdPersona = IdPersona.ToString(), IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia,Referencia = PersonaEntidad.AsignacionPersonaComunidad.Referencia });
                     if (DatoAsignacionPersonaParroquia.IdAsignacionPC == null || string.IsNullOrEmpty(DatoAsignacionPersonaParroquia.IdAsignacionPC.Trim()))
                     {
                         EliminarPersona(IdPersona);
@@ -264,6 +271,7 @@ namespace Negocio.Logica
                 {
                     ListaAsignacionPersonaParroquia.Add(new AsignacionPersonaParroquia()
                     {
+                        Referencia = item3.AsignacionPersonaParroquiaReferencia,
                         IdPersona = Seguridad.Encriptar(item3.AsignacionPersonaComunidadIdPersona.ToString()),
                         IdAsignacionPC = Seguridad.Encriptar(item3.AsignacionPersonaParroquiaIdAsignacionPersonaParroquia.ToString()),
                         FechaCreacion = item3.AsignacionPersonaParroquiaFechaCreacion,
@@ -419,7 +427,7 @@ namespace Negocio.Logica
         public AsignacionPersonaParroquia IngresoAsignacionPersonaComunidad(AsignacionPersonaParroquiaEntidad AsignacionPersonaParroquiaEntidad)
         {
             AsignacionPersonaParroquia DatoAsignacionPersonaParroquia = new AsignacionPersonaParroquia();
-            foreach (var item in ConexionBD.sp_CrearAsigancionPP(int.Parse(AsignacionPersonaParroquiaEntidad.IdPersona), int.Parse(AsignacionPersonaParroquiaEntidad.IdParroquia)))
+            foreach (var item in ConexionBD.sp_CrearAsigancionPP(int.Parse(AsignacionPersonaParroquiaEntidad.IdPersona), int.Parse(AsignacionPersonaParroquiaEntidad.IdParroquia), AsignacionPersonaParroquiaEntidad.Referencia))
             {
                 DatoAsignacionPersonaParroquia.IdAsignacionPC = Seguridad.Encriptar(item.IdAsignacionPP.ToString());
                 DatoAsignacionPersonaParroquia.IdPersona = Seguridad.Encriptar(item.IdPersona.ToString());
@@ -430,6 +438,18 @@ namespace Negocio.Logica
                 DatoAsignacionPersonaParroquia.FechaCreacion = item.FechaCreacion;
             }
             return DatoAsignacionPersonaParroquia;
+        }
+        public bool ModificarAsignacionPersonaParroquia(AsignacionPersonaParroquiaEntidad AsignacionPersonaParroquiaEntidad)
+        {
+            try
+            {
+                ConexionBD.sp_ModificarAsignacionPC(int.Parse(AsignacionPersonaParroquiaEntidad.IdAsignacionPC), int.Parse(AsignacionPersonaParroquiaEntidad.IdPersona), int.Parse(AsignacionPersonaParroquiaEntidad.IdParroquia), AsignacionPersonaParroquiaEntidad.Referencia);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

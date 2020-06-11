@@ -266,5 +266,84 @@ namespace API.Controllers
                 return objeto;
             }
         }
+
+        [HttpPost]
+        [Route("api/Credito/TransferirTecnico")]
+        public object TransferirTecnico(TrasnferirTecnico _TrasnferirTecnico)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
+                Object resultado = new object();
+                string ClavePostEncripBD = p.desencriptar(_TrasnferirTecnico.encriptada, _clavePost.Clave.Descripcion.Trim());
+                //if (ClavePostEncripBD == _clavePost.Descripcion)
+                //{
+                if (_TrasnferirTecnico.IdAsignarTUAntiguo == null || string.IsNullOrEmpty(_TrasnferirTecnico.IdAsignarTUAntiguo.Trim()))
+                {
+                    mensaje = "Ingrese el id del tecnico antiguo";
+                    codigo = "418";
+                }
+                else if (_TrasnferirTecnico.IdAsignarTUNuevo == null || string.IsNullOrEmpty(_TrasnferirTecnico.IdAsignarTUNuevo.Trim()))
+                {
+                    mensaje = "Ingrese el id del tecnico nuevo";
+                    codigo = "418";
+                }
+                else
+                {
+                    _TrasnferirTecnico.IdAsignarTUAntiguo = Seguridad.DesEncriptar(_TrasnferirTecnico.IdAsignarTUAntiguo);
+                    _TrasnferirTecnico.IdAsignarTUNuevo = Seguridad.DesEncriptar(_TrasnferirTecnico.IdAsignarTUNuevo);
+                    TipoUsuario _DataTipoUsuario = new TipoUsuario();
+                    _DataTipoUsuario = _CatalogoAsignarTPC.ConsultarTipoUsuarioTecncioDeUnaPersona(int.Parse(_TrasnferirTecnico.IdAsignarTUAntiguo)).FirstOrDefault();
+                    if (_DataTipoUsuario == null)
+                    {
+                        mensaje = "El técnico que le desea quitar los clientes no existe";
+                        codigo = "418";
+                    }
+                    else
+                    {
+                        _DataTipoUsuario = new TipoUsuario();
+                        _DataTipoUsuario = _CatalogoAsignarTPC.ConsultarTipoUsuarioTecncioDeUnaPersona(int.Parse(_TrasnferirTecnico.IdAsignarTUNuevo)).FirstOrDefault();
+                        if (_DataTipoUsuario == null)
+                        {
+                            mensaje = "El técnico nuevo a transferir los clientes no existe";
+                            codigo = "418";
+                        }
+                        else
+                        {
+                            if (_CatalogoAsignarTPC.TransferirTecnico(_TrasnferirTecnico) == true)
+                            {
+                                mensaje = "EXITO";
+                                codigo = "200";
+                            }
+                            else
+                            {
+                                mensaje = "Ocurrio un error al hacer la transferencia";
+                                codigo = "500";
+                            }
+                        }
+                    }
+                }
+                objeto = new { codigo, mensaje };
+                return objeto;
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+                codigo = "500";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
     }
 }

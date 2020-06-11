@@ -112,6 +112,9 @@
   <Function Name="sp_ConsultarPersonasParaSeguimientoPorParroquia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdParroquia" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarPersonasParaSeguimientoPorProvincia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdProvincia" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarProvinciasParaSeguimientoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdTecnico" Type="int" Mode="In" />
   </Function>
@@ -208,6 +211,10 @@
   <Function Name="sp_SetCantidadDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdDetalleVenta" Type="int" Mode="In" />
     <Parameter Name="Cantidad" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_TrasnferirPersonasAOtroTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdAsignacionTUAntiguo" Type="int" Mode="In" />
+    <Parameter Name="IdAsignacionTUNuevo" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_AnularFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
@@ -556,6 +563,9 @@
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarCanton" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
+  <Function Name="sp_ConsultarCantonesParaSeguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="idProvincia" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarCantonPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="idCanton" Type="int" Mode="In" />
   </Function>
@@ -563,6 +573,9 @@
     <Parameter Name="Canton" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
+  <Function Name="sp_ConsultarComunidadesParaSeguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="idParroquia" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarComunidadPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="idComunidad" Type="int" Mode="In" />
   </Function>
@@ -583,6 +596,9 @@
   </Function>
   <Function Name="sp_ConsultarListaPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
   <Function Name="sp_ConsultarParroquia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
+  <Function Name="sp_ConsultarParroquiaParaSeguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
+    <Parameter Name="idCanton" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarParroquiaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="idParroquia" Type="int" Mode="In" />
   </Function>
@@ -599,6 +615,7 @@
   <Function Name="sp_ConsultarPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
   <Function Name="sp_ConsultarPersonasSinUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
   <Function Name="sp_ConsultarProvincia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
+  <Function Name="sp_ConsultarProvinciaParaSeguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano" />
   <Function Name="sp_ConsultarProvinciaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="idProvincia" Type="int" Mode="In" />
   </Function>
@@ -617,6 +634,7 @@
   <Function Name="sp_CrearAsigancionPP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
     <Parameter Name="IdParroquia" Type="int" Mode="In" />
+    <Parameter Name="Referencia" Type="nvarchar(max)" Mode="In" />
   </Function>
   <Function Name="sp_CrearCanton" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="Descripcion" Type="nvarchar" Mode="In" />
@@ -635,14 +653,6 @@
     <Parameter Name="IdCanton" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_CrearPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
-    <Parameter Name="NumeroDocumento" Type="nvarchar" Mode="In" />
-    <Parameter Name="ApellidoPaterno" Type="nvarchar" Mode="In" />
-    <Parameter Name="ApellidoMaterno" Type="nvarchar" Mode="In" />
-    <Parameter Name="PrimerNombre" Type="nvarchar" Mode="In" />
-    <Parameter Name="SegundoNombre" Type="nvarchar" Mode="In" />
-    <Parameter Name="IdTipoDocument" Type="int" Mode="In" />
-  </Function>
-  <Function Name="sp_CrearPersona1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="NumeroDocumento" Type="nvarchar" Mode="In" />
     <Parameter Name="ApellidoPaterno" Type="nvarchar" Mode="In" />
     <Parameter Name="ApellidoMaterno" Type="nvarchar" Mode="In" />
@@ -690,6 +700,7 @@
     <Parameter Name="IdAsignacionPP" Type="int" Mode="In" />
     <Parameter Name="IdPersona" Type="int" Mode="In" />
     <Parameter Name="IdParroquia" Type="int" Mode="In" />
+    <Parameter Name="Referencia" Type="nvarchar(max)" Mode="In" />
   </Function>
   <Function Name="sp_ModificarCanton" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
     <Parameter Name="IdCanton" Type="int" Mode="In" />

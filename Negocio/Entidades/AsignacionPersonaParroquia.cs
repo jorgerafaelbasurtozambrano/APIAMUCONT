@@ -9,6 +9,7 @@ namespace Negocio.Entidades
     public class AsignacionPersonaParroquia
     {
         public string IdAsignacionPC { get; set; }
+        public string Referencia { get; set; }
         public string IdPersona { get; set; }
         public Parroquia Parroquia { get; set; }
         public DateTime? FechaCreacion { get; set; }

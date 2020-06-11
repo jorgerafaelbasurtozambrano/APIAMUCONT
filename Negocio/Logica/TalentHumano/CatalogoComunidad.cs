@@ -170,5 +170,20 @@ namespace Negocio.Logica.TalentHumano
             return ListaComunidad;
         }
 
+        public List<Comunidad> ConsultarComunidadesParaSeguimiento(int idParroquia)
+        {
+            ListaComunidad = new List<Comunidad>();
+            foreach (var item in ConexionBD.sp_ConsultarComunidadesParaSeguimiento(idParroquia))
+            {
+                ListaComunidad.Add(new Comunidad()
+                {
+                    IdComunidad = Seguridad.Encriptar(item.IdComunidad.ToString()),
+                    Descripcion = item.Descripcion,
+                    FechaCreacion = item.FechaCreacion,
+                    Estado = item.Estado,
+                });
+            }
+            return ListaComunidad;
+        }
     }
 }

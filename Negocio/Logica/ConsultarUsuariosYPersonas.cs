@@ -241,6 +241,7 @@ namespace Negocio.Logica
                 {
                     ListaAsignacionPersonaParroquia.Add(new AsignacionPersonaParroquia()
                     {
+                        Referencia = item3.AsignacionPersonaParroquiaReferencia,
                         IdPersona = seguridad.Encriptar(item3.AsignacionPersonaComunidadIdPersona.ToString()),
                         IdAsignacionPC = seguridad.Encriptar(item3.AsignacionPersonaParroquiaIdAsignacionPersonaParroquia.ToString()),
                         FechaCreacion = item3.AsignacionPersonaParroquiaFechaCreacion,
@@ -329,6 +330,7 @@ namespace Negocio.Logica
                 {
                     ListaAsignacionPersonaParroquia.Add(new AsignacionPersonaParroquia()
                     {
+                        Referencia = item3.AsignacionPersonaParroquiaReferencia,
                         IdPersona = seguridad.Encriptar(item3.AsignacionPersonaComunidadIdPersona.ToString()),
                         IdAsignacionPC = seguridad.Encriptar(item3.AsignacionPersonaParroquiaIdAsignacionPersonaParroquia.ToString()),
                         FechaCreacion = item3.AsignacionPersonaParroquiaFechaCreacion,
@@ -522,6 +524,7 @@ namespace Negocio.Logica
                 {
                     ListaAsignacionPersonaParroquia.Add(new AsignacionPersonaParroquia()
                     {
+                        Referencia = item3.AsignacionPersonaParroquiaReferencia,
                         IdPersona = seguridad.Encriptar(item3.AsignacionPersonaComunidadIdPersona.ToString()),
                         IdAsignacionPC = seguridad.Encriptar(item3.AsignacionPersonaParroquiaIdAsignacionPersonaParroquia.ToString()),
                         FechaCreacion = item3.AsignacionPersonaParroquiaFechaCreacion,

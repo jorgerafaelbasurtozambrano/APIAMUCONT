@@ -276,7 +276,7 @@ namespace API.Controllers
                     mensaje = "EXITO";
                     codigo = "200";
                     _Parroquia.IdParroquia = Seguridad.DesEncriptar(_Parroquia.IdParroquia);
-                    respuesta = _GestionAsignarComunidadConfigurarVenta.ConsultarPersonasEnFacturasParaSeguimientoPorCanton(int.Parse(_Parroquia.IdParroquia));
+                    respuesta = _GestionAsignarComunidadConfigurarVenta.ConsultarPersonasEnFacturasParaSeguimientoPorParroquia(int.Parse(_Parroquia.IdParroquia));
                     objeto = new { codigo, mensaje, respuesta };
                     return objeto;
                 }
@@ -325,6 +325,53 @@ namespace API.Controllers
                     codigo = "200";
                     _Comunidad.IdComunidad = Seguridad.DesEncriptar(_Comunidad.IdComunidad);
                     respuesta = _GestionAsignarComunidadConfigurarVenta.ConsultarPersonasParaSeguimientoPorComunidad(int.Parse(_Comunidad.IdComunidad));
+                    objeto = new { codigo, mensaje, respuesta };
+                    return objeto;
+                }
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+            catch (Exception e)
+            {
+                mensaje = "ERROR";
+                codigo = "418";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
+        [HttpPost]
+        [Route("api/Credito/ConsultarPersonasParaSeguimientoPorProvincia")]
+        public object ConsultarPersonasParaSeguimientoPorProvincia(Provincia _Provincia)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
+                Object resultado = new object();
+                string ClaveGetEncripBD = p.desencriptar(_Provincia.encriptada, _claveGet.Clave.Descripcion.Trim());
+                //if (ClaveGetEncripBD == _claveGet.Descripcion)
+                //{
+                if (_Provincia.IdProvincia == null || string.IsNullOrEmpty(_Provincia.IdProvincia))
+                {
+                    mensaje = "Ingrese la id provincia";
+                    codigo = "418";
+                }
+                else
+                {
+                    mensaje = "EXITO";
+                    codigo = "200";
+                    _Provincia.IdProvincia = Seguridad.DesEncriptar(_Provincia.IdProvincia);
+                    respuesta = _GestionAsignarComunidadConfigurarVenta.ConsultarPersonasParaSeguimientoPorProvincia(int.Parse(_Provincia.IdProvincia));
                     objeto = new { codigo, mensaje, respuesta };
                     return objeto;
                 }

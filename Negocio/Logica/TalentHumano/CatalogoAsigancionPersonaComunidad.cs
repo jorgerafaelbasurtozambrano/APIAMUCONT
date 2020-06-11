@@ -16,7 +16,7 @@ namespace Negocio.Logica.TalentHumano
         {
             try
             {
-                ConexionBD.sp_CrearAsigancionPP(Usuario.Persona.IdPersona, int.Parse(Usuario.Persona.AsigancionPersonaComunidad.Comunidad.IdComunidad));
+                ConexionBD.sp_CrearAsigancionPP(Usuario.Persona.IdPersona, int.Parse(Usuario.Persona.AsigancionPersonaComunidad.Comunidad.IdComunidad),"dsd");
                 return true;
             }
             catch (Exception)
@@ -52,7 +52,7 @@ namespace Negocio.Logica.TalentHumano
                 {
                     if (asignacionPersonaParroquia.IdParroquia != AsignacionPersonaParroquiaEntidad.IdParroquia)
                     {
-                        ConexionBD.sp_ModificarAsignacionPC(int.Parse(AsignacionPersonaParroquiaEntidad.IdAsignacionPC), int.Parse(AsignacionPersonaParroquiaEntidad.IdPersona), int.Parse(AsignacionPersonaParroquiaEntidad.IdParroquia));
+                        ConexionBD.sp_ModificarAsignacionPC(int.Parse(AsignacionPersonaParroquiaEntidad.IdAsignacionPC), int.Parse(AsignacionPersonaParroquiaEntidad.IdPersona), int.Parse(AsignacionPersonaParroquiaEntidad.IdParroquia),"efds");
                     }
                 }
                 return true;
@@ -67,7 +67,7 @@ namespace Negocio.Logica.TalentHumano
         {
             try
             {
-                ConexionBD.sp_CrearAsigancionPP(int.Parse(AsignacionPersonaParroquiaEntidad.IdPersona), int.Parse(AsignacionPersonaParroquiaEntidad.IdParroquia));
+                ConexionBD.sp_CrearAsigancionPP(int.Parse(AsignacionPersonaParroquiaEntidad.IdPersona), int.Parse(AsignacionPersonaParroquiaEntidad.IdParroquia), "dsd");
                 return true;
             }
             catch (Exception)

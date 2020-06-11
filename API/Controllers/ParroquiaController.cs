@@ -335,5 +335,52 @@ namespace API.Controllers
                 return objeto;
             }
         }
+        [HttpPost]
+        [Route("api/TalentoHumano/ConsultarParroquiaParaSeguimiento")]
+        public object ConsultarParroquiaParaSeguimiento(Canton Canton)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
+                Object resultado = new object();
+                string ClaveGetEncripBD = p.desencriptar(Canton.encriptada, _claveGet.Clave.Descripcion.Trim());
+                //if (ClaveGetEncripBD == _claveGet.Descripcion)
+                //{
+                if (Canton.IdCanton == null || string.IsNullOrEmpty(Canton.IdCanton.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el id canton";
+                }
+                else
+                {
+                    mensaje = "EXITO";
+                    codigo = "200";
+                    Canton.IdCanton = Seguridad.DesEncriptar(Canton.IdCanton);
+                    respuesta = GestionParroquia.ConsultarParroquiaParaSeguimiento(int.Parse(Canton.IdCanton));
+                    objeto = new { codigo, mensaje, respuesta };
+                    return objeto;
+                }
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+                objeto = new { codigo, mensaje};
+                return objeto;
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+                codigo = "500";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
     }
 }

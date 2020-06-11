@@ -15,5 +15,6 @@ namespace Negocio.Entidades
         public Boolean Estado { get; set; }
 
         public Tokens Tokens { get; set; }
+        public string Referencia { get; set; }
     }
 }

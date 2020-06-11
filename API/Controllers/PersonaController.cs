@@ -74,6 +74,11 @@ namespace API.Controllers
                     codigo = "418";
                     mensaje = "Falta el id de la parroquia";
                 }
+                else if (PersonaEntidad.AsignacionPersonaComunidad.Referencia == null || string.IsNullOrEmpty(PersonaEntidad.AsignacionPersonaComunidad.Referencia.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Falta la referencia";
+                }
                 else if (PersonaEntidad.ListaTelefono[0].Numero == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].Numero.Trim()))
                 {
                     codigo = "418";
@@ -284,6 +289,11 @@ namespace API.Controllers
                     codigo = "418";
                     mensaje = "Falta el id de la parroquia";
                 }
+                else if (PersonaEntidad.AsignacionPersonaComunidad.Referencia == null || string.IsNullOrEmpty(PersonaEntidad.AsignacionPersonaComunidad.Referencia.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Falta la referencia";
+                }
                 else if (PersonaEntidad.ListaTelefono[0].IdTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].IdTelefono.Trim()))
                 {
                     codigo = "418";
@@ -371,13 +381,32 @@ namespace API.Controllers
                                 DatoPersona.ListaTelefono[0].TipoTelefono.IdTipoTelefono = PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono;
 
                                 PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia = Seguridad.DesEncriptar(PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia);
-                                DatoPersona.AsignacionPersonaComunidad = new AsignacionPersonaParroquia()
+                                if (Seguridad.DesEncriptar(DatoPersona.AsignacionPersonaParroquia.FirstOrDefault().Parroquia.IdParroquia) == PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia)
                                 {
-                                    Parroquia = new Parroquia()
+                                    DatoPersona.AsignacionPersonaComunidad = new AsignacionPersonaParroquia()
                                     {
-                                        IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia
-                                    }
-                                };
+                                        IdAsignacionPC = Seguridad.DesEncriptar(DatoPersona.AsignacionPersonaParroquia.FirstOrDefault().IdAsignacionPC),
+                                        Referencia = PersonaEntidad.AsignacionPersonaComunidad.Referencia,
+                                        Estado = false,
+                                        Parroquia = new Parroquia()
+                                        {
+                                            IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia,
+                                        }
+                                    };
+                                }
+                                else
+                                {
+                                    DatoPersona.AsignacionPersonaComunidad = new AsignacionPersonaParroquia()
+                                    {
+                                        Referencia = PersonaEntidad.AsignacionPersonaComunidad.Referencia,
+                                        Estado = true,
+                                        Parroquia = new Parroquia()
+                                        {
+                                            IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia,
+                                        }
+                                    };
+                                }
+
                                 if (PersonaEntidad.Correo!=null)
                                 {
                                     DatoPersona.Correo = PersonaEntidad.Correo;

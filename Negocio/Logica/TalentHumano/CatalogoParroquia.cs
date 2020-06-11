@@ -170,5 +170,21 @@ namespace Negocio.Logica.TalentHumano
             }
             return ListaParroquia;
         }
+
+        public List<Parroquia> ConsultarParroquiaParaSeguimiento(int idCanton)
+        {
+            ListaParroquia = new List<Parroquia>();
+            foreach (var item in ConexionBD.sp_ConsultarParroquiaParaSeguimiento(idCanton))
+            {
+                ListaParroquia.Add(new Parroquia()
+                {
+                    IdParroquia = Seguridad.Encriptar(item.IdParroquia.ToString()),
+                    Descripcion = item.Descripcion,
+                    FechaCreacion = item.FechaCreacion,
+                    Estado = item.Estado,
+                });
+            }
+            return ListaParroquia;
+        }
     }
 }

@@ -11,13 +11,15 @@ using Negocio.Entidades.DatoUsuarios;
 using Negocio.Logica.Seguridad;
 using Negocio.Logica.Usuarios ;
 using Negocio;
+using Negocio.Logica.Credito;
 
 namespace API.Controllers
 {
     public class UsuariosController : ApiController
     {
         static ConsultarUsuariosYPersonas GestionUsuarios = new ConsultarUsuariosYPersonas();
-        CatalogoPersona GestionPersona = new CatalogoPersona();
+        //CatalogoPersona GestionPersona = new CatalogoPersona();
+        CatalogoAsignarComunidadFactura _GestionAsignarComunidadConfigurarVenta = new CatalogoAsignarComunidadFactura();
         CatalogoSeguridad GestionSeguridad = new CatalogoSeguridad();
         CatalogoUsuario GestionUsuario = new CatalogoUsuario();
         CatalogoTipoUsuario GestionTipoUsuario = new CatalogoTipoUsuario();
@@ -352,6 +354,22 @@ namespace API.Controllers
                         }
                         else
                         {
+                            List<AsignacionTipoUsuario> ListaTipoUsuario = new List<AsignacionTipoUsuario>();
+                            ListaTipoUsuario = GestionUsuario.ConsultarTiposUsuarioQueTieneUnUsuario(int.Parse(UsuarioEntidad.IdUsuario));
+                            List<PersonaEntidad> PersonasAsignadas = new List<PersonaEntidad>();
+                            foreach (var item in ListaTipoUsuario)
+                            {
+                                PersonasAsignadas = new List<PersonaEntidad>();
+                                PersonasAsignadas = _GestionAsignarComunidadConfigurarVenta.ConsultarPersonasAsignadasPorTecnico(int.Parse(Seguridad.DesEncriptar(item.IdAsignacionTUEncriptada)));
+                                if (PersonasAsignadas.Count>0)
+                                {
+                                    codigo = "409";
+                                    mensaje = "No se puede eliminar el rol "+item.TipoUsuario.Descripcion+" porque tiene cliente para seguimiento asignados, por favor vaya a la seccion de trasnferencia de técnico";
+                                    respuesta = PersonasAsignadas;
+                                    objeto = new { codigo, mensaje, respuesta };
+                                    return objeto;
+                                }
+                            }
                             if (GestionUsuario.EliminarUsuario(int.Parse(UsuarioEntidad.IdUsuario)) == true)
                             {
                                 mensaje = "EXITO";

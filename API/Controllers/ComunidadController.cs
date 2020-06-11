@@ -340,5 +340,52 @@ namespace API.Controllers
                 return objeto;
             }
         }
+        [HttpPost]
+        [Route("api/TalentoHumano/ConsultarComunidadesParaSeguimiento")]
+        public object ConsultarComunidadesParaSeguimiento(Parroquia Parroquia)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
+                Object resultado = new object();
+                string ClaveGetEncripBD = p.desencriptar(Parroquia.encriptada, _claveGet.Clave.Descripcion.Trim());
+                //if (ClaveGetEncripBD == _claveGet.Descripcion)
+                //{
+                if (Parroquia.IdParroquia == null || string.IsNullOrEmpty(Parroquia.IdParroquia.Trim()))
+                {
+                    mensaje = "Ingrese el id parroquia";
+                    codigo = "500";
+                }
+                else
+                {
+                    mensaje = "EXITO";
+                    codigo = "200";
+                    Parroquia.IdParroquia = Seguridad.DesEncriptar(Parroquia.IdParroquia);
+                    respuesta = GestionComunidad.ConsultarComunidadesParaSeguimiento(int.Parse(Parroquia.IdParroquia));
+                    objeto = new { codigo, mensaje, respuesta };
+                    return objeto;
+                }
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+                objeto = new { codigo, mensaje};
+                return objeto;
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+                codigo = "500";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
     }
 }

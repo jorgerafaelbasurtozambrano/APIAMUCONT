@@ -339,5 +339,53 @@ namespace API.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/TalentoHumano/ConsultarCantonesParaSeguimiento")]
+        public object ConsultarCantonesParaSeguimiento(Provincia Provincia)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
+                Object resultado = new object();
+                string ClaveGetEncripBD = p.desencriptar(Provincia.encriptada, _claveGet.Clave.Descripcion.Trim());
+                //if (ClaveGetEncripBD == _claveGet.Descripcion)
+                //{
+                if (Provincia.IdProvincia == null || string.IsNullOrEmpty(Provincia.IdProvincia.Trim()))
+                {
+                    mensaje = "Ingrese el id provincia";
+                    codigo = "418";
+                }
+                else
+                {
+                    mensaje = "EXITO";
+                    codigo = "200";
+                    Provincia.IdProvincia = Seguridad.DesEncriptar(Provincia.IdProvincia);
+                    respuesta = GestionCanton.ConsultarCantonesParaSeguimiento(int.Parse(Provincia.IdProvincia));
+                    objeto = new { codigo, mensaje, respuesta };
+                    return objeto;
+                }
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+                objeto = new { codigo, mensaje};
+                return objeto;
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+                codigo = "500";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
+
     }
 }

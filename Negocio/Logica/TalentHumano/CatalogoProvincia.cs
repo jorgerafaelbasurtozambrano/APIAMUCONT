@@ -132,5 +132,21 @@ namespace Negocio.Logica.TalentHumano
             }
             return ListaProvincia;
         }
+
+        public List<Provincia> ConsultarProvinciaParaSeguimiento()
+        {
+            ListaProvincia = new List<Provincia>();
+            foreach (var item in ConexionBD.sp_ConsultarProvinciaParaSeguimiento())
+            {
+                ListaProvincia.Add(new Provincia()
+                {
+                    IdProvincia = Seguridad.Encriptar(item.IdProvincia.ToString()),
+                    Descripcion = item.Descripcion,
+                    FechaCreacion = item.FechaCreacion,
+                    Estado = item.Estado,
+                });
+            }
+            return ListaProvincia;
+        }
     }
 }

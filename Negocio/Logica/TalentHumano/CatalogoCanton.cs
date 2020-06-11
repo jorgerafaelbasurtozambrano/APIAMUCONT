@@ -170,5 +170,20 @@ namespace Negocio.Logica.TalentHumano
             }
             return ListaCanton;
         }
+        public List<Canton> ConsultarCantonesParaSeguimiento(int idProvincia)
+        {
+            ListaCanton = new List<Canton>();
+            foreach (var item in ConexionBD.sp_ConsultarCantonesParaSeguimiento(idProvincia))
+            {
+                ListaCanton.Add(new Canton()
+                {
+                    IdCanton = Seguridad.Encriptar(item.IdCanton.ToString()),
+                    Descripcion = item.Descripcion,
+                    FechaCreacion = item.FechaCreacion,
+                    Estado = item.Estado,
+                });
+            }
+            return ListaCanton;
+        }
     }
 }

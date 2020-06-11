@@ -167,6 +167,9 @@
     <Compile Include="sp_ConsultarCantonesParaSeguimientoPorTecnico_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarCantonesParaSeguimiento_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarCantonPorId_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -183,6 +186,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarComunidadesParaSeguimientoPorTecnico_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarComunidadesParaSeguimiento_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarComunidadPorId_Result.cs">
@@ -293,6 +299,9 @@
     <Compile Include="sp_ConsultarParroquiaParaSeguimientoPorTecnico_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarParroquiaParaSeguimiento_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarParroquiaPorId_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -309,6 +318,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarPersonaPorId_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonaPorId_Result2.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarPersonasAsignadasAunTecnicoPorCanton_Result.cs">
@@ -342,6 +354,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarPersonasParaSeguimientoPorParroquia_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPersonasParaSeguimientoPorProvincia_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarPersonasSinUsuario_Result.cs">
@@ -383,6 +398,9 @@
     <Compile Include="sp_ConsultarProductos_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarProvinciaParaSeguimiento_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarProvinciaPorId_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -396,6 +414,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarResidenciaPersona_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarResidenciaPersona_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarSiExisteAsignarProductoLote_Result.cs">
@@ -476,6 +497,9 @@
     <Compile Include="sp_ConsultarUsuarioPorUsuario_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarUsuarioPorUsuario_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarUsuarios_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -495,6 +519,18 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CrearAsigancionPP_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearAsigancionPP_Result2.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearAsigancionPP_Result3.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearAsigancionPP_Result4.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearAsigancionPP_Result5.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CrearAsignacionTU_Result.cs">
