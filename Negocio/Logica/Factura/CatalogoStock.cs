@@ -65,28 +65,6 @@ namespace Negocio.Logica.Factura
             return ListaUnida;
             //return ListaStock.Where(p=> p.AsignarProductoLote.Lote.Estado == true || p.Cantidad >=0).ToList();
         }
-        //public List<Stock> ListarStockPorIdAsignarProductoLote(int idAsignarProductoLote)
-        //{
-        //    List<Stock> _DatosStock = new List<Stock>();
-        //    foreach (var item in ConexionBD.sp_BuscarStockPorAsignarProductoLote(idAsignarProductoLote).Where(p=>p.Cantidad > 0))
-        //    {
-        //        _DatosStock.Add(new Stock()
-        //        {
-        //            IdStock = Seguridad.Encriptar(item.IdStock.ToString()),
-        //            Cantidad = item.Cantidad,
-        //            IdAsignarProductoLote = Seguridad.Encriptar(item.IdAsignarProductoLote.ToString()),
-        //            FechaActualizacion = item.FechaActualizacion,
-        //            AsignarProductoLote = GestionAsignarProductoLote.filtrarAsignarProductoLote(item.IdAsignarProductoLote).FirstOrDefault()
-        //        });
-        //    }
-        //    List<Stock> ListaUnida = new List<Stock>();
-        //    List<Stock> Lista1 = new List<Stock>();
-        //    List<Stock> Lista2 = new List<Stock>();
-        //    Lista1 = _DatosStock.Where(p => p.AsignarProductoLote.IdLote != "" && p.AsignarProductoLote.Lote.Estado == true).ToList();
-        //    Lista2 = _DatosStock.Where(p => p.Cantidad > 0 == true && p.AsignarProductoLote.IdLote == "").ToList();
-        //    ListaUnida = Lista1.Union(Lista2).ToList();
-        //    return ListaUnida;
-        //}
         public List<AsignarProductosKits> ListarProductosDeUnKitEnEstock(int IdKit)
         {
             List<AsignarProductosKits> ListaAsignarProductoKit = new List<AsignarProductosKits>();
@@ -172,6 +150,7 @@ namespace Negocio.Logica.Factura
                         });
                     }
                 }
+
                 if (Disponible.Count(p => p.Estado == false) == 0)
                 {
                     ListaAsignarProductoKit[0].PermitirAnadir = true;

@@ -165,8 +165,6 @@
     <Parameter Name="Descuento" Type="int" Mode="In" />
     <Parameter Name="FechaFinCredito" Type="smalldatetime" Mode="In" />
     <Parameter Name="AplicaSeguro" Type="varchar" Mode="In" />
-    <Parameter Name="ValorSeguro" Type="decimal" Mode="In" />
-    <Parameter Name="SeguroCancelado" Type="varchar" Mode="In" />
   </Function>
   <Function Name="sp_CrearDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />

@@ -978,13 +978,15 @@ namespace Negocio.Logica.Inventario
                     TotalSubtotal = TotalSubtotal + Subtotal;
                     TotalIva = TotalIva + IvaAnadido;
                 }
+                ConfigurarVenta _ConfigurarVenta = new ConfigurarVenta();
+                _ConfigurarVenta = GestionConfigurarVenta.ConsultarConfigurarVentaPorFactura(item.CabeceraFacturaIdCabeceraFactura);
                 ListaFacturas.Add(new FacturasPendientePorPersona()
                 {
                     IdCabeceraFactura = Seguridad.Encriptar(item.CabeceraFacturaIdCabeceraFactura.ToString()),
                     Codigo = item.CabeceraFacturaCodigo,
                     IdAsignacionTU = Seguridad.Encriptar(item.CabeceraFacturaIdAsignacionTU.ToString()),
                     IdTipoTransaccion = Seguridad.Encriptar(item.CabeceraFacturaIdTipoTransaccion.ToString()),
-                    FechaGeneracion = item.ConfigurarVentaFechaFinCredito,
+                    FechaGeneracion = item.CabeceraFacturaFechaGeneracion,
                     EstadoCabeceraFactura = item.CabeceraFacturaEstado_Cabecera_Factura,
                     Finalizado = item.CabeceraFacturaFinalizado,
                     TotalIva = TotalIva,
@@ -999,16 +1001,7 @@ namespace Negocio.Logica.Inventario
                         FechaActualizacion = item.TipoTransaccionFechaModificacion,
                         FechaCreacion = item.TipoTransaccionFechaCreacion
                     },
-                    ConfigurarVenta = new ConfigurarVenta()
-                    {
-                        IdConfigurarVenta = Seguridad.Encriptar(item.ConfigurarVentaIdConfigurarVenta.ToString()),
-                        AplicaSeguro = item.ConfigurarVentaAplicaSeguro.ToString(),
-                        Descuento = item.ConfigurarVentaDescuento,
-                        Efectivo = item.ConfigurarVentaEfectivo.ToString(),
-                        EstadoConfVenta = item.ConfigurarVentaEstadoConfVenta.ToString(),
-                        FechaFinalCredito = item.ConfigurarVentaFechaFinCredito,
-                        IdPersona = Seguridad.Encriptar(item.ConfigurarVentaIdPersona.ToString()),
-                    }
+                    ConfigurarVenta = _ConfigurarVenta
                 });
             }
             return ListaFacturas;

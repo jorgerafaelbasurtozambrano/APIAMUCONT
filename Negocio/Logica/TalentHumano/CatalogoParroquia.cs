@@ -21,7 +21,7 @@ namespace Negocio.Logica.TalentHumano
             foreach (var item in ConexionBD.sp_ConsultarParroquia().ToList().Where(p=>p.Estado !=false && p.CantonEstado != false).ToList())
             {
                 bool estadoParroquiaEliminacion = false;
-                if (item.ParroquiaUtilizado == "0")
+                if (item.ParroquiaUtilizado == "0" && item.ParroquiaUtilizado1 == "0")
                 {
                     estadoParroquiaEliminacion = true;
                 }

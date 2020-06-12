@@ -20,7 +20,5 @@ namespace Negocio.Entidades
         public AsignarSeguro _AsignarSeguro { get; set; }
         public DateTime? FechaFinalCredito { get; set; }
         public string AplicaSeguro { get; set; }
-        public decimal? ValorSeguro { get; set; }
-        public string SeguroCancelado { get; set; }
     }
 }
