@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="AMUCOMTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <Function Name="sp_ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdAsignarTecnicoPersonaComunidad" Type="int" Mode="In" />
+    <Parameter Name="IdUsuario" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_AumentarDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdDetalleVenta" Type="int" Mode="In" />
     <Parameter Name="Cantidad" Type="int" Mode="In" />
@@ -54,7 +58,14 @@
     <Parameter Name="IdParroquia" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarComunidadesQueTienenSembriosParaSeguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
+  <Function Name="sp_ConsultarComunidadesSeguimientoFinalizadoPorTecnicoYPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdPersona" Type="int" Mode="In" />
+    <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
+  <Function Name="sp_ConsultarConfiguracionInteresPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarConfigurarVentaPorIdCabeceraFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
   </Function>
@@ -69,8 +80,19 @@
   <Function Name="sp_ConsultarDetalleVentaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="idDetalleVenta" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarExisteConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdTipoInteres" Type="int" Mode="In" />
+    <Parameter Name="TasaInteres" Type="int" Mode="In" />
+    <Parameter Name="IdTipoInteresMora" Type="int" Mode="In" />
+    <Parameter Name="TasaInteresMora" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarFacturasPendientePorPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="NumeroDocumento" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdPersona" Type="int" Mode="In" />
+    <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
+    <Parameter Name="IdComunidad" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarKitPorFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
@@ -115,6 +137,9 @@
   <Function Name="sp_ConsultarPersonasParaSeguimientoPorProvincia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdProvincia" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarPersonasSeguimientoFinalizadoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarProvinciasParaSeguimientoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdTecnico" Type="int" Mode="In" />
   </Function>
@@ -125,6 +150,9 @@
     <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarTipoInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
+  <Function Name="sp_ConsultarTipoInteresPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdTipoInteres" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarVisita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdAsignarTecnicoPersonaComunidad" Type="int" Mode="In" />
   </Function>
@@ -154,7 +182,8 @@
   <Function Name="sp_CrearConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdTipoInteres" Type="int" Mode="In" />
     <Parameter Name="TasaInteres" Type="int" Mode="In" />
-    <Parameter Name="PlazoMeses" Type="int" Mode="In" />
+    <Parameter Name="IdTipoInteresMora" Type="int" Mode="In" />
+    <Parameter Name="TasaInteresMora" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_CrearConfigurarVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
@@ -186,11 +215,17 @@
     <Parameter Name="IdAsignarTU" Type="int" Mode="In" />
     <Parameter Name="Observacion" Type="nvarchar(max)" Mode="In" />
   </Function>
+  <Function Name="sp_DesHabilitarInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_EliminarAsignacionPersonaDeUnTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdPersona" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_EliminarAsignarComunidadFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdAsignarComunidadFactura" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_EliminarDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdDetalleVenta" Type="int" Mode="In" />
@@ -199,7 +234,19 @@
     <Parameter Name="IdVisita" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_FinalizarAsignarTecnicoPersonaComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
-    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="IdAsignarTecnicoPersonaComunidad" Type="int" Mode="In" />
+    <Parameter Name="IdPersona" Type="int" Mode="In" />
+    <Parameter Name="IdComunidad" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_HabilitarInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ModificarConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
+    <Parameter Name="IdTipoInteres" Type="int" Mode="In" />
+    <Parameter Name="TasaInteres" Type="int" Mode="In" />
+    <Parameter Name="IdTipoInteresMora" Type="int" Mode="In" />
+    <Parameter Name="TasaInteresMora" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ModificarVisita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdVisita" Type="int" Mode="In" />

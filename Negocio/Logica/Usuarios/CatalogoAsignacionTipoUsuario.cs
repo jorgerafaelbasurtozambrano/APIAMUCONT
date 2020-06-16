@@ -25,6 +25,7 @@ namespace Negocio.Logica.Usuarios
                 DatoAsignacionTipoUsuario.TipoUsuario = new TipoUsuario()
                 {
                     IdTipoUsuario = Seguridad.Encriptar(item.TipoUsuarioIdTipoUsuario.ToString()),
+                    Identificacion = item.TipoUsuarioIdentificacion,
                     Descripcion = item.TipoUsuarioDescripcion,
                     Estado = item.TipoUsuarioEstado,
                     FechaCreacion = item.TipoUsuarioFechaCreacion
@@ -92,12 +93,23 @@ namespace Negocio.Logica.Usuarios
             }
             return ListaAsignarTipoUsuario;
         }
-
         public bool EliminarUsuario(int IdUsuarioEntidad)
         {
             try
             {
                 ConexionBD.sp_EliminarUsuario(IdUsuarioEntidad);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad(AsignacionTipoUsuarioEntidad _AsignacionTipoUsuarioEntidad)
+        {
+            try
+            {
+                ConexionBD.sp_ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad(int.Parse(_AsignacionTipoUsuarioEntidad.IdAsignacionTU), int.Parse(_AsignacionTipoUsuarioEntidad.IdUsuario));
                 return true;
             }
             catch (Exception)

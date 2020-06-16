@@ -11,17 +11,14 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_CrearPersona1_Result
+    public partial class sp_ConsultarExisteConfiguracionInteres_Result
     {
-        public int IdPersona { get; set; }
-        public string NumeroDocumento { get; set; }
-        public string ApellidoPaterno { get; set; }
-        public string ApellidoMaterno { get; set; }
-        public string PrimerNombre { get; set; }
-        public string SegundoNombre { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public Nullable<System.DateTime> FechaActualizacion { get; set; }
-        public int IdTipoDocumento { get; set; }
+        public int IdConfiguracionInteres { get; set; }
         public bool Estado { get; set; }
+        public int IdTipoInteres { get; set; }
+        public int IdTipoInteresMora { get; set; }
+        public int TasaInteres { get; set; }
+        public int TasaInteresMora { get; set; }
+        public string ConfigurarInteresUtilizado { get; set; }
     }
 }

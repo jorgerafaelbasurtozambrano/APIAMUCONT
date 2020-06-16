@@ -5,6 +5,10 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AMUCOMTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="sp_ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdAsignarTecnicoPersonaComunidad" Type="int" Mode="In" />
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_AumentarDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdDetalleVenta" Type="int" Mode="In" />
           <Parameter Name="Cantidad" Type="int" Mode="In" />
@@ -59,7 +63,14 @@
           <Parameter Name="IdParroquia" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_ConsultarComunidadesQueTienenSembriosParaSeguimiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
+        <Function Name="sp_ConsultarComunidadesSeguimientoFinalizadoPorTecnicoYPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdPersona" Type="int" Mode="In" />
+          <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_ConsultarConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
+        <Function Name="sp_ConsultarConfiguracionInteresPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_ConsultarConfigurarVentaPorIdCabeceraFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
         </Function>
@@ -74,8 +85,19 @@
         <Function Name="sp_ConsultarDetalleVentaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="idDetalleVenta" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_ConsultarExisteConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdTipoInteres" Type="int" Mode="In" />
+          <Parameter Name="TasaInteres" Type="int" Mode="In" />
+          <Parameter Name="IdTipoInteresMora" Type="int" Mode="In" />
+          <Parameter Name="TasaInteresMora" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_ConsultarFacturasPendientePorPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="NumeroDocumento" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdPersona" Type="int" Mode="In" />
+          <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
+          <Parameter Name="IdComunidad" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_ConsultarKitPorFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
@@ -120,6 +142,9 @@
         <Function Name="sp_ConsultarPersonasParaSeguimientoPorProvincia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdProvincia" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_ConsultarPersonasSeguimientoFinalizadoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_ConsultarProvinciasParaSeguimientoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdTecnico" Type="int" Mode="In" />
         </Function>
@@ -130,6 +155,9 @@
           <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_ConsultarTipoInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
+        <Function Name="sp_ConsultarTipoInteresPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdTipoInteres" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_ConsultarVisita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdAsignarTecnicoPersonaComunidad" Type="int" Mode="In" />
         </Function>
@@ -159,7 +187,8 @@
         <Function Name="sp_CrearConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdTipoInteres" Type="int" Mode="In" />
           <Parameter Name="TasaInteres" Type="int" Mode="In" />
-          <Parameter Name="PlazoMeses" Type="int" Mode="In" />
+          <Parameter Name="IdTipoInteresMora" Type="int" Mode="In" />
+          <Parameter Name="TasaInteresMora" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_CrearConfigurarVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
@@ -191,11 +220,17 @@
           <Parameter Name="IdAsignarTU" Type="int" Mode="In" />
           <Parameter Name="Observacion" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="sp_DesHabilitarInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_EliminarAsignacionPersonaDeUnTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdPersona" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_EliminarAsignarComunidadFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdAsignarComunidadFactura" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_EliminarConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_EliminarDetalleVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdDetalleVenta" Type="int" Mode="In" />
@@ -204,7 +239,19 @@
           <Parameter Name="IdVisita" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_FinalizarAsignarTecnicoPersonaComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
-          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="IdAsignarTecnicoPersonaComunidad" Type="int" Mode="In" />
+          <Parameter Name="IdPersona" Type="int" Mode="In" />
+          <Parameter Name="IdComunidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_HabilitarInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ModificarConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
+          <Parameter Name="IdTipoInteres" Type="int" Mode="In" />
+          <Parameter Name="TasaInteres" Type="int" Mode="In" />
+          <Parameter Name="IdTipoInteresMora" Type="int" Mode="In" />
+          <Parameter Name="TasaInteresMora" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_ModificarVisita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdVisita" Type="int" Mode="In" />
@@ -894,16 +941,14 @@
           <FunctionImport Name="sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarComunidadAsignadaAFacturaDeUnaPersona_Result)">
           <Parameter Name="IdPersona" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico" ReturnType="Collection(AMUCOMTModel.sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result)">
-            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-            <Parameter Name="IdTecnico" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="sp_ConsultarComunidadesParaSeguimientoPorTecnico" ReturnType="Collection(AMUCOMTModel.sp_ConsultarComunidadesParaSeguimientoPorTecnico_Result)">
             <Parameter Name="IdTecnico" Mode="In" Type="Int32" />
             <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarComunidadesQueTienenSembriosParaSeguimiento" />
-          <FunctionImport Name="sp_ConsultarConfiguracionInteres" ReturnType="Collection(AMUCOMTModel.sp_ConsultarConfiguracionInteres_Result)" />
+          <FunctionImport Name="sp_ConsultarConfigurarVentaPorIdCabeceraFactura" ReturnType="Collection(AMUCOMTModel.sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result)">
+          <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_ConsultarDetalleFacturaVentaPorKit" ReturnType="Collection(AMUCOMTModel.sp_ConsultarDetalleFacturaVentaPorKit_Result)">
             <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
             <Parameter Name="IdAsignarProductoLote" Mode="In" Type="Int32" />
@@ -914,6 +959,9 @@
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarDetalleVentaPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarDetalleVentaPorId_Result)">
           <Parameter Name="idDetalleVenta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarFacturasPendientePorPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarFacturasPendientePorPersona_Result)">
+          <Parameter Name="NumeroDocumento" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarKitPorFactura" ReturnType="Collection(AMUCOMTModel.sp_ConsultarKitPorFactura_Result)">
             <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
@@ -955,6 +1003,9 @@
           <FunctionImport Name="sp_ConsultarPersonasParaSeguimientoPorParroquia" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonasParaSeguimientoPorParroquia_Result)">
           <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_ConsultarPersonasParaSeguimientoPorProvincia" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonasParaSeguimientoPorProvincia_Result)">
+          <Parameter Name="IdProvincia" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_ConsultarProvinciasParaSeguimientoPorTecnico" ReturnType="Collection(AMUCOMTModel.sp_ConsultarProvinciasParaSeguimientoPorTecnico_Result)">
           <Parameter Name="IdTecnico" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -976,25 +1027,20 @@
             <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
             <Parameter Name="Monto" Mode="In" Type="Decimal" />
           </FunctionImport>
-          <FunctionImport Name="sp_CrearAsignarComunidadFactura" ReturnType="Collection(AMUCOMTModel.sp_CrearAsignarComunidadFactura_Result)">
-            <Parameter Name="IdComunidad" Mode="In" Type="Int32" />
-            <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
-            <Parameter Name="Observacion" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="sp_CrearAsignarSeguro" ReturnType="Collection(AMUCOMTModel.sp_CrearAsignarSeguro_Result)">
             <Parameter Name="IdConfigurarVenta" Mode="In" Type="Int32" />
             <Parameter Name="IdAsignacionTUResp" Mode="In" Type="Int32" />
             <Parameter Name="IdAsignacionTUTenc" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_CrearAsignarTecnicoPersonaComunidad" ReturnType="Collection(AMUCOMTModel.sp_CrearAsignarTecnicoPersonaComunidad_Result)">
-            <Parameter Name="IdAsignarTUTecnico" Mode="In" Type="Int32" />
+          <FunctionImport Name="sp_CrearConfigurarVenta" ReturnType="Collection(AMUCOMTModel.sp_CrearConfigurarVenta_Result)">
+            <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
             <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-            <Parameter Name="IdComunidad" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_CrearConfiguracionInteres" ReturnType="Collection(AMUCOMTModel.sp_CrearConfiguracionInteres_Result)">
-            <Parameter Name="IdTipoInteres" Mode="In" Type="Int32" />
-            <Parameter Name="TasaInteres" Mode="In" Type="Int32" />
-            <Parameter Name="PlazoMeses" Mode="In" Type="Int32" />
+            <Parameter Name="EstadoConfVenta" Mode="In" Type="String" />
+            <Parameter Name="IdConfiguracionInteres" Mode="In" Type="Int32" />
+            <Parameter Name="Efectivo" Mode="In" Type="String" />
+            <Parameter Name="Descuento" Mode="In" Type="Int32" />
+            <Parameter Name="FechaFinCredito" Mode="In" Type="DateTime" />
+            <Parameter Name="AplicaSeguro" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_CrearDetalleVenta" ReturnType="Collection(AMUCOMTModel.sp_CrearDetalleVenta_Result)">
             <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
@@ -1028,9 +1074,6 @@
           <FunctionImport Name="sp_EliminarVisita">
           <Parameter Name="IdVisita" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_FinalizarAsignarTecnicoPersonaComunidad">
-          <Parameter Name="Id" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="sp_ModificarVisita" ReturnType="Collection(AMUCOMTModel.sp_ModificarVisita_Result)">
             <Parameter Name="IdVisita" Mode="In" Type="Int32" />
             <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
@@ -1039,6 +1082,10 @@
           <FunctionImport Name="sp_SetCantidadDetalleVenta">
             <Parameter Name="IdDetalleVenta" Mode="In" Type="Int32" />
             <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_TrasnferirPersonasAOtroTecnico">
+            <Parameter Name="IdAsignacionTUAntiguo" Mode="In" Type="Int32" />
+            <Parameter Name="IdAsignacionTUNuevo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_AnularFactura">
             <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
@@ -1175,6 +1222,9 @@
           <FunctionImport Name="sp_ConsultarAsignarDescuentoKit" ReturnType="Collection(AMUCOMTModel.sp_ConsultarAsignarDescuentoKit_Result)" />
           <FunctionImport Name="sp_ConsultarAsignarDescuentoKitPorKit" ReturnType="Collection(AMUCOMTModel.sp_ConsultarAsignarDescuentoKitPorKit_Result)">
           <Parameter Name="idKit" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarAsignarProductoKit" ReturnType="Collection(AMUCOMTModel.sp_ConsultarAsignarProductoKit_Result)">
+          <Parameter Name="IdKit" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarAsignarProductoKitPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarAsignarProductoKitPorId_Result)">
           <Parameter Name="IdAsignarProductoKit" Mode="In" Type="Int32" />
@@ -1384,6 +1434,9 @@
           <Parameter Name="IdPersona" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarCanton" ReturnType="Collection(AMUCOMTModel.sp_ConsultarCanton_Result)" />
+          <FunctionImport Name="sp_ConsultarCantonesParaSeguimiento" ReturnType="Collection(AMUCOMTModel.sp_ConsultarCantonesParaSeguimiento_Result)">
+          <Parameter Name="idProvincia" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_ConsultarCantonPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarCantonPorId_Result)">
           <Parameter Name="idCanton" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1391,6 +1444,9 @@
           <Parameter Name="Canton" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarComunidad" ReturnType="Collection(AMUCOMTModel.sp_ConsultarComunidad_Result)" />
+          <FunctionImport Name="sp_ConsultarComunidadesParaSeguimiento" ReturnType="Collection(AMUCOMTModel.sp_ConsultarComunidadesParaSeguimiento_Result)">
+          <Parameter Name="idParroquia" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_ConsultarComunidadPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarComunidadPorId_Result)">
           <Parameter Name="idComunidad" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1410,6 +1466,10 @@
             <Parameter Name="Correo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarListaPersonas" ReturnType="Collection(AMUCOMTModel.sp_ConsultarListaPersonas_Result)" />
+          <FunctionImport Name="sp_ConsultarParroquia" ReturnType="Collection(AMUCOMTModel.sp_ConsultarParroquia_Result)" />
+          <FunctionImport Name="sp_ConsultarParroquiaParaSeguimiento" ReturnType="Collection(AMUCOMTModel.sp_ConsultarParroquiaParaSeguimiento_Result)">
+          <Parameter Name="idCanton" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_ConsultarParroquiaPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarParroquiaPorId_Result)">
           <Parameter Name="idParroquia" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1417,17 +1477,24 @@
           <Parameter Name="Parroquia" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersona_Result)" />
+          <FunctionImport Name="sp_ConsultarPersonaPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonaPorId_Result)">
+          <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_ConsultarPersonaPorIdentificacion" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonaPorIdentificacion_Result)">
           <Parameter Name="Identifacion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarPersonas" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonas_Result)" />
           <FunctionImport Name="sp_ConsultarPersonasSinUsuario" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonasSinUsuario_Result)" />
           <FunctionImport Name="sp_ConsultarProvincia" ReturnType="Collection(AMUCOMTModel.sp_ConsultarProvincia_Result)" />
+          <FunctionImport Name="sp_ConsultarProvinciaParaSeguimiento" ReturnType="Collection(AMUCOMTModel.sp_ConsultarProvinciaParaSeguimiento_Result)" />
           <FunctionImport Name="sp_ConsultarProvinciaPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarProvinciaPorId_Result)">
           <Parameter Name="idProvincia" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarProvinciaSiexiste" ReturnType="Collection(AMUCOMTModel.sp_ConsultarProvinciaSiexiste_Result)">
           <Parameter Name="Provincia" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarResidenciaPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarResidenciaPersona_Result)">
+          <Parameter Name="IdPersona" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarTelefono" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTelefono_Result)" />
           <FunctionImport Name="sp_ConsultarTelefonoPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTelefonoPersona_Result)">
@@ -1435,6 +1502,11 @@
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarTipoDocumento" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTipoDocumento_Result)" />
           <FunctionImport Name="sp_ConsultarTipoTelefono" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTipoTelefono_Result)" />
+          <FunctionImport Name="sp_CrearAsigancionPP" ReturnType="Collection(AMUCOMTModel.sp_CrearAsigancionPP_Result)">
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+            <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
+            <Parameter Name="Referencia" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_CrearCanton" ReturnType="Collection(AMUCOMTModel.sp_CrearCanton_Result)">
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="IdProvincia" Mode="In" Type="Int32" />
@@ -1443,9 +1515,21 @@
             <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_CrearCorreo" ReturnType="Collection(AMUCOMTModel.sp_CrearCorreo_Result)">
+            <Parameter Name="idPersona" Mode="In" Type="Int32" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_CrearParroquia" ReturnType="Collection(AMUCOMTModel.sp_CrearParroquia_Result)">
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="IdCanton" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CrearPersona" ReturnType="Collection(Decimal)">
+            <Parameter Name="NumeroDocumento" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="PrimerNombre" Mode="In" Type="String" />
+            <Parameter Name="SegundoNombre" Mode="In" Type="String" />
+            <Parameter Name="IdTipoDocument" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_CrearProvincia" ReturnType="Collection(AMUCOMTModel.sp_CrearProvincia_Result)">
           <Parameter Name="Descripcion" Mode="In" Type="String" />
@@ -1482,6 +1566,12 @@
           <FunctionImport Name="sp_HabilitarCorreo">
             <Parameter Name="IdCorreo" Mode="In" Type="Int32" />
             <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ModificarAsignacionPC">
+            <Parameter Name="IdAsignacionPP" Mode="In" Type="Int32" />
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+            <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
+            <Parameter Name="Referencia" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ModificarCanton" ReturnType="Collection(AMUCOMTModel.sp_ModificarCanton_Result)">
             <Parameter Name="IdCanton" Mode="In" Type="Int32" />
@@ -1548,6 +1638,9 @@
           <FunctionImport Name="sp_ConsultarTiposDeUsuariosQueNoTieneUnUsuario" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTiposDeUsuariosQueNoTieneUnUsuario_Result)">
           <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_ConsultarTiposDeUsuariosQueTieneUnUsuario" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTiposDeUsuariosQueTieneUnUsuario_Result)">
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_ConsultarTiposUsuarioDeUnaPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTiposUsuarioDeUnaPersona_Result)">
           <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1556,6 +1649,9 @@
           <FunctionImport Name="sp_ConsultarUsuario" ReturnType="Collection(AMUCOMTModel.sp_ConsultarUsuario_Result)" />
           <FunctionImport Name="sp_ConsultarUsuarioPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarUsuarioPorId_Result)">
           <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarUsuarioPorUsuario" ReturnType="Collection(AMUCOMTModel.sp_ConsultarUsuarioPorUsuario_Result)">
+          <Parameter Name="Usuario" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarUsuarios" ReturnType="Collection(AMUCOMTModel.sp_ConsultarUsuarios_Result)" />
           <FunctionImport Name="sp_ConsultarUsuariosYPersonas" />
@@ -1615,77 +1711,75 @@
             <Parameter Name="Usuario" Mode="In" Type="String" />
             <Parameter Name="Contrasena" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_ConsultarTiposDeUsuariosQueTieneUnUsuario" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTiposDeUsuariosQueTieneUnUsuario_Result1)">
-          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_CrearCorreo" ReturnType="Collection(AMUCOMTModel.sp_CrearCorreo_Result1)">
-            <Parameter Name="idPersona" Mode="In" Type="Int32" />
-            <Parameter Name="Correo" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_ConsultarPersonaPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonaPorId_Result2)">
-          <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_CrearPersona" ReturnType="Collection(Decimal)">
-            <Parameter Name="NumeroDocumento" Mode="In" Type="String" />
-            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
-            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
-            <Parameter Name="PrimerNombre" Mode="In" Type="String" />
-            <Parameter Name="SegundoNombre" Mode="In" Type="String" />
-            <Parameter Name="IdTipoDocument" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_ConsultarResidenciaPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarResidenciaPersona_Result1)">
-          <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_CrearAsigancionPP" ReturnType="Collection(AMUCOMTModel.sp_CrearAsigancionPP_Result5)">
-            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-            <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
-            <Parameter Name="Referencia" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_ModificarAsignacionPC">
-            <Parameter Name="IdAsignacionPP" Mode="In" Type="Int32" />
-            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-            <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
-            <Parameter Name="Referencia" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_ConsultarCantonesParaSeguimiento" ReturnType="Collection(AMUCOMTModel.sp_ConsultarCantonesParaSeguimiento_Result)">
-          <Parameter Name="idProvincia" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_ConsultarComunidadesParaSeguimiento" ReturnType="Collection(AMUCOMTModel.sp_ConsultarComunidadesParaSeguimiento_Result)">
-          <Parameter Name="idParroquia" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_ConsultarParroquiaParaSeguimiento" ReturnType="Collection(AMUCOMTModel.sp_ConsultarParroquiaParaSeguimiento_Result)">
-          <Parameter Name="idCanton" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_ConsultarProvinciaParaSeguimiento" ReturnType="Collection(AMUCOMTModel.sp_ConsultarProvinciaParaSeguimiento_Result)" />
-          <FunctionImport Name="sp_ConsultarPersonasParaSeguimientoPorProvincia" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonasParaSeguimientoPorProvincia_Result)">
-          <Parameter Name="IdProvincia" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_ConsultarUsuarioPorUsuario" ReturnType="Collection(AMUCOMTModel.sp_ConsultarUsuarioPorUsuario_Result1)">
-          <Parameter Name="Usuario" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_TrasnferirPersonasAOtroTecnico">
-            <Parameter Name="IdAsignacionTUAntiguo" Mode="In" Type="Int32" />
-            <Parameter Name="IdAsignacionTUNuevo" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_ConsultarConfigurarVentaPorIdCabeceraFactura" ReturnType="Collection(AMUCOMTModel.sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result1)">
-          <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_CrearConfigurarVenta" ReturnType="Collection(AMUCOMTModel.sp_CrearConfigurarVenta_Result1)">
+          <FunctionImport Name="sp_CrearAsignarComunidadFactura" ReturnType="Collection(AMUCOMTModel.sp_CrearAsignarComunidadFactura_Result)">
+            <Parameter Name="IdComunidad" Mode="In" Type="Int32" />
             <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
+            <Parameter Name="Observacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico" ReturnType="Collection(AMUCOMTModel.sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result1)">
             <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-            <Parameter Name="EstadoConfVenta" Mode="In" Type="String" />
+            <Parameter Name="IdTecnico" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CrearConfiguracionInteres" ReturnType="Collection(AMUCOMTModel.sp_CrearConfiguracionInteres_Result1)">
+            <Parameter Name="IdTipoInteres" Mode="In" Type="Int32" />
+            <Parameter Name="TasaInteres" Mode="In" Type="Int32" />
+            <Parameter Name="IdTipoInteresMora" Mode="In" Type="Int32" />
+            <Parameter Name="TasaInteresMora" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarTipoInteresPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTipoInteresPorId_Result)">
+          <Parameter Name="IdTipoInteres" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarConfiguracionInteres" ReturnType="Collection(AMUCOMTModel.sp_ConsultarConfiguracionInteres_Result2)" />
+          <FunctionImport Name="sp_ConsultarConfiguracionInteresPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarConfiguracionInteresPorId_Result1)">
+          <Parameter Name="IdConfiguracionInteres" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarExisteConfiguracionInteres" ReturnType="Collection(AMUCOMTModel.sp_ConsultarExisteConfiguracionInteres_Result)">
+            <Parameter Name="IdTipoInteres" Mode="In" Type="Int32" />
+            <Parameter Name="TasaInteres" Mode="In" Type="Int32" />
+            <Parameter Name="IdTipoInteresMora" Mode="In" Type="Int32" />
+            <Parameter Name="TasaInteresMora" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarConfiguracionInteres">
+          <Parameter Name="IdConfiguracionInteres" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ModificarConfiguracionInteres" ReturnType="Collection(AMUCOMTModel.sp_ModificarConfiguracionInteres_Result)">
             <Parameter Name="IdConfiguracionInteres" Mode="In" Type="Int32" />
-            <Parameter Name="Efectivo" Mode="In" Type="String" />
-            <Parameter Name="Descuento" Mode="In" Type="Int32" />
-            <Parameter Name="FechaFinCredito" Mode="In" Type="DateTime" />
-            <Parameter Name="AplicaSeguro" Mode="In" Type="String" />
+            <Parameter Name="IdTipoInteres" Mode="In" Type="Int32" />
+            <Parameter Name="TasaInteres" Mode="In" Type="Int32" />
+            <Parameter Name="IdTipoInteresMora" Mode="In" Type="Int32" />
+            <Parameter Name="TasaInteresMora" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_ConsultarFacturasPendientePorPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarFacturasPendientePorPersona_Result1)">
-          <Parameter Name="NumeroDocumento" Mode="In" Type="String" />
+          <FunctionImport Name="sp_DesHabilitarInteres">
+          <Parameter Name="IdConfiguracionInteres" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_ConsultarParroquia" ReturnType="Collection(AMUCOMTModel.sp_ConsultarParroquia_Result1)" />
-          <FunctionImport Name="sp_ConsultarAsignarProductoKit" ReturnType="Collection(AMUCOMTModel.sp_ConsultarAsignarProductoKit_Result1)">
-            <Parameter Name="IdKit" Mode="In" Type="Int32" />
+          <FunctionImport Name="sp_HabilitarInteres">
+          <Parameter Name="IdConfiguracionInteres" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CrearAsignarTecnicoPersonaComunidad" ReturnType="Collection(AMUCOMTModel.sp_CrearAsignarTecnicoPersonaComunidad_Result1)">
+            <Parameter Name="IdAsignarTUTecnico" Mode="In" Type="Int32" />
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+            <Parameter Name="IdComunidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_FinalizarAsignarTecnicoPersonaComunidad">
+            <Parameter Name="IdAsignarTecnicoPersonaComunidad" Mode="In" Type="Int32" />
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+            <Parameter Name="IdComunidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarComunidadesSeguimientoFinalizadoPorTecnicoYPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarComunidadesSeguimientoFinalizadoPorTecnicoYPersona_Result)">
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+            <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona_Result)">
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+            <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
+            <Parameter Name="IdComunidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarPersonasSeguimientoFinalizadoPorTecnico" ReturnType="Collection(AMUCOMTModel.sp_ConsultarPersonasSeguimientoFinalizadoPorTecnico_Result)">
+          <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad">
+            <Parameter Name="IdAsignarTecnicoPersonaComunidad" Mode="In" Type="Int32" />
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_AumentarDetalleVenta_Result">
@@ -1721,6 +1815,7 @@
           <Property Type="String" Name="Observacion" Nullable="true" />
           <Property Type="Boolean" Name="Estado" Nullable="false" />
           <Property Type="DateTime" Name="FechaAsignacion" Nullable="false" Precision="16" />
+          <Property Type="Int32" Name="IdAsignarTecnicoPersonaComunidad" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarAsignarComunidadFacturaPorIdCabeceraFactura_Result">
           <Property Type="Int32" Name="AsignarComunidadConfigurarVentaIdAsignarComunidadConfigurarVenta" Nullable="false" />
@@ -1875,8 +1970,6 @@
           <Property Type="Int32" Name="Descuento" Nullable="true" />
           <Property Type="DateTime" Name="FechaFinCredito" Nullable="true" Precision="16" />
           <Property Type="Boolean" Name="AplicaSeguro" Nullable="true" />
-          <Property Type="Decimal" Name="ValorSeguro" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Boolean" Name="SeguroCancelado" Nullable="true" />
           <Property Type="Int32" Name="IdAsignarTecnicoPersonaComunidad" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarDetalleFacturaVentaPorKit_Result">
@@ -1954,8 +2047,6 @@
           <Property Type="Int32" Name="ConfigurarVentaIdCabeceraFactura" Nullable="false" />
           <Property Type="Int32" Name="ConfigurarVentaIdConfiguracionInteres" Nullable="true" />
           <Property Type="Int32" Name="ConfigurarVentaIdPersona" Nullable="false" />
-          <Property Type="Boolean" Name="ConfigurarVentaSeguroCancelado" Nullable="true" />
-          <Property Type="Decimal" Name="ConfigurarVentaValorSeguro" Nullable="true" Precision="18" Scale="2" />
           <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
           <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
@@ -2011,6 +2102,7 @@
           <Property Type="DateTime" Name="TipoDocumentoFechaActualizacion" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
           <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="NumeroVisita" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarPersonasAsignadasAunTecnicoPorCanton_Result">
           <Property Type="Int32" Name="AsignarTecnicoPersonaComunidadIdAsignarTecnicoPersonaComunidad" Nullable="false" />
@@ -2184,6 +2276,24 @@
           <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
           <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
         </ComplexType>
+        <ComplexType Name="sp_ConsultarPersonasParaSeguimientoPorProvincia_Result">
+          <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
+          <Property Type="String" Name="PersonaPrimerNombre" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="PersonaSegundoNombre" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="PersonaNumeroDocumento" Nullable="false" MaxLength="20" />
+          <Property Type="Boolean" Name="PersonaEstado" Nullable="false" />
+          <Property Type="DateTime" Name="PersonaFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PersonaFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="PersonaIdTipoDocumento" Nullable="false" />
+          <Property Type="Int32" Name="TipoDocumentoIdTipoDocumento" Nullable="false" />
+          <Property Type="String" Name="TipoDocumentoDescripcion" Nullable="false" MaxLength="3000" />
+          <Property Type="Boolean" Name="TipoDocumentoEstado" Nullable="false" />
+          <Property Type="DateTime" Name="TipoDocumentoFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
+          <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
+        </ComplexType>
         <ComplexType Name="sp_ConsultarProvinciasParaSeguimientoPorTecnico_Result">
           <Property Type="Int32" Name="IdProvincia" Nullable="false" />
           <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="1000" />
@@ -2225,14 +2335,6 @@
           <Property Type="Decimal" Name="Monto" Nullable="false" Precision="18" Scale="2" />
           <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="16" />
         </ComplexType>
-        <ComplexType Name="sp_CrearAsignarComunidadFactura_Result">
-          <Property Type="Int32" Name="IdAsignarComunidadFactura" Nullable="false" />
-          <Property Type="Int32" Name="IdComunidad" Nullable="false" />
-          <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
-          <Property Type="String" Name="Observacion" Nullable="true" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-          <Property Type="DateTime" Name="FechaAsignacion" Nullable="false" Precision="16" />
-        </ComplexType>
         <ComplexType Name="sp_CrearAsignarSeguro_Result">
           <Property Type="Int32" Name="IdAsignarSeguro" Nullable="false" />
           <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
@@ -2265,8 +2367,6 @@
           <Property Type="Int32" Name="Descuento" Nullable="true" />
           <Property Type="DateTime" Name="FechaFinCredito" Nullable="true" Precision="16" />
           <Property Type="Boolean" Name="AplicaSeguro" Nullable="true" />
-          <Property Type="Decimal" Name="ValorSeguro" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="Boolean" Name="SeguroCancelado" Nullable="true" />
           <Property Type="Int32" Name="IdAsignarTecnicoPersonaComunidad" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_CrearDetalleVenta_Result">
@@ -2598,6 +2698,7 @@
           <Property Type="Int32" Name="DescuentoIdDescuento" Nullable="false" />
           <Property Type="Int32" Name="DescuentoPorcentaje" Nullable="false" />
           <Property Type="Boolean" Name="DescuentoEstado" Nullable="false" />
+          <Property Type="String" Name="ConfiguracionProductoUtilizado" Nullable="false" MaxLength="1" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarAsignarProductoKitPorId_Result">
           <Property Type="Int32" Name="AsignarProductoKitIdAsignarProductoKit" Nullable="false" />
@@ -3230,6 +3331,7 @@
           <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="String" Name="Referencia" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarAsignacionPPersonas_Result">
           <Property Type="Int32" Name="IdAsignacionPP" Nullable="false" />
@@ -3238,6 +3340,7 @@
           <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="String" Name="Referencia" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarAsignacionPPporPersona_Result">
           <Property Type="Int32" Name="IdAsignacionPP" Nullable="false" />
@@ -3246,6 +3349,7 @@
           <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="String" Name="Referencia" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarCanton_Result">
           <Property Type="Int32" Name="IdCanton" Nullable="false" />
@@ -3258,6 +3362,14 @@
           <Property Type="String" Name="ProvinciaDescripcion" Nullable="false" MaxLength="1000" />
           <Property Type="Boolean" Name="ProvinciaEstado" Nullable="false" />
           <Property Type="String" Name="CantonUtilizado" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarCantonesParaSeguimiento_Result">
+          <Property Type="Int32" Name="IdCanton" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="IdProvincia" Nullable="false" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarCantonPorId_Result">
           <Property Type="Int32" Name="IdCanton" Nullable="false" />
@@ -3285,6 +3397,14 @@
           <Property Type="String" Name="ParroquiaDescripcion" Nullable="true" MaxLength="1000" />
           <Property Type="Boolean" Name="ParroquiaEstado" Nullable="true" />
           <Property Type="String" Name="ComunidadUtilizado" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarComunidadesParaSeguimiento_Result">
+          <Property Type="Int32" Name="IdComunidad" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="IdParroquia" Nullable="false" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarComunidadPorId_Result">
           <Property Type="Int32" Name="IdComunidad" Nullable="false" />
@@ -3356,6 +3476,15 @@
           <Property Type="String" Name="CantonDescripcion" Nullable="false" MaxLength="500" />
           <Property Type="Boolean" Name="CantonEstado" Nullable="false" />
           <Property Type="String" Name="ParroquiaUtilizado" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="ParroquiaUtilizado1" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarParroquiaParaSeguimiento_Result">
+          <Property Type="Int32" Name="IdParroquia" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="1000" />
+          <Property Type="Int32" Name="IdCanton" Nullable="false" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarParroquiaPorId_Result">
           <Property Type="Int32" Name="IdParroquia" Nullable="false" />
@@ -3396,6 +3525,7 @@
           <Property Type="String" Name="NumeroDocumento" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="PrimerNombre" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="SegundoNombre" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="3000" />
           <Property Type="String" Name="TieneUsuario" Nullable="false" MaxLength="1" />
           <Property Type="String" Name="TieneComunidadFactura" Nullable="false" MaxLength="1" />
           <Property Type="String" Name="TieneFacturaVenta" Nullable="false" MaxLength="1" />
@@ -3483,6 +3613,13 @@
           <Property Type="Int32" Name="IdProvincia" Nullable="false" />
           <Property Type="String" Name="ProvinciaUtilizado" Nullable="false" MaxLength="1" />
         </ComplexType>
+        <ComplexType Name="sp_ConsultarProvinciaParaSeguimiento_Result">
+          <Property Type="Int32" Name="IdProvincia" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="1000" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="sp_ConsultarProvinciaPorId_Result">
           <Property Type="Int32" Name="IdProvincia" Nullable="false" />
           <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="1000" />
@@ -3499,25 +3636,26 @@
           <Property Type="Boolean" Name="Estado" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarResidenciaPersona_Result">
-          <Property Type="Int32" Name="ProvinciaIdProvincia" Nullable="true" />
-          <Property Type="String" Name="ProvinciaDescripcion" Nullable="true" MaxLength="1000" />
-          <Property Type="DateTime" Name="ProvinciaFechaCreacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="ProvinciaEstado" Nullable="true" />
-          <Property Type="Int32" Name="CantonIdCanton" Nullable="true" />
-          <Property Type="String" Name="CantonDescripcion" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="CantonIdProvincia" Nullable="true" />
-          <Property Type="DateTime" Name="CantonFechaCreacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="CantonEstado" Nullable="true" />
+          <Property Type="Int32" Name="ProvinciaIdProvincia" Nullable="false" />
+          <Property Type="String" Name="ProvinciaDescripcion" Nullable="false" MaxLength="1000" />
+          <Property Type="DateTime" Name="ProvinciaFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="ProvinciaEstado" Nullable="false" />
+          <Property Type="Int32" Name="CantonIdCanton" Nullable="false" />
+          <Property Type="String" Name="CantonDescripcion" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="CantonIdProvincia" Nullable="false" />
+          <Property Type="DateTime" Name="CantonFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="CantonEstado" Nullable="false" />
           <Property Type="Int32" Name="ParroquiaIdParroquia" Nullable="false" />
           <Property Type="String" Name="ParroquiaDescripcion" Nullable="false" MaxLength="1000" />
           <Property Type="Int32" Name="ParroquiaIdCanton" Nullable="false" />
           <Property Type="DateTime" Name="ParroquiaFechaCreacion" Nullable="false" Precision="23" />
           <Property Type="Boolean" Name="ParroquiaEstado" Nullable="false" />
-          <Property Type="Int32" Name="AsignacionPersonaParroquiaIdAsignacionPersonaParroquia" Nullable="true" />
-          <Property Type="Int32" Name="AsignacionPersonaComunidadIdPersona" Nullable="true" />
-          <Property Type="Int32" Name="AsignacionPersonaParroquiaIdParroquia" Nullable="true" />
-          <Property Type="DateTime" Name="AsignacionPersonaParroquiaFechaCreacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="AsignacionPersonaParroquiaEstado" Nullable="true" />
+          <Property Type="Int32" Name="AsignacionPersonaParroquiaIdAsignacionPersonaParroquia" Nullable="false" />
+          <Property Type="Int32" Name="AsignacionPersonaComunidadIdPersona" Nullable="false" />
+          <Property Type="Int32" Name="AsignacionPersonaParroquiaIdParroquia" Nullable="false" />
+          <Property Type="DateTime" Name="AsignacionPersonaParroquiaFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="AsignacionPersonaParroquiaEstado" Nullable="false" />
+          <Property Type="String" Name="AsignacionPersonaParroquiaReferencia" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarTelefono_Result">
           <Property Type="Int32" Name="IdTelefono" Nullable="false" />
@@ -3564,6 +3702,7 @@
           <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="String" Name="Referencia" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_CrearCanton_Result">
           <Property Type="Int32" Name="CantonIdCanton" Nullable="false" />
@@ -3613,18 +3752,6 @@
           <Property Type="DateTime" Name="CantonFechaActualizacion" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="CantonFechaCreacion" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="CantonIdProvincia" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="sp_CrearPersona1_Result">
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="String" Name="NumeroDocumento" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="ApellidoMaterno" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="PrimerNombre" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="SegundoNombre" Nullable="false" MaxLength="200" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="IdTipoDocumento" Nullable="false" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_CrearProvincia_Result">
           <Property Type="Int32" Name="IdProvincia" Nullable="false" />
@@ -3940,12 +4067,6 @@
           <Property Type="DateTime" Name="TipoDocumentoFechaActualizacion" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
-          <Property Type="Int32" Name="CorreoIdCorreo" Nullable="true" />
-          <Property Type="Int32" Name="CorreoIdPersona" Nullable="true" />
-          <Property Type="String" Name="CorreoCorreo" Nullable="true" MaxLength="1000" />
-          <Property Type="Boolean" Name="CorreoEstado" Nullable="true" />
-          <Property Type="DateTime" Name="CorreoFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="CorreoFechaCreacion" Nullable="true" Precision="23" />
         </ComplexType>
         <ComplexType Name="sp_ConsultarUsuarios_Result">
           <Property Type="Int32" Name="UsuarioIdUsuario" Nullable="false" />
@@ -4024,332 +4145,155 @@
           <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
           <Property Type="Boolean" Name="TipoDocumentoEstado" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="sp_ConsultarPersonaPorId_Result1">
-          <Property Type="String" Name="ApellidoMaterno" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="200" />
+        <ComplexType Name="sp_CrearAsignarComunidadFactura_Result">
+          <Property Type="Int32" Name="IdAsignarComunidadFactura" Nullable="false" />
+          <Property Type="Int32" Name="IdComunidad" Nullable="false" />
+          <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+          <Property Type="String" Name="Observacion" Nullable="true" />
           <Property Type="Boolean" Name="Estado" Nullable="false" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="Int32" Name="IdTipoDocumento" Nullable="false" />
-          <Property Type="String" Name="NumeroDocumento" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="PrimerNombre" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="SegundoNombre" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="3000" />
-          <Property Type="String" Name="TieneUsuario" Nullable="false" MaxLength="1" />
-          <Property Type="String" Name="TieneComunidadFactura" Nullable="false" MaxLength="1" />
-          <Property Type="String" Name="TieneFacturaVenta" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="FechaAsignacion" Nullable="false" Precision="16" />
+          <Property Type="Int32" Name="IdAsignarTecnicoPersonaComunidad" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="sp_ConsultarTiposDeUsuariosQueTieneUnUsuario_Result1">
-          <Property Type="Int32" Name="AsignacionTipoUsuarioIdAsignacionTU" Nullable="false" />
-          <Property Type="Boolean" Name="AsignacionTipoUsuarioEstado" Nullable="false" />
-          <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="AsignacionTipoUsuarioIdTipoUsuario" Nullable="false" />
-          <Property Type="Int32" Name="AsignacionTipoUsuarioIdUsuario" Nullable="false" />
-          <Property Type="Int32" Name="TipoUsuarioIdTipoUsuario" Nullable="false" />
-          <Property Type="String" Name="TipoUsuarioDescripcion" Nullable="false" MaxLength="1000" />
-          <Property Type="Boolean" Name="TipoUsuarioEstado" Nullable="false" />
-          <Property Type="DateTime" Name="TipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="TipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="String" Name="TipoUsuarioIdentificacion" Nullable="false" MaxLength="1000" />
-        </ComplexType>
-        <ComplexType Name="sp_CrearAsigancionPP_Result1">
-          <Property Type="Int32" Name="IdAsignacionPP" Nullable="false" />
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="Int32" Name="IdParroquia" Nullable="false" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="sp_CrearCorreo_Result1">
-          <Property Type="Int32" Name="IdCorreo" Nullable="false" />
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="String" Name="Correo" Nullable="false" MaxLength="1000" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarPersonaPorId_Result2">
-          <Property Type="String" Name="ApellidoMaterno" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="200" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="Int32" Name="IdTipoDocumento" Nullable="false" />
-          <Property Type="String" Name="NumeroDocumento" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="PrimerNombre" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="SegundoNombre" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="3000" />
-          <Property Type="String" Name="TieneUsuario" Nullable="false" MaxLength="1" />
-          <Property Type="String" Name="TieneComunidadFactura" Nullable="false" MaxLength="1" />
-          <Property Type="String" Name="TieneFacturaVenta" Nullable="false" MaxLength="1" />
-        </ComplexType>
-        <ComplexType Name="sp_CrearAsigancionPP_Result2">
-          <Property Type="Int32" Name="IdAsignacionPP" Nullable="false" />
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="Int32" Name="IdParroquia" Nullable="false" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-          <Property Type="String" Name="Referencia" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_CrearAsigancionPP_Result3">
-          <Property Type="Int32" Name="IdAsignacionPP" Nullable="false" />
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="Int32" Name="IdParroquia" Nullable="false" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-          <Property Type="String" Name="Referencia" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarResidenciaPersona_Result1">
-          <Property Type="Int32" Name="ProvinciaIdProvincia" Nullable="false" />
-          <Property Type="String" Name="ProvinciaDescripcion" Nullable="false" MaxLength="1000" />
-          <Property Type="DateTime" Name="ProvinciaFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="Boolean" Name="ProvinciaEstado" Nullable="false" />
-          <Property Type="Int32" Name="CantonIdCanton" Nullable="false" />
-          <Property Type="String" Name="CantonDescripcion" Nullable="false" MaxLength="500" />
-          <Property Type="Int32" Name="CantonIdProvincia" Nullable="false" />
-          <Property Type="DateTime" Name="CantonFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="Boolean" Name="CantonEstado" Nullable="false" />
+        <ComplexType Name="sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result1">
+          <Property Type="Int32" Name="AsignarTecnicoPersonaComunidadIdComunidad" Nullable="false" />
+          <Property Type="Boolean" Name="AsignarTecnicoPersonaComunidadEstado" Nullable="false" />
+          <Property Type="DateTime" Name="AsignarTecnicoPersonaComunidadFechaAsignacion" Nullable="false" Precision="16" />
+          <Property Type="Int32" Name="AsignarTecnicoPersonaComunidadIdAsignarTecnicoPersonaComunidad" Nullable="false" />
+          <Property Type="Int32" Name="AsignarTecnicoPersonaComunidadIdAsignarTUTecnico" Nullable="false" />
+          <Property Type="Int32" Name="AsignarTecnicoPersonaComunidadIdPersona" Nullable="false" />
+          <Property Type="Int32" Name="ComunidadIdComunidad" Nullable="false" />
+          <Property Type="Boolean" Name="ComunidadEstado" Nullable="false" />
+          <Property Type="String" Name="ComunidadDescripcion" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="ComunidadFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ComunidadFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="ComunidadIdParroquia" Nullable="false" />
           <Property Type="Int32" Name="ParroquiaIdParroquia" Nullable="false" />
           <Property Type="String" Name="ParroquiaDescripcion" Nullable="false" MaxLength="1000" />
-          <Property Type="Int32" Name="ParroquiaIdCanton" Nullable="false" />
-          <Property Type="DateTime" Name="ParroquiaFechaCreacion" Nullable="false" Precision="23" />
           <Property Type="Boolean" Name="ParroquiaEstado" Nullable="false" />
-          <Property Type="Int32" Name="AsignacionPersonaParroquiaIdAsignacionPersonaParroquia" Nullable="false" />
-          <Property Type="Int32" Name="AsignacionPersonaComunidadIdPersona" Nullable="false" />
-          <Property Type="Int32" Name="AsignacionPersonaParroquiaIdParroquia" Nullable="false" />
-          <Property Type="DateTime" Name="AsignacionPersonaParroquiaFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="Boolean" Name="AsignacionPersonaParroquiaEstado" Nullable="false" />
-          <Property Type="String" Name="AsignacionPersonaParroquiaReferencia" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_CrearAsigancionPP_Result4">
-          <Property Type="Int32" Name="IdAsignacionPP" Nullable="false" />
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="Int32" Name="IdParroquia" Nullable="false" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-          <Property Type="String" Name="Referencia" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_CrearAsigancionPP_Result5">
-          <Property Type="Int32" Name="IdAsignacionPP" Nullable="false" />
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="Int32" Name="IdParroquia" Nullable="false" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-          <Property Type="String" Name="Referencia" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarCantonesParaSeguimiento_Result">
-          <Property Type="Int32" Name="IdCanton" Nullable="false" />
-          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="500" />
-          <Property Type="Int32" Name="IdProvincia" Nullable="false" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarComunidadesParaSeguimiento_Result">
-          <Property Type="Int32" Name="IdComunidad" Nullable="false" />
-          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="500" />
-          <Property Type="Int32" Name="IdParroquia" Nullable="false" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarParroquiaParaSeguimiento_Result">
-          <Property Type="Int32" Name="IdParroquia" Nullable="false" />
-          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="1000" />
-          <Property Type="Int32" Name="IdCanton" Nullable="false" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarProvinciaParaSeguimiento_Result">
-          <Property Type="Int32" Name="IdProvincia" Nullable="false" />
-          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="1000" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarPersonasParaSeguimientoPorProvincia_Result">
-          <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
-          <Property Type="String" Name="PersonaPrimerNombre" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="PersonaSegundoNombre" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="PersonaNumeroDocumento" Nullable="false" MaxLength="20" />
-          <Property Type="Boolean" Name="PersonaEstado" Nullable="false" />
-          <Property Type="DateTime" Name="PersonaFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="PersonaFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
-          <Property Type="Int32" Name="PersonaIdTipoDocumento" Nullable="false" />
-          <Property Type="Int32" Name="TipoDocumentoIdTipoDocumento" Nullable="false" />
-          <Property Type="String" Name="TipoDocumentoDescripcion" Nullable="false" MaxLength="3000" />
-          <Property Type="Boolean" Name="TipoDocumentoEstado" Nullable="false" />
-          <Property Type="DateTime" Name="TipoDocumentoFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
-          <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarUsuarioPorUsuario_Result1">
-          <Property Type="Int32" Name="UsuarioIdUsuario" Nullable="false" />
-          <Property Type="String" Name="UsuarioUsuario" Nullable="false" MaxLength="1000" />
-          <Property Type="String" Name="UsuarioContrasena" Nullable="false" MaxLength="1000" />
-          <Property Type="Int32" Name="UsuarioIdPersona" Nullable="false" />
-          <Property Type="Boolean" Name="UsuarioEstado" Nullable="true" />
-          <Property Type="DateTime" Name="UsuarioFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="UsuarioFechaCreacion" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
-          <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
-          <Property Type="Boolean" Name="PersonaEstado" Nullable="false" />
-          <Property Type="DateTime" Name="PersonaFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="PersonaFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="PersonaIdTipoDocumento" Nullable="false" />
-          <Property Type="String" Name="PersonaNumeroDocumento" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="PersonaPrimerNombre" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="PersonaSegundoNombre" Nullable="false" MaxLength="200" />
-          <Property Type="Int32" Name="TipoDocumentoIdTipoDocumento" Nullable="false" />
-          <Property Type="String" Name="TipoDocumentoDescripcion" Nullable="false" MaxLength="3000" />
-          <Property Type="Boolean" Name="TipoDocumentoEstado" Nullable="false" />
-          <Property Type="DateTime" Name="TipoDocumentoFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result1">
-          <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
-          <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="Boolean" Name="EstadoConfVenta" Nullable="false" />
-          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="true" />
-          <Property Type="Boolean" Name="Efectivo" Nullable="false" />
-          <Property Type="Int32" Name="Descuento" Nullable="true" />
-          <Property Type="DateTime" Name="FechaFinCredito" Nullable="true" Precision="16" />
-          <Property Type="Boolean" Name="AplicaSeguro" Nullable="true" />
-          <Property Type="Int32" Name="IdAsignarTecnicoPersonaComunidad" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_CrearConfigurarVenta_Result1">
-          <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
-          <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
-          <Property Type="Int32" Name="IdPersona" Nullable="false" />
-          <Property Type="Boolean" Name="EstadoConfVenta" Nullable="false" />
-          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="true" />
-          <Property Type="Boolean" Name="Efectivo" Nullable="false" />
-          <Property Type="Int32" Name="Descuento" Nullable="true" />
-          <Property Type="DateTime" Name="FechaFinCredito" Nullable="true" Precision="16" />
-          <Property Type="Boolean" Name="AplicaSeguro" Nullable="true" />
-          <Property Type="Int32" Name="IdAsignarTecnicoPersonaComunidad" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarFacturasPendientePorPersona_Result1">
-          <Property Type="Int32" Name="CabeceraFacturaIdCabeceraFactura" Nullable="false" />
-          <Property Type="String" Name="CabeceraFacturaCodigo" Nullable="false" MaxLength="50" />
-          <Property Type="Boolean" Name="CabeceraFacturaEstado_Cabecera_Factura" Nullable="false" />
-          <Property Type="DateTime" Name="CabeceraFacturaFechaGeneracion" Nullable="false" Precision="23" />
-          <Property Type="Boolean" Name="CabeceraFacturaFinalizado" Nullable="false" />
-          <Property Type="Int32" Name="CabeceraFacturaIdAsignacionTU" Nullable="false" />
-          <Property Type="Int32" Name="CabeceraFacturaIdTipoTransaccion" Nullable="false" />
-          <Property Type="Int32" Name="TipoTransaccionIdTipoTransaccion" Nullable="false" />
-          <Property Type="String" Name="TipoTransaccionDescripcion" Nullable="false" MaxLength="150" />
-          <Property Type="Int32" Name="TipoTransaccionIdentificador" Nullable="false" />
-          <Property Type="DateTime" Name="TipoTransaccionFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="TipoTransaccionFechaModificacion" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="ConfigurarVentaIdConfigurarVenta" Nullable="false" />
-          <Property Type="Boolean" Name="ConfigurarVentaAplicaSeguro" Nullable="true" />
-          <Property Type="Int32" Name="ConfigurarVentaDescuento" Nullable="true" />
-          <Property Type="Boolean" Name="ConfigurarVentaEfectivo" Nullable="false" />
-          <Property Type="Boolean" Name="ConfigurarVentaEstadoConfVenta" Nullable="false" />
-          <Property Type="DateTime" Name="ConfigurarVentaFechaFinCredito" Nullable="true" Precision="16" />
-          <Property Type="Int32" Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" Nullable="true" />
-          <Property Type="Int32" Name="ConfigurarVentaIdCabeceraFactura" Nullable="false" />
-          <Property Type="Int32" Name="ConfigurarVentaIdConfiguracionInteres" Nullable="true" />
-          <Property Type="Int32" Name="ConfigurarVentaIdPersona" Nullable="false" />
-          <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
-          <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
-          <Property Type="Boolean" Name="PersonaEstado" Nullable="false" />
-          <Property Type="DateTime" Name="PersonaFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="PersonaFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="PersonaIdTipoDocumento" Nullable="false" />
-          <Property Type="String" Name="PersonaNumeroDocumento" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="PersonaPrimerNombre" Nullable="false" MaxLength="200" />
-          <Property Type="String" Name="PersonaSegundoNombre" Nullable="false" MaxLength="200" />
-          <Property Type="Int32" Name="TipoDocumentoIdTipoDocumento" Nullable="false" />
-          <Property Type="String" Name="TipoDocumentoDescripcion" Nullable="false" MaxLength="3000" />
-          <Property Type="Boolean" Name="TipoDocumentoEstado" Nullable="false" />
-          <Property Type="DateTime" Name="TipoDocumentoFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="sp_ConsultarParroquia_Result1">
-          <Property Type="Int32" Name="IdParroquia" Nullable="false" />
-          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="1000" />
-          <Property Type="Int32" Name="IdCanton" Nullable="false" />
-          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="DateTime" Name="ParroquiaFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ParroquiaFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ParroquiaIdCanton" Nullable="false" />
           <Property Type="Int32" Name="CantonIdCanton" Nullable="false" />
           <Property Type="String" Name="CantonDescripcion" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="CantonFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CantonFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CantonIdProvincia" Nullable="false" />
           <Property Type="Boolean" Name="CantonEstado" Nullable="false" />
-          <Property Type="String" Name="ParroquiaUtilizado" Nullable="false" MaxLength="1" />
-          <Property Type="String" Name="ParroquiaUtilizado1" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="ProvinciaDescripcion" Nullable="false" MaxLength="1000" />
+          <Property Type="Int32" Name="ProvinciaIdProvincia" Nullable="false" />
+          <Property Type="Boolean" Name="ProvinciaEstado" Nullable="false" />
+          <Property Type="DateTime" Name="ProvinciaFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ProvinciaFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="NumeroVisitas" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="sp_ConsultarAsignarProductoKit_Result1">
-          <Property Type="Int32" Name="AsignarProductoKitIdAsignarProductoKit" Nullable="false" />
-          <Property Type="Int32" Name="AsignarProductoKitIdConfigurarProducto" Nullable="false" />
-          <Property Type="Int32" Name="AsignarProductoKitIdAsignarDescuentoKit" Nullable="false" />
-          <Property Type="DateTime" Name="AsignarProductoKitFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="AsignarProductoKitFechaActualizacion" Nullable="false" Precision="23" />
-          <Property Type="Boolean" Name="AsignarProductoKitEstado" Nullable="false" />
-          <Property Type="Int32" Name="ConfigurarProductoIdConfigurarProducto" Nullable="true" />
-          <Property Type="Int32" Name="ConfigurarProductoIdAsignacionTU" Nullable="true" />
-          <Property Type="Int32" Name="ConfigurarProductoIdProducto" Nullable="true" />
-          <Property Type="Int32" Name="ConfigurarProductoIdPresentacion" Nullable="true" />
-          <Property Type="Int32" Name="ConfigurarProductoIdMedida" Nullable="true" />
-          <Property Type="Int32" Name="ConfigurarProductoCantidadMedida" Nullable="true" />
-          <Property Type="String" Name="ConfigurarProductoCodigo" Nullable="true" MaxLength="10" />
-          <Property Type="DateTime" Name="ConfigurarProductoFechaCreacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="ConfigurarProductoFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="ConfigurarProductoEstado" Nullable="true" />
-          <Property Type="Int32" Name="ConfigurarProductoIva" Nullable="true" />
-          <Property Type="Int32" Name="MedidaIdMedida" Nullable="true" />
-          <Property Type="String" Name="MedidaDescripcion" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="MedidaFechaCreacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="MedidaFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="MedidaEstado" Nullable="true" />
-          <Property Type="Int32" Name="PresentacionIdPresentacion" Nullable="true" />
-          <Property Type="String" Name="PresentacionDescripcion" Nullable="true" MaxLength="150" />
-          <Property Type="DateTime" Name="PresentacionFechaCreacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="PresentacionActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="PresentacionEstado" Nullable="true" />
-          <Property Type="Int32" Name="ProductoIdProducto" Nullable="true" />
-          <Property Type="Int32" Name="ProductoIdTipoProducto" Nullable="true" />
-          <Property Type="String" Name="ProductoDescripcion" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="ProductoNombre" Nullable="true" MaxLength="150" />
-          <Property Type="DateTime" Name="ProductoFechaCreacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="ProductoFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="ProductoEstado" Nullable="true" />
-          <Property Type="Int32" Name="TipoProductoIdTipoProducto" Nullable="true" />
-          <Property Type="String" Name="TipoProductoDescripcion" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="TipoProductoFechaCreacion" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="TipoProductoFechaActualizacion" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="TipoProductoEstado" Nullable="true" />
-          <Property Type="Int32" Name="KitIdKit" Nullable="false" />
-          <Property Type="String" Name="KitCodigo" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="KitDescripcion" Nullable="false" MaxLength="250" />
-          <Property Type="DateTime" Name="KitFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="KitFechaActualizacion" Nullable="false" Precision="23" />
-          <Property Type="Boolean" Name="KitEstado" Nullable="false" />
-          <Property Type="Int32" Name="AsignarDescuentoKitIdAsignarDescuentoKit" Nullable="false" />
-          <Property Type="Int32" Name="AsignarDescuentoKitIdDescuento" Nullable="false" />
-          <Property Type="Int32" Name="AsignarDescuentoKitIdKit" Nullable="false" />
-          <Property Type="DateTime" Name="AsignarDescuentoKitFechaCreacion" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="AsignarDescuentoKitFechaModificacion" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="DescuentoIdDescuento" Nullable="false" />
-          <Property Type="Int32" Name="DescuentoPorcentaje" Nullable="false" />
-          <Property Type="Boolean" Name="DescuentoEstado" Nullable="false" />
-          <Property Type="String" Name="ConfiguracionProductoUtilizado" Nullable="false" MaxLength="1" />
+        <ComplexType Name="sp_CrearConfiguracionInteres_Result1">
+          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteres" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteresMora" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteresMora" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarTipoInteresPorId_Result">
+          <Property Type="Int32" Name="IdTipoInteres" Nullable="false" />
+          <Property Type="Int32" Name="Identificacion" Nullable="true" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarConfiguracionInteres_Result1">
+          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteres" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteresMora" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteresMora" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarConfiguracionInteresPorId_Result">
+          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteres" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteresMora" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteresMora" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarConfiguracionInteres_Result2">
+          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteresMora" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteres" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteresMora" Nullable="false" />
+          <Property Type="String" Name="ConfigurarVentaUtilizado" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarConfiguracionInteresPorId_Result1">
+          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteresMora" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteres" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteresMora" Nullable="false" />
+          <Property Type="String" Name="ConfigurarInteresUtilizado" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarExisteConfiguracionInteres_Result">
+          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteresMora" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteres" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteresMora" Nullable="false" />
+          <Property Type="String" Name="ConfigurarInteresUtilizado" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="sp_ModificarConfiguracionInteres_Result">
+          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteresMora" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteres" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteresMora" Nullable="false" />
+          <Property Type="String" Name="ConfigurarInteresUtilizado" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="sp_CrearAsignarTecnicoPersonaComunidad_Result1">
+          <Property Type="Int32" Name="IdAsignarTecnicoPersonaComunidad" Nullable="false" />
+          <Property Type="Int32" Name="IdAsignarTUTecnico" Nullable="false" />
+          <Property Type="Int32" Name="IdPersona" Nullable="false" />
+          <Property Type="Int32" Name="IdComunidad" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="DateTime" Name="FechaAsignacion" Nullable="false" Precision="16" />
+          <Property Type="DateTime" Name="FechaFinalizacion" Nullable="true" Precision="16" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarComunidadesSeguimientoFinalizadoPorTecnicoYPersona_Result">
+          <Property Type="Int32" Name="ComunidadIdComunidad" Nullable="false" />
+          <Property Type="String" Name="ComunidadDescripcion" Nullable="false" MaxLength="500" />
+          <Property Type="Boolean" Name="ComunidadEstado" Nullable="false" />
+          <Property Type="DateTime" Name="ComunidadFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ComunidadFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="ComunidadIdParroquia" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona_Result">
+          <Property Type="Int32" Name="IdAsignarTecnicoPersonaComunidad" Nullable="false" />
+          <Property Type="Int32" Name="IdAsignarTUTecnico" Nullable="false" />
+          <Property Type="Int32" Name="IdPersona" Nullable="false" />
+          <Property Type="Int32" Name="IdComunidad" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="DateTime" Name="FechaAsignacion" Nullable="false" Precision="16" />
+          <Property Type="DateTime" Name="FechaFinalizacion" Nullable="true" Precision="16" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarPersonasSeguimientoFinalizadoPorTecnico_Result">
+          <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
+          <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="PersonaEstado" Nullable="false" />
+          <Property Type="DateTime" Name="PersonaFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PersonaFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="PersonaIdTipoDocumento" Nullable="false" />
+          <Property Type="String" Name="PersonaNumeroDocumento" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PersonaPrimerNombre" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="PersonaSegundoNombre" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="TipoDocumentoIdTipoDocumento" Nullable="false" />
+          <Property Type="String" Name="TipoDocumentoDescripcion" Nullable="false" MaxLength="3000" />
+          <Property Type="Boolean" Name="TipoDocumentoEstado" Nullable="false" />
+          <Property Type="DateTime" Name="TipoDocumentoFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4400,6 +4344,7 @@
                 <ScalarProperty Name="Observacion" ColumnName="Observacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="FechaAsignacion" ColumnName="FechaAsignacion" />
+                <ScalarProperty Name="IdAsignarTecnicoPersonaComunidad" ColumnName="IdAsignarTecnicoPersonaComunidad" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4535,42 +4480,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico" FunctionName="AMUCOMTModel.Store.sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result">
-                <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdComunidad" ColumnName="AsignarTecnicoPersonaComunidadIdComunidad" />
-                <ScalarProperty Name="AsignarTecnicoPersonaComunidadEstado" ColumnName="AsignarTecnicoPersonaComunidadEstado" />
-                <ScalarProperty Name="AsignarTecnicoPersonaComunidadFechaAsignacion" ColumnName="AsignarTecnicoPersonaComunidadFechaAsignacion" />
-                <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdAsignarTecnicoPersonaComunidad" ColumnName="AsignarTecnicoPersonaComunidadIdAsignarTecnicoPersonaComunidad" />
-                <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdAsignarTUTecnico" ColumnName="AsignarTecnicoPersonaComunidadIdAsignarTUTecnico" />
-                <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdPersona" ColumnName="AsignarTecnicoPersonaComunidadIdPersona" />
-                <ScalarProperty Name="ComunidadIdComunidad" ColumnName="ComunidadIdComunidad" />
-                <ScalarProperty Name="ComunidadEstado" ColumnName="ComunidadEstado" />
-                <ScalarProperty Name="ComunidadDescripcion" ColumnName="ComunidadDescripcion" />
-                <ScalarProperty Name="ComunidadFechaActualizacion" ColumnName="ComunidadFechaActualizacion" />
-                <ScalarProperty Name="ComunidadFechaCreacion" ColumnName="ComunidadFechaCreacion" />
-                <ScalarProperty Name="ComunidadIdParroquia" ColumnName="ComunidadIdParroquia" />
-                <ScalarProperty Name="ParroquiaIdParroquia" ColumnName="ParroquiaIdParroquia" />
-                <ScalarProperty Name="ParroquiaDescripcion" ColumnName="ParroquiaDescripcion" />
-                <ScalarProperty Name="ParroquiaEstado" ColumnName="ParroquiaEstado" />
-                <ScalarProperty Name="ParroquiaFechaCreacion" ColumnName="ParroquiaFechaCreacion" />
-                <ScalarProperty Name="ParroquiaFechaActualizacion" ColumnName="ParroquiaFechaActualizacion" />
-                <ScalarProperty Name="ParroquiaIdCanton" ColumnName="ParroquiaIdCanton" />
-                <ScalarProperty Name="CantonIdCanton" ColumnName="CantonIdCanton" />
-                <ScalarProperty Name="CantonDescripcion" ColumnName="CantonDescripcion" />
-                <ScalarProperty Name="CantonFechaActualizacion" ColumnName="CantonFechaActualizacion" />
-                <ScalarProperty Name="CantonFechaCreacion" ColumnName="CantonFechaCreacion" />
-                <ScalarProperty Name="CantonIdProvincia" ColumnName="CantonIdProvincia" />
-                <ScalarProperty Name="CantonEstado" ColumnName="CantonEstado" />
-                <ScalarProperty Name="ProvinciaDescripcion" ColumnName="ProvinciaDescripcion" />
-                <ScalarProperty Name="ProvinciaIdProvincia" ColumnName="ProvinciaIdProvincia" />
-                <ScalarProperty Name="ProvinciaEstado" ColumnName="ProvinciaEstado" />
-                <ScalarProperty Name="ProvinciaFechaCreacion" ColumnName="ProvinciaFechaCreacion" />
-                <ScalarProperty Name="ProvinciaFechaActualizacion" ColumnName="ProvinciaFechaActualizacion" />
-                <ScalarProperty Name="NumeroVisitas" ColumnName="NumeroVisitas" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ConsultarComunidadesParaSeguimientoPorTecnico" FunctionName="AMUCOMTModel.Store.sp_ConsultarComunidadesParaSeguimientoPorTecnico">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarComunidadesParaSeguimientoPorTecnico_Result">
@@ -4584,14 +4493,19 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ConsultarComunidadesQueTienenSembriosParaSeguimiento" FunctionName="AMUCOMTModel.Store.sp_ConsultarComunidadesQueTienenSembriosParaSeguimiento" />
-          <FunctionImportMapping FunctionImportName="sp_ConsultarConfiguracionInteres" FunctionName="AMUCOMTModel.Store.sp_ConsultarConfiguracionInteres">
+          <FunctionImportMapping FunctionImportName="sp_ConsultarConfigurarVentaPorIdCabeceraFactura" FunctionName="AMUCOMTModel.Store.sp_ConsultarConfigurarVentaPorIdCabeceraFactura">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarConfiguracionInteres_Result">
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result">
+                <ScalarProperty Name="IdConfigurarVenta" ColumnName="IdConfigurarVenta" />
+                <ScalarProperty Name="IdCabeceraFactura" ColumnName="IdCabeceraFactura" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="EstadoConfVenta" ColumnName="EstadoConfVenta" />
                 <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
-                <ScalarProperty Name="IdTipoInteres" ColumnName="IdTipoInteres" />
-                <ScalarProperty Name="TasaInteres" ColumnName="TasaInteres" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="PlazoMeses" ColumnName="PlazoMeses" />
+                <ScalarProperty Name="Efectivo" ColumnName="Efectivo" />
+                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+                <ScalarProperty Name="FechaFinCredito" ColumnName="FechaFinCredito" />
+                <ScalarProperty Name="AplicaSeguro" ColumnName="AplicaSeguro" />
+                <ScalarProperty Name="IdAsignarTecnicoPersonaComunidad" ColumnName="IdAsignarTecnicoPersonaComunidad" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4663,6 +4577,50 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasPendientePorPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasPendientePorPersona">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasPendientePorPersona_Result">
+                <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
+                <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
+                <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
+                <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
+                <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
+                <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
+                <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
+                <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
+                <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
+                <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
+                <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
+                <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
+                <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
+                <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
+                <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
+                <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
+                <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
+                <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
+                <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
+                <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
+                <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
+                <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
+                <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+                <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+                <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+                <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+                <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+                <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+                <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+                <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+                <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+                <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+                <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+                <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+                <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+                <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+                <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+                <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ConsultarKitPorFactura" FunctionName="AMUCOMTModel.Store.sp_ConsultarKitPorFactura">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarKitPorFactura_Result">
@@ -4711,6 +4669,7 @@
                 <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
                 <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
                 <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+                <ScalarProperty Name="NumeroVisita" ColumnName="NumeroVisita" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4922,6 +4881,28 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarPersonasParaSeguimientoPorProvincia" FunctionName="AMUCOMTModel.Store.sp_ConsultarPersonasParaSeguimientoPorProvincia">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarPersonasParaSeguimientoPorProvincia_Result">
+                <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+                <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+                <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+                <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+                <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+                <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+                <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+                <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+                <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+                <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+                <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+                <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+                <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+                <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+                <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+                <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ConsultarProvinciasParaSeguimientoPorTecnico" FunctionName="AMUCOMTModel.Store.sp_ConsultarProvinciasParaSeguimientoPorTecnico">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarProvinciasParaSeguimientoPorTecnico_Result">
@@ -4988,18 +4969,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_CrearAsignarComunidadFactura" FunctionName="AMUCOMTModel.Store.sp_CrearAsignarComunidadFactura">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearAsignarComunidadFactura_Result">
-                <ScalarProperty Name="IdAsignarComunidadFactura" ColumnName="IdAsignarComunidadFactura" />
-                <ScalarProperty Name="IdComunidad" ColumnName="IdComunidad" />
-                <ScalarProperty Name="IdCabeceraFactura" ColumnName="IdCabeceraFactura" />
-                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="FechaAsignacion" ColumnName="FechaAsignacion" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_CrearAsignarSeguro" FunctionName="AMUCOMTModel.Store.sp_CrearAsignarSeguro">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearAsignarSeguro_Result">
@@ -5011,26 +4980,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_CrearAsignarTecnicoPersonaComunidad" FunctionName="AMUCOMTModel.Store.sp_CrearAsignarTecnicoPersonaComunidad">
+          <FunctionImportMapping FunctionImportName="sp_CrearConfigurarVenta" FunctionName="AMUCOMTModel.Store.sp_CrearConfigurarVenta">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearAsignarTecnicoPersonaComunidad_Result">
-                <ScalarProperty Name="IdAsignarTecnicoPersonaComunidad" ColumnName="IdAsignarTecnicoPersonaComunidad" />
-                <ScalarProperty Name="IdAsignarTUTecnico" ColumnName="IdAsignarTUTecnico" />
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearConfigurarVenta_Result">
+                <ScalarProperty Name="IdConfigurarVenta" ColumnName="IdConfigurarVenta" />
+                <ScalarProperty Name="IdCabeceraFactura" ColumnName="IdCabeceraFactura" />
                 <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="IdComunidad" ColumnName="IdComunidad" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="FechaAsignacion" ColumnName="FechaAsignacion" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_CrearConfiguracionInteres" FunctionName="AMUCOMTModel.Store.sp_CrearConfiguracionInteres">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearConfiguracionInteres_Result">
+                <ScalarProperty Name="EstadoConfVenta" ColumnName="EstadoConfVenta" />
                 <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
-                <ScalarProperty Name="IdTipoInteres" ColumnName="IdTipoInteres" />
-                <ScalarProperty Name="TasaInteres" ColumnName="TasaInteres" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="PlazoMeses" ColumnName="PlazoMeses" />
+                <ScalarProperty Name="Efectivo" ColumnName="Efectivo" />
+                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+                <ScalarProperty Name="FechaFinCredito" ColumnName="FechaFinCredito" />
+                <ScalarProperty Name="AplicaSeguro" ColumnName="AplicaSeguro" />
+                <ScalarProperty Name="IdAsignarTecnicoPersonaComunidad" ColumnName="IdAsignarTecnicoPersonaComunidad" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5075,7 +5037,6 @@
           <FunctionImportMapping FunctionImportName="sp_EliminarAsignarComunidadFactura" FunctionName="AMUCOMTModel.Store.sp_EliminarAsignarComunidadFactura" />
           <FunctionImportMapping FunctionImportName="sp_EliminarDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_EliminarDetalleVenta" />
           <FunctionImportMapping FunctionImportName="sp_EliminarVisita" FunctionName="AMUCOMTModel.Store.sp_EliminarVisita" />
-          <FunctionImportMapping FunctionImportName="sp_FinalizarAsignarTecnicoPersonaComunidad" FunctionName="AMUCOMTModel.Store.sp_FinalizarAsignarTecnicoPersonaComunidad" />
           <FunctionImportMapping FunctionImportName="sp_ModificarVisita" FunctionName="AMUCOMTModel.Store.sp_ModificarVisita">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ModificarVisita_Result">
@@ -5088,6 +5049,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_SetCantidadDetalleVenta" FunctionName="AMUCOMTModel.Store.sp_SetCantidadDetalleVenta" />
+          <FunctionImportMapping FunctionImportName="sp_TrasnferirPersonasAOtroTecnico" FunctionName="AMUCOMTModel.Store.sp_TrasnferirPersonasAOtroTecnico" />
           <FunctionImportMapping FunctionImportName="sp_AnularFactura" FunctionName="AMUCOMTModel.Store.sp_AnularFactura" />
           <FunctionImportMapping FunctionImportName="sp_AumentarDetalleFactura" FunctionName="AMUCOMTModel.Store.sp_AumentarDetalleFactura" />
           <FunctionImportMapping FunctionImportName="sp_AumentarLote" FunctionName="AMUCOMTModel.Store.sp_AumentarLote" />
@@ -5446,6 +5408,66 @@
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarAsignarProductoKit" FunctionName="AMUCOMTModel.Store.sp_ConsultarAsignarProductoKit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarAsignarProductoKit_Result">
+                <ScalarProperty Name="AsignarProductoKitIdAsignarProductoKit" ColumnName="AsignarProductoKitIdAsignarProductoKit" />
+                <ScalarProperty Name="AsignarProductoKitIdConfigurarProducto" ColumnName="AsignarProductoKitIdConfigurarProducto" />
+                <ScalarProperty Name="AsignarProductoKitIdAsignarDescuentoKit" ColumnName="AsignarProductoKitIdAsignarDescuentoKit" />
+                <ScalarProperty Name="AsignarProductoKitFechaCreacion" ColumnName="AsignarProductoKitFechaCreacion" />
+                <ScalarProperty Name="AsignarProductoKitFechaActualizacion" ColumnName="AsignarProductoKitFechaActualizacion" />
+                <ScalarProperty Name="AsignarProductoKitEstado" ColumnName="AsignarProductoKitEstado" />
+                <ScalarProperty Name="ConfigurarProductoIdConfigurarProducto" ColumnName="ConfigurarProductoIdConfigurarProducto" />
+                <ScalarProperty Name="ConfigurarProductoIdAsignacionTU" ColumnName="ConfigurarProductoIdAsignacionTU" />
+                <ScalarProperty Name="ConfigurarProductoIdProducto" ColumnName="ConfigurarProductoIdProducto" />
+                <ScalarProperty Name="ConfigurarProductoIdPresentacion" ColumnName="ConfigurarProductoIdPresentacion" />
+                <ScalarProperty Name="ConfigurarProductoIdMedida" ColumnName="ConfigurarProductoIdMedida" />
+                <ScalarProperty Name="ConfigurarProductoCantidadMedida" ColumnName="ConfigurarProductoCantidadMedida" />
+                <ScalarProperty Name="ConfigurarProductoCodigo" ColumnName="ConfigurarProductoCodigo" />
+                <ScalarProperty Name="ConfigurarProductoFechaCreacion" ColumnName="ConfigurarProductoFechaCreacion" />
+                <ScalarProperty Name="ConfigurarProductoFechaActualizacion" ColumnName="ConfigurarProductoFechaActualizacion" />
+                <ScalarProperty Name="ConfigurarProductoEstado" ColumnName="ConfigurarProductoEstado" />
+                <ScalarProperty Name="ConfigurarProductoIva" ColumnName="ConfigurarProductoIva" />
+                <ScalarProperty Name="MedidaIdMedida" ColumnName="MedidaIdMedida" />
+                <ScalarProperty Name="MedidaDescripcion" ColumnName="MedidaDescripcion" />
+                <ScalarProperty Name="MedidaFechaCreacion" ColumnName="MedidaFechaCreacion" />
+                <ScalarProperty Name="MedidaFechaActualizacion" ColumnName="MedidaFechaActualizacion" />
+                <ScalarProperty Name="MedidaEstado" ColumnName="MedidaEstado" />
+                <ScalarProperty Name="PresentacionIdPresentacion" ColumnName="PresentacionIdPresentacion" />
+                <ScalarProperty Name="PresentacionDescripcion" ColumnName="PresentacionDescripcion" />
+                <ScalarProperty Name="PresentacionFechaCreacion" ColumnName="PresentacionFechaCreacion" />
+                <ScalarProperty Name="PresentacionActualizacion" ColumnName="PresentacionActualizacion" />
+                <ScalarProperty Name="PresentacionEstado" ColumnName="PresentacionEstado" />
+                <ScalarProperty Name="ProductoIdProducto" ColumnName="ProductoIdProducto" />
+                <ScalarProperty Name="ProductoIdTipoProducto" ColumnName="ProductoIdTipoProducto" />
+                <ScalarProperty Name="ProductoDescripcion" ColumnName="ProductoDescripcion" />
+                <ScalarProperty Name="ProductoNombre" ColumnName="ProductoNombre" />
+                <ScalarProperty Name="ProductoFechaCreacion" ColumnName="ProductoFechaCreacion" />
+                <ScalarProperty Name="ProductoFechaActualizacion" ColumnName="ProductoFechaActualizacion" />
+                <ScalarProperty Name="ProductoEstado" ColumnName="ProductoEstado" />
+                <ScalarProperty Name="TipoProductoIdTipoProducto" ColumnName="TipoProductoIdTipoProducto" />
+                <ScalarProperty Name="TipoProductoDescripcion" ColumnName="TipoProductoDescripcion" />
+                <ScalarProperty Name="TipoProductoFechaCreacion" ColumnName="TipoProductoFechaCreacion" />
+                <ScalarProperty Name="TipoProductoFechaActualizacion" ColumnName="TipoProductoFechaActualizacion" />
+                <ScalarProperty Name="TipoProductoEstado" ColumnName="TipoProductoEstado" />
+                <ScalarProperty Name="KitIdKit" ColumnName="KitIdKit" />
+                <ScalarProperty Name="KitCodigo" ColumnName="KitCodigo" />
+                <ScalarProperty Name="KitDescripcion" ColumnName="KitDescripcion" />
+                <ScalarProperty Name="KitFechaCreacion" ColumnName="KitFechaCreacion" />
+                <ScalarProperty Name="KitFechaActualizacion" ColumnName="KitFechaActualizacion" />
+                <ScalarProperty Name="KitEstado" ColumnName="KitEstado" />
+                <ScalarProperty Name="AsignarDescuentoKitIdAsignarDescuentoKit" ColumnName="AsignarDescuentoKitIdAsignarDescuentoKit" />
+                <ScalarProperty Name="AsignarDescuentoKitIdDescuento" ColumnName="AsignarDescuentoKitIdDescuento" />
+                <ScalarProperty Name="AsignarDescuentoKitIdKit" ColumnName="AsignarDescuentoKitIdKit" />
+                <ScalarProperty Name="AsignarDescuentoKitFechaCreacion" ColumnName="AsignarDescuentoKitFechaCreacion" />
+                <ScalarProperty Name="AsignarDescuentoKitFechaModificacion" ColumnName="AsignarDescuentoKitFechaModificacion" />
+                <ScalarProperty Name="DescuentoIdDescuento" ColumnName="DescuentoIdDescuento" />
+                <ScalarProperty Name="DescuentoPorcentaje" ColumnName="DescuentoPorcentaje" />
+                <ScalarProperty Name="DescuentoEstado" ColumnName="DescuentoEstado" />
+                <ScalarProperty Name="ConfiguracionProductoUtilizado" ColumnName="ConfiguracionProductoUtilizado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6275,6 +6297,7 @@
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6287,6 +6310,7 @@
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6299,6 +6323,7 @@
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6315,6 +6340,18 @@
                 <ScalarProperty Name="ProvinciaDescripcion" ColumnName="ProvinciaDescripcion" />
                 <ScalarProperty Name="ProvinciaEstado" ColumnName="ProvinciaEstado" />
                 <ScalarProperty Name="CantonUtilizado" ColumnName="CantonUtilizado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarCantonesParaSeguimiento" FunctionName="AMUCOMTModel.Store.sp_ConsultarCantonesParaSeguimiento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarCantonesParaSeguimiento_Result">
+                <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6354,6 +6391,18 @@
                 <ScalarProperty Name="ParroquiaDescripcion" ColumnName="ParroquiaDescripcion" />
                 <ScalarProperty Name="ParroquiaEstado" ColumnName="ParroquiaEstado" />
                 <ScalarProperty Name="ComunidadUtilizado" ColumnName="ComunidadUtilizado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarComunidadesParaSeguimiento" FunctionName="AMUCOMTModel.Store.sp_ConsultarComunidadesParaSeguimiento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarComunidadesParaSeguimiento_Result">
+                <ScalarProperty Name="IdComunidad" ColumnName="IdComunidad" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdParroquia" ColumnName="IdParroquia" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6444,6 +6493,35 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarParroquia" FunctionName="AMUCOMTModel.Store.sp_ConsultarParroquia">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarParroquia_Result">
+                <ScalarProperty Name="IdParroquia" ColumnName="IdParroquia" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="CantonIdCanton" ColumnName="CantonIdCanton" />
+                <ScalarProperty Name="CantonDescripcion" ColumnName="CantonDescripcion" />
+                <ScalarProperty Name="CantonEstado" ColumnName="CantonEstado" />
+                <ScalarProperty Name="ParroquiaUtilizado" ColumnName="ParroquiaUtilizado" />
+                <ScalarProperty Name="ParroquiaUtilizado1" ColumnName="ParroquiaUtilizado1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarParroquiaParaSeguimiento" FunctionName="AMUCOMTModel.Store.sp_ConsultarParroquiaParaSeguimiento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarParroquiaParaSeguimiento_Result">
+                <ScalarProperty Name="IdParroquia" ColumnName="IdParroquia" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ConsultarParroquiaPorId" FunctionName="AMUCOMTModel.Store.sp_ConsultarParroquiaPorId">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarParroquiaPorId_Result">
@@ -6481,6 +6559,26 @@
                 <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
                 <ScalarProperty Name="IdTipoDocumento" ColumnName="IdTipoDocumento" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarPersonaPorId" FunctionName="AMUCOMTModel.Store.sp_ConsultarPersonaPorId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarPersonaPorId_Result">
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="IdTipoDocumento" ColumnName="IdTipoDocumento" />
+                <ScalarProperty Name="NumeroDocumento" ColumnName="NumeroDocumento" />
+                <ScalarProperty Name="PrimerNombre" ColumnName="PrimerNombre" />
+                <ScalarProperty Name="SegundoNombre" ColumnName="SegundoNombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="TieneUsuario" ColumnName="TieneUsuario" />
+                <ScalarProperty Name="TieneComunidadFactura" ColumnName="TieneComunidadFactura" />
+                <ScalarProperty Name="TieneFacturaVenta" ColumnName="TieneFacturaVenta" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6583,6 +6681,17 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarProvinciaParaSeguimiento" FunctionName="AMUCOMTModel.Store.sp_ConsultarProvinciaParaSeguimiento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarProvinciaParaSeguimiento_Result">
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ConsultarProvinciaPorId" FunctionName="AMUCOMTModel.Store.sp_ConsultarProvinciaPorId">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarProvinciaPorId_Result">
@@ -6603,6 +6712,32 @@
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarResidenciaPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarResidenciaPersona">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarResidenciaPersona_Result">
+                <ScalarProperty Name="ProvinciaIdProvincia" ColumnName="ProvinciaIdProvincia" />
+                <ScalarProperty Name="ProvinciaDescripcion" ColumnName="ProvinciaDescripcion" />
+                <ScalarProperty Name="ProvinciaFechaCreacion" ColumnName="ProvinciaFechaCreacion" />
+                <ScalarProperty Name="ProvinciaEstado" ColumnName="ProvinciaEstado" />
+                <ScalarProperty Name="CantonIdCanton" ColumnName="CantonIdCanton" />
+                <ScalarProperty Name="CantonDescripcion" ColumnName="CantonDescripcion" />
+                <ScalarProperty Name="CantonIdProvincia" ColumnName="CantonIdProvincia" />
+                <ScalarProperty Name="CantonFechaCreacion" ColumnName="CantonFechaCreacion" />
+                <ScalarProperty Name="CantonEstado" ColumnName="CantonEstado" />
+                <ScalarProperty Name="ParroquiaIdParroquia" ColumnName="ParroquiaIdParroquia" />
+                <ScalarProperty Name="ParroquiaDescripcion" ColumnName="ParroquiaDescripcion" />
+                <ScalarProperty Name="ParroquiaIdCanton" ColumnName="ParroquiaIdCanton" />
+                <ScalarProperty Name="ParroquiaFechaCreacion" ColumnName="ParroquiaFechaCreacion" />
+                <ScalarProperty Name="ParroquiaEstado" ColumnName="ParroquiaEstado" />
+                <ScalarProperty Name="AsignacionPersonaParroquiaIdAsignacionPersonaParroquia" ColumnName="AsignacionPersonaParroquiaIdAsignacionPersonaParroquia" />
+                <ScalarProperty Name="AsignacionPersonaComunidadIdPersona" ColumnName="AsignacionPersonaComunidadIdPersona" />
+                <ScalarProperty Name="AsignacionPersonaParroquiaIdParroquia" ColumnName="AsignacionPersonaParroquiaIdParroquia" />
+                <ScalarProperty Name="AsignacionPersonaParroquiaFechaCreacion" ColumnName="AsignacionPersonaParroquiaFechaCreacion" />
+                <ScalarProperty Name="AsignacionPersonaParroquiaEstado" ColumnName="AsignacionPersonaParroquiaEstado" />
+                <ScalarProperty Name="AsignacionPersonaParroquiaReferencia" ColumnName="AsignacionPersonaParroquiaReferencia" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6660,6 +6795,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CrearAsigancionPP" FunctionName="AMUCOMTModel.Store.sp_CrearAsigancionPP">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearAsigancionPP_Result">
+                <ScalarProperty Name="IdAsignacionPP" ColumnName="IdAsignacionPP" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="IdParroquia" ColumnName="IdParroquia" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_CrearCanton" FunctionName="AMUCOMTModel.Store.sp_CrearCanton">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearCanton_Result">
@@ -6695,6 +6843,18 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CrearCorreo" FunctionName="AMUCOMTModel.Store.sp_CrearCorreo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearCorreo_Result">
+                <ScalarProperty Name="IdCorreo" ColumnName="IdCorreo" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_CrearParroquia" FunctionName="AMUCOMTModel.Store.sp_CrearParroquia">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearParroquia_Result">
@@ -6713,6 +6873,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CrearPersona" FunctionName="AMUCOMTModel.Store.sp_CrearPersona" />
           <FunctionImportMapping FunctionImportName="sp_CrearProvincia" FunctionName="AMUCOMTModel.Store.sp_CrearProvincia">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearProvincia_Result">
@@ -6746,6 +6907,7 @@
           <FunctionImportMapping FunctionImportName="sp_EliminarProvincia" FunctionName="AMUCOMTModel.Store.sp_EliminarProvincia" />
           <FunctionImportMapping FunctionImportName="sp_EliminarTelefono" FunctionName="AMUCOMTModel.Store.sp_EliminarTelefono" />
           <FunctionImportMapping FunctionImportName="sp_HabilitarCorreo" FunctionName="AMUCOMTModel.Store.sp_HabilitarCorreo" />
+          <FunctionImportMapping FunctionImportName="sp_ModificarAsignacionPC" FunctionName="AMUCOMTModel.Store.sp_ModificarAsignacionPC" />
           <FunctionImportMapping FunctionImportName="sp_ModificarCanton" FunctionName="AMUCOMTModel.Store.sp_ModificarCanton">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ModificarCanton_Result">
@@ -7034,6 +7196,24 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarTiposDeUsuariosQueTieneUnUsuario" FunctionName="AMUCOMTModel.Store.sp_ConsultarTiposDeUsuariosQueTieneUnUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTiposDeUsuariosQueTieneUnUsuario_Result">
+                <ScalarProperty Name="AsignacionTipoUsuarioIdAsignacionTU" ColumnName="AsignacionTipoUsuarioIdAsignacionTU" />
+                <ScalarProperty Name="AsignacionTipoUsuarioEstado" ColumnName="AsignacionTipoUsuarioEstado" />
+                <ScalarProperty Name="AsignacionTipoUsuarioFechaActualizacion" ColumnName="AsignacionTipoUsuarioFechaActualizacion" />
+                <ScalarProperty Name="AsignacionTipoUsuarioFechaCreacion" ColumnName="AsignacionTipoUsuarioFechaCreacion" />
+                <ScalarProperty Name="AsignacionTipoUsuarioIdTipoUsuario" ColumnName="AsignacionTipoUsuarioIdTipoUsuario" />
+                <ScalarProperty Name="AsignacionTipoUsuarioIdUsuario" ColumnName="AsignacionTipoUsuarioIdUsuario" />
+                <ScalarProperty Name="TipoUsuarioIdTipoUsuario" ColumnName="TipoUsuarioIdTipoUsuario" />
+                <ScalarProperty Name="TipoUsuarioDescripcion" ColumnName="TipoUsuarioDescripcion" />
+                <ScalarProperty Name="TipoUsuarioEstado" ColumnName="TipoUsuarioEstado" />
+                <ScalarProperty Name="TipoUsuarioFechaActualizacion" ColumnName="TipoUsuarioFechaActualizacion" />
+                <ScalarProperty Name="TipoUsuarioFechaCreacion" ColumnName="TipoUsuarioFechaCreacion" />
+                <ScalarProperty Name="TipoUsuarioIdentificacion" ColumnName="TipoUsuarioIdentificacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ConsultarTiposUsuarioDeUnaPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarTiposUsuarioDeUnaPersona">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTiposUsuarioDeUnaPersona_Result">
@@ -7096,6 +7276,35 @@
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarUsuarioPorUsuario" FunctionName="AMUCOMTModel.Store.sp_ConsultarUsuarioPorUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarUsuarioPorUsuario_Result">
+                <ScalarProperty Name="UsuarioIdUsuario" ColumnName="UsuarioIdUsuario" />
+                <ScalarProperty Name="UsuarioUsuario" ColumnName="UsuarioUsuario" />
+                <ScalarProperty Name="UsuarioContrasena" ColumnName="UsuarioContrasena" />
+                <ScalarProperty Name="UsuarioIdPersona" ColumnName="UsuarioIdPersona" />
+                <ScalarProperty Name="UsuarioEstado" ColumnName="UsuarioEstado" />
+                <ScalarProperty Name="UsuarioFechaActualizacion" ColumnName="UsuarioFechaActualizacion" />
+                <ScalarProperty Name="UsuarioFechaCreacion" ColumnName="UsuarioFechaCreacion" />
+                <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+                <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+                <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+                <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+                <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+                <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+                <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+                <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+                <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+                <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+                <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+                <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+                <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+                <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+                <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+                <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -7204,349 +7413,193 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarTiposDeUsuariosQueTieneUnUsuario" FunctionName="AMUCOMTModel.Store.sp_ConsultarTiposDeUsuariosQueTieneUnUsuario">
+          <FunctionImportMapping FunctionImportName="sp_CrearAsignarComunidadFactura" FunctionName="AMUCOMTModel.Store.sp_CrearAsignarComunidadFactura">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTiposDeUsuariosQueTieneUnUsuario_Result1">
-                <ScalarProperty Name="AsignacionTipoUsuarioIdAsignacionTU" ColumnName="AsignacionTipoUsuarioIdAsignacionTU" />
-                <ScalarProperty Name="AsignacionTipoUsuarioEstado" ColumnName="AsignacionTipoUsuarioEstado" />
-                <ScalarProperty Name="AsignacionTipoUsuarioFechaActualizacion" ColumnName="AsignacionTipoUsuarioFechaActualizacion" />
-                <ScalarProperty Name="AsignacionTipoUsuarioFechaCreacion" ColumnName="AsignacionTipoUsuarioFechaCreacion" />
-                <ScalarProperty Name="AsignacionTipoUsuarioIdTipoUsuario" ColumnName="AsignacionTipoUsuarioIdTipoUsuario" />
-                <ScalarProperty Name="AsignacionTipoUsuarioIdUsuario" ColumnName="AsignacionTipoUsuarioIdUsuario" />
-                <ScalarProperty Name="TipoUsuarioIdTipoUsuario" ColumnName="TipoUsuarioIdTipoUsuario" />
-                <ScalarProperty Name="TipoUsuarioDescripcion" ColumnName="TipoUsuarioDescripcion" />
-                <ScalarProperty Name="TipoUsuarioEstado" ColumnName="TipoUsuarioEstado" />
-                <ScalarProperty Name="TipoUsuarioFechaActualizacion" ColumnName="TipoUsuarioFechaActualizacion" />
-                <ScalarProperty Name="TipoUsuarioFechaCreacion" ColumnName="TipoUsuarioFechaCreacion" />
-                <ScalarProperty Name="TipoUsuarioIdentificacion" ColumnName="TipoUsuarioIdentificacion" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_CrearCorreo" FunctionName="AMUCOMTModel.Store.sp_CrearCorreo">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearCorreo_Result1">
-                <ScalarProperty Name="IdCorreo" ColumnName="IdCorreo" />
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="Correo" ColumnName="Correo" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearAsignarComunidadFactura_Result">
+                <ScalarProperty Name="IdAsignarComunidadFactura" ColumnName="IdAsignarComunidadFactura" />
+                <ScalarProperty Name="IdComunidad" ColumnName="IdComunidad" />
+                <ScalarProperty Name="IdCabeceraFactura" ColumnName="IdCabeceraFactura" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAsignacion" ColumnName="FechaAsignacion" />
+                <ScalarProperty Name="IdAsignarTecnicoPersonaComunidad" ColumnName="IdAsignarTecnicoPersonaComunidad" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarPersonaPorId" FunctionName="AMUCOMTModel.Store.sp_ConsultarPersonaPorId">
+          <FunctionImportMapping FunctionImportName="sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico" FunctionName="AMUCOMTModel.Store.sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarPersonaPorId_Result2">
-                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
-                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="IdTipoDocumento" ColumnName="IdTipoDocumento" />
-                <ScalarProperty Name="NumeroDocumento" ColumnName="NumeroDocumento" />
-                <ScalarProperty Name="PrimerNombre" ColumnName="PrimerNombre" />
-                <ScalarProperty Name="SegundoNombre" ColumnName="SegundoNombre" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="TieneUsuario" ColumnName="TieneUsuario" />
-                <ScalarProperty Name="TieneComunidadFactura" ColumnName="TieneComunidadFactura" />
-                <ScalarProperty Name="TieneFacturaVenta" ColumnName="TieneFacturaVenta" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_CrearPersona" FunctionName="AMUCOMTModel.Store.sp_CrearPersona" />
-          <FunctionImportMapping FunctionImportName="sp_ConsultarResidenciaPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarResidenciaPersona">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarResidenciaPersona_Result1">
-                <ScalarProperty Name="ProvinciaIdProvincia" ColumnName="ProvinciaIdProvincia" />
-                <ScalarProperty Name="ProvinciaDescripcion" ColumnName="ProvinciaDescripcion" />
-                <ScalarProperty Name="ProvinciaFechaCreacion" ColumnName="ProvinciaFechaCreacion" />
-                <ScalarProperty Name="ProvinciaEstado" ColumnName="ProvinciaEstado" />
-                <ScalarProperty Name="CantonIdCanton" ColumnName="CantonIdCanton" />
-                <ScalarProperty Name="CantonDescripcion" ColumnName="CantonDescripcion" />
-                <ScalarProperty Name="CantonIdProvincia" ColumnName="CantonIdProvincia" />
-                <ScalarProperty Name="CantonFechaCreacion" ColumnName="CantonFechaCreacion" />
-                <ScalarProperty Name="CantonEstado" ColumnName="CantonEstado" />
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result1">
+                <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdComunidad" ColumnName="AsignarTecnicoPersonaComunidadIdComunidad" />
+                <ScalarProperty Name="AsignarTecnicoPersonaComunidadEstado" ColumnName="AsignarTecnicoPersonaComunidadEstado" />
+                <ScalarProperty Name="AsignarTecnicoPersonaComunidadFechaAsignacion" ColumnName="AsignarTecnicoPersonaComunidadFechaAsignacion" />
+                <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdAsignarTecnicoPersonaComunidad" ColumnName="AsignarTecnicoPersonaComunidadIdAsignarTecnicoPersonaComunidad" />
+                <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdAsignarTUTecnico" ColumnName="AsignarTecnicoPersonaComunidadIdAsignarTUTecnico" />
+                <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdPersona" ColumnName="AsignarTecnicoPersonaComunidadIdPersona" />
+                <ScalarProperty Name="ComunidadIdComunidad" ColumnName="ComunidadIdComunidad" />
+                <ScalarProperty Name="ComunidadEstado" ColumnName="ComunidadEstado" />
+                <ScalarProperty Name="ComunidadDescripcion" ColumnName="ComunidadDescripcion" />
+                <ScalarProperty Name="ComunidadFechaActualizacion" ColumnName="ComunidadFechaActualizacion" />
+                <ScalarProperty Name="ComunidadFechaCreacion" ColumnName="ComunidadFechaCreacion" />
+                <ScalarProperty Name="ComunidadIdParroquia" ColumnName="ComunidadIdParroquia" />
                 <ScalarProperty Name="ParroquiaIdParroquia" ColumnName="ParroquiaIdParroquia" />
                 <ScalarProperty Name="ParroquiaDescripcion" ColumnName="ParroquiaDescripcion" />
-                <ScalarProperty Name="ParroquiaIdCanton" ColumnName="ParroquiaIdCanton" />
-                <ScalarProperty Name="ParroquiaFechaCreacion" ColumnName="ParroquiaFechaCreacion" />
                 <ScalarProperty Name="ParroquiaEstado" ColumnName="ParroquiaEstado" />
-                <ScalarProperty Name="AsignacionPersonaParroquiaIdAsignacionPersonaParroquia" ColumnName="AsignacionPersonaParroquiaIdAsignacionPersonaParroquia" />
-                <ScalarProperty Name="AsignacionPersonaComunidadIdPersona" ColumnName="AsignacionPersonaComunidadIdPersona" />
-                <ScalarProperty Name="AsignacionPersonaParroquiaIdParroquia" ColumnName="AsignacionPersonaParroquiaIdParroquia" />
-                <ScalarProperty Name="AsignacionPersonaParroquiaFechaCreacion" ColumnName="AsignacionPersonaParroquiaFechaCreacion" />
-                <ScalarProperty Name="AsignacionPersonaParroquiaEstado" ColumnName="AsignacionPersonaParroquiaEstado" />
-                <ScalarProperty Name="AsignacionPersonaParroquiaReferencia" ColumnName="AsignacionPersonaParroquiaReferencia" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_CrearAsigancionPP" FunctionName="AMUCOMTModel.Store.sp_CrearAsigancionPP">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearAsigancionPP_Result5">
-                <ScalarProperty Name="IdAsignacionPP" ColumnName="IdAsignacionPP" />
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="IdParroquia" ColumnName="IdParroquia" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ModificarAsignacionPC" FunctionName="AMUCOMTModel.Store.sp_ModificarAsignacionPC" />
-          <FunctionImportMapping FunctionImportName="sp_ConsultarCantonesParaSeguimiento" FunctionName="AMUCOMTModel.Store.sp_ConsultarCantonesParaSeguimiento">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarCantonesParaSeguimiento_Result">
-                <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarComunidadesParaSeguimiento" FunctionName="AMUCOMTModel.Store.sp_ConsultarComunidadesParaSeguimiento">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarComunidadesParaSeguimiento_Result">
-                <ScalarProperty Name="IdComunidad" ColumnName="IdComunidad" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="IdParroquia" ColumnName="IdParroquia" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarParroquiaParaSeguimiento" FunctionName="AMUCOMTModel.Store.sp_ConsultarParroquiaParaSeguimiento">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarParroquiaParaSeguimiento_Result">
-                <ScalarProperty Name="IdParroquia" ColumnName="IdParroquia" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarProvinciaParaSeguimiento" FunctionName="AMUCOMTModel.Store.sp_ConsultarProvinciaParaSeguimiento">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarProvinciaParaSeguimiento_Result">
-                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarPersonasParaSeguimientoPorProvincia" FunctionName="AMUCOMTModel.Store.sp_ConsultarPersonasParaSeguimientoPorProvincia">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarPersonasParaSeguimientoPorProvincia_Result">
-                <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
-                <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
-                <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
-                <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
-                <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
-                <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
-                <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
-                <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
-                <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
-                <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
-                <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
-                <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
-                <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
-                <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
-                <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
-                <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarUsuarioPorUsuario" FunctionName="AMUCOMTModel.Store.sp_ConsultarUsuarioPorUsuario">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarUsuarioPorUsuario_Result1">
-                <ScalarProperty Name="UsuarioIdUsuario" ColumnName="UsuarioIdUsuario" />
-                <ScalarProperty Name="UsuarioUsuario" ColumnName="UsuarioUsuario" />
-                <ScalarProperty Name="UsuarioContrasena" ColumnName="UsuarioContrasena" />
-                <ScalarProperty Name="UsuarioIdPersona" ColumnName="UsuarioIdPersona" />
-                <ScalarProperty Name="UsuarioEstado" ColumnName="UsuarioEstado" />
-                <ScalarProperty Name="UsuarioFechaActualizacion" ColumnName="UsuarioFechaActualizacion" />
-                <ScalarProperty Name="UsuarioFechaCreacion" ColumnName="UsuarioFechaCreacion" />
-                <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
-                <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
-                <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
-                <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
-                <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
-                <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
-                <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
-                <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
-                <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
-                <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
-                <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
-                <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
-                <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
-                <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
-                <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
-                <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_TrasnferirPersonasAOtroTecnico" FunctionName="AMUCOMTModel.Store.sp_TrasnferirPersonasAOtroTecnico" />
-          <FunctionImportMapping FunctionImportName="sp_ConsultarConfigurarVentaPorIdCabeceraFactura" FunctionName="AMUCOMTModel.Store.sp_ConsultarConfigurarVentaPorIdCabeceraFactura">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarConfigurarVentaPorIdCabeceraFactura_Result1">
-                <ScalarProperty Name="IdConfigurarVenta" ColumnName="IdConfigurarVenta" />
-                <ScalarProperty Name="IdCabeceraFactura" ColumnName="IdCabeceraFactura" />
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="EstadoConfVenta" ColumnName="EstadoConfVenta" />
-                <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
-                <ScalarProperty Name="Efectivo" ColumnName="Efectivo" />
-                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
-                <ScalarProperty Name="FechaFinCredito" ColumnName="FechaFinCredito" />
-                <ScalarProperty Name="AplicaSeguro" ColumnName="AplicaSeguro" />
-                <ScalarProperty Name="IdAsignarTecnicoPersonaComunidad" ColumnName="IdAsignarTecnicoPersonaComunidad" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_CrearConfigurarVenta" FunctionName="AMUCOMTModel.Store.sp_CrearConfigurarVenta">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearConfigurarVenta_Result1">
-                <ScalarProperty Name="IdConfigurarVenta" ColumnName="IdConfigurarVenta" />
-                <ScalarProperty Name="IdCabeceraFactura" ColumnName="IdCabeceraFactura" />
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="EstadoConfVenta" ColumnName="EstadoConfVenta" />
-                <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
-                <ScalarProperty Name="Efectivo" ColumnName="Efectivo" />
-                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
-                <ScalarProperty Name="FechaFinCredito" ColumnName="FechaFinCredito" />
-                <ScalarProperty Name="AplicaSeguro" ColumnName="AplicaSeguro" />
-                <ScalarProperty Name="IdAsignarTecnicoPersonaComunidad" ColumnName="IdAsignarTecnicoPersonaComunidad" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasPendientePorPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasPendientePorPersona">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasPendientePorPersona_Result1">
-                <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
-                <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
-                <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
-                <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
-                <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
-                <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
-                <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
-                <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
-                <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
-                <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
-                <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
-                <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
-                <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
-                <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
-                <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
-                <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
-                <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
-                <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
-                <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
-                <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
-                <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
-                <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
-                <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
-                <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
-                <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
-                <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
-                <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
-                <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
-                <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
-                <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
-                <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
-                <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
-                <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
-                <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
-                <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
-                <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
-                <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
-                <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarParroquia" FunctionName="AMUCOMTModel.Store.sp_ConsultarParroquia">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarParroquia_Result1">
-                <ScalarProperty Name="IdParroquia" ColumnName="IdParroquia" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ParroquiaFechaCreacion" ColumnName="ParroquiaFechaCreacion" />
+                <ScalarProperty Name="ParroquiaFechaActualizacion" ColumnName="ParroquiaFechaActualizacion" />
+                <ScalarProperty Name="ParroquiaIdCanton" ColumnName="ParroquiaIdCanton" />
                 <ScalarProperty Name="CantonIdCanton" ColumnName="CantonIdCanton" />
                 <ScalarProperty Name="CantonDescripcion" ColumnName="CantonDescripcion" />
+                <ScalarProperty Name="CantonFechaActualizacion" ColumnName="CantonFechaActualizacion" />
+                <ScalarProperty Name="CantonFechaCreacion" ColumnName="CantonFechaCreacion" />
+                <ScalarProperty Name="CantonIdProvincia" ColumnName="CantonIdProvincia" />
                 <ScalarProperty Name="CantonEstado" ColumnName="CantonEstado" />
-                <ScalarProperty Name="ParroquiaUtilizado" ColumnName="ParroquiaUtilizado" />
-                <ScalarProperty Name="ParroquiaUtilizado1" ColumnName="ParroquiaUtilizado1" />
+                <ScalarProperty Name="ProvinciaDescripcion" ColumnName="ProvinciaDescripcion" />
+                <ScalarProperty Name="ProvinciaIdProvincia" ColumnName="ProvinciaIdProvincia" />
+                <ScalarProperty Name="ProvinciaEstado" ColumnName="ProvinciaEstado" />
+                <ScalarProperty Name="ProvinciaFechaCreacion" ColumnName="ProvinciaFechaCreacion" />
+                <ScalarProperty Name="ProvinciaFechaActualizacion" ColumnName="ProvinciaFechaActualizacion" />
+                <ScalarProperty Name="NumeroVisitas" ColumnName="NumeroVisitas" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarAsignarProductoKit" FunctionName="AMUCOMTModel.Store.sp_ConsultarAsignarProductoKit">
+          <FunctionImportMapping FunctionImportName="sp_CrearConfiguracionInteres" FunctionName="AMUCOMTModel.Store.sp_CrearConfiguracionInteres">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarAsignarProductoKit_Result1">
-                <ScalarProperty Name="AsignarProductoKitIdAsignarProductoKit" ColumnName="AsignarProductoKitIdAsignarProductoKit" />
-                <ScalarProperty Name="AsignarProductoKitIdConfigurarProducto" ColumnName="AsignarProductoKitIdConfigurarProducto" />
-                <ScalarProperty Name="AsignarProductoKitIdAsignarDescuentoKit" ColumnName="AsignarProductoKitIdAsignarDescuentoKit" />
-                <ScalarProperty Name="AsignarProductoKitFechaCreacion" ColumnName="AsignarProductoKitFechaCreacion" />
-                <ScalarProperty Name="AsignarProductoKitFechaActualizacion" ColumnName="AsignarProductoKitFechaActualizacion" />
-                <ScalarProperty Name="AsignarProductoKitEstado" ColumnName="AsignarProductoKitEstado" />
-                <ScalarProperty Name="ConfigurarProductoIdConfigurarProducto" ColumnName="ConfigurarProductoIdConfigurarProducto" />
-                <ScalarProperty Name="ConfigurarProductoIdAsignacionTU" ColumnName="ConfigurarProductoIdAsignacionTU" />
-                <ScalarProperty Name="ConfigurarProductoIdProducto" ColumnName="ConfigurarProductoIdProducto" />
-                <ScalarProperty Name="ConfigurarProductoIdPresentacion" ColumnName="ConfigurarProductoIdPresentacion" />
-                <ScalarProperty Name="ConfigurarProductoIdMedida" ColumnName="ConfigurarProductoIdMedida" />
-                <ScalarProperty Name="ConfigurarProductoCantidadMedida" ColumnName="ConfigurarProductoCantidadMedida" />
-                <ScalarProperty Name="ConfigurarProductoCodigo" ColumnName="ConfigurarProductoCodigo" />
-                <ScalarProperty Name="ConfigurarProductoFechaCreacion" ColumnName="ConfigurarProductoFechaCreacion" />
-                <ScalarProperty Name="ConfigurarProductoFechaActualizacion" ColumnName="ConfigurarProductoFechaActualizacion" />
-                <ScalarProperty Name="ConfigurarProductoEstado" ColumnName="ConfigurarProductoEstado" />
-                <ScalarProperty Name="ConfigurarProductoIva" ColumnName="ConfigurarProductoIva" />
-                <ScalarProperty Name="MedidaIdMedida" ColumnName="MedidaIdMedida" />
-                <ScalarProperty Name="MedidaDescripcion" ColumnName="MedidaDescripcion" />
-                <ScalarProperty Name="MedidaFechaCreacion" ColumnName="MedidaFechaCreacion" />
-                <ScalarProperty Name="MedidaFechaActualizacion" ColumnName="MedidaFechaActualizacion" />
-                <ScalarProperty Name="MedidaEstado" ColumnName="MedidaEstado" />
-                <ScalarProperty Name="PresentacionIdPresentacion" ColumnName="PresentacionIdPresentacion" />
-                <ScalarProperty Name="PresentacionDescripcion" ColumnName="PresentacionDescripcion" />
-                <ScalarProperty Name="PresentacionFechaCreacion" ColumnName="PresentacionFechaCreacion" />
-                <ScalarProperty Name="PresentacionActualizacion" ColumnName="PresentacionActualizacion" />
-                <ScalarProperty Name="PresentacionEstado" ColumnName="PresentacionEstado" />
-                <ScalarProperty Name="ProductoIdProducto" ColumnName="ProductoIdProducto" />
-                <ScalarProperty Name="ProductoIdTipoProducto" ColumnName="ProductoIdTipoProducto" />
-                <ScalarProperty Name="ProductoDescripcion" ColumnName="ProductoDescripcion" />
-                <ScalarProperty Name="ProductoNombre" ColumnName="ProductoNombre" />
-                <ScalarProperty Name="ProductoFechaCreacion" ColumnName="ProductoFechaCreacion" />
-                <ScalarProperty Name="ProductoFechaActualizacion" ColumnName="ProductoFechaActualizacion" />
-                <ScalarProperty Name="ProductoEstado" ColumnName="ProductoEstado" />
-                <ScalarProperty Name="TipoProductoIdTipoProducto" ColumnName="TipoProductoIdTipoProducto" />
-                <ScalarProperty Name="TipoProductoDescripcion" ColumnName="TipoProductoDescripcion" />
-                <ScalarProperty Name="TipoProductoFechaCreacion" ColumnName="TipoProductoFechaCreacion" />
-                <ScalarProperty Name="TipoProductoFechaActualizacion" ColumnName="TipoProductoFechaActualizacion" />
-                <ScalarProperty Name="TipoProductoEstado" ColumnName="TipoProductoEstado" />
-                <ScalarProperty Name="KitIdKit" ColumnName="KitIdKit" />
-                <ScalarProperty Name="KitCodigo" ColumnName="KitCodigo" />
-                <ScalarProperty Name="KitDescripcion" ColumnName="KitDescripcion" />
-                <ScalarProperty Name="KitFechaCreacion" ColumnName="KitFechaCreacion" />
-                <ScalarProperty Name="KitFechaActualizacion" ColumnName="KitFechaActualizacion" />
-                <ScalarProperty Name="KitEstado" ColumnName="KitEstado" />
-                <ScalarProperty Name="AsignarDescuentoKitIdAsignarDescuentoKit" ColumnName="AsignarDescuentoKitIdAsignarDescuentoKit" />
-                <ScalarProperty Name="AsignarDescuentoKitIdDescuento" ColumnName="AsignarDescuentoKitIdDescuento" />
-                <ScalarProperty Name="AsignarDescuentoKitIdKit" ColumnName="AsignarDescuentoKitIdKit" />
-                <ScalarProperty Name="AsignarDescuentoKitFechaCreacion" ColumnName="AsignarDescuentoKitFechaCreacion" />
-                <ScalarProperty Name="AsignarDescuentoKitFechaModificacion" ColumnName="AsignarDescuentoKitFechaModificacion" />
-                <ScalarProperty Name="DescuentoIdDescuento" ColumnName="DescuentoIdDescuento" />
-                <ScalarProperty Name="DescuentoPorcentaje" ColumnName="DescuentoPorcentaje" />
-                <ScalarProperty Name="DescuentoEstado" ColumnName="DescuentoEstado" />
-                <ScalarProperty Name="ConfiguracionProductoUtilizado" ColumnName="ConfiguracionProductoUtilizado" />
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearConfiguracionInteres_Result1">
+                <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
+                <ScalarProperty Name="IdTipoInteres" ColumnName="IdTipoInteres" />
+                <ScalarProperty Name="TasaInteres" ColumnName="TasaInteres" />
+                <ScalarProperty Name="IdTipoInteresMora" ColumnName="IdTipoInteresMora" />
+                <ScalarProperty Name="TasaInteresMora" ColumnName="TasaInteresMora" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarTipoInteresPorId" FunctionName="AMUCOMTModel.Store.sp_ConsultarTipoInteresPorId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTipoInteresPorId_Result">
+                <ScalarProperty Name="IdTipoInteres" ColumnName="IdTipoInteres" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarConfiguracionInteres" FunctionName="AMUCOMTModel.Store.sp_ConsultarConfiguracionInteres">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarConfiguracionInteres_Result2">
+                <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdTipoInteres" ColumnName="IdTipoInteres" />
+                <ScalarProperty Name="IdTipoInteresMora" ColumnName="IdTipoInteresMora" />
+                <ScalarProperty Name="TasaInteres" ColumnName="TasaInteres" />
+                <ScalarProperty Name="TasaInteresMora" ColumnName="TasaInteresMora" />
+                <ScalarProperty Name="ConfigurarVentaUtilizado" ColumnName="ConfigurarVentaUtilizado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarConfiguracionInteresPorId" FunctionName="AMUCOMTModel.Store.sp_ConsultarConfiguracionInteresPorId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarConfiguracionInteresPorId_Result1">
+                <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdTipoInteres" ColumnName="IdTipoInteres" />
+                <ScalarProperty Name="IdTipoInteresMora" ColumnName="IdTipoInteresMora" />
+                <ScalarProperty Name="TasaInteres" ColumnName="TasaInteres" />
+                <ScalarProperty Name="TasaInteresMora" ColumnName="TasaInteresMora" />
+                <ScalarProperty Name="ConfigurarInteresUtilizado" ColumnName="ConfigurarInteresUtilizado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarExisteConfiguracionInteres" FunctionName="AMUCOMTModel.Store.sp_ConsultarExisteConfiguracionInteres">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarExisteConfiguracionInteres_Result">
+                <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdTipoInteres" ColumnName="IdTipoInteres" />
+                <ScalarProperty Name="IdTipoInteresMora" ColumnName="IdTipoInteresMora" />
+                <ScalarProperty Name="TasaInteres" ColumnName="TasaInteres" />
+                <ScalarProperty Name="TasaInteresMora" ColumnName="TasaInteresMora" />
+                <ScalarProperty Name="ConfigurarInteresUtilizado" ColumnName="ConfigurarInteresUtilizado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_EliminarConfiguracionInteres" FunctionName="AMUCOMTModel.Store.sp_EliminarConfiguracionInteres" />
+          <FunctionImportMapping FunctionImportName="sp_ModificarConfiguracionInteres" FunctionName="AMUCOMTModel.Store.sp_ModificarConfiguracionInteres">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ModificarConfiguracionInteres_Result">
+                <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdTipoInteres" ColumnName="IdTipoInteres" />
+                <ScalarProperty Name="IdTipoInteresMora" ColumnName="IdTipoInteresMora" />
+                <ScalarProperty Name="TasaInteres" ColumnName="TasaInteres" />
+                <ScalarProperty Name="TasaInteresMora" ColumnName="TasaInteresMora" />
+                <ScalarProperty Name="ConfigurarInteresUtilizado" ColumnName="ConfigurarInteresUtilizado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DesHabilitarInteres" FunctionName="AMUCOMTModel.Store.sp_DesHabilitarInteres" />
+          <FunctionImportMapping FunctionImportName="sp_HabilitarInteres" FunctionName="AMUCOMTModel.Store.sp_HabilitarInteres" />
+          <FunctionImportMapping FunctionImportName="sp_CrearAsignarTecnicoPersonaComunidad" FunctionName="AMUCOMTModel.Store.sp_CrearAsignarTecnicoPersonaComunidad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearAsignarTecnicoPersonaComunidad_Result1">
+                <ScalarProperty Name="IdAsignarTecnicoPersonaComunidad" ColumnName="IdAsignarTecnicoPersonaComunidad" />
+                <ScalarProperty Name="IdAsignarTUTecnico" ColumnName="IdAsignarTUTecnico" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="IdComunidad" ColumnName="IdComunidad" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAsignacion" ColumnName="FechaAsignacion" />
+                <ScalarProperty Name="FechaFinalizacion" ColumnName="FechaFinalizacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_FinalizarAsignarTecnicoPersonaComunidad" FunctionName="AMUCOMTModel.Store.sp_FinalizarAsignarTecnicoPersonaComunidad" />
+          <FunctionImportMapping FunctionImportName="sp_ConsultarComunidadesSeguimientoFinalizadoPorTecnicoYPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarComunidadesSeguimientoFinalizadoPorTecnicoYPersona">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarComunidadesSeguimientoFinalizadoPorTecnicoYPersona_Result">
+                <ScalarProperty Name="ComunidadIdComunidad" ColumnName="ComunidadIdComunidad" />
+                <ScalarProperty Name="ComunidadDescripcion" ColumnName="ComunidadDescripcion" />
+                <ScalarProperty Name="ComunidadEstado" ColumnName="ComunidadEstado" />
+                <ScalarProperty Name="ComunidadFechaActualizacion" ColumnName="ComunidadFechaActualizacion" />
+                <ScalarProperty Name="ComunidadFechaCreacion" ColumnName="ComunidadFechaCreacion" />
+                <ScalarProperty Name="ComunidadIdParroquia" ColumnName="ComunidadIdParroquia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona_Result">
+                <ScalarProperty Name="IdAsignarTecnicoPersonaComunidad" ColumnName="IdAsignarTecnicoPersonaComunidad" />
+                <ScalarProperty Name="IdAsignarTUTecnico" ColumnName="IdAsignarTUTecnico" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="IdComunidad" ColumnName="IdComunidad" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAsignacion" ColumnName="FechaAsignacion" />
+                <ScalarProperty Name="FechaFinalizacion" ColumnName="FechaFinalizacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarPersonasSeguimientoFinalizadoPorTecnico" FunctionName="AMUCOMTModel.Store.sp_ConsultarPersonasSeguimientoFinalizadoPorTecnico">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarPersonasSeguimientoFinalizadoPorTecnico_Result">
+                <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+                <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+                <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+                <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+                <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+                <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+                <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+                <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+                <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+                <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+                <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+                <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+                <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+                <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+                <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+                <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad" FunctionName="AMUCOMTModel.Store.sp_ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

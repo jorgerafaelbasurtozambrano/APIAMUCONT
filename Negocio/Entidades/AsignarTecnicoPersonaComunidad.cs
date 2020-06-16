@@ -14,6 +14,7 @@ namespace Negocio.Entidades
         public string IdComunidad { get; set; }
         public bool Estado { get; set; }
         public DateTime FechaAsignacion { get; set; }
+        public DateTime? FechaFinalizacion { get; set; }
         public string encriptada { get; set; }
         public Comunidad Comunidad { get; set; }
         public int? NumeroVisita { get; set; }

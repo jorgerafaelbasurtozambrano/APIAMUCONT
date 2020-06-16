@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Negocio.Logica;
 using Negocio.Logica.TalentHumano;
 using Negocio.Entidades;
 using Negocio.Entidades.DatoUsuarios;

@@ -13,24 +13,25 @@ namespace Datos
     
     public partial class sp_ConsultarResidenciaPersona_Result
     {
-        public Nullable<int> ProvinciaIdProvincia { get; set; }
+        public int ProvinciaIdProvincia { get; set; }
         public string ProvinciaDescripcion { get; set; }
-        public Nullable<System.DateTime> ProvinciaFechaCreacion { get; set; }
-        public Nullable<bool> ProvinciaEstado { get; set; }
-        public Nullable<int> CantonIdCanton { get; set; }
+        public System.DateTime ProvinciaFechaCreacion { get; set; }
+        public bool ProvinciaEstado { get; set; }
+        public int CantonIdCanton { get; set; }
         public string CantonDescripcion { get; set; }
-        public Nullable<int> CantonIdProvincia { get; set; }
-        public Nullable<System.DateTime> CantonFechaCreacion { get; set; }
-        public Nullable<bool> CantonEstado { get; set; }
+        public int CantonIdProvincia { get; set; }
+        public System.DateTime CantonFechaCreacion { get; set; }
+        public bool CantonEstado { get; set; }
         public int ParroquiaIdParroquia { get; set; }
         public string ParroquiaDescripcion { get; set; }
         public int ParroquiaIdCanton { get; set; }
         public System.DateTime ParroquiaFechaCreacion { get; set; }
         public bool ParroquiaEstado { get; set; }
-        public Nullable<int> AsignacionPersonaParroquiaIdAsignacionPersonaParroquia { get; set; }
-        public Nullable<int> AsignacionPersonaComunidadIdPersona { get; set; }
-        public Nullable<int> AsignacionPersonaParroquiaIdParroquia { get; set; }
-        public Nullable<System.DateTime> AsignacionPersonaParroquiaFechaCreacion { get; set; }
-        public Nullable<bool> AsignacionPersonaParroquiaEstado { get; set; }
+        public int AsignacionPersonaParroquiaIdAsignacionPersonaParroquia { get; set; }
+        public int AsignacionPersonaComunidadIdPersona { get; set; }
+        public int AsignacionPersonaParroquiaIdParroquia { get; set; }
+        public System.DateTime AsignacionPersonaParroquiaFechaCreacion { get; set; }
+        public bool AsignacionPersonaParroquiaEstado { get; set; }
+        public string AsignacionPersonaParroquiaReferencia { get; set; }
     }
 }

@@ -11,14 +11,13 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_CrearAsigancionPP_Result5
+    public partial class sp_ConsultarConfiguracionInteres_Result1
     {
-        public int IdAsignacionPP { get; set; }
-        public int IdPersona { get; set; }
-        public int IdParroquia { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public Nullable<System.DateTime> FechaActualizacion { get; set; }
+        public int IdConfiguracionInteres { get; set; }
+        public int IdTipoInteres { get; set; }
+        public int TasaInteres { get; set; }
+        public int IdTipoInteresMora { get; set; }
+        public int TasaInteresMora { get; set; }
         public bool Estado { get; set; }
-        public string Referencia { get; set; }
     }
 }

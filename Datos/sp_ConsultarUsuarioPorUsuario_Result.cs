@@ -36,11 +36,5 @@ namespace Datos
         public Nullable<System.DateTime> TipoDocumentoFechaActualizacion { get; set; }
         public System.DateTime TipoDocumentoFechaCreacion { get; set; }
         public int TipoDocumentoIdentificador { get; set; }
-        public Nullable<int> CorreoIdCorreo { get; set; }
-        public Nullable<int> CorreoIdPersona { get; set; }
-        public string CorreoCorreo { get; set; }
-        public Nullable<bool> CorreoEstado { get; set; }
-        public Nullable<System.DateTime> CorreoFechaActualizacion { get; set; }
-        public Nullable<System.DateTime> CorreoFechaCreacion { get; set; }
     }
 }

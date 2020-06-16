@@ -19,5 +19,6 @@ namespace Datos
         public string Observacion { get; set; }
         public bool Estado { get; set; }
         public System.DateTime FechaAsignacion { get; set; }
+        public Nullable<int> IdAsignarTecnicoPersonaComunidad { get; set; }
     }
 }

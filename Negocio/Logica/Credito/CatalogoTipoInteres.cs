@@ -11,7 +11,6 @@ namespace Negocio.Logica.Credito
     {
         AMUCOMTEntities ConexionBD = new AMUCOMTEntities();
         Negocio.Metodos.Seguridad Seguridad = new Metodos.Seguridad();
-        CatalogoConfiguracionInteres GestionConfiguracionInteres = new CatalogoConfiguracionInteres();
         List<TipoInteres> ListaTipoInteres;
         public object InsertarTipoInteres(TipoInteres TipoInteres)
         {
@@ -48,13 +47,26 @@ namespace Negocio.Logica.Credito
                     IdTipoInteres = Seguridad.Encriptar(item.IdTipoInteres.ToString()),
                     Identificacion = item.Identificacion,
                     Descripcion = item.Descripcion,
-                    ConfiguracionInteres = GestionConfiguracionInteres.ListarConfiguracionInteres().Where( p=> Seguridad.DesEncriptar(p.IdTipoInteres) == item.IdTipoInteres.ToString()).ToList()
                 });
             }
         }
         public List<TipoInteres> ListarTipoInteres()
         {
             CargarDatos();
+            return ListaTipoInteres;
+        }
+        public List<TipoInteres> ConsultarTipoInteresPorId(int IdTipoInteres)
+        {
+            ListaTipoInteres = new List<TipoInteres>();
+            foreach (var item in ConexionBD.sp_ConsultarTipoInteresPorId(IdTipoInteres))
+            {
+                ListaTipoInteres.Add(new TipoInteres()
+                {
+                    IdTipoInteres = Seguridad.Encriptar(item.IdTipoInteres.ToString()),
+                    Identificacion = item.Identificacion,
+                    Descripcion = item.Descripcion,
+                });
+            }
             return ListaTipoInteres;
         }
     }

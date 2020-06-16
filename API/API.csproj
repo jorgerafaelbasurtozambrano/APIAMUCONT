@@ -210,6 +210,7 @@
     <Compile Include="Controllers\CantonController.cs" />
     <Compile Include="Controllers\ComunidadController.cs" />
     <Compile Include="Controllers\ConfigurarProductoController.cs" />
+    <Compile Include="Controllers\ConfigurarTipoInteresController.cs" />
     <Compile Include="Controllers\ConfigurarVentaController.cs" />
     <Compile Include="Controllers\CorreoController.cs" />
     <Compile Include="Controllers\DescuentoController.cs" />

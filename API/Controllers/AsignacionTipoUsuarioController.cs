@@ -66,6 +66,10 @@ namespace API.Controllers
                         }
                         else
                         {
+                            if (DatoAsignacionTipoUsuario.TipoUsuario.Identificacion == "2")
+                            {
+                                GestionTipoUsuario.ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad(new AsignacionTipoUsuarioEntidad() {IdUsuario = AsignacionTipoUsuarioEntidad.IdUsuario,IdAsignacionTU = Seguridad.DesEncriptar(DatoAsignacionTipoUsuario.IdAsignacionTUEncriptada) });
+                            }
                             mensaje = "EXITO";
                             codigo = "200";
                             respuesta = DatoAsignacionTipoUsuario;

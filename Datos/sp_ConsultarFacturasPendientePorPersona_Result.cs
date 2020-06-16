@@ -35,8 +35,6 @@ namespace Datos
         public int ConfigurarVentaIdCabeceraFactura { get; set; }
         public Nullable<int> ConfigurarVentaIdConfiguracionInteres { get; set; }
         public int ConfigurarVentaIdPersona { get; set; }
-        public Nullable<bool> ConfigurarVentaSeguroCancelado { get; set; }
-        public Nullable<decimal> ConfigurarVentaValorSeguro { get; set; }
         public int PersonaIdPersona { get; set; }
         public string PersonaApellidoMaterno { get; set; }
         public string PersonaApellidoPaterno { get; set; }

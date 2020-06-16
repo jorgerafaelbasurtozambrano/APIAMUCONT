@@ -35,7 +35,7 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(Provincia.encriptada, _clavePost.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _clavePost.Descripcion)
                 //{
-                if (Provincia.Descripcion == null || string.IsNullOrEmpty(Provincia.Descripcion.Trim()))
+                if (Provincia.Descripcion == null || string.IsNullOrEmpty(Provincia.Descripcion.Trim()) || Provincia.Descripcion.Trim().ToUpper() == "NULL")
                 {
                     codigo = "400";
                     mensaje = "Falta la descripcion de la provincia";

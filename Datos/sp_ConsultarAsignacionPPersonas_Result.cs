@@ -19,5 +19,6 @@ namespace Datos
         public System.DateTime FechaCreacion { get; set; }
         public Nullable<System.DateTime> FechaActualizacion { get; set; }
         public bool Estado { get; set; }
+        public string Referencia { get; set; }
     }
 }

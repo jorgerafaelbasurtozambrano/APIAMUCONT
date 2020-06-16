@@ -17,5 +17,7 @@ namespace Negocio.Entidades
         public List<AsignarComunidadFactura> ListaAsignarComunidadFactura { get; set; }
         public string encriptada { get; set; }
         public bool PermitirEliminacion { get; set; }
+
+        public List<AsignarTecnicoPersonaComunidad> AsignarTecnicoPersonaComunidad { get; set; }
     }
 }

@@ -33,4 +33,5 @@ namespace Negocio.Entidades
         public string encriptada { get; set; }
 
     }
+    
 }

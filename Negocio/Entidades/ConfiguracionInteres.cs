@@ -10,8 +10,13 @@ namespace Negocio.Entidades
     {
         public string IdConfiguracionInteres { get; set; }
         public string IdTipoInteres { get; set; }
-        public int TasaInteres { get; set; }
-        public string Estado { get; set; }
-        public int PlazoMeses { get; set; }
+        public int? TasaInteres { get; set; }
+        public string IdTipoInteresMora { get; set; }
+        public int? TasaInteresMora { get; set; }
+        public bool Estado { get; set; }
+        public string encriptada { get; set; }
+        //public TipoInteres TipoInteres { get; set; }
+        //public TipoInteres TipoInteresMora { get; set; }
+        public string utilizado { get; set; }
     }
 }

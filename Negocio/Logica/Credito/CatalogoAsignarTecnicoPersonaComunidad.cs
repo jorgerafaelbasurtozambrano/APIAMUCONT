@@ -484,11 +484,11 @@ namespace Negocio.Logica.Credito
             }
             return Lista;
         }
-        public bool FinalizarSeguimiento(int id)
+        public bool FinalizarSeguimiento(AsignarTecnicoPersonaComunidad _AsignarTecnicoPersonaComunidad)
         {
             try
             {
-                ConexionBD.sp_FinalizarAsignarTecnicoPersonaComunidad(id);
+                ConexionBD.sp_FinalizarAsignarTecnicoPersonaComunidad(int.Parse(_AsignarTecnicoPersonaComunidad.IdAsignarTecnicoPersonaComunidad),int.Parse(_AsignarTecnicoPersonaComunidad.IdPersona), int.Parse(_AsignarTecnicoPersonaComunidad.IdComunidad));
                 return true;
             }
             catch (Exception)

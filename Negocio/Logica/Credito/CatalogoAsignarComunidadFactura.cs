@@ -729,6 +729,15 @@ namespace Negocio.Logica.Credito
             List<PersonaEntidad> Personas = new List<PersonaEntidad>();
             foreach (var item in ConexionBD.sp_ConsultarPersonasAsignadasAunTecnico(_idTecnico))
             {
+                bool PermitirEliminar = false;
+                if (item.NumeroVisita == 0)
+                {
+                    PermitirEliminar = true;
+                }
+                else
+                {
+                    PermitirEliminar = false;
+                }
                 List<Telefono> ListaTelefonos = new List<Telefono>();
                 foreach (var item1 in ConexionBD.sp_ConsultarTelefonoPersona(item.PersonaIdPersona))
                 {
@@ -807,6 +816,7 @@ namespace Negocio.Logica.Credito
                     NumeroDocumento = item.PersonaNumeroDocumento,
                     ListaTelefono = ListaTelefonos,
                     ListaCorreo = ListaCorreos,
+                    EstadoAsignacionTipoUsuario = PermitirEliminar,
                     AsignacionPersonaParroquia = ListaAsignacionPersonaParroquia,
                     _objTipoDocumento = new TipoDocumento()
                     {
@@ -934,6 +944,124 @@ namespace Negocio.Logica.Credito
                     ListaCorreo = ListaCorreos,
                     AsignacionPersonaParroquia = ListaAsignacionPersonaParroquia,
                     _AsignarTecnicoPersonaComunidad = ListaComunidadesAsignadas,
+                    _objTipoDocumento = new TipoDocumento()
+                    {
+                        IdTipoDocumento = Seguridad.Encriptar(item.TipoDocumentoIdTipoDocumento.ToString()),
+                        Documento = item.TipoDocumentoDescripcion
+                    }
+                });
+            }
+            return Personas;
+        }
+        public List<PersonaSeguimientoFinalizado> ConsultarPersonasSeguimientoFinalizadoPorTecnico(int idAsignacionTU)
+        {
+            List<PersonaSeguimientoFinalizado> Personas = new List<PersonaSeguimientoFinalizado>();
+            foreach (var item in ConexionBD.sp_ConsultarPersonasSeguimientoFinalizadoPorTecnico(idAsignacionTU))
+            {
+                List<Telefono> ListaTelefonos = new List<Telefono>();
+                foreach (var item1 in ConexionBD.sp_ConsultarTelefonoPersona(item.PersonaIdPersona))
+                {
+                    ListaTelefonos.Add(new Telefono()
+                    {
+                        IdTelefono = Seguridad.Encriptar(item1.IdTelefono.ToString()),
+                        IdPersona = Seguridad.Encriptar(item1.IdPersona.ToString()),
+                        Numero = item1.Numero,
+                        TipoTelefono = new TipoTelefono()
+                        {
+                            IdTipoTelefono = Seguridad.Encriptar(item1.IdTipoTelefono.ToString()),
+                            Descripcion = item1.Descripcion,
+                            Identificador = item1.Identificador,
+                            FechaCreacion = item1.TipoTelefonoFechaCreacion,
+                            Estado = item1.TipoTelefonoEstado,
+                        },
+                        FechaCreacion = item1.FechaCreacion,
+                        Estado = item1.Estado,
+                    });
+                }
+                List<Correo> ListaCorreos = new List<Correo>();
+                foreach (var item2 in ConexionBD.sp_ConsultarCorreoPersona(item.PersonaIdPersona))
+                {
+                    ListaCorreos.Add(new Correo()
+                    {
+                        IdCorreo = Seguridad.Encriptar(item2.IdCorreo.ToString()),
+                        IdPersona = Seguridad.Encriptar(item2.IdPersona.ToString()),
+                        CorreoValor = item2.Correo,
+                        FechaCreacion = item2.FechaCreacion,
+                        Estado = item2.Estado,
+                    });
+                }
+                List<AsignacionPersonaParroquia> ListaAsignacionPersonaParroquia = new List<AsignacionPersonaParroquia>();
+                foreach (var item3 in ConexionBD.sp_ConsultarResidenciaPersona(item.PersonaIdPersona))
+                {
+                    ListaAsignacionPersonaParroquia.Add(new AsignacionPersonaParroquia()
+                    {
+                        Referencia = item3.AsignacionPersonaParroquiaReferencia,
+                        IdPersona = Seguridad.Encriptar(item3.AsignacionPersonaComunidadIdPersona.ToString()),
+                        IdAsignacionPC = Seguridad.Encriptar(item3.AsignacionPersonaParroquiaIdAsignacionPersonaParroquia.ToString()),
+                        FechaCreacion = item3.AsignacionPersonaParroquiaFechaCreacion,
+                        Estado = item3.AsignacionPersonaParroquiaEstado,
+                        Parroquia = new Parroquia()
+                        {
+                            IdParroquia = Seguridad.Encriptar(item3.ParroquiaIdParroquia.ToString()),
+                            Descripcion = item3.ParroquiaDescripcion,
+                            FechaCreacion = item3.ParroquiaFechaCreacion,
+                            Estado = item3.ParroquiaEstado,
+                            Canton = new Canton()
+                            {
+                                IdCanton = Seguridad.Encriptar(item3.CantonIdCanton.ToString()),
+                                Descripcion = item3.CantonDescripcion,
+                                FechaCreacion = item3.CantonFechaCreacion,
+                                Estado = item3.CantonEstado,
+                                Provincia = new Provincia()
+                                {
+                                    IdProvincia = Seguridad.Encriptar(item3.ProvinciaIdProvincia.ToString()),
+                                    Descripcion = item3.ProvinciaDescripcion,
+                                    FechaCreacion = item3.ProvinciaFechaCreacion,
+                                    Estado = item3.ProvinciaEstado,
+                                },
+                            },
+                        },
+                    });
+                }
+                ListaAsignacionPersonaParroquia = ListaAsignacionPersonaParroquia.GroupBy(a => a.IdAsignacionPC).Select(grp => grp.First()).ToList();
+                List<Comunidad> Comunidades = new List<Comunidad>();
+                foreach (var item4 in ConexionBD.sp_ConsultarComunidadesSeguimientoFinalizadoPorTecnicoYPersona(item.PersonaIdPersona, idAsignacionTU))
+                {
+                    List<AsignarTecnicoPersonaComunidad> ListaTecnicoPersonaComunidad = new List<AsignarTecnicoPersonaComunidad>();
+                    foreach (var item5 in ConexionBD.sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona(item.PersonaIdPersona,idAsignacionTU,item4.ComunidadIdComunidad))
+                    {
+                        ListaTecnicoPersonaComunidad.Add(new AsignarTecnicoPersonaComunidad()
+                        {
+                            IdAsignarTecnicoPersonaComunidad = Seguridad.Encriptar(item5.IdAsignarTecnicoPersonaComunidad.ToString()),
+                            IdAsignarTUTecnico = Seguridad.Encriptar(item5.IdAsignarTUTecnico.ToString()),
+                            IdPersona = Seguridad.Encriptar(item5.IdPersona.ToString()),
+                            IdComunidad = Seguridad.Encriptar(item5.IdComunidad.ToString()),
+                            Estado = item5.Estado,
+                            FechaAsignacion = item5.FechaAsignacion,
+                            FechaFinalizacion = item5.FechaFinalizacion
+                        });
+                    }
+                    Comunidades.Add(new Comunidad()
+                    {
+                        IdComunidad = Seguridad.Encriptar(item4.ComunidadIdComunidad.ToString()),
+                        Descripcion = item4.ComunidadDescripcion,
+                        FechaCreacion = item4.ComunidadFechaCreacion,
+                        AsignarTecnicoPersonaComunidad = ListaTecnicoPersonaComunidad
+                    });
+                }
+
+                Personas.Add(new PersonaSeguimientoFinalizado()
+                {
+                    IdPersona = Seguridad.Encriptar(item.PersonaIdPersona.ToString()),
+                    PrimerNombre = item.PersonaPrimerNombre,
+                    SegundoNombre = item.PersonaSegundoNombre,
+                    ApellidoMaterno = item.PersonaApellidoMaterno,
+                    ApellidoPaterno = item.PersonaApellidoPaterno,
+                    NumeroDocumento = item.PersonaNumeroDocumento,
+                    ListaComunidad = Comunidades,
+                    ListaTelefono = ListaTelefonos,
+                    Correo = ListaCorreos.FirstOrDefault(),
+                    AsignacionPersonaParroquia = ListaAsignacionPersonaParroquia.FirstOrDefault(),
                     _objTipoDocumento = new TipoDocumento()
                     {
                         IdTipoDocumento = Seguridad.Encriptar(item.TipoDocumentoIdTipoDocumento.ToString()),

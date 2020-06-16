@@ -11,14 +11,13 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad_Result
+    public partial class sp_ConsultarComunidadesSeguimientoFinalizadoPorTecnicoYPersona_Result
     {
-        public int IdAsignarComunidadFactura { get; set; }
-        public int IdComunidad { get; set; }
-        public int IdCabeceraFactura { get; set; }
-        public string Observacion { get; set; }
-        public bool Estado { get; set; }
-        public System.DateTime FechaAsignacion { get; set; }
-        public Nullable<int> IdAsignarTecnicoPersonaComunidad { get; set; }
+        public int ComunidadIdComunidad { get; set; }
+        public string ComunidadDescripcion { get; set; }
+        public bool ComunidadEstado { get; set; }
+        public Nullable<System.DateTime> ComunidadFechaActualizacion { get; set; }
+        public System.DateTime ComunidadFechaCreacion { get; set; }
+        public int ComunidadIdParroquia { get; set; }
     }
 }

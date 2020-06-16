@@ -11,13 +11,14 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_CrearCorreo_Result1
+    public partial class sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona_Result
     {
-        public int IdCorreo { get; set; }
+        public int IdAsignarTecnicoPersonaComunidad { get; set; }
+        public int IdAsignarTUTecnico { get; set; }
         public int IdPersona { get; set; }
-        public string Correo { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public Nullable<System.DateTime> FechaActualizacion { get; set; }
+        public int IdComunidad { get; set; }
         public bool Estado { get; set; }
+        public System.DateTime FechaAsignacion { get; set; }
+        public Nullable<System.DateTime> FechaFinalizacion { get; set; }
     }
 }

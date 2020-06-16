@@ -212,9 +212,9 @@ namespace API.Controllers
                 string ClavePutEncripBD = p.desencriptar(_AsignarTecnicoPersonaComunidad.encriptada, _claveDelete.Clave.Descripcion.Trim());
                 //if (ClavePutEncripBD == _claveDelete.Descripcion)
                 //{
-                if (_AsignarTecnicoPersonaComunidad.IdAsignarTecnicoPersonaComunidad == null || string.IsNullOrEmpty(_AsignarTecnicoPersonaComunidad.IdAsignarTecnicoPersonaComunidad))
+                if (_AsignarTecnicoPersonaComunidad.IdAsignarTecnicoPersonaComunidad == null || string.IsNullOrEmpty(_AsignarTecnicoPersonaComunidad.IdAsignarTecnicoPersonaComunidad.Trim()))
                 {
-                    mensaje = "Ingrese el id de la asignacion a finalizar";
+                    mensaje = "Ingrese el id asignar tecnico persona comunidad";
                     codigo = "418";
                 }
                 else
@@ -236,7 +236,10 @@ namespace API.Controllers
                         }
                         else
                         {
-                            if (_CatalogoAsignarTPC.FinalizarSeguimiento(int.Parse(_AsignarTecnicoPersonaComunidad.IdAsignarTecnicoPersonaComunidad)) == true)
+                            DataAsignarTecnicoPersonaComunidad.IdAsignarTecnicoPersonaComunidad = _AsignarTecnicoPersonaComunidad.IdAsignarTecnicoPersonaComunidad;
+                            DataAsignarTecnicoPersonaComunidad.IdPersona = Seguridad.DesEncriptar(DataAsignarTecnicoPersonaComunidad.IdPersona);
+                            DataAsignarTecnicoPersonaComunidad.IdComunidad = Seguridad.DesEncriptar(DataAsignarTecnicoPersonaComunidad.IdComunidad);
+                            if (_CatalogoAsignarTPC.FinalizarSeguimiento(DataAsignarTecnicoPersonaComunidad) == true)
                             {
                                 mensaje = "EXITO";
                                 codigo = "200";

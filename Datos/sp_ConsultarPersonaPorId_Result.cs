@@ -23,6 +23,7 @@ namespace Datos
         public string NumeroDocumento { get; set; }
         public string PrimerNombre { get; set; }
         public string SegundoNombre { get; set; }
+        public string Descripcion { get; set; }
         public string TieneUsuario { get; set; }
         public string TieneComunidadFactura { get; set; }
         public string TieneFacturaVenta { get; set; }

@@ -11,15 +11,8 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_ConsultarUsuarioPorUsuario_Result1
+    public partial class sp_ConsultarPersonasSeguimientoFinalizadoPorTecnico_Result
     {
-        public int UsuarioIdUsuario { get; set; }
-        public string UsuarioUsuario { get; set; }
-        public string UsuarioContrasena { get; set; }
-        public int UsuarioIdPersona { get; set; }
-        public Nullable<bool> UsuarioEstado { get; set; }
-        public Nullable<System.DateTime> UsuarioFechaActualizacion { get; set; }
-        public Nullable<System.DateTime> UsuarioFechaCreacion { get; set; }
         public int PersonaIdPersona { get; set; }
         public string PersonaApellidoMaterno { get; set; }
         public string PersonaApellidoPaterno { get; set; }

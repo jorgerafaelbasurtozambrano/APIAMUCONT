@@ -11,14 +11,13 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad_Result
+    public partial class sp_CrearConfiguracionInteres_Result1
     {
-        public int IdAsignarComunidadFactura { get; set; }
-        public int IdComunidad { get; set; }
-        public int IdCabeceraFactura { get; set; }
-        public string Observacion { get; set; }
+        public int IdConfiguracionInteres { get; set; }
+        public int IdTipoInteres { get; set; }
+        public int TasaInteres { get; set; }
+        public int IdTipoInteresMora { get; set; }
+        public int TasaInteresMora { get; set; }
         public bool Estado { get; set; }
-        public System.DateTime FechaAsignacion { get; set; }
-        public Nullable<int> IdAsignarTecnicoPersonaComunidad { get; set; }
     }
 }

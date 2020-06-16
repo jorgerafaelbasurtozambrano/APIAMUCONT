@@ -66,5 +66,6 @@ namespace Datos
         public int DescuentoIdDescuento { get; set; }
         public int DescuentoPorcentaje { get; set; }
         public bool DescuentoEstado { get; set; }
+        public string ConfiguracionProductoUtilizado { get; set; }
     }
 }

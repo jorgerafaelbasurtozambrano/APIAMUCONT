@@ -95,8 +95,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
-
         [HttpPost]
         [Route("api/Credito/EliminarAsignarComunidadFactura")]
         public object EliminarAsignarComunidadFactura(AsignarComunidadFactura _AsignarComunidadFactura)
@@ -153,7 +151,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Credito/ListaAsignarComunidadFacturaPorFactura")]
         public object ListaAsignarComunidadFacturaPorFactura(AsignarComunidadFactura _AsignarComunidadFactura)
@@ -201,7 +198,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Credito/ConsultarPersonasEnFacturasParaSeguimientoPorCanton")]
         public object ConsultarPersonasEnFacturasParaSeguimientoPorCanton(Canton _Canton)
@@ -249,7 +245,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Credito/ConsultarPersonasEnFacturasParaSeguimientoPorParroquia")]
         public object ConsultarPersonasEnFacturasParaSeguimientoPorParroquia(Parroquia _Parroquia)
@@ -297,7 +292,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Credito/ConsultarPersonasParaSeguimientoPorComunidad")]
         public object ConsultarPersonasParaSeguimientoPorComunidad(Comunidad _Comunidad)
@@ -392,7 +386,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Credito/ConsultarPersonasPorTecnico")]
         public object ConsultarPersonasPorTecnico(AsignarTecnicoPersonaComunidad _AsignarTecnicoPersonaComunidad)
@@ -440,7 +433,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Credito/ConsultarPersonasConComunidadesPorTecnico")]
         public object ConsultarPersonasConComunidadesPorTecnico(AsignarTecnicoPersonaComunidad _AsignarTecnicoPersonaComunidad)
@@ -468,6 +460,53 @@ namespace API.Controllers
                     codigo = "200";
                     _AsignarTecnicoPersonaComunidad.IdAsignarTUTecnico = Seguridad.DesEncriptar(_AsignarTecnicoPersonaComunidad.IdAsignarTUTecnico);
                     respuesta = _GestionAsignarComunidadConfigurarVenta.ConsultarPersonasAsignadasPorTecnicoConSuscomunidades(int.Parse(_AsignarTecnicoPersonaComunidad.IdAsignarTUTecnico));
+                    objeto = new { codigo, mensaje, respuesta };
+                    return objeto;
+                }
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+            catch (Exception e)
+            {
+                mensaje = "ERROR";
+                codigo = "418";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
+        [HttpPost]
+        [Route("api/Credito/ConsultarVisitasFinalizadasPorTecnico")]
+        public object ConsultarVisitasFinalizadasPorTecnico(AsignarTecnicoPersonaComunidad _AsignarTecnicoPersonaComunidad)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
+                Object resultado = new object();
+                string ClaveGetEncripBD = p.desencriptar(_AsignarTecnicoPersonaComunidad.encriptada, _claveGet.Clave.Descripcion.Trim());
+                //if (ClaveGetEncripBD == _claveGet.Descripcion)
+                //{
+                if (_AsignarTecnicoPersonaComunidad.IdAsignarTUTecnico == null || string.IsNullOrEmpty(_AsignarTecnicoPersonaComunidad.IdAsignarTUTecnico))
+                {
+                    mensaje = "Ingrese la id del tecnico";
+                    codigo = "418";
+                }
+                else
+                {
+                    mensaje = "EXITO";
+                    codigo = "200";
+                    _AsignarTecnicoPersonaComunidad.IdAsignarTUTecnico = Seguridad.DesEncriptar(_AsignarTecnicoPersonaComunidad.IdAsignarTUTecnico);
+                    respuesta = _GestionAsignarComunidadConfigurarVenta.ConsultarPersonasSeguimientoFinalizadoPorTecnico(int.Parse(_AsignarTecnicoPersonaComunidad.IdAsignarTUTecnico));
                     objeto = new { codigo, mensaje, respuesta };
                     return objeto;
                 }

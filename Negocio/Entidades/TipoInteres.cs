@@ -10,8 +10,7 @@ namespace Negocio.Entidades
     {
         public string IdTipoInteres { get; set; }
         public int? Identificacion { get; set; }
-        public string Descripcion { get; set; }
-        public List<ConfiguracionInteres> ConfiguracionInteres { get; set; }
+        public string Descripcion { get; set; }        
         public string encriptada { get; set; }
     }
 }

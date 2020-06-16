@@ -29,5 +29,6 @@ namespace Datos
         public Nullable<System.DateTime> TipoDocumentoFechaActualizacion { get; set; }
         public int TipoDocumentoIdentificador { get; set; }
         public System.DateTime TipoDocumentoFechaCreacion { get; set; }
+        public Nullable<int> NumeroVisita { get; set; }
     }
 }
