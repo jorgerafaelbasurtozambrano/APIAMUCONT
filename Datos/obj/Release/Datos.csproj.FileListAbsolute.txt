@@ -37,6 +37,7 @@ C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Release\EntityFra
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Release\EntityFramework.SqlServer.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Release\EntityFramework.xml
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\obj\Release\Datos.csprojAssemblyReference.cache
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\obj\Release\Datos.csproj.CopyComplete
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\obj\Release\Datos.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\obj\Release\Datos.pdb

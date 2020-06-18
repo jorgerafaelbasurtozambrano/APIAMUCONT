@@ -14,6 +14,9 @@
     <Parameter Name="aplicaDescuento" Type="varchar" Mode="In" />
     <Parameter Name="perteneceKitCompleto" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarAbonoPorFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdConfigurarVenta" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
     <Parameter Name="IdComunidad" Type="int" Mode="In" />
@@ -65,6 +68,10 @@
   <Function Name="sp_ConsultarConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
   <Function Name="sp_ConsultarConfiguracionInteresPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarConfigurarInteresActivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
+  <Function Name="sp_ConsultarConfigurarVentaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdConfigurarVenta" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarConfigurarVentaPorIdCabeceraFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
@@ -143,6 +150,9 @@
   <Function Name="sp_ConsultarProvinciasParaSeguimientoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="IdTecnico" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarSaldoPorConfigurarVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdConfigurarVenta" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarSembriosDeFacturasPorComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="idComunidad" Type="int" Mode="In" />
   </Function>
@@ -205,6 +215,12 @@
     <Parameter Name="PrecioUnitario" Type="decimal" Mode="In" />
     <Parameter Name="PerteneceKitCompleto" Type="varchar" Mode="In" />
     <Parameter Name="Iva" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_CrearSaldoPendiente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+    <Parameter Name="IdConfiguracionVenta" Type="int" Mode="In" />
+    <Parameter Name="TotalFactura" Type="decimal" Mode="In" />
+    <Parameter Name="TotalInteres" Type="decimal" Mode="In" />
+    <Parameter Name="Pendiente" Type="decimal" Mode="In" />
   </Function>
   <Function Name="sp_CrearTipoInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
     <Parameter Name="Identificacion" Type="int" Mode="In" />

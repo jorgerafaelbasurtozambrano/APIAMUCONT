@@ -20,5 +20,7 @@ namespace Negocio.Entidades
         public AsignarSeguro _AsignarSeguro { get; set; }
         public DateTime? FechaFinalCredito { get; set; }
         public string AplicaSeguro { get; set; }
+        public ConfiguracionInteres ConfiguracionInteres { get; set; }
+        public SaldoPendiente _SaldoPendiente { get; set; }
     }
 }

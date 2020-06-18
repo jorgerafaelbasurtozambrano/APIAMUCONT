@@ -19,6 +19,9 @@
           <Parameter Name="aplicaDescuento" Type="varchar" Mode="In" />
           <Parameter Name="perteneceKitCompleto" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_ConsultarAbonoPorFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdConfigurarVenta" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_ConsultarAsignarComunidadFacturaPorCabeceraFacturaYComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
           <Parameter Name="IdComunidad" Type="int" Mode="In" />
@@ -70,6 +73,10 @@
         <Function Name="sp_ConsultarConfiguracionInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
         <Function Name="sp_ConsultarConfiguracionInteresPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdConfiguracionInteres" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ConsultarConfigurarInteresActivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito" />
+        <Function Name="sp_ConsultarConfigurarVentaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdConfigurarVenta" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_ConsultarConfigurarVentaPorIdCabeceraFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
@@ -148,6 +155,9 @@
         <Function Name="sp_ConsultarProvinciasParaSeguimientoPorTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="IdTecnico" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_ConsultarSaldoPorConfigurarVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdConfigurarVenta" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_ConsultarSembriosDeFacturasPorComunidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="idComunidad" Type="int" Mode="In" />
         </Function>
@@ -210,6 +220,12 @@
           <Parameter Name="PrecioUnitario" Type="decimal" Mode="In" />
           <Parameter Name="PerteneceKitCompleto" Type="varchar" Mode="In" />
           <Parameter Name="Iva" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_CrearSaldoPendiente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
+          <Parameter Name="IdConfiguracionVenta" Type="int" Mode="In" />
+          <Parameter Name="TotalFactura" Type="decimal" Mode="In" />
+          <Parameter Name="TotalInteres" Type="decimal" Mode="In" />
+          <Parameter Name="Pendiente" Type="decimal" Mode="In" />
         </Function>
         <Function Name="sp_CrearTipoInteres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Credito">
           <Parameter Name="Identificacion" Type="int" Mode="In" />
@@ -960,9 +976,6 @@
           <FunctionImport Name="sp_ConsultarDetalleVentaPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarDetalleVentaPorId_Result)">
           <Parameter Name="idDetalleVenta" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_ConsultarFacturasPendientePorPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarFacturasPendientePorPersona_Result)">
-          <Parameter Name="NumeroDocumento" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="sp_ConsultarKitPorFactura" ReturnType="Collection(AMUCOMTModel.sp_ConsultarKitPorFactura_Result)">
             <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
             <Parameter Name="IdKit" Mode="In" Type="Int32" />
@@ -1021,11 +1034,6 @@
           </FunctionImport>
           <FunctionImport Name="sp_ConsultarVisitaPorIdVisita" ReturnType="Collection(AMUCOMTModel.sp_ConsultarVisitaPorIdVisita_Result)">
           <Parameter Name="IdVisita" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_CrearAbono" ReturnType="Collection(AMUCOMTModel.sp_CrearAbono_Result)">
-            <Parameter Name="IdConfigurarVenta" Mode="In" Type="Int32" />
-            <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
-            <Parameter Name="Monto" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="sp_CrearAsignarSeguro" ReturnType="Collection(AMUCOMTModel.sp_CrearAsignarSeguro_Result)">
             <Parameter Name="IdConfigurarVenta" Mode="In" Type="Int32" />
@@ -1560,9 +1568,6 @@
           <FunctionImport Name="sp_EliminarProvincia">
           <Parameter Name="IdProvincia" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_EliminarTelefono">
-          <Parameter Name="IdTelefono" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="sp_HabilitarCorreo">
             <Parameter Name="IdCorreo" Mode="In" Type="Int32" />
             <Parameter Name="IdPersona" Mode="In" Type="Int32" />
@@ -1583,11 +1588,6 @@
             <Parameter Name="Descripcion" Mode="In" Type="String" />
             <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_ModificarCorreo" ReturnType="Collection(AMUCOMTModel.sp_ModificarCorreo_Result)">
-            <Parameter Name="IdCorreo" Mode="In" Type="Int32" />
-            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-            <Parameter Name="Correo" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="sp_ModificarParroquia" ReturnType="Collection(AMUCOMTModel.sp_ModificarParroquia_Result)">
             <Parameter Name="IdParroquia" Mode="In" Type="Int32" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
@@ -1605,12 +1605,6 @@
           <FunctionImport Name="sp_ModificarProvincia" ReturnType="Collection(AMUCOMTModel.sp_ModificarProvincia_Result)">
             <Parameter Name="IdProvincia" Mode="In" Type="Int32" />
             <Parameter Name="Descripcion" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_ModificarTelefono">
-            <Parameter Name="IdTelefono" Mode="In" Type="Int32" />
-            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
-            <Parameter Name="Numero" Mode="In" Type="String" />
-            <Parameter Name="IdTipoTelefono" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_BuscarModulos" ReturnType="Collection(AMUCOMTModel.sp_BuscarModulos_Result)">
           <Parameter Name="IdTipoUsuario" Mode="In" Type="Int32" />
@@ -1780,6 +1774,44 @@
           <FunctionImport Name="sp_ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad">
             <Parameter Name="IdAsignarTecnicoPersonaComunidad" Mode="In" Type="Int32" />
             <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarTelefono">
+          <Parameter Name="IdTelefono" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ModificarTelefono" ReturnType="Collection(AMUCOMTModel.sp_ModificarTelefono_Result1)">
+            <Parameter Name="IdTelefono" Mode="In" Type="Int32" />
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+            <Parameter Name="Numero" Mode="In" Type="String" />
+            <Parameter Name="IdTipoTelefono" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ModificarCorreo" ReturnType="Collection(AMUCOMTModel.sp_ModificarCorreo_Result1)">
+            <Parameter Name="IdCorreo" Mode="In" Type="Int32" />
+            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarConfigurarInteresActivo" ReturnType="Collection(AMUCOMTModel.sp_ConsultarConfigurarInteresActivo_Result)" />
+          <FunctionImport Name="sp_CrearSaldoPendiente" ReturnType="Collection(AMUCOMTModel.sp_CrearSaldoPendiente_Result)">
+            <Parameter Name="IdConfiguracionVenta" Mode="In" Type="Int32" />
+            <Parameter Name="TotalFactura" Mode="In" Type="Decimal" />
+            <Parameter Name="TotalInteres" Mode="In" Type="Decimal" />
+            <Parameter Name="Pendiente" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarSaldoPorConfigurarVenta" ReturnType="Collection(AMUCOMTModel.sp_ConsultarSaldoPorConfigurarVenta_Result)">
+          <Parameter Name="IdConfigurarVenta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarConfigurarVentaPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarConfigurarVentaPorId_Result)">
+          <Parameter Name="IdConfigurarVenta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CrearAbono" ReturnType="Collection(AMUCOMTModel.sp_CrearAbono_Result1)">
+            <Parameter Name="IdConfigurarVenta" Mode="In" Type="Int32" />
+            <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
+            <Parameter Name="Monto" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarFacturasPendientePorPersona" ReturnType="Collection(AMUCOMTModel.sp_ConsultarFacturasPendientePorPersona_Result2)">
+          <Parameter Name="NumeroDocumento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ConsultarAbonoPorFactura" ReturnType="Collection(AMUCOMTModel.sp_ConsultarAbonoPorFactura_Result)">
+            <Parameter Name="IdConfigurarVenta" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_AumentarDetalleVenta_Result">
@@ -4295,6 +4327,174 @@
           <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="sp_ModificarTelefono_Result">
+          <Property Type="Int32" Name="TelefonoIdTelefono" Nullable="false" />
+          <Property Type="Boolean" Name="TelefonoEstado" Nullable="false" />
+          <Property Type="DateTime" Name="TelefonoFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="TelefonoFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TelefonoIdPersona" Nullable="false" />
+          <Property Type="Int32" Name="TelefonoIdTelefono1" Nullable="false" />
+          <Property Type="Int32" Name="TelefonoIdTipoTelefono" Nullable="false" />
+          <Property Type="Int32" Name="TipoTelefonoIdTipoTelefono" Nullable="false" />
+          <Property Type="String" Name="TipoTelefonoDescripcion" Nullable="false" MaxLength="1000" />
+          <Property Type="Boolean" Name="TipoTelefonoEstado" Nullable="false" />
+          <Property Type="DateTime" Name="TipoTelefonoFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="TipoTelefonoFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TipoTelefonoIdentificador" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ModificarTelefono_Result1">
+          <Property Type="Int32" Name="TelefonoIdTelefono" Nullable="false" />
+          <Property Type="Boolean" Name="TelefonoEstado" Nullable="false" />
+          <Property Type="DateTime" Name="TelefonoFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="TelefonoFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TelefonoIdPersona" Nullable="false" />
+          <Property Type="String" Name="TelefonoNumero" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="TelefonoIdTipoTelefono" Nullable="false" />
+          <Property Type="Int32" Name="TipoTelefonoIdTipoTelefono" Nullable="false" />
+          <Property Type="String" Name="TipoTelefonoDescripcion" Nullable="false" MaxLength="1000" />
+          <Property Type="Boolean" Name="TipoTelefonoEstado" Nullable="false" />
+          <Property Type="DateTime" Name="TipoTelefonoFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="TipoTelefonoFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TipoTelefonoIdentificador" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ModificarCorreo_Result1">
+          <Property Type="Int32" Name="IdCorreo" Nullable="false" />
+          <Property Type="Int32" Name="IdPersona" Nullable="false" />
+          <Property Type="String" Name="Correo" Nullable="false" MaxLength="1000" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarConfigurarInteresActivo_Result">
+          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteres" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteres" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoInteresMora" Nullable="false" />
+          <Property Type="Int32" Name="TasaInteresMora" Nullable="false" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_CrearSaldoPendiente_Result">
+          <Property Type="Int32" Name="IdSaldoPendiente" Nullable="false" />
+          <Property Type="Int32" Name="IdConfiguracionVenta" Nullable="false" />
+          <Property Type="Decimal" Name="TotalFactura" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalInteres" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Pendiente" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="16" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarSaldoPorConfigurarVenta_Result">
+          <Property Type="Int32" Name="IdSaldoPendiente" Nullable="false" />
+          <Property Type="Int32" Name="IdConfiguracionVenta" Nullable="false" />
+          <Property Type="Decimal" Name="TotalFactura" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="TotalInteres" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Pendiente" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="16" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarConfigurarVentaPorId_Result">
+          <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+          <Property Type="Int32" Name="IdCabeceraFactura" Nullable="false" />
+          <Property Type="Int32" Name="IdPersona" Nullable="false" />
+          <Property Type="Boolean" Name="EstadoConfVenta" Nullable="false" />
+          <Property Type="Int32" Name="IdConfiguracionInteres" Nullable="true" />
+          <Property Type="Boolean" Name="Efectivo" Nullable="false" />
+          <Property Type="Int32" Name="Descuento" Nullable="true" />
+          <Property Type="DateTime" Name="FechaFinCredito" Nullable="true" Precision="16" />
+          <Property Type="Boolean" Name="AplicaSeguro" Nullable="true" />
+          <Property Type="Int32" Name="IdAsignarTecnicoPersonaComunidad" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_CrearAbono_Result1">
+          <Property Type="Int32" Name="IdAbono" Nullable="false" />
+          <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+          <Property Type="Int32" Name="IdAsignacionTU" Nullable="false" />
+          <Property Type="Decimal" Name="Monto" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="16" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarFacturasPendientePorPersona_Result1">
+          <Property Type="Int32" Name="CabeceraFacturaIdCabeceraFactura" Nullable="false" />
+          <Property Type="String" Name="CabeceraFacturaCodigo" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="CabeceraFacturaEstado_Cabecera_Factura" Nullable="false" />
+          <Property Type="DateTime" Name="CabeceraFacturaFechaGeneracion" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="CabeceraFacturaFinalizado" Nullable="false" />
+          <Property Type="Int32" Name="CabeceraFacturaIdAsignacionTU" Nullable="false" />
+          <Property Type="Int32" Name="CabeceraFacturaIdTipoTransaccion" Nullable="false" />
+          <Property Type="Int32" Name="TipoTransaccionIdTipoTransaccion" Nullable="false" />
+          <Property Type="String" Name="TipoTransaccionDescripcion" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="TipoTransaccionIdentificador" Nullable="false" />
+          <Property Type="DateTime" Name="TipoTransaccionFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="TipoTransaccionFechaModificacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="ConfigurarVentaIdConfigurarVenta" Nullable="false" />
+          <Property Type="Boolean" Name="ConfigurarVentaAplicaSeguro" Nullable="true" />
+          <Property Type="Int32" Name="ConfigurarVentaDescuento" Nullable="true" />
+          <Property Type="Boolean" Name="ConfigurarVentaEfectivo" Nullable="false" />
+          <Property Type="Boolean" Name="ConfigurarVentaEstadoConfVenta" Nullable="false" />
+          <Property Type="DateTime" Name="ConfigurarVentaFechaFinCredito" Nullable="true" Precision="16" />
+          <Property Type="Int32" Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" Nullable="true" />
+          <Property Type="Int32" Name="ConfigurarVentaIdCabeceraFactura" Nullable="false" />
+          <Property Type="Int32" Name="ConfigurarVentaIdConfiguracionInteres" Nullable="true" />
+          <Property Type="Int32" Name="ConfigurarVentaIdPersona" Nullable="false" />
+          <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
+          <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="PersonaEstado" Nullable="false" />
+          <Property Type="DateTime" Name="PersonaFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PersonaFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="PersonaIdTipoDocumento" Nullable="false" />
+          <Property Type="String" Name="PersonaNumeroDocumento" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PersonaPrimerNombre" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="PersonaSegundoNombre" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="TipoDocumentoIdTipoDocumento" Nullable="false" />
+          <Property Type="String" Name="TipoDocumentoDescripcion" Nullable="false" MaxLength="3000" />
+          <Property Type="Boolean" Name="TipoDocumentoEstado" Nullable="false" />
+          <Property Type="DateTime" Name="TipoDocumentoFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarFacturasPendientePorPersona_Result2">
+          <Property Type="Int32" Name="CabeceraFacturaIdCabeceraFactura" Nullable="false" />
+          <Property Type="String" Name="CabeceraFacturaCodigo" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="CabeceraFacturaEstado_Cabecera_Factura" Nullable="false" />
+          <Property Type="DateTime" Name="CabeceraFacturaFechaGeneracion" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="CabeceraFacturaFinalizado" Nullable="false" />
+          <Property Type="Int32" Name="CabeceraFacturaIdAsignacionTU" Nullable="false" />
+          <Property Type="Int32" Name="CabeceraFacturaIdTipoTransaccion" Nullable="false" />
+          <Property Type="Int32" Name="TipoTransaccionIdTipoTransaccion" Nullable="false" />
+          <Property Type="String" Name="TipoTransaccionDescripcion" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="TipoTransaccionIdentificador" Nullable="false" />
+          <Property Type="DateTime" Name="TipoTransaccionFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="TipoTransaccionFechaModificacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="ConfigurarVentaIdConfigurarVenta" Nullable="false" />
+          <Property Type="Boolean" Name="ConfigurarVentaAplicaSeguro" Nullable="true" />
+          <Property Type="Int32" Name="ConfigurarVentaDescuento" Nullable="true" />
+          <Property Type="Boolean" Name="ConfigurarVentaEfectivo" Nullable="false" />
+          <Property Type="Boolean" Name="ConfigurarVentaEstadoConfVenta" Nullable="false" />
+          <Property Type="DateTime" Name="ConfigurarVentaFechaFinCredito" Nullable="true" Precision="16" />
+          <Property Type="Int32" Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" Nullable="true" />
+          <Property Type="Int32" Name="ConfigurarVentaIdCabeceraFactura" Nullable="false" />
+          <Property Type="Int32" Name="ConfigurarVentaIdConfiguracionInteres" Nullable="true" />
+          <Property Type="Int32" Name="ConfigurarVentaIdPersona" Nullable="false" />
+          <Property Type="Int32" Name="PersonaIdPersona" Nullable="false" />
+          <Property Type="String" Name="PersonaApellidoMaterno" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="PersonaApellidoPaterno" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="PersonaEstado" Nullable="false" />
+          <Property Type="DateTime" Name="PersonaFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PersonaFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="PersonaIdTipoDocumento" Nullable="false" />
+          <Property Type="String" Name="PersonaNumeroDocumento" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PersonaPrimerNombre" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="PersonaSegundoNombre" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="TipoDocumentoIdTipoDocumento" Nullable="false" />
+          <Property Type="String" Name="TipoDocumentoDescripcion" Nullable="false" MaxLength="3000" />
+          <Property Type="Boolean" Name="TipoDocumentoEstado" Nullable="false" />
+          <Property Type="DateTime" Name="TipoDocumentoFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ConsultarAbonoPorFactura_Result">
+          <Property Type="Int32" Name="IdAbono" Nullable="false" />
+          <Property Type="Int32" Name="IdConfigurarVenta" Nullable="false" />
+          <Property Type="Int32" Name="IdAsignacionTU" Nullable="false" />
+          <Property Type="Decimal" Name="Monto" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="DateTime" Name="FechaRegistro" Nullable="false" Precision="16" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4574,50 +4774,6 @@
                 <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
                 <ScalarProperty Name="PerteneceKitCompleto" ColumnName="PerteneceKitCompleto" />
                 <ScalarProperty Name="Iva" ColumnName="Iva" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasPendientePorPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasPendientePorPersona">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasPendientePorPersona_Result">
-                <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
-                <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
-                <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
-                <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
-                <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
-                <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
-                <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
-                <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
-                <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
-                <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
-                <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
-                <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
-                <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
-                <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
-                <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
-                <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
-                <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
-                <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
-                <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
-                <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
-                <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
-                <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
-                <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
-                <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
-                <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
-                <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
-                <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
-                <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
-                <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
-                <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
-                <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
-                <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
-                <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
-                <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
-                <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
-                <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
-                <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
-                <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4955,17 +5111,6 @@
                 <ScalarProperty Name="IdAsignarTU" ColumnName="IdAsignarTU" />
                 <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
                 <ScalarProperty Name="Observacion" ColumnName="Observacion" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_CrearAbono" FunctionName="AMUCOMTModel.Store.sp_CrearAbono">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearAbono_Result">
-                <ScalarProperty Name="IdAbono" ColumnName="IdAbono" />
-                <ScalarProperty Name="IdConfigurarVenta" ColumnName="IdConfigurarVenta" />
-                <ScalarProperty Name="IdAsignacionTU" ColumnName="IdAsignacionTU" />
-                <ScalarProperty Name="Monto" ColumnName="Monto" />
-                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6905,7 +7050,6 @@
           <FunctionImportMapping FunctionImportName="sp_EliminarParroquia" FunctionName="AMUCOMTModel.Store.sp_EliminarParroquia" />
           <FunctionImportMapping FunctionImportName="sp_EliminarPersona" FunctionName="AMUCOMTModel.Store.sp_EliminarPersona" />
           <FunctionImportMapping FunctionImportName="sp_EliminarProvincia" FunctionName="AMUCOMTModel.Store.sp_EliminarProvincia" />
-          <FunctionImportMapping FunctionImportName="sp_EliminarTelefono" FunctionName="AMUCOMTModel.Store.sp_EliminarTelefono" />
           <FunctionImportMapping FunctionImportName="sp_HabilitarCorreo" FunctionName="AMUCOMTModel.Store.sp_HabilitarCorreo" />
           <FunctionImportMapping FunctionImportName="sp_ModificarAsignacionPC" FunctionName="AMUCOMTModel.Store.sp_ModificarAsignacionPC" />
           <FunctionImportMapping FunctionImportName="sp_ModificarCanton" FunctionName="AMUCOMTModel.Store.sp_ModificarCanton">
@@ -6942,18 +7086,6 @@
                 <ScalarProperty Name="ParroquiaFechaCreacion" ColumnName="ParroquiaFechaCreacion" />
                 <ScalarProperty Name="ParroquiaIdCanton" ColumnName="ParroquiaIdCanton" />
                 <ScalarProperty Name="ComunidadUtilizado" ColumnName="ComunidadUtilizado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ModificarCorreo" FunctionName="AMUCOMTModel.Store.sp_ModificarCorreo">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ModificarCorreo_Result">
-                <ScalarProperty Name="IdCorreo" ColumnName="IdCorreo" />
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
-                <ScalarProperty Name="Correo" ColumnName="Correo" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -7010,7 +7142,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_ModificarTelefono" FunctionName="AMUCOMTModel.Store.sp_ModificarTelefono" />
           <FunctionImportMapping FunctionImportName="sp_BuscarModulos" FunctionName="AMUCOMTModel.Store.sp_BuscarModulos">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AMUCOMTModel.sp_BuscarModulos_Result">
@@ -7600,6 +7731,156 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad" FunctionName="AMUCOMTModel.Store.sp_ActualizarIdAsignarTUEnAsignarTecnicoPersonaComunidad" />
+          <FunctionImportMapping FunctionImportName="sp_EliminarTelefono" FunctionName="AMUCOMTModel.Store.sp_EliminarTelefono" />
+          <FunctionImportMapping FunctionImportName="sp_ModificarTelefono" FunctionName="AMUCOMTModel.Store.sp_ModificarTelefono">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ModificarTelefono_Result1">
+                <ScalarProperty Name="TelefonoIdTelefono" ColumnName="TelefonoIdTelefono" />
+                <ScalarProperty Name="TelefonoEstado" ColumnName="TelefonoEstado" />
+                <ScalarProperty Name="TelefonoFechaActualizacion" ColumnName="TelefonoFechaActualizacion" />
+                <ScalarProperty Name="TelefonoFechaCreacion" ColumnName="TelefonoFechaCreacion" />
+                <ScalarProperty Name="TelefonoIdPersona" ColumnName="TelefonoIdPersona" />
+                <ScalarProperty Name="TelefonoNumero" ColumnName="TelefonoNumero" />
+                <ScalarProperty Name="TelefonoIdTipoTelefono" ColumnName="TelefonoIdTipoTelefono" />
+                <ScalarProperty Name="TipoTelefonoIdTipoTelefono" ColumnName="TipoTelefonoIdTipoTelefono" />
+                <ScalarProperty Name="TipoTelefonoDescripcion" ColumnName="TipoTelefonoDescripcion" />
+                <ScalarProperty Name="TipoTelefonoEstado" ColumnName="TipoTelefonoEstado" />
+                <ScalarProperty Name="TipoTelefonoFechaActualizacion" ColumnName="TipoTelefonoFechaActualizacion" />
+                <ScalarProperty Name="TipoTelefonoFechaCreacion" ColumnName="TipoTelefonoFechaCreacion" />
+                <ScalarProperty Name="TipoTelefonoIdentificador" ColumnName="TipoTelefonoIdentificador" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ModificarCorreo" FunctionName="AMUCOMTModel.Store.sp_ModificarCorreo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ModificarCorreo_Result1">
+                <ScalarProperty Name="IdCorreo" ColumnName="IdCorreo" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarConfigurarInteresActivo" FunctionName="AMUCOMTModel.Store.sp_ConsultarConfigurarInteresActivo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarConfigurarInteresActivo_Result">
+                <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
+                <ScalarProperty Name="IdTipoInteres" ColumnName="IdTipoInteres" />
+                <ScalarProperty Name="TasaInteres" ColumnName="TasaInteres" />
+                <ScalarProperty Name="IdTipoInteresMora" ColumnName="IdTipoInteresMora" />
+                <ScalarProperty Name="TasaInteresMora" ColumnName="TasaInteresMora" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CrearSaldoPendiente" FunctionName="AMUCOMTModel.Store.sp_CrearSaldoPendiente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearSaldoPendiente_Result">
+                <ScalarProperty Name="IdSaldoPendiente" ColumnName="IdSaldoPendiente" />
+                <ScalarProperty Name="IdConfiguracionVenta" ColumnName="IdConfiguracionVenta" />
+                <ScalarProperty Name="TotalFactura" ColumnName="TotalFactura" />
+                <ScalarProperty Name="TotalInteres" ColumnName="TotalInteres" />
+                <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarSaldoPorConfigurarVenta" FunctionName="AMUCOMTModel.Store.sp_ConsultarSaldoPorConfigurarVenta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarSaldoPorConfigurarVenta_Result">
+                <ScalarProperty Name="IdSaldoPendiente" ColumnName="IdSaldoPendiente" />
+                <ScalarProperty Name="IdConfiguracionVenta" ColumnName="IdConfiguracionVenta" />
+                <ScalarProperty Name="TotalFactura" ColumnName="TotalFactura" />
+                <ScalarProperty Name="TotalInteres" ColumnName="TotalInteres" />
+                <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarConfigurarVentaPorId" FunctionName="AMUCOMTModel.Store.sp_ConsultarConfigurarVentaPorId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarConfigurarVentaPorId_Result">
+                <ScalarProperty Name="IdConfigurarVenta" ColumnName="IdConfigurarVenta" />
+                <ScalarProperty Name="IdCabeceraFactura" ColumnName="IdCabeceraFactura" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="EstadoConfVenta" ColumnName="EstadoConfVenta" />
+                <ScalarProperty Name="IdConfiguracionInteres" ColumnName="IdConfiguracionInteres" />
+                <ScalarProperty Name="Efectivo" ColumnName="Efectivo" />
+                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+                <ScalarProperty Name="FechaFinCredito" ColumnName="FechaFinCredito" />
+                <ScalarProperty Name="AplicaSeguro" ColumnName="AplicaSeguro" />
+                <ScalarProperty Name="IdAsignarTecnicoPersonaComunidad" ColumnName="IdAsignarTecnicoPersonaComunidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CrearAbono" FunctionName="AMUCOMTModel.Store.sp_CrearAbono">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearAbono_Result1">
+                <ScalarProperty Name="IdAbono" ColumnName="IdAbono" />
+                <ScalarProperty Name="IdConfigurarVenta" ColumnName="IdConfigurarVenta" />
+                <ScalarProperty Name="IdAsignacionTU" ColumnName="IdAsignacionTU" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasPendientePorPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasPendientePorPersona">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasPendientePorPersona_Result2">
+                <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
+                <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
+                <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
+                <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
+                <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
+                <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
+                <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
+                <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
+                <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
+                <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
+                <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
+                <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
+                <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
+                <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
+                <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
+                <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
+                <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
+                <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
+                <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
+                <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
+                <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
+                <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
+                <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+                <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+                <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+                <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+                <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+                <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+                <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+                <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+                <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+                <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+                <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+                <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+                <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+                <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+                <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+                <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConsultarAbonoPorFactura" FunctionName="AMUCOMTModel.Store.sp_ConsultarAbonoPorFactura">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarAbonoPorFactura_Result">
+                <ScalarProperty Name="IdAbono" ColumnName="IdAbono" />
+                <ScalarProperty Name="IdConfigurarVenta" ColumnName="IdConfigurarVenta" />
+                <ScalarProperty Name="IdAsignacionTU" ColumnName="IdAsignacionTU" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

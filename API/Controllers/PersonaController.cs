@@ -533,6 +533,154 @@ namespace API.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/TalentoHumano/ActualizarTelefonoCorreo")]
+        public object ActualizarTelefonoCorreo(PersonaEntidad PersonaEntidad)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
+                var _clavePut = ListaClaves.Where(c => c.Identificador == 2).FirstOrDefault();
+                Object resultado = new object();
+                string ClavePutEncripBD = p.desencriptar(PersonaEntidad.encriptada, _clavePut.Clave.Descripcion.Trim());
+                //if (ClavePutEncripBD == _clavePut.Descripcion)
+                //{
+                if (PersonaEntidad.IdPersona == null || string.IsNullOrEmpty(PersonaEntidad.IdPersona.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Falta el numero de documento de la persona";
+                }
+                else if (PersonaEntidad.ListaTelefono[0].IdTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].IdTelefono.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el id primer numero de telefono";
+                }
+                else if (PersonaEntidad.ListaTelefono[1].IdTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].IdTelefono.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el id segundo numero de telefono";
+                }
+                else if (PersonaEntidad.ListaTelefono[0].Numero == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].Numero.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el primer numero de telefono";
+                }
+                else if (PersonaEntidad.ListaTelefono[1].Numero == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].Numero.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el segundo numero de telefono";
+                }
+                else if (PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese id tipo telefono del primer numero de telefono";
+                }
+                else if (PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese id tipo telefono del segundo numero de telefono";
+                }
+                else
+                {
+                    PersonaEntidad.IdPersona = Seguridad.DesEncriptar(PersonaEntidad.IdPersona);
+                    PersonaEntidad DatoPersona = new PersonaEntidad();
+                    DatoPersona = GestionPersona.ConsultarPersonaPorId(int.Parse(PersonaEntidad.IdPersona)).FirstOrDefault();
+                    if (DatoPersona == null)
+                    {
+                        codigo = "418";
+                        mensaje = "La persona que intenta actualizar no existe";
+                    }
+                    else
+                    {
+                        PersonaEntidad.ListaTelefono[0].IdTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[0].IdTelefono);
+                        PersonaEntidad.ListaTelefono[1].IdTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[1].IdTelefono);
+                        PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono);
+                        PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono);
+                        List<Telefono> ListaTelefono = new List<Telefono>();
+                        ListaTelefono = GestionPersona.ConsultarTelefonoPorPersona(int.Parse(PersonaEntidad.IdPersona));
+                        if (ListaTelefono.Where(p => Seguridad.DesEncriptar(p.IdTelefono) == PersonaEntidad.ListaTelefono[0].IdTelefono).FirstOrDefault() == null)
+                        {
+                            codigo = "418";
+                            mensaje = "No se a encontrado el primer telefono a modificar";
+                        }
+                        else if (ListaTelefono.Where(p => Seguridad.DesEncriptar(p.IdTelefono) == PersonaEntidad.ListaTelefono[1].IdTelefono).FirstOrDefault() == null)
+                        {
+                            codigo = "418";
+                            mensaje = "No se a encontrado el segundo telefono a modificar";
+                        }
+                        else
+                        {
+                            PersonaEntidad DatoPersonaAModificar = new PersonaEntidad();
+                            DatoPersona.IdPersona = Seguridad.DesEncriptar(DatoPersona.IdPersona);
+                            DatoPersona.ListaTelefono[1].Numero = PersonaEntidad.ListaTelefono[1].Numero;
+                            DatoPersona.ListaTelefono[0].Numero = PersonaEntidad.ListaTelefono[0].Numero;
+                            DatoPersona.ListaTelefono[0].IdTelefono = PersonaEntidad.ListaTelefono[0].IdTelefono;
+                            DatoPersona.ListaTelefono[1].IdTelefono = PersonaEntidad.ListaTelefono[1].IdTelefono;
 
+                            DatoPersona.ListaTelefono[1].TipoTelefono.IdTipoTelefono = PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono;
+                            DatoPersona.ListaTelefono[0].TipoTelefono.IdTipoTelefono = PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono;
+
+                            Telefono DatoTelefono = new Telefono();
+                            DatoTelefono = GestionPersona.ModificarTelefono(new TelefonoEntidad() {IdTelefono = DatoPersona.ListaTelefono[0].IdTelefono,IdPersona = DatoPersona.IdPersona ,Numero = DatoPersona.ListaTelefono[0].Numero ,IdTipoTelefono = DatoPersona.ListaTelefono[0].TipoTelefono.IdTipoTelefono });
+                            DatoPersona.ListaTelefono[0] = DatoTelefono;
+                            Telefono DatoTelefono1 = new Telefono();
+                            DatoTelefono1 = GestionPersona.ModificarTelefono(new TelefonoEntidad() { IdTelefono = DatoPersona.ListaTelefono[1].IdTelefono, IdPersona = DatoPersona.IdPersona, Numero = DatoPersona.ListaTelefono[1].Numero, IdTipoTelefono = DatoPersona.ListaTelefono[1].TipoTelefono.IdTipoTelefono });
+                            DatoPersona.ListaTelefono[1] = DatoTelefono1;
+                            object InformacionActualizada = new object();
+                            object Telefonos = new object();
+                            Telefonos = DatoPersona.ListaTelefono;
+                            object Correo = new object();
+                            if (PersonaEntidad.Correo != null || !string.IsNullOrEmpty(PersonaEntidad.Correo.Trim()) || PersonaEntidad.Correo.Trim().ToUpper() != "NULL")
+                            {
+                                Correo DatoCorreo = new Correo();
+                                if (DatoPersona.ListaCorreo.FirstOrDefault()==null)
+                                {
+                                    DatoCorreo = GestionPersona.IngresoCorreo(new Correo() { IdPersona = DatoPersona.IdPersona,CorreoValor = PersonaEntidad.Correo });
+                                }
+                                else
+                                {
+                                    DatoCorreo = GestionPersona.ModificarCorreo(new Correo() {IdCorreo = Seguridad.DesEncriptar(DatoPersona.ListaCorreo.FirstOrDefault().IdCorreo), IdPersona = DatoPersona.IdPersona, CorreoValor = PersonaEntidad.Correo });
+                                }
+                                Correo = DatoCorreo;
+                                codigo = "200";
+                                mensaje = "EXITO";
+                                InformacionActualizada = new { Correo, Telefonos };
+                                respuesta = InformacionActualizada;
+                                objeto = new { codigo, mensaje,respuesta};
+                                return objeto;
+                            }
+                            else
+                            {
+                                codigo = "200";
+                                mensaje = "EXITO";
+                                InformacionActualizada = new {Telefonos };
+                                respuesta = InformacionActualizada;
+                                objeto = new { codigo, mensaje, respuesta };
+                                return objeto;
+                            }
+                        }
+                    }
+                }
+                //}
+                //else
+                //{
+                //mensaje = "ERROR";
+                //codigo = "401";
+                //}
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+                codigo = "500";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
     }
 }

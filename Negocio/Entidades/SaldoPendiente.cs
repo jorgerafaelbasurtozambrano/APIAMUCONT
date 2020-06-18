@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace Negocio.Entidades
 {
-    public class Abono
+    public class SaldoPendiente
     {
-        public string IdAbono { get; set; }
+        public string IdSaldoPendiente { get; set; }
         public string IdConfigurarVenta { get; set; }
-        public string IdAsignarTU { get; set; }
-        public decimal Monto { get; set; }
+        public decimal? TotalFactura { get; set; }
+        public decimal? TotalInteres { get; set; }
+        public decimal? Pendiente { get; set; }
         public DateTime FechaRegistro { get; set; }
-        public string encriptada { get; set; }
-        public ConfigurarVenta _ConfigurarVenta { get; set; }
     }
 }

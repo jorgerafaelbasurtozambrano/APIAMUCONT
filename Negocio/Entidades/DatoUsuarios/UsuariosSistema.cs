@@ -23,5 +23,6 @@ namespace Negocio.Entidades.DatoUsuarios
         public List<TipoUsuario> ListaTipoUsuario { get; set; }
         public List<Privilegios> Privilegios { get; set; }
         public List<Modulo> Modulo { get; set; }
+        public PersonaEntidad PersonaEntidad { get; set; }
     }
 }

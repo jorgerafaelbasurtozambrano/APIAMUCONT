@@ -410,16 +410,33 @@ namespace Negocio.Logica
             }
             return Telefono;
         }
-        public bool ModificarTelefono(TelefonoEntidad TelefonoEntidad)
+        public Telefono ModificarTelefono(TelefonoEntidad TelefonoEntidad)
         {
+            Telefono DatoTelefonoEntidad = new Telefono();
             try
             {
-                ConexionBD.sp_ModificarTelefono(int.Parse(TelefonoEntidad.IdTelefono), int.Parse(TelefonoEntidad.IdPersona), TelefonoEntidad.Numero, int.Parse(TelefonoEntidad.IdTipoTelefono));
-                return true;
+                foreach (var item in ConexionBD.sp_ModificarTelefono(int.Parse(TelefonoEntidad.IdTelefono), int.Parse(TelefonoEntidad.IdPersona), TelefonoEntidad.Numero, int.Parse(TelefonoEntidad.IdTipoTelefono)))
+                {
+                    DatoTelefonoEntidad.IdTelefono = Seguridad.Encriptar(item.TelefonoIdTelefono.ToString());
+                    DatoTelefonoEntidad.IdPersona = Seguridad.Encriptar(item.TelefonoIdPersona.ToString());
+                    DatoTelefonoEntidad.Numero = item.TelefonoNumero;
+                    DatoTelefonoEntidad.TipoTelefono = new TipoTelefono()
+                    {
+                        IdTipoTelefono = Seguridad.Encriptar(item.TipoTelefonoIdTipoTelefono.ToString()),
+                        Descripcion = item.TipoTelefonoDescripcion,
+                        Identificador = item.TipoTelefonoIdentificador,
+                        FechaCreacion = item.TipoTelefonoFechaCreacion,
+                        Estado = item.TipoTelefonoEstado,
+                    };
+                    DatoTelefonoEntidad.FechaCreacion = item.TelefonoFechaCreacion;
+                    DatoTelefonoEntidad.Estado = item.TelefonoEstado;
+                }
+                return DatoTelefonoEntidad;
             }
             catch (Exception)
             {
-                return false;
+                DatoTelefonoEntidad.IdTelefono = null;
+                return DatoTelefonoEntidad;
             }
         }
 

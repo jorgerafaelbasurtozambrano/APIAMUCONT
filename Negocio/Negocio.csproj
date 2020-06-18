@@ -97,6 +97,7 @@
     <Compile Include="Entidades\Privilegios.cs" />
     <Compile Include="Entidades\Producto.cs" />
     <Compile Include="Entidades\Provincia.cs" />
+    <Compile Include="Entidades\SaldoPendiente.cs" />
     <Compile Include="Entidades\Stock.cs" />
     <Compile Include="Entidades\Telefono.cs" />
     <Compile Include="Entidades\TipoDocumento.cs" />

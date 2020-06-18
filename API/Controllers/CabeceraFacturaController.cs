@@ -16,7 +16,6 @@ namespace API.Controllers
         CatalogoSeguridad GestionSeguridad = new CatalogoSeguridad();
         Prueba p = new Prueba();
         Negocio.Metodos.Seguridad Seguridad = new Negocio.Metodos.Seguridad();
-
         [HttpPost]
         [Route("api/Factura/IngresoCabeceraFactura")]
         public object IngresoCabeceraFactura(CabeceraFactura CabeceraFactura)
@@ -80,7 +79,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Factura/AnularCabeceraFactura")]
         public object AnularCabeceraFactura(CabeceraFactura CabeceraFactura)
@@ -120,7 +118,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Factura/FinalizarCabeceraFactura")]
         public object FinalizarCabeceraFactura(CabeceraFactura CabeceraFactura)
@@ -173,7 +170,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Factura/ListaFacturasFinalizadas")]
         public object ListaFacturasFinalizadas([FromBody] Tokens Tokens)
@@ -210,7 +206,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Factura/ListaFacturasNoFinalizadas")]
         public object ListaFacturasNoFinalizadas([FromBody] Tokens Tokens)
@@ -247,7 +242,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Factura/ListaFacturaDetalle")]
         public object ListaFacturaDetalle(CabeceraFactura CabeceraFactura)
@@ -285,7 +279,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Factura/ListaFacturasFinalizadasVenta")]
         public object ListaFacturasFinalizadasVenta([FromBody] Tokens Tokens)
@@ -358,8 +351,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
-
         [HttpPost]
         [Route("api/Factura/ListaFacturaVenta")]
         public object ListaFacturaVenta(CabeceraFactura CabeceraFactura)
@@ -398,7 +389,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Factura/FinalizarCabeceraFacturaVenta")]
         public object FinalizarCabeceraFacturaVenta(CabeceraFactura CabeceraFactura)
@@ -481,7 +471,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [Route("api/Credito/ConsultarFacturasPendientesPorPersona")]
         public object ConsultarFacturasPendientesPorPersona(Persona _Persona)
         {
@@ -527,8 +516,5 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
-
-
     }
 }

@@ -39,20 +39,109 @@ namespace Negocio.Logica
                         IdAsignacionTu = seguridad.Encriptar(item3.IdAsignacionTU.ToString()),
                     });
                 }
+                List<PersonaEntidad> ListaPersona = new List<PersonaEntidad>();
+                foreach (var item5 in ConexionBD.sp_ConsultarPersonaPorId(item.PersonaIdPersona))
+                {
+                    List<Telefono> ListaTelefonos = new List<Telefono>();
+                    List<Correo> ListaCorreos = new List<Correo>();
+                    List<AsignacionPersonaParroquia> ListaAsignacionPersonaParroquia = new List<AsignacionPersonaParroquia>();
+                    foreach (var item1 in ConexionBD.sp_ConsultarTelefonoPersona(item.PersonaIdPersona))
+                    {
+                        ListaTelefonos.Add(new Telefono()
+                        {
+                            IdTelefono = seguridad.Encriptar(item1.IdTelefono.ToString()),
+                            IdPersona = seguridad.Encriptar(item1.IdPersona.ToString()),
+                            Numero = item1.Numero,
+                            TipoTelefono = new TipoTelefono()
+                            {
+                                IdTipoTelefono = seguridad.Encriptar(item1.IdTipoTelefono.ToString()),
+                                Descripcion = item1.Descripcion,
+                                Identificador = item1.Identificador,
+                                FechaCreacion = item1.TipoTelefonoFechaCreacion,
+                                Estado = item1.TipoTelefonoEstado,
+                            },
+                            FechaCreacion = item1.FechaCreacion,
+                            Estado = item1.Estado,
+
+                        });
+                    }
+
+                    foreach (var item2 in ConexionBD.sp_ConsultarCorreoPersona(item.PersonaIdPersona))
+                    {
+                        ListaCorreos.Add(new Correo()
+                        {
+                            IdCorreo = seguridad.Encriptar(item2.IdCorreo.ToString()),
+                            IdPersona = seguridad.Encriptar(item2.IdPersona.ToString()),
+                            CorreoValor = item2.Correo,
+                            FechaCreacion = item2.FechaCreacion,
+                            Estado = item2.Estado,
+                        });
+                    }
+
+                    foreach (var item3 in ConexionBD.sp_ConsultarResidenciaPersona(item.PersonaIdPersona))
+                    {
+                        ListaAsignacionPersonaParroquia.Add(new AsignacionPersonaParroquia()
+                        {
+                            Referencia = item3.AsignacionPersonaParroquiaReferencia,
+                            IdPersona = seguridad.Encriptar(item3.AsignacionPersonaComunidadIdPersona.ToString()),
+                            IdAsignacionPC = seguridad.Encriptar(item3.AsignacionPersonaParroquiaIdAsignacionPersonaParroquia.ToString()),
+                            FechaCreacion = item3.AsignacionPersonaParroquiaFechaCreacion,
+                            Estado = item3.AsignacionPersonaParroquiaEstado,
+                            Parroquia = new Parroquia()
+                            {
+                                IdParroquia = seguridad.Encriptar(item3.ParroquiaIdParroquia.ToString()),
+                                Descripcion = item3.ParroquiaDescripcion,
+                                FechaCreacion = item3.ParroquiaFechaCreacion,
+                                Estado = item3.ParroquiaEstado,
+                                Canton = new Canton()
+                                {
+                                    IdCanton = seguridad.Encriptar(item3.CantonIdCanton.ToString()),
+                                    Descripcion = item3.CantonDescripcion,
+                                    FechaCreacion = item3.CantonFechaCreacion,
+                                    Estado = item3.CantonEstado,
+                                    Provincia = new Provincia()
+                                    {
+                                        IdProvincia = seguridad.Encriptar(item3.ProvinciaIdProvincia.ToString()),
+                                        Descripcion = item3.ProvinciaDescripcion,
+                                        FechaCreacion = item3.ProvinciaFechaCreacion,
+                                        Estado = item3.ProvinciaEstado,
+                                    },
+                                },
+                            },
+                        });
+                    }
+                    ListaAsignacionPersonaParroquia = ListaAsignacionPersonaParroquia.GroupBy(a => a.IdAsignacionPC).Select(grp => grp.First()).ToList();
+
+                    ListaPersona.Add(new PersonaEntidad()
+                    {
+                        IdPersona = seguridad.Encriptar(item5.IdPersona.ToString()),
+                        NumeroDocumento = item5.NumeroDocumento,
+                        ApellidoPaterno = item5.ApellidoPaterno,
+                        ApellidoMaterno = item5.ApellidoMaterno,
+                        PrimerNombre = item5.PrimerNombre,
+                        SegundoNombre = item5.SegundoNombre,
+                        IdTipoDocumento = seguridad.Encriptar(item5.IdTipoDocumento.ToString()),
+                        TipoDocumento = item5.Descripcion,
+                        ListaTelefono = ListaTelefonos,
+                        ListaCorreo = ListaCorreos,
+                        AsignacionPersonaParroquia = ListaAsignacionPersonaParroquia,
+                    });
+                }
+
                 ListaDatos.Add(new UsuariosSistema()
                 {
-                    IdPersona = seguridad.Encriptar(item.PersonaIdPersona.ToString()),
-                    NumeroDocumento = item.PersonaNumeroDocumento,
-                    ApellidoPaterno = item.PersonaApellidoPaterno,
-                    ApellidoMaterno = item.PersonaApellidoMaterno,
-                    PrimerNombre = item.PersonaPrimerNombre,
-                    SegundoNombre = item.PersonaSegundoNombre,
+                    //IdPersona = seguridad.Encriptar(item.PersonaIdPersona.ToString()),
+                    //NumeroDocumento = item.PersonaNumeroDocumento,
+                    //ApellidoPaterno = item.PersonaApellidoPaterno,
+                    //ApellidoMaterno = item.PersonaApellidoMaterno,
+                    //PrimerNombre = item.PersonaPrimerNombre,
+                    //SegundoNombre = item.PersonaSegundoNombre,
 
                     IdUsuario = seguridad.Encriptar(item.UsuarioIdUsuario.ToString()),
                     UsuarioLogin = item.UsuarioUsuario,
                     Contrasena = item.UsuarioContrasena,
                     EstadoUsuario = item.UsuarioEstado,
-
+                    PersonaEntidad = ListaPersona.FirstOrDefault(),
                     ListaTipoUsuario = ListaTipoUsuario,
                 });
             }

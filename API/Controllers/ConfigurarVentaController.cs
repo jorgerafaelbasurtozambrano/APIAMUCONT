@@ -16,7 +16,7 @@ namespace API.Controllers
         CatalogoSeguridad GestionSeguridad = new CatalogoSeguridad();
         Prueba p = new Prueba();
         Negocio.Metodos.Seguridad Seguridad = new Negocio.Metodos.Seguridad();
-
+        CatalogoConfiguracionInteres GestionInteres = new CatalogoConfiguracionInteres();
         [HttpPost]
         [Route("api/Factura/IngresoConfigurarVenta")]
         public object IngresoConfigurarVenta(ConfigurarVenta ConfigurarVenta)
@@ -74,55 +74,38 @@ namespace API.Controllers
                             }
                             else
                             {
-                                _DatoAGuardar = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
-                                if (_DatoAGuardar.IdConfigurarVenta == null)
+                                ConfiguracionInteres DatoInteres = new ConfiguracionInteres();
+                                DatoInteres = GestionInteres.ConsultarConfiguracionInteresActivo().FirstOrDefault();
+                                if (DatoInteres == null)
                                 {
-                                    mensaje = "Ocurrio Un Error Al guardar el registro";
+                                    mensaje = "No existe ningun interes activo, por favor active";
                                     codigo = "418";
                                 }
                                 else
                                 {
-                                    respuesta = _DatoAGuardar;
-                                    codigo = "200";
-                                    mensaje = "EXITO";
-                                    objeto = new { codigo, mensaje, respuesta };
-                                    return objeto;
+                                    ConfigurarVenta.IdConfiguracionInteres = Seguridad.DesEncriptar(DatoInteres.IdConfiguracionInteres);
+                                    _DatoAGuardar = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
+                                    if (_DatoAGuardar.IdConfigurarVenta == null)
+                                    {
+                                        mensaje = "Ocurrio Un Error Al guardar el registro";
+                                        codigo = "418";
+                                    }
+                                    else
+                                    {
+                                        respuesta = _DatoAGuardar;
+                                        codigo = "200";
+                                        mensaje = "EXITO";
+                                        objeto = new { codigo, mensaje, respuesta };
+                                        return objeto;
+                                    }
                                 }
-
-                                //if (ConfigurarVenta.ValorSeguro == null)
-                                //{
-                                //    mensaje = "Ingrese La fecha de Fin de Credito";
-                                //    codigo = "418";
-                                //}
-                                //else if (ConfigurarVenta.SeguroCancelado == null || string.IsNullOrEmpty(ConfigurarVenta.SeguroCancelado))
-                                //{
-                                //    mensaje = "Ingrese Si el seguro Esta cancelado o no";
-                                //    codigo = "418";
-                                //}
-                                //else
-                                //{
-                                //    //guardar cuando es a credito y si aplica a seguro
-                                //    _DatoAGuardar = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
-                                //    if (_DatoAGuardar.IdConfigurarVenta == null)
-                                //    {
-                                //        mensaje = "Ocurrio Un Error Al guardar el registro";
-                                //        codigo = "418";
-                                //    }
-                                //    else
-                                //    {
-                                //        respuesta = _DatoAGuardar;
-                                //        codigo = "200";
-                                //        mensaje = "EXITO";
-                                //        objeto = new { codigo, mensaje, respuesta };
-                                //        return objeto;
-                                //    }
-                                //}
                             }
                         }
                         else
                         {
                             ConfigurarVenta.FechaFinalCredito = null;
                             ConfigurarVenta.EstadoConfVenta = "1";
+                            ConfigurarVenta.IdConfiguracionInteres = null;
                             _DatoAGuardar = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
                             if (_DatoAGuardar.IdConfigurarVenta == null)
                             {
@@ -137,57 +120,6 @@ namespace API.Controllers
                                 objeto = new { codigo, mensaje, respuesta };
                                 return objeto;
                             }
-                            //if (ConfigurarVenta.AplicaSeguro == "1")
-                            //{
-                            //    if (ConfigurarVenta.ValorSeguro == null)
-                            //    {
-                            //        mensaje = "Ingrese La fecha de Fin de Credito";
-                            //        codigo = "418";
-                            //    }
-                            //    else if (ConfigurarVenta.SeguroCancelado == null || string.IsNullOrEmpty(ConfigurarVenta.SeguroCancelado))
-                            //    {
-                            //        mensaje = "Ingrese Si el seguro Esta cancelado o no";
-                            //        codigo = "418";
-                            //    }
-                            //    else
-                            //    {
-                            //        //guardar cuando es pago en efectivo y si aplica a seguro
-                            //        _DatoAGuardar = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
-                            //        if (_DatoAGuardar.IdConfigurarVenta == null)
-                            //        {
-                            //            mensaje = "Ocurrio Un Error Al guardar el registro";
-                            //            codigo = "418";
-                            //        }
-                            //        else
-                            //        {
-                            //            respuesta = _DatoAGuardar;
-                            //            codigo = "200";
-                            //            mensaje = "EXITO";
-                            //            objeto = new { codigo, mensaje, respuesta };
-                            //            return objeto;
-                            //        }
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    //guardar cuando no es pago en efecto pero no aplica a seguro
-                            //    ConfigurarVenta.ValorSeguro = null;
-                            //    ConfigurarVenta.SeguroCancelado = null;
-                            //    _DatoAGuardar = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
-                            //    if (_DatoAGuardar.IdConfigurarVenta == null)
-                            //    {
-                            //        mensaje = "Ocurrio Un Error Al guardar el registro";
-                            //        codigo = "418";
-                            //    }
-                            //    else
-                            //    {
-                            //        respuesta = _DatoAGuardar;
-                            //        codigo = "200";
-                            //        mensaje = "EXITO";
-                            //        objeto = new { codigo, mensaje,respuesta };
-                            //        return objeto;
-                            //    }
-                            //}
                         }
                     }
                     else

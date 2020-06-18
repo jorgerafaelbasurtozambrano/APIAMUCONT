@@ -54,8 +54,6 @@ namespace Negocio.Logica.Credito
         }
         public void CargarDatos()
         {
-            List<TipoInteres> ListaTipoInteres = new List<TipoInteres>();
-            ListaTipoInteres = GestionTipoInteres.ListarTipoInteres();
             ListaConfiguracionInteres = new List<ConfiguracionInteres>();
             foreach (var item in ConexionBD.sp_ConsultarConfiguracionInteres())
             {
@@ -67,8 +65,6 @@ namespace Negocio.Logica.Credito
                     IdTipoInteresMora = Seguridad.Encriptar(item.IdTipoInteresMora.ToString()),
                     TasaInteresMora = item.TasaInteresMora,
                     Estado = item.Estado,
-                    //TipoInteres = ListaTipoInteres.Where(p=> Seguridad.DesEncriptar(p.IdTipoInteres) == item.IdTipoInteres.ToString()).FirstOrDefault(),
-                    //TipoInteresMora = ListaTipoInteres.Where(p => Seguridad.DesEncriptar(p.IdTipoInteres) == item.IdTipoInteresMora.ToString()).FirstOrDefault(),
                     utilizado = item.ConfigurarVentaUtilizado
                 });
             }
@@ -78,10 +74,8 @@ namespace Negocio.Logica.Credito
             CargarDatos();
             return ListaConfiguracionInteres;
         }
-        public List<ConfiguracionInteres> ConsultarConfiguracionInteresPorId(int IdConfiguracionInteres)
+        public List<ConfiguracionInteres> ConsultarConfiguracionInteresPorId(int? IdConfiguracionInteres)
         {
-            List<TipoInteres> ListaTipoInteres = new List<TipoInteres>();
-            ListaTipoInteres = GestionTipoInteres.ListarTipoInteres();
             ListaConfiguracionInteres = new List<ConfiguracionInteres>();
             foreach (var item in ConexionBD.sp_ConsultarConfiguracionInteresPorId(IdConfiguracionInteres))
             {
@@ -93,8 +87,6 @@ namespace Negocio.Logica.Credito
                     IdTipoInteresMora = Seguridad.Encriptar(item.IdTipoInteresMora.ToString()),
                     TasaInteresMora = item.TasaInteresMora,
                     Estado = item.Estado,
-                    //TipoInteres = ListaTipoInteres.Where(p => Seguridad.DesEncriptar(p.IdTipoInteres) == item.IdTipoInteres.ToString()).FirstOrDefault(),
-                    //TipoInteresMora = ListaTipoInteres.Where(p => Seguridad.DesEncriptar(p.IdTipoInteres) == item.IdTipoInteresMora.ToString()).FirstOrDefault(),
                     utilizado = item.ConfigurarInteresUtilizado
                 });
             }
@@ -158,5 +150,23 @@ namespace Negocio.Logica.Credito
                 return false;
             }
         }
+        public List<ConfiguracionInteres> ConsultarConfiguracionInteresActivo()
+        {
+            ListaConfiguracionInteres = new List<ConfiguracionInteres>();
+            foreach (var item in ConexionBD.sp_ConsultarConfigurarInteresActivo())
+            {
+                ListaConfiguracionInteres.Add(new ConfiguracionInteres()
+                {
+                    IdConfiguracionInteres = Seguridad.Encriptar(item.IdConfiguracionInteres.ToString()),
+                    IdTipoInteres = Seguridad.Encriptar(item.IdTipoInteres.ToString()),
+                    TasaInteres = item.TasaInteres,
+                    IdTipoInteresMora = Seguridad.Encriptar(item.IdTipoInteresMora.ToString()),
+                    TasaInteresMora = item.TasaInteresMora,
+                    Estado = item.Estado,
+                });
+            }
+            return ListaConfiguracionInteres;
+        }
+
     }
 }
