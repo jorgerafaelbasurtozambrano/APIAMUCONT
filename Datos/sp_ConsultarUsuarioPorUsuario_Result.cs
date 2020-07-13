@@ -20,6 +20,7 @@ namespace Datos
         public Nullable<bool> UsuarioEstado { get; set; }
         public Nullable<System.DateTime> UsuarioFechaActualizacion { get; set; }
         public Nullable<System.DateTime> UsuarioFechaCreacion { get; set; }
+        public string Token { get; set; }
         public int PersonaIdPersona { get; set; }
         public string PersonaApellidoMaterno { get; set; }
         public string PersonaApellidoPaterno { get; set; }

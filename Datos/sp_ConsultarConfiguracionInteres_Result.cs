@@ -14,9 +14,11 @@ namespace Datos
     public partial class sp_ConsultarConfiguracionInteres_Result
     {
         public int IdConfiguracionInteres { get; set; }
-        public int IdTipoInteres { get; set; }
-        public int TasaInteres { get; set; }
         public bool Estado { get; set; }
-        public int PlazoMeses { get; set; }
+        public int IdTipoInteres { get; set; }
+        public int IdTipoInteresMora { get; set; }
+        public int TasaInteres { get; set; }
+        public int TasaInteresMora { get; set; }
+        public string ConfigurarVentaUtilizado { get; set; }
     }
 }

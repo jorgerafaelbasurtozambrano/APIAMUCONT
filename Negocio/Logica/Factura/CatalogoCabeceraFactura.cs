@@ -979,5 +979,32 @@ namespace Negocio.Logica.Inventario
             }
             return _SaldoPendiente;
         }
+
+        public List<CabeceraFactura> ConsultarFacturaPorId(int idCabeceraFactura)
+        {
+            List<CabeceraFactura> _Factura = new List<CabeceraFactura>();
+            foreach (var item in ConexionBD.sp_ConsultarFacturaPorId(idCabeceraFactura))
+            {
+                _Factura.Add(new CabeceraFactura()
+                {
+                    IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString()),
+                    IdTipoTransaccion = Seguridad.Encriptar(item.IdTipoTransaccion.ToString()),
+                    Finalizado = item.Finalizado
+                });
+            }
+            return _Factura;
+        }
+        public bool EliminarFacturaPorId(CabeceraFactura _CabeceraFactura)
+        {
+            try
+            {
+                ConexionBD.sp_EliminarFacturasPorId(int.Parse(_CabeceraFactura.IdCabeceraFactura), int.Parse(_CabeceraFactura.IdTipoTransaccion));
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

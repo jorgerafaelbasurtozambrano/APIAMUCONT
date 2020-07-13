@@ -11,12 +11,14 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_CrearAbono_Result1
+    public partial class sp_ModificarKit_Result1
     {
-        public int IdAbono { get; set; }
-        public int IdConfigurarVenta { get; set; }
-        public int IdAsignacionTU { get; set; }
-        public decimal Monto { get; set; }
-        public System.DateTime FechaRegistro { get; set; }
+        public string Codigo { get; set; }
+        public string Descripcion { get; set; }
+        public bool Estado { get; set; }
+        public System.DateTime FechaActualizacion { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
+        public int IdKit { get; set; }
+        public string KitUtilizado { get; set; }
     }
 }

@@ -33,130 +33,193 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(PersonaEntidad.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                if (PersonaEntidad.NumeroDocumento == null || string.IsNullOrEmpty(PersonaEntidad.NumeroDocumento.Trim()))
+                if (PersonaEntidad.encriptada == null || string.IsNullOrEmpty(PersonaEntidad.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "Falta el numero de documento de la persona";
-                }
-                else if(PersonaEntidad.ApellidoMaterno == null || string.IsNullOrEmpty(PersonaEntidad.ApellidoMaterno.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta el apellido materno";
-                }
-                else if (PersonaEntidad.ApellidoPaterno == null || string.IsNullOrEmpty(PersonaEntidad.ApellidoPaterno.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta el apellido paterno";
-                }
-                else if (PersonaEntidad.PrimerNombre == null || string.IsNullOrEmpty(PersonaEntidad.PrimerNombre.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta primer nombre";
-                }
-                else if (PersonaEntidad.SegundoNombre == null || string.IsNullOrEmpty(PersonaEntidad.SegundoNombre.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta el segun nombre";
-                }
-                else if (PersonaEntidad.IdTipoDocumento == null || string.IsNullOrEmpty(PersonaEntidad.IdTipoDocumento.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta el id del tipo de documento";
-                }
-                else if (PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia == null || string.IsNullOrEmpty(PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta el id de la parroquia";
-                }
-                else if (PersonaEntidad.AsignacionPersonaComunidad.Referencia == null || string.IsNullOrEmpty(PersonaEntidad.AsignacionPersonaComunidad.Referencia.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta la referencia";
-                }
-                else if (PersonaEntidad.ListaTelefono[0].Numero == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].Numero.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese el primer numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[1].Numero == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].Numero.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese el segundo numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese id tipo telefono del primer numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese id tipo telefono del segundo numero de telefono";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    //if (PersonaEntidad.ListaCorreo != null)
-                    //{
-                    //    if (PersonaEntidad.ListaCorreo[0].CorreoValor == null || string.IsNullOrEmpty(PersonaEntidad.ListaCorreo[0].CorreoValor))
-                    //    {
-                    //        codigo = "418";
-                    //        mensaje = "Ingrese el correo";
-                    //        objeto = new { codigo, mensaje };
-                    //        return objeto;
-                    //    }
-                    //}
-                    PersonaEntidad.IdTipoDocumento = Seguridad.DesEncriptar(PersonaEntidad.IdTipoDocumento);
-                    PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono);
-                    PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono);
-                    PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia = Seguridad.DesEncriptar(PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia);
-                    TipoDocumento DatoTipoDocumento = new TipoDocumento();
-                    DatoTipoDocumento = GestionTipoDocumento.ListarTiposDocumentosPorId(int.Parse(PersonaEntidad.IdTipoDocumento)).FirstOrDefault();
-                    if (DatoTipoDocumento == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(PersonaEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "418";
-                        mensaje = "El tipo de documento que quiere asignar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        PersonaEntidad DatoPersona = new PersonaEntidad();
-                        DatoPersona = GestionPersona.ConsultarPersonaPorIdentificacion(PersonaEntidad.NumeroDocumento.Trim()).FirstOrDefault();
-                        if (DatoPersona == null)
+                        if (PersonaEntidad.Telefono1 == null || string.IsNullOrEmpty(PersonaEntidad.Telefono1.Trim()))
                         {
-                            DatoPersona = new PersonaEntidad();
-                            DatoPersona = GestionPersona.IngresarPersona(PersonaEntidad);
-                            if (DatoPersona.IdPersona == null || string.IsNullOrEmpty(DatoPersona.IdPersona))
+                            if (PersonaEntidad.NumeroDocumento == null || string.IsNullOrEmpty(PersonaEntidad.NumeroDocumento.Trim()))
                             {
-                                codigo = "500";
-                                mensaje = "Ocurrio un error al intentar guardar la persona";
+                                codigo = "418";
+                                mensaje = "Falta el numero de documento de la persona";
+                            }
+                            else if (PersonaEntidad.ApellidoMaterno == null || string.IsNullOrEmpty(PersonaEntidad.ApellidoMaterno.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta el apellido materno";
+                            }
+                            else if (PersonaEntidad.ApellidoPaterno == null || string.IsNullOrEmpty(PersonaEntidad.ApellidoPaterno.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta el apellido paterno";
+                            }
+                            else if (PersonaEntidad.PrimerNombre == null || string.IsNullOrEmpty(PersonaEntidad.PrimerNombre.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta primer nombre";
+                            }
+                            else if (PersonaEntidad.SegundoNombre == null || string.IsNullOrEmpty(PersonaEntidad.SegundoNombre.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta el segun nombre";
+                            }
+                            else if (PersonaEntidad.IdTipoDocumento == null || string.IsNullOrEmpty(PersonaEntidad.IdTipoDocumento.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta el id del tipo de documento";
                             }
                             else
                             {
-                                respuesta = DatoPersona;
-                                mensaje = "EXITO";
-                                codigo = "200";
-                                objeto = new { codigo, mensaje, respuesta };
-                                return objeto;
+                                PersonaEntidad DatoPersona = new PersonaEntidad();
+                                DatoPersona = GestionPersona.ConsultarPersonaPorIdentificacion(PersonaEntidad.NumeroDocumento.Trim()).FirstOrDefault();
+                                if (DatoPersona == null)
+                                {
+                                    PersonaEntidad.IdTipoDocumento = Seguridad.DesEncriptar(PersonaEntidad.IdTipoDocumento);
+                                    DatoPersona = new PersonaEntidad();
+                                    DatoPersona = GestionPersona.CrearSoloDatosDePersona(PersonaEntidad);
+                                    if (DatoPersona.IdPersona == null || string.IsNullOrEmpty(DatoPersona.IdPersona))
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error al intentar guardar la persona";
+                                    }
+                                    else
+                                    {
+                                        respuesta = DatoPersona;
+                                        mensaje = "EXITO";
+                                        codigo = "200";
+                                        objeto = new { codigo, mensaje, respuesta };
+                                        return objeto;
+                                    }
+                                }
+                                else
+                                {
+                                    codigo = "418";
+                                    mensaje = "Ya existe una persona con el mismo numero de identificación";
+                                }
                             }
                         }
                         else
                         {
-                            codigo = "418";
-                            mensaje = "Ya existe una persona con el mismo numero de identificación";
+                            if (PersonaEntidad.NumeroDocumento == null || string.IsNullOrEmpty(PersonaEntidad.NumeroDocumento.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta el numero de documento de la persona";
+                            }
+                            else if (PersonaEntidad.ApellidoMaterno == null || string.IsNullOrEmpty(PersonaEntidad.ApellidoMaterno.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta el apellido materno";
+                            }
+                            else if (PersonaEntidad.ApellidoPaterno == null || string.IsNullOrEmpty(PersonaEntidad.ApellidoPaterno.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta el apellido paterno";
+                            }
+                            else if (PersonaEntidad.PrimerNombre == null || string.IsNullOrEmpty(PersonaEntidad.PrimerNombre.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta primer nombre";
+                            }
+                            else if (PersonaEntidad.SegundoNombre == null || string.IsNullOrEmpty(PersonaEntidad.SegundoNombre.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta el segun nombre";
+                            }
+                            else if (PersonaEntidad.IdTipoDocumento == null || string.IsNullOrEmpty(PersonaEntidad.IdTipoDocumento.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta el id del tipo de documento";
+                            }
+                            else if (PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia == null || string.IsNullOrEmpty(PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta el id de la parroquia";
+                            }
+                            else if (PersonaEntidad.AsignacionPersonaComunidad.Referencia == null || string.IsNullOrEmpty(PersonaEntidad.AsignacionPersonaComunidad.Referencia.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Falta la referencia";
+                            }
+                            else if (PersonaEntidad.Telefono1 == null || string.IsNullOrEmpty(PersonaEntidad.Telefono1.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Ingrese el primer numero de telefono";
+                            }
+                            else if (PersonaEntidad.IdTipoTelefono1 == null || string.IsNullOrEmpty(PersonaEntidad.IdTipoTelefono1.Trim()))
+                            {
+                                codigo = "418";
+                                mensaje = "Ingrese id tipo telefono del primer numero de telefono";
+                            }
+                            else
+                            {
+                                PersonaEntidad.IdTipoDocumento = Seguridad.DesEncriptar(PersonaEntidad.IdTipoDocumento);
+                                PersonaEntidad.IdTipoTelefono1 = Seguridad.DesEncriptar(PersonaEntidad.IdTipoTelefono1);
+                                if (PersonaEntidad.Telefono2 != null)
+                                {
+                                    if (PersonaEntidad.IdTipoTelefono2 == null)
+                                    {
+                                        codigo = "418";
+                                        mensaje = "Ingrese el segundo id tipo de telefono";
+                                        objeto = new { codigo, mensaje };
+                                        return objeto;
+                                    }
+                                    else
+                                    {
+                                        PersonaEntidad.IdTipoTelefono2 = Seguridad.DesEncriptar(PersonaEntidad.IdTipoTelefono2);
+                                    }
+                                }
+
+                                PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia = Seguridad.DesEncriptar(PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia);
+                                TipoDocumento DatoTipoDocumento = new TipoDocumento();
+                                DatoTipoDocumento = GestionTipoDocumento.ListarTiposDocumentosPorId(int.Parse(PersonaEntidad.IdTipoDocumento)).FirstOrDefault();
+                                if (DatoTipoDocumento == null)
+                                {
+                                    codigo = "418";
+                                    mensaje = "El tipo de documento que quiere asignar no existe";
+                                }
+                                else
+                                {
+                                    PersonaEntidad DatoPersona = new PersonaEntidad();
+                                    DatoPersona = GestionPersona.ConsultarPersonaPorIdentificacion(PersonaEntidad.NumeroDocumento.Trim()).FirstOrDefault();
+                                    if (DatoPersona == null)
+                                    {
+                                        DatoPersona = new PersonaEntidad();
+                                        DatoPersona = GestionPersona.IngresarPersona(PersonaEntidad);
+                                        if (DatoPersona.IdPersona == null || string.IsNullOrEmpty(DatoPersona.IdPersona))
+                                        {
+                                            codigo = "500";
+                                            mensaje = "Ocurrio un error al intentar guardar la persona";
+                                        }
+                                        else
+                                        {
+                                            respuesta = DatoPersona;
+                                            mensaje = "EXITO";
+                                            codigo = "200";
+                                            objeto = new { codigo, mensaje, respuesta };
+                                            return objeto;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        codigo = "418";
+                                        mensaje = "Ya existe una persona con el mismo numero de identificación";
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -178,55 +241,59 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveDelete = ListaClaves.Where(c => c.Identificador == 3).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(PersonaEntidad.encriptada, _claveDelete.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _claveDelete.Descripcion)
-                //{
-                if (PersonaEntidad.IdPersona == null || string.IsNullOrEmpty(PersonaEntidad.IdPersona.Trim()))
+                if (PersonaEntidad.encriptada == null || string.IsNullOrEmpty(PersonaEntidad.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Falta el id de la persona a eliminar";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    PersonaEntidad.IdPersona = Seguridad.DesEncriptar(PersonaEntidad.IdPersona);
-                    PersonaEntidad DatoPersona = new PersonaEntidad();
-                    DatoPersona = GestionPersona.ConsultarPersonaPorId(int.Parse(PersonaEntidad.IdPersona)).FirstOrDefault();
-                    if (DatoPersona == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(PersonaEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "418";
-                        mensaje = "La persona que intenta eliminar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        if (DatoPersona.IdUsuario == "1")
+                        if (PersonaEntidad.IdPersona == null || string.IsNullOrEmpty(PersonaEntidad.IdPersona.Trim()))
                         {
-                            if (GestionPersona.EliminarPersona(int.Parse(PersonaEntidad.IdPersona)) == true)
-                            {
-                                mensaje = "EXITO";
-                                codigo = "200";
-                            }
-                            else
-                            {
-                                codigo = "500";
-                                mensaje = "Ocurrio un error al intentar eliminar la persona";
-                            }
+                            codigo = "400";
+                            mensaje = "Falta el id de la persona a eliminar";
                         }
                         else
                         {
-                            codigo = "418";
-                            mensaje = "No puede eliminar esta persona porque ya ha ejercido actividad dentro del sistema";
+                            PersonaEntidad.IdPersona = Seguridad.DesEncriptar(PersonaEntidad.IdPersona);
+                            PersonaEntidad DatoPersona = new PersonaEntidad();
+                            DatoPersona = GestionPersona.ConsultarPersonaPorId(int.Parse(PersonaEntidad.IdPersona)).FirstOrDefault();
+                            if (DatoPersona == null)
+                            {
+                                codigo = "418";
+                                mensaje = "La persona que intenta eliminar no existe";
+                            }
+                            else
+                            {
+                                if (DatoPersona.IdUsuario == "1")
+                                {
+                                    if (GestionPersona.EliminarPersona(int.Parse(PersonaEntidad.IdPersona)) == true)
+                                    {
+                                        mensaje = "EXITO";
+                                        codigo = "200";
+                                    }
+                                    else
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error al intentar eliminar la persona";
+                                    }
+                                }
+                                else
+                                {
+                                    codigo = "418";
+                                    mensaje = "No puede eliminar esta persona porque ya ha ejercido actividad dentro del sistema";
+                                }
+                            }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -248,196 +315,232 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePut = ListaClaves.Where(c => c.Identificador == 2).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(PersonaEntidad.encriptada, _clavePut.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePut.Descripcion)
-                //{
-                if (PersonaEntidad.IdPersona == null || string.IsNullOrEmpty(PersonaEntidad.IdPersona.Trim()))
+                if (PersonaEntidad.encriptada == null || string.IsNullOrEmpty(PersonaEntidad.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "Falta el numero de documento de la persona";
-                }
-                else if (PersonaEntidad.ApellidoMaterno == null || string.IsNullOrEmpty(PersonaEntidad.ApellidoMaterno.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta el apellido materno";
-                }
-                else if (PersonaEntidad.ApellidoPaterno == null || string.IsNullOrEmpty(PersonaEntidad.ApellidoPaterno.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta el apellido paterno";
-                }
-                else if (PersonaEntidad.PrimerNombre == null || string.IsNullOrEmpty(PersonaEntidad.PrimerNombre.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta primer nombre";
-                }
-                else if (PersonaEntidad.SegundoNombre == null || string.IsNullOrEmpty(PersonaEntidad.SegundoNombre.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta el segun nombre";
-                }
-                else if (PersonaEntidad.IdTipoDocumento == null || string.IsNullOrEmpty(PersonaEntidad.IdTipoDocumento.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta el id del tipo de documento";
-                }
-                else if (PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia == null || string.IsNullOrEmpty(PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta el id de la parroquia";
-                }
-                else if (PersonaEntidad.AsignacionPersonaComunidad.Referencia == null || string.IsNullOrEmpty(PersonaEntidad.AsignacionPersonaComunidad.Referencia.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Falta la referencia";
-                }
-                else if (PersonaEntidad.ListaTelefono[0].IdTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].IdTelefono.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese el id primer numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[1].IdTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].IdTelefono.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese el id segundo numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[0].Numero == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].Numero.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese el primer numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[1].Numero == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].Numero.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese el segundo numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese id tipo telefono del primer numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese id tipo telefono del segundo numero de telefono";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    PersonaEntidad.IdTipoDocumento = Seguridad.DesEncriptar(PersonaEntidad.IdTipoDocumento);
-                    TipoDocumento DatoTipoDocumento = new TipoDocumento();
-                    DatoTipoDocumento = GestionTipoDocumento.ListarTiposDocumentosPorId(int.Parse(PersonaEntidad.IdTipoDocumento)).FirstOrDefault();
-                    if (DatoTipoDocumento == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(PersonaEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "418";
-                        mensaje = "El tipo de documento que quiere asignar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        PersonaEntidad.IdPersona = Seguridad.DesEncriptar(PersonaEntidad.IdPersona);
-                        PersonaEntidad DatoPersona = new PersonaEntidad();
-                        DatoPersona = GestionPersona.ConsultarPersonaPorId(int.Parse(PersonaEntidad.IdPersona)).FirstOrDefault();
-                        if (DatoPersona == null)
+                        if (PersonaEntidad.IdPersona == null || string.IsNullOrEmpty(PersonaEntidad.IdPersona.Trim()))
                         {
                             codigo = "418";
-                            mensaje = "La persona que intenta actualizar no existe";
+                            mensaje = "Falta el numero de documento de la persona";
+                        }
+                        else if (PersonaEntidad.ApellidoMaterno == null || string.IsNullOrEmpty(PersonaEntidad.ApellidoMaterno.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Falta el apellido materno";
+                        }
+                        else if (PersonaEntidad.ApellidoPaterno == null || string.IsNullOrEmpty(PersonaEntidad.ApellidoPaterno.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Falta el apellido paterno";
+                        }
+                        else if (PersonaEntidad.PrimerNombre == null || string.IsNullOrEmpty(PersonaEntidad.PrimerNombre.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Falta primer nombre";
+                        }
+                        else if (PersonaEntidad.SegundoNombre == null || string.IsNullOrEmpty(PersonaEntidad.SegundoNombre.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Falta el segun nombre";
+                        }
+                        else if (PersonaEntidad.IdTipoDocumento == null || string.IsNullOrEmpty(PersonaEntidad.IdTipoDocumento.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Falta el id del tipo de documento";
                         }
                         else
                         {
-                            PersonaEntidad.ListaTelefono[0].IdTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[0].IdTelefono);
-                            PersonaEntidad.ListaTelefono[1].IdTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[1].IdTelefono);
-                            List<Telefono> ListaTelefono = new List<Telefono>();
-                            ListaTelefono = GestionPersona.ConsultarTelefonoPorPersona(int.Parse(PersonaEntidad.IdPersona));
-                            if (ListaTelefono.Where(p => Seguridad.DesEncriptar(p.IdTelefono) == PersonaEntidad.ListaTelefono[0].IdTelefono).FirstOrDefault() == null)
+                            PersonaEntidad.IdPersona = Seguridad.DesEncriptar(PersonaEntidad.IdPersona);
+                            PersonaEntidad DatoPersona = new PersonaEntidad();
+                            DatoPersona = GestionPersona.ConsultarPersonaPorId(int.Parse(PersonaEntidad.IdPersona)).FirstOrDefault();
+                            if (DatoPersona == null)
                             {
                                 codigo = "418";
-                                mensaje = "No se a encontrado el primer telefono a modificar";
-                            }else if (ListaTelefono.Where(p => Seguridad.DesEncriptar(p.IdTelefono) == PersonaEntidad.ListaTelefono[1].IdTelefono).FirstOrDefault() == null)
-                            {
-                                codigo = "418";
-                                mensaje = "No se a encontrado el segundo telefono a modificar";
+                                mensaje = "La persona que intenta actualizar no existe";
                             }
                             else
                             {
-                                PersonaEntidad DatoPersonaAModificar = new PersonaEntidad();
-                                DatoPersona.PrimerNombre = PersonaEntidad.PrimerNombre;
-                                DatoPersona.SegundoNombre = PersonaEntidad.SegundoNombre;
-                                DatoPersona.ApellidoMaterno = PersonaEntidad.ApellidoMaterno;
-                                DatoPersona.ApellidoPaterno = PersonaEntidad.ApellidoPaterno;
-
-
-                                DatoPersona.IdPersona = Seguridad.DesEncriptar(DatoPersona.IdPersona);
-                                DatoPersona.IdTipoDocumento = PersonaEntidad.IdTipoDocumento;
-                                DatoPersona.ListaTelefono[1].Numero = PersonaEntidad.ListaTelefono[1].Numero;
-                                DatoPersona.ListaTelefono[0].Numero = PersonaEntidad.ListaTelefono[0].Numero;
-                                DatoPersona.ListaTelefono[0].IdTelefono = PersonaEntidad.ListaTelefono[0].IdTelefono;
-                                DatoPersona.ListaTelefono[1].IdTelefono = PersonaEntidad.ListaTelefono[1].IdTelefono;
-
-                                PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono);
-                                PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono);
-                                DatoPersona.ListaTelefono[1].TipoTelefono.IdTipoTelefono = PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono;
-                                DatoPersona.ListaTelefono[0].TipoTelefono.IdTipoTelefono = PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono;
-
-                                PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia = Seguridad.DesEncriptar(PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia);
-                                if (Seguridad.DesEncriptar(DatoPersona.AsignacionPersonaParroquia.FirstOrDefault().Parroquia.IdParroquia) == PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia)
+                                if (PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia == null || string.IsNullOrEmpty(PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia.Trim()))
                                 {
-                                    DatoPersona.AsignacionPersonaComunidad = new AsignacionPersonaParroquia()
-                                    {
-                                        IdAsignacionPC = Seguridad.DesEncriptar(DatoPersona.AsignacionPersonaParroquia.FirstOrDefault().IdAsignacionPC),
-                                        Referencia = PersonaEntidad.AsignacionPersonaComunidad.Referencia,
-                                        Estado = false,
-                                        Parroquia = new Parroquia()
-                                        {
-                                            IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia,
-                                        }
-                                    };
+                                    codigo = "418";
+                                    mensaje = "Falta el id de la parroquia";
+                                }
+                                else if (PersonaEntidad.AsignacionPersonaComunidad.Referencia == null || string.IsNullOrEmpty(PersonaEntidad.AsignacionPersonaComunidad.Referencia.Trim()))
+                                {
+                                    codigo = "418";
+                                    mensaje = "Falta la referencia";
+                                }
+                                else if (PersonaEntidad.Telefono1 == null || string.IsNullOrEmpty(PersonaEntidad.Telefono1.Trim()))
+                                {
+                                    codigo = "418";
+                                    mensaje = "Ingrese el primer numero de telefono";
+                                }
+                                else if (PersonaEntidad.IdTipoTelefono1 == null || string.IsNullOrEmpty(PersonaEntidad.IdTipoTelefono1.Trim()))
+                                {
+                                    codigo = "418";
+                                    mensaje = "Ingrese id tipo telefono del primer numero de telefono";
                                 }
                                 else
                                 {
-                                    DatoPersona.AsignacionPersonaComunidad = new AsignacionPersonaParroquia()
+                                    PersonaEntidad.IdTipoDocumento = Seguridad.DesEncriptar(PersonaEntidad.IdTipoDocumento);
+                                    PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia = Seguridad.DesEncriptar(PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia);
+                                    if (DatoPersona.AsignacionPersonaParroquia.Count > 0)
                                     {
-                                        Referencia = PersonaEntidad.AsignacionPersonaComunidad.Referencia,
-                                        Estado = true,
-                                        Parroquia = new Parroquia()
+                                        if (PersonaEntidad.IdTelefono1 == null || string.IsNullOrEmpty(PersonaEntidad.IdTelefono1.Trim()))
                                         {
-                                            IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia,
+                                            codigo = "418";
+                                            mensaje = "Ingrese el id primer numero de telefono";
                                         }
-                                    };
-                                }
+                                        else
+                                        {
+                                            PersonaEntidad.IdTelefono1 = Seguridad.DesEncriptar(PersonaEntidad.IdTelefono1);
+                                            TipoDocumento DatoTipoDocumento = new TipoDocumento();
+                                            DatoTipoDocumento = GestionTipoDocumento.ListarTiposDocumentosPorId(int.Parse(PersonaEntidad.IdTipoDocumento)).FirstOrDefault();
+                                            if (DatoTipoDocumento == null)
+                                            {
+                                                codigo = "418";
+                                                mensaje = "El tipo de documento que quiere asignar no existe";
+                                            }
+                                            else
+                                            {
+                                                List<Telefono> ListaTelefono = new List<Telefono>();
+                                                ListaTelefono = GestionPersona.ConsultarTelefonoPorPersona(int.Parse(PersonaEntidad.IdPersona));
+                                                if (ListaTelefono.Where(p => Seguridad.DesEncriptar(p.IdTelefono) == PersonaEntidad.IdTelefono1).FirstOrDefault() == null)
+                                                {
+                                                    codigo = "418";
+                                                    mensaje = "No se a encontrado el primer telefono a modificar";
+                                                }
+                                                else
+                                                {
+                                                    PersonaEntidad DatoPersonaAModificar = new PersonaEntidad();
+                                                    DatoPersona.PrimerNombre = PersonaEntidad.PrimerNombre;
+                                                    DatoPersona.SegundoNombre = PersonaEntidad.SegundoNombre;
+                                                    DatoPersona.ApellidoMaterno = PersonaEntidad.ApellidoMaterno;
+                                                    DatoPersona.ApellidoPaterno = PersonaEntidad.ApellidoPaterno;
+                                                    DatoPersona.IdPersona = Seguridad.DesEncriptar(DatoPersona.IdPersona);
+                                                    DatoPersona.IdTipoDocumento = PersonaEntidad.IdTipoDocumento;
+                                                    DatoPersona.IdTelefono1 = PersonaEntidad.IdTelefono1;
+                                                    DatoPersona.Telefono1 = PersonaEntidad.Telefono1;
+                                                    DatoPersona.IdTipoTelefono1 = Seguridad.DesEncriptar(PersonaEntidad.IdTipoTelefono1);
+                                                    if (ListaTelefono.Count > 1)
+                                                    {
+                                                        if (PersonaEntidad.Telefono2 != null)
+                                                        {
+                                                            if (PersonaEntidad.IdTipoTelefono2 == null)
+                                                            {
+                                                                codigo = "200";
+                                                                mensaje = "Ingrese el id tipo telefono 2";
+                                                                objeto = new { codigo, mensaje };
+                                                                return objeto;
+                                                            }
+                                                            else
+                                                            {
+                                                                ListaTelefono[1].IdTelefono = Seguridad.DesEncriptar(ListaTelefono[1].IdTelefono);
+                                                                DatoPersona.IdTelefono2 = ListaTelefono[1].IdTelefono;
+                                                                DatoPersona.IdTipoTelefono2 = Seguridad.DesEncriptar(PersonaEntidad.IdTipoTelefono2);
+                                                                DatoPersona.Telefono2 = PersonaEntidad.Telefono2;
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        DatoPersona.IdTelefono2 = null;
+                                                        if (PersonaEntidad.Telefono2.ToString().ToUpper() != "NULL")
+                                                        {
+                                                            DatoPersona.IdTipoTelefono2 = Seguridad.DesEncriptar(PersonaEntidad.IdTipoTelefono2);
+                                                            DatoPersona.Telefono2 = PersonaEntidad.Telefono2;
+                                                        }
+                                                    }
+                                                    if (Seguridad.DesEncriptar(DatoPersona.AsignacionPersonaParroquia.FirstOrDefault().Parroquia.IdParroquia) == PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia)
+                                                    {
+                                                        DatoPersona.AsignacionPersonaComunidad = new AsignacionPersonaParroquia()
+                                                        {
+                                                            IdAsignacionPC = Seguridad.DesEncriptar(DatoPersona.AsignacionPersonaParroquia.FirstOrDefault().IdAsignacionPC),
+                                                            Referencia = PersonaEntidad.AsignacionPersonaComunidad.Referencia,
+                                                            Estado = false,
+                                                            Parroquia = new Parroquia()
+                                                            {
+                                                                IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia,
+                                                            }
+                                                        };
+                                                    }
+                                                    else
+                                                    {
+                                                        DatoPersona.AsignacionPersonaComunidad = new AsignacionPersonaParroquia()
+                                                        {
+                                                            Referencia = PersonaEntidad.AsignacionPersonaComunidad.Referencia,
+                                                            Estado = true,
+                                                            Parroquia = new Parroquia()
+                                                            {
+                                                                IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia,
+                                                            }
+                                                        };
+                                                    }
 
-                                if (PersonaEntidad.Correo!=null)
-                                {
-                                    DatoPersona.Correo = PersonaEntidad.Correo;
-                                }
-                                DatoPersonaAModificar = GestionPersona.ModificarPersona(DatoPersona);
-                                if (DatoPersonaAModificar.IdUsuario == null)
-                                {
-                                    codigo = "500";
-                                    mensaje = "Ocurrio un error al tratar de modificar la persona";
-                                    respuesta = DatoPersonaAModificar;
-                                    objeto = new { codigo, mensaje, respuesta };
-                                    return objeto;
-                                }
-                                else
-                                {
-                                    codigo = "200";
-                                    mensaje = "EXITO";
-                                    respuesta = DatoPersonaAModificar;
-                                    objeto = new { codigo, mensaje, respuesta };
-                                    return objeto;
+                                                    if (PersonaEntidad.Correo != null)
+                                                    {
+                                                        DatoPersona.Correo = PersonaEntidad.Correo;
+                                                    }
+                                                    DatoPersonaAModificar = GestionPersona.ModificarPersona(DatoPersona);
+                                                    if (DatoPersonaAModificar.IdUsuario == null)
+                                                    {
+                                                        codigo = "500";
+                                                        mensaje = "Ocurrio un error al tratar de modificar la persona";
+                                                        respuesta = DatoPersonaAModificar;
+                                                        objeto = new { codigo, mensaje, respuesta };
+                                                        return objeto;
+                                                    }
+                                                    else
+                                                    {
+                                                        codigo = "200";
+                                                        mensaje = "EXITO";
+                                                        respuesta = DatoPersonaAModificar;
+                                                        objeto = new { codigo, mensaje, respuesta };
+                                                        return objeto;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        PersonaEntidad DatoModificados = new PersonaEntidad();
+                                        PersonaEntidad.NumeroDocumento = DatoPersona.NumeroDocumento;
+                                        PersonaEntidad.IdTipoTelefono1 = Seguridad.DesEncriptar(PersonaEntidad.IdTipoTelefono1);
+                                        DatoModificados = GestionPersona.CompletarDatosPersona(PersonaEntidad);
+                                        if (DatoModificados.IdUsuario == null)
+                                        {
+                                            codigo = "500";
+                                            mensaje = "Ocurrio un error al tratar de completar la informacion de la persona";
+                                            respuesta = DatoModificados;
+                                            objeto = new { codigo, mensaje, respuesta };
+                                            return objeto;
+                                        }
+                                        else
+                                        {
+                                            codigo = "200";
+                                            mensaje = "EXITO";
+                                            respuesta = DatoModificados;
+                                            objeto = new { codigo, mensaje, respuesta };
+                                            return objeto;
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -459,29 +562,35 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(PersonaEntidad.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    PersonaEntidad.IdPersona = Seguridad.DesEncriptar(PersonaEntidad.IdPersona);
-                    respuesta = GestionUsuarios.FiltrarPersona(int.Parse(PersonaEntidad.IdPersona));
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (PersonaEntidad.encriptada == null || string.IsNullOrEmpty(PersonaEntidad.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(PersonaEntidad.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        PersonaEntidad.IdPersona = Seguridad.DesEncriptar(PersonaEntidad.IdPersona);
+                        respuesta = GestionUsuarios.FiltrarPersona(int.Parse(PersonaEntidad.IdPersona));
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -496,46 +605,51 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(TipoUsuario.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                if (TipoUsuario.Identificacion == null || string.IsNullOrEmpty(TipoUsuario.Identificacion))
+                if (TipoUsuario.encriptada == null || string.IsNullOrEmpty(TipoUsuario.encriptada.Trim()))
                 {
-                    mensaje = "Ingrese El ID TIPO USUARIO";
                     codigo = "418";
-                    objeto = new { codigo, mensaje};
-                    return objeto;
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    respuesta = GestionPersona.ListaPersonasDependiendoDeTipoUsuario(int.Parse(TipoUsuario.Identificacion));
-                    objeto = new { codigo, mensaje, respuesta };
-                    return objeto;
+                    if (Seguridad.ConsultarUsuarioPorToken(TipoUsuario.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (TipoUsuario.Identificacion == null || string.IsNullOrEmpty(TipoUsuario.Identificacion))
+                        {
+                            mensaje = "Ingrese El ID TIPO USUARIO";
+                            codigo = "418";
+                            objeto = new { codigo, mensaje };
+                            return objeto;
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            respuesta = GestionPersona.ListaPersonasDependiendoDeTipoUsuario(int.Parse(TipoUsuario.Identificacion));
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
+                objeto = new { codigo, mensaje };
+                return objeto;
             }
             catch (Exception e)
             {
                 mensaje = e.Message;
-                codigo = "418";
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
         }
-
         [HttpPost]
-        [Route("api/TalentoHumano/ActualizarTelefonoCorreo")]
-        public object ActualizarTelefonoCorreo(PersonaEntidad PersonaEntidad)
+        [Route("api/TalentoHumano/ActualizarCorreo")]
+        public object ActualizarCorreo(PersonaEntidad PersonaEntidad)
         {
             object objeto = new object();
             object respuesta = new object();
@@ -543,134 +657,51 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePut = ListaClaves.Where(c => c.Identificador == 2).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(PersonaEntidad.encriptada, _clavePut.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePut.Descripcion)
-                //{
-                if (PersonaEntidad.IdPersona == null || string.IsNullOrEmpty(PersonaEntidad.IdPersona.Trim()))
+                if (PersonaEntidad.encriptada == null || string.IsNullOrEmpty(PersonaEntidad.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "Falta el numero de documento de la persona";
-                }
-                else if (PersonaEntidad.ListaTelefono[0].IdTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].IdTelefono.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese el id primer numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[1].IdTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].IdTelefono.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese el id segundo numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[0].Numero == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].Numero.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese el primer numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[1].Numero == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].Numero.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese el segundo numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese id tipo telefono del primer numero de telefono";
-                }
-                else if (PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono == null || string.IsNullOrEmpty(PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese id tipo telefono del segundo numero de telefono";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    PersonaEntidad.IdPersona = Seguridad.DesEncriptar(PersonaEntidad.IdPersona);
-                    PersonaEntidad DatoPersona = new PersonaEntidad();
-                    DatoPersona = GestionPersona.ConsultarPersonaPorId(int.Parse(PersonaEntidad.IdPersona)).FirstOrDefault();
-                    if (DatoPersona == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(PersonaEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "418";
-                        mensaje = "La persona que intenta actualizar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        PersonaEntidad.ListaTelefono[0].IdTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[0].IdTelefono);
-                        PersonaEntidad.ListaTelefono[1].IdTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[1].IdTelefono);
-                        PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono);
-                        PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono = Seguridad.DesEncriptar(PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono);
-                        List<Telefono> ListaTelefono = new List<Telefono>();
-                        ListaTelefono = GestionPersona.ConsultarTelefonoPorPersona(int.Parse(PersonaEntidad.IdPersona));
-                        if (ListaTelefono.Where(p => Seguridad.DesEncriptar(p.IdTelefono) == PersonaEntidad.ListaTelefono[0].IdTelefono).FirstOrDefault() == null)
+                        if (PersonaEntidad.IdPersona == null || string.IsNullOrEmpty(PersonaEntidad.IdPersona.Trim()))
                         {
                             codigo = "418";
-                            mensaje = "No se a encontrado el primer telefono a modificar";
+                            mensaje = "Falta el numero de documento de la persona";
                         }
-                        else if (ListaTelefono.Where(p => Seguridad.DesEncriptar(p.IdTelefono) == PersonaEntidad.ListaTelefono[1].IdTelefono).FirstOrDefault() == null)
+                        else if (PersonaEntidad.Correo == null || string.IsNullOrEmpty(PersonaEntidad.Correo.Trim()))
                         {
                             codigo = "418";
-                            mensaje = "No se a encontrado el segundo telefono a modificar";
+                            mensaje = "Ingrese el correo de la persona";
                         }
                         else
                         {
-                            PersonaEntidad DatoPersonaAModificar = new PersonaEntidad();
-                            DatoPersona.IdPersona = Seguridad.DesEncriptar(DatoPersona.IdPersona);
-                            DatoPersona.ListaTelefono[1].Numero = PersonaEntidad.ListaTelefono[1].Numero;
-                            DatoPersona.ListaTelefono[0].Numero = PersonaEntidad.ListaTelefono[0].Numero;
-                            DatoPersona.ListaTelefono[0].IdTelefono = PersonaEntidad.ListaTelefono[0].IdTelefono;
-                            DatoPersona.ListaTelefono[1].IdTelefono = PersonaEntidad.ListaTelefono[1].IdTelefono;
-
-                            DatoPersona.ListaTelefono[1].TipoTelefono.IdTipoTelefono = PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono;
-                            DatoPersona.ListaTelefono[0].TipoTelefono.IdTipoTelefono = PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono;
-
-                            Telefono DatoTelefono = new Telefono();
-                            DatoTelefono = GestionPersona.ModificarTelefono(new TelefonoEntidad() {IdTelefono = DatoPersona.ListaTelefono[0].IdTelefono,IdPersona = DatoPersona.IdPersona ,Numero = DatoPersona.ListaTelefono[0].Numero ,IdTipoTelefono = DatoPersona.ListaTelefono[0].TipoTelefono.IdTipoTelefono });
-                            DatoPersona.ListaTelefono[0] = DatoTelefono;
-                            Telefono DatoTelefono1 = new Telefono();
-                            DatoTelefono1 = GestionPersona.ModificarTelefono(new TelefonoEntidad() { IdTelefono = DatoPersona.ListaTelefono[1].IdTelefono, IdPersona = DatoPersona.IdPersona, Numero = DatoPersona.ListaTelefono[1].Numero, IdTipoTelefono = DatoPersona.ListaTelefono[1].TipoTelefono.IdTipoTelefono });
-                            DatoPersona.ListaTelefono[1] = DatoTelefono1;
-                            object InformacionActualizada = new object();
-                            object Telefonos = new object();
-                            Telefonos = DatoPersona.ListaTelefono;
-                            object Correo = new object();
-                            if (PersonaEntidad.Correo != null || !string.IsNullOrEmpty(PersonaEntidad.Correo.Trim()) || PersonaEntidad.Correo.Trim().ToUpper() != "NULL")
+                            PersonaEntidad.IdPersona = Seguridad.DesEncriptar(PersonaEntidad.IdPersona);
+                            Correo DatoCorreo = new Correo();
+                            DatoCorreo = GestionPersona.IngresoCorreo(new Correo() { IdPersona = PersonaEntidad.IdPersona, CorreoValor = PersonaEntidad.Correo });
+                            if (DatoCorreo.IdCorreo == null || string.IsNullOrEmpty(DatoCorreo.IdCorreo.Trim()))
                             {
-                                Correo DatoCorreo = new Correo();
-                                if (DatoPersona.ListaCorreo.FirstOrDefault()==null)
-                                {
-                                    DatoCorreo = GestionPersona.IngresoCorreo(new Correo() { IdPersona = DatoPersona.IdPersona,CorreoValor = PersonaEntidad.Correo });
-                                }
-                                else
-                                {
-                                    DatoCorreo = GestionPersona.ModificarCorreo(new Correo() {IdCorreo = Seguridad.DesEncriptar(DatoPersona.ListaCorreo.FirstOrDefault().IdCorreo), IdPersona = DatoPersona.IdPersona, CorreoValor = PersonaEntidad.Correo });
-                                }
-                                Correo = DatoCorreo;
-                                codigo = "200";
-                                mensaje = "EXITO";
-                                InformacionActualizada = new { Correo, Telefonos };
-                                respuesta = InformacionActualizada;
-                                objeto = new { codigo, mensaje,respuesta};
-                                return objeto;
+                                codigo = "500";
+                                mensaje = "Ocurrio un error al modificar el correo";
                             }
                             else
                             {
                                 codigo = "200";
                                 mensaje = "EXITO";
-                                InformacionActualizada = new {Telefonos };
-                                respuesta = InformacionActualizada;
+                                respuesta = DatoCorreo;
                                 objeto = new { codigo, mensaje, respuesta };
                                 return objeto;
                             }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

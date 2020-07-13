@@ -27,63 +27,93 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(ConfigurarVenta.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                if (ConfigurarVenta == null)
+                if (ConfigurarVenta.encriptada == null || string.IsNullOrEmpty(ConfigurarVenta.encriptada.Trim()))
                 {
-                    mensaje = "El dato a registrar llego vacio";
                     codigo = "418";
-                }
-                else if (ConfigurarVenta.IdCabeceraFactura == null || string.IsNullOrEmpty(ConfigurarVenta.IdCabeceraFactura))
-                {
-                    mensaje = "Ingrese el id de la factura";
-                    codigo = "418";
-                }
-                else if (ConfigurarVenta.IdPersona == null || string.IsNullOrEmpty(ConfigurarVenta.IdPersona))
-                {
-                    mensaje = "No a seleccionado ni una persona";
-                    codigo = "418";
-                }
-                else if(ConfigurarVenta.Efectivo == null || string.IsNullOrEmpty(ConfigurarVenta.Efectivo))
-                {
-                    mensaje = "Ingrese tipo de venta";
-                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    ConfigurarVenta _DatoAGuardar = new ConfigurarVenta();
-                    ConfigurarVenta.IdPersona = Seguridad.DesEncriptar(ConfigurarVenta.IdPersona);
-                    ConfigurarVenta.IdCabeceraFactura = Seguridad.DesEncriptar(ConfigurarVenta.IdCabeceraFactura);
-                    ConfigurarVenta DataVenta = new ConfigurarVenta();
-                    DataVenta = GestionConfigurarVenta.ConsultarConfigurarVentaPorFactura(int.Parse(ConfigurarVenta.IdCabeceraFactura));
-                    if (DataVenta.IdConfigurarVenta == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(ConfigurarVenta.encriptada).FirstOrDefault() == null)
                     {
-                        ConfigurarVenta.IdConfiguracionInteres = null;
-                        if (ConfigurarVenta.Efectivo == "0")
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (ConfigurarVenta == null)
                         {
-                            ConfigurarVenta.EstadoConfVenta = "0";
-                            ConfigurarVenta.AplicaSeguro = "1";
-                            if (ConfigurarVenta.FechaFinalCredito == null || ConfigurarVenta.FechaFinalCredito.ToString() == "01/01/0001")
+                            mensaje = "El dato a registrar llego vacio";
+                            codigo = "418";
+                        }
+                        else if (ConfigurarVenta.IdCabeceraFactura == null || string.IsNullOrEmpty(ConfigurarVenta.IdCabeceraFactura))
+                        {
+                            mensaje = "Ingrese el id de la factura";
+                            codigo = "418";
+                        }
+                        else if (ConfigurarVenta.IdPersona == null || string.IsNullOrEmpty(ConfigurarVenta.IdPersona))
+                        {
+                            mensaje = "No a seleccionado ni una persona";
+                            codigo = "418";
+                        }
+                        else if (ConfigurarVenta.Efectivo == null || string.IsNullOrEmpty(ConfigurarVenta.Efectivo))
+                        {
+                            mensaje = "Ingrese tipo de venta";
+                            codigo = "418";
+                        }
+                        else
+                        {
+                            ConfigurarVenta _DatoAGuardar = new ConfigurarVenta();
+                            ConfigurarVenta.IdPersona = Seguridad.DesEncriptar(ConfigurarVenta.IdPersona);
+                            ConfigurarVenta.IdCabeceraFactura = Seguridad.DesEncriptar(ConfigurarVenta.IdCabeceraFactura);
+                            ConfigurarVenta DataVenta = new ConfigurarVenta();
+                            DataVenta = GestionConfigurarVenta.ConsultarConfigurarVentaPorFactura(int.Parse(ConfigurarVenta.IdCabeceraFactura));
+                            if (DataVenta.IdConfigurarVenta == null)
                             {
-                                mensaje = "Ingrese La fecha de Fin de Credito";
-                                codigo = "418";
-                            }
-                            else
-                            {
-                                ConfiguracionInteres DatoInteres = new ConfiguracionInteres();
-                                DatoInteres = GestionInteres.ConsultarConfiguracionInteresActivo().FirstOrDefault();
-                                if (DatoInteres == null)
+                                ConfigurarVenta.IdConfiguracionInteres = null;
+                                if (ConfigurarVenta.Efectivo == "0")
                                 {
-                                    mensaje = "No existe ningun interes activo, por favor active";
-                                    codigo = "418";
+                                    ConfigurarVenta.EstadoConfVenta = "0";
+                                    ConfigurarVenta.AplicaSeguro = "1";
+                                    if (ConfigurarVenta.FechaFinalCredito == null || ConfigurarVenta.FechaFinalCredito.ToString() == "01/01/0001")
+                                    {
+                                        mensaje = "Ingrese La fecha de Fin de Credito";
+                                        codigo = "418";
+                                    }
+                                    else
+                                    {
+                                        ConfiguracionInteres DatoInteres = new ConfiguracionInteres();
+                                        DatoInteres = GestionInteres.ConsultarConfiguracionInteresActivo().FirstOrDefault();
+                                        if (DatoInteres == null)
+                                        {
+                                            mensaje = "No existe ningun interes activo, por favor active";
+                                            codigo = "418";
+                                        }
+                                        else
+                                        {
+                                            ConfigurarVenta.IdConfiguracionInteres = Seguridad.DesEncriptar(DatoInteres.IdConfiguracionInteres);
+                                            _DatoAGuardar = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
+                                            if (_DatoAGuardar.IdConfigurarVenta == null)
+                                            {
+                                                mensaje = "Ocurrio Un Error Al guardar el registro";
+                                                codigo = "418";
+                                            }
+                                            else
+                                            {
+                                                respuesta = _DatoAGuardar;
+                                                codigo = "200";
+                                                mensaje = "EXITO";
+                                                objeto = new { codigo, mensaje, respuesta };
+                                                return objeto;
+                                            }
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    ConfigurarVenta.IdConfiguracionInteres = Seguridad.DesEncriptar(DatoInteres.IdConfiguracionInteres);
+                                    ConfigurarVenta.FechaFinalCredito = null;
+                                    ConfigurarVenta.EstadoConfVenta = "1";
+                                    ConfigurarVenta.IdConfiguracionInteres = null;
                                     _DatoAGuardar = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
                                     if (_DatoAGuardar.IdConfigurarVenta == null)
                                     {
@@ -100,47 +130,21 @@ namespace API.Controllers
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
-                            ConfigurarVenta.FechaFinalCredito = null;
-                            ConfigurarVenta.EstadoConfVenta = "1";
-                            ConfigurarVenta.IdConfiguracionInteres = null;
-                            _DatoAGuardar = GestionConfigurarVenta.InsertarConfigurarVenta(ConfigurarVenta);
-                            if (_DatoAGuardar.IdConfigurarVenta == null)
-                            {
-                                mensaje = "Ocurrio Un Error Al guardar el registro";
-                                codigo = "418";
-                            }
                             else
                             {
-                                respuesta = _DatoAGuardar;
-                                codigo = "200";
-                                mensaje = "EXITO";
-                                objeto = new { codigo, mensaje, respuesta };
-                                return objeto;
+                                mensaje = "Ya existe una configuracion venta para esta factura";
+                                codigo = "418";
                             }
                         }
                     }
-                    else
-                    {
-                        mensaje = "Ya existe una configuracion venta para esta factura";
-                        codigo = "418";
-                    }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

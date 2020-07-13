@@ -32,106 +32,116 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(DetalleVenta.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                if (DetalleVenta.IdCabeceraFactura == null || string.IsNullOrEmpty(DetalleVenta.IdCabeceraFactura.Trim()))
+                if (DetalleVenta.encriptada == null || string.IsNullOrEmpty(DetalleVenta.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Falta el id cabecera factura";
-                }
-                else if(DetalleVenta.IdAsignarProductoLote == null || string.IsNullOrEmpty(DetalleVenta.IdAsignarProductoLote.Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta el producto a agregar";
-                }
-                else if(DetalleVenta.AplicaDescuento == null || string.IsNullOrEmpty(DetalleVenta.AplicaDescuento.Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta si aplica o no descuento";
-                }
-                else if(DetalleVenta.Cantidad == null || string.IsNullOrEmpty(DetalleVenta.Cantidad.ToString().Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta la cantidad a comprar";
-                }
-                else if(DetalleVenta.Cantidad <= 0)
-                {
-                    codigo = "400";
-                    mensaje = "La cantidad no puede ser menor o igual a cero";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    DetalleVenta.IdAsignarProductoLote = Seguridad.DesEncriptar(DetalleVenta.IdAsignarProductoLote);
-                    DetalleVenta.IdCabeceraFactura = Seguridad.DesEncriptar(DetalleVenta.IdCabeceraFactura);
-                    Stock DatoStock = new Stock();
-                    DatoStock = GestionDetalleVenta.ListarStockPorIdAsignarProductoLote(int.Parse(DetalleVenta.IdAsignarProductoLote)).FirstOrDefault();
-                    if (DatoStock == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(DetalleVenta.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "500";
-                        mensaje = "El producto que quiere insertar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        DetalleVenta _ObjDetalleVenta = new DetalleVenta();
-                        _ObjDetalleVenta = GestionDetalleVenta.FiltrarDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, "0").FirstOrDefault();
-                        int? CantidadDetalle = DetalleVenta.Cantidad;
-                        if (_ObjDetalleVenta != null)
+                        if (DetalleVenta.IdCabeceraFactura == null || string.IsNullOrEmpty(DetalleVenta.IdCabeceraFactura.Trim()))
                         {
-                            CantidadDetalle = CantidadDetalle + _ObjDetalleVenta.Cantidad;
+                            codigo = "400";
+                            mensaje = "Falta el id cabecera factura";
                         }
-                        if (CantidadDetalle > DatoStock.Cantidad)
+                        else if (DetalleVenta.IdAsignarProductoLote == null || string.IsNullOrEmpty(DetalleVenta.IdAsignarProductoLote.Trim()))
                         {
-                            codigo = "500";
-                            mensaje = "No Hay esta cantidad disponible, existe en stock solo " + DatoStock.Cantidad.ToString() + " Unidades";
+                            codigo = "400";
+                            mensaje = "Falta el producto a agregar";
+                        }
+                        else if (DetalleVenta.AplicaDescuento == null || string.IsNullOrEmpty(DetalleVenta.AplicaDescuento.Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta si aplica o no descuento";
+                        }
+                        else if (DetalleVenta.Cantidad == null || string.IsNullOrEmpty(DetalleVenta.Cantidad.ToString().Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta la cantidad a comprar";
+                        }
+                        else if (DetalleVenta.Cantidad <= 0)
+                        {
+                            codigo = "400";
+                            mensaje = "La cantidad no puede ser menor o igual a cero";
                         }
                         else
                         {
-                            if (DetalleVenta.AplicaDescuento == "1")
+                            DetalleVenta.IdAsignarProductoLote = Seguridad.DesEncriptar(DetalleVenta.IdAsignarProductoLote);
+                            DetalleVenta.IdCabeceraFactura = Seguridad.DesEncriptar(DetalleVenta.IdCabeceraFactura);
+                            Stock DatoStock = new Stock();
+                            DatoStock = GestionDetalleVenta.ListarStockPorIdAsignarProductoLote(int.Parse(DetalleVenta.IdAsignarProductoLote)).FirstOrDefault();
+                            if (DatoStock == null)
                             {
-                                if (DetalleVenta.PorcentajeDescuento == null || string.IsNullOrEmpty(DetalleVenta.PorcentajeDescuento.ToString()))
-                                {
-                                    codigo = "500";
-                                    mensaje = "Por favor elija el porcentaje de descuento";
-                                }
-                                else
-                                {
-                                    DetalleVenta DataDetalleVenta = new DetalleVenta();
-                                    DataDetalleVenta = GestionDetalleVenta.InsertarDetalleVenta(DetalleVenta);
-                                    if (DataDetalleVenta.IdDetalleVenta == null || string.IsNullOrEmpty(DataDetalleVenta.IdDetalleVenta))
-                                    {
-                                        codigo = "500";
-                                        mensaje = "Ocurrio un error al intentar añadir el detalle";
-                                    }
-                                    else
-                                    {
-                                        codigo = "200";
-                                        mensaje = "EXITO";
-                                        respuesta = DataDetalleVenta;
-                                        objeto = new { codigo, mensaje, respuesta };
-                                        return objeto;
-                                    }
-                                }
+                                codigo = "500";
+                                mensaje = "El producto que quiere insertar no existe";
                             }
                             else
                             {
-                                DetalleVenta DataDetalleVenta = new DetalleVenta();
-                                DataDetalleVenta = GestionDetalleVenta.InsertarDetalleVenta(DetalleVenta);
-                                if (DataDetalleVenta.IdDetalleVenta == null || string.IsNullOrEmpty(DataDetalleVenta.IdDetalleVenta))
+                                DetalleVenta _ObjDetalleVenta = new DetalleVenta();
+                                _ObjDetalleVenta = GestionDetalleVenta.FiltrarDetalleVenta(int.Parse(DetalleVenta.IdCabeceraFactura), int.Parse(DetalleVenta.IdAsignarProductoLote), DetalleVenta.AplicaDescuento, "0").FirstOrDefault();
+                                int? CantidadDetalle = DetalleVenta.Cantidad;
+                                if (_ObjDetalleVenta != null)
+                                {
+                                    CantidadDetalle = CantidadDetalle + _ObjDetalleVenta.Cantidad;
+                                }
+                                if (CantidadDetalle > DatoStock.Cantidad)
                                 {
                                     codigo = "500";
-                                    mensaje = "Ocurrio un error al intentar añadir el detalle";
+                                    mensaje = "No hay esta cantidad disponible, existe en stock solo " + DatoStock.Cantidad.ToString() + " unidades";
                                 }
                                 else
                                 {
-                                    codigo = "200";
-                                    mensaje = "EXITO";
-                                    respuesta = DataDetalleVenta;
-                                    objeto = new { codigo, mensaje, respuesta };
-                                    return objeto;
+                                    if (DetalleVenta.AplicaDescuento == "1")
+                                    {
+                                        if (DetalleVenta.PorcentajeDescuento == null || string.IsNullOrEmpty(DetalleVenta.PorcentajeDescuento.ToString()))
+                                        {
+                                            codigo = "500";
+                                            mensaje = "Por favor elija el porcentaje de descuento";
+                                        }
+                                        else
+                                        {
+                                            DetalleVenta DataDetalleVenta = new DetalleVenta();
+                                            DataDetalleVenta = GestionDetalleVenta.InsertarDetalleVenta(DetalleVenta);
+                                            if (DataDetalleVenta.IdDetalleVenta == null || string.IsNullOrEmpty(DataDetalleVenta.IdDetalleVenta))
+                                            {
+                                                codigo = "500";
+                                                mensaje = "Ocurrio un error al intentar añadir el detalle";
+                                            }
+                                            else
+                                            {
+                                                codigo = "200";
+                                                mensaje = "EXITO";
+                                                respuesta = DataDetalleVenta;
+                                                objeto = new { codigo, mensaje, respuesta };
+                                                return objeto;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        DetalleVenta DataDetalleVenta = new DetalleVenta();
+                                        DataDetalleVenta = GestionDetalleVenta.InsertarDetalleVenta(DetalleVenta);
+                                        if (DataDetalleVenta.IdDetalleVenta == null || string.IsNullOrEmpty(DataDetalleVenta.IdDetalleVenta))
+                                        {
+                                            codigo = "500";
+                                            mensaje = "Ocurrio un error al intentar añadir el detalle";
+                                        }
+                                        else
+                                        {
+                                            codigo = "200";
+                                            mensaje = "EXITO";
+                                            respuesta = DataDetalleVenta;
+                                            objeto = new { codigo, mensaje, respuesta };
+                                            return objeto;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -139,12 +149,6 @@ namespace API.Controllers
                 }
                 objeto = new {codigo,mensaje};
                 return objeto;
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
             }
             catch (Exception e)
             {
@@ -165,80 +169,82 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(DetalleVenta.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                mensaje = "EXITO";
-                codigo = "200";
-                if (DetalleVenta.IdDetalleVenta == null || string.IsNullOrEmpty(DetalleVenta.IdDetalleVenta.Trim()))
+                if (DetalleVenta.encriptada == null || string.IsNullOrEmpty(DetalleVenta.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "Ingrese el id del detalle de la venta";
-                }
-                else if(DetalleVenta.Cantidad == null || string.IsNullOrEmpty(DetalleVenta.Cantidad.ToString().Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "Ingrese la cantidad a aumentar";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    if (DetalleVenta.Cantidad<=0)
+                    if (Seguridad.ConsultarUsuarioPorToken(DetalleVenta.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "500";
-                        mensaje = "Ingrese una cantidad valida mayor a cero";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        DetalleVenta.IdDetalleVenta = Seguridad.DesEncriptar(DetalleVenta.IdDetalleVenta);
-                        DetalleVenta DataDetalleVenta = new DetalleVenta();
-                        DataDetalleVenta = GestionDetalleVenta.ConsultarDetalleVentaPorId(int.Parse(DetalleVenta.IdDetalleVenta.Trim())).FirstOrDefault();
-                        if (DataDetalleVenta == null)
+                        if (DetalleVenta.IdDetalleVenta == null || string.IsNullOrEmpty(DetalleVenta.IdDetalleVenta.Trim()))
                         {
-                            codigo = "500";
-                            mensaje = "El detalle de venta a aumentar no existe";
+                            codigo = "418";
+                            mensaje = "Ingrese el id del detalle de la venta";
+                        }
+                        else if (DetalleVenta.Cantidad == null || string.IsNullOrEmpty(DetalleVenta.Cantidad.ToString().Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese la cantidad a aumentar";
                         }
                         else
                         {
-                            Stock DataStock = new Stock();
-                            DataStock = GestionDetalleVenta.ListarStockPorIdAsignarProductoLote(int.Parse(Seguridad.DesEncriptar(DataDetalleVenta.IdAsignarProductoLote))).FirstOrDefault();
-                            if (DataStock == null)
+                            if (DetalleVenta.Cantidad <= 0)
                             {
                                 codigo = "500";
-                                mensaje = "El producto que desea aumentar no existe";
+                                mensaje = "Ingrese una cantidad valida mayor a cero";
                             }
                             else
                             {
-                                if (DetalleVenta.Cantidad > DataStock.Cantidad)
+                                DetalleVenta.IdDetalleVenta = Seguridad.DesEncriptar(DetalleVenta.IdDetalleVenta);
+                                DetalleVenta DataDetalleVenta = new DetalleVenta();
+                                DataDetalleVenta = GestionDetalleVenta.ConsultarDetalleVentaPorId(int.Parse(DetalleVenta.IdDetalleVenta.Trim())).FirstOrDefault();
+                                if (DataDetalleVenta == null)
                                 {
-                                    codigo = "418";
-                                    mensaje = "No Hay esta cantidad disponible, existe en stock solo " + DataStock.Cantidad.ToString() + " Unidades";
+                                    codigo = "500";
+                                    mensaje = "El detalle de venta a aumentar no existe";
                                 }
                                 else
                                 {
-                                    if (GestionDetalleVenta.AumentarDetalleVenta(DetalleVenta) == true)
+                                    Stock DataStock = new Stock();
+                                    DataStock = GestionDetalleVenta.ListarStockPorIdAsignarProductoLote(int.Parse(Seguridad.DesEncriptar(DataDetalleVenta.IdAsignarProductoLote))).FirstOrDefault();
+                                    if (DataStock == null)
                                     {
-                                        codigo = "200";
-                                        mensaje = "EXITO";
+                                        codigo = "500";
+                                        mensaje = "El producto que desea aumentar no existe";
                                     }
                                     else
                                     {
-                                        codigo = "200";
-                                        mensaje = "EXITO";
+                                        if (DetalleVenta.Cantidad > DataStock.Cantidad)
+                                        {
+                                            codigo = "418";
+                                            mensaje = "No Hay esta cantidad disponible, existe en stock solo " + DataStock.Cantidad.ToString() + " Unidades";
+                                        }
+                                        else
+                                        {
+                                            if (GestionDetalleVenta.AumentarDetalleVenta(DetalleVenta) == true)
+                                            {
+                                                codigo = "200";
+                                                mensaje = "EXITO";
+                                            }
+                                            else
+                                            {
+                                                codigo = "200";
+                                                mensaje = "EXITO";
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -261,37 +267,41 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveDelete = ListaClaves.Where(c => c.Identificador == 3).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(DetalleVenta.encriptada, _claveDelete.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _claveDelete.Descripcion)
-                //{
-                if (DetalleVenta.IdDetalleVenta == null || string.IsNullOrEmpty(DetalleVenta.IdDetalleVenta.Trim()))
+                if (DetalleVenta.encriptada == null || string.IsNullOrEmpty(DetalleVenta.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Ingrese el id del detalle de la venta a eliminar";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    DetalleVenta.IdDetalleVenta = Seguridad.DesEncriptar(DetalleVenta.IdDetalleVenta);
-                    if (GestionDetalleVenta.EliminarDetalleVenta(int.Parse(DetalleVenta.IdDetalleVenta)) == true)
+                    if (Seguridad.ConsultarUsuarioPorToken(DetalleVenta.encriptada).FirstOrDefault() == null)
                     {
-                        mensaje = "EXITO";
-                        codigo = "200";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        mensaje = "Ocurrio un error al intentar eliminar el detalle";
-                        codigo = "500";
+                        if (DetalleVenta.IdDetalleVenta == null || string.IsNullOrEmpty(DetalleVenta.IdDetalleVenta.Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Ingrese el id del detalle de la venta a eliminar";
+                        }
+                        else
+                        {
+                            DetalleVenta.IdDetalleVenta = Seguridad.DesEncriptar(DetalleVenta.IdDetalleVenta);
+                            if (GestionDetalleVenta.EliminarDetalleVenta(int.Parse(DetalleVenta.IdDetalleVenta)) == true)
+                            {
+                                mensaje = "EXITO";
+                                codigo = "200";
+                            }
+                            else
+                            {
+                                mensaje = "Ocurrio un error al intentar eliminar el detalle";
+                                codigo = "500";
+                            }
+                        }
                     }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -314,73 +324,77 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(DetalleVenta.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                if (DetalleVenta.IdCabeceraFactura == null || string.IsNullOrEmpty(DetalleVenta.IdCabeceraFactura.Trim()))
+                if (DetalleVenta.encriptada == null || string.IsNullOrEmpty(DetalleVenta.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Falta el id cabecera factura";
-                }
-                else if (DetalleVenta.IdKit == null || string.IsNullOrEmpty(DetalleVenta.IdKit.Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta el id del kit";
-                }
-                else if (DetalleVenta.Cantidad == null || string.IsNullOrEmpty(DetalleVenta.Cantidad.ToString().Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta la cantidad a agregar";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    DetalleVenta.IdCabeceraFactura = Seguridad.DesEncriptar(DetalleVenta.IdCabeceraFactura);
-                    DetalleVenta.IdKit = Seguridad.DesEncriptar(DetalleVenta.IdKit);
-                    AsignarProductosKits DatoKit = new AsignarProductosKits();
-                    DatoKit = GestionStock.ConsultarAsginarProductokits(int.Parse(DetalleVenta.IdKit)).FirstOrDefault();
-                    if (DatoKit == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(DetalleVenta.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "500";
-                        mensaje = "El kit que desea ingresar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        DetalleVenta DataDetalleVenta = new DetalleVenta();
-                        DataDetalleVenta = GestionDetalleVenta.CargarKitDeUnaFactura(new DetalleVenta() { IdCabeceraFactura = DetalleVenta.IdCabeceraFactura, IdKit = DetalleVenta.IdKit }).FirstOrDefault();
-                        int? cantidad = DetalleVenta.Cantidad;
-                        if (DataDetalleVenta!=null)
+                        if (DetalleVenta.IdCabeceraFactura == null || string.IsNullOrEmpty(DetalleVenta.IdCabeceraFactura.Trim()))
                         {
-                            cantidad = cantidad + DataDetalleVenta.Cantidad;
+                            codigo = "400";
+                            mensaje = "Falta el id cabecera factura";
                         }
-                        if (cantidad > DatoKit.CantidadMaxima)
+                        else if (DetalleVenta.IdKit == null || string.IsNullOrEmpty(DetalleVenta.IdKit.Trim()))
                         {
-                            codigo = "500";
-                            mensaje = "Solo existe en stock la cantidad de "+ DatoKit.CantidadMaxima.ToString() +" unidades";
+                            codigo = "400";
+                            mensaje = "Falta el id del kit";
+                        }
+                        else if (DetalleVenta.Cantidad == null || string.IsNullOrEmpty(DetalleVenta.Cantidad.ToString().Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta la cantidad a agregar";
                         }
                         else
                         {
-                            if (GestionStock.IngresoDetalleVentaPorKit(DetalleVenta) == true)
+                            DetalleVenta.IdCabeceraFactura = Seguridad.DesEncriptar(DetalleVenta.IdCabeceraFactura);
+                            DetalleVenta.IdKit = Seguridad.DesEncriptar(DetalleVenta.IdKit);
+                            AsignarProductosKits DatoKit = new AsignarProductosKits();
+                            DatoKit = GestionStock.ConsultarAsginarProductokits(int.Parse(DetalleVenta.IdKit)).FirstOrDefault();
+                            if (DatoKit == null)
                             {
-                                mensaje = "EXITO";
-                                codigo = "200";
+                                codigo = "500";
+                                mensaje = "El kit que desea ingresar no existe";
                             }
                             else
                             {
-                                mensaje = "Ocurrio un eror al intentar ingresar el kit";
-                                codigo = "500";
+                                DetalleVenta DataDetalleVenta = new DetalleVenta();
+                                DataDetalleVenta = GestionDetalleVenta.CargarKitDeUnaFactura(new DetalleVenta() { IdCabeceraFactura = DetalleVenta.IdCabeceraFactura, IdKit = DetalleVenta.IdKit }).FirstOrDefault();
+                                int? cantidad = DetalleVenta.Cantidad;
+                                if (DataDetalleVenta != null)
+                                {
+                                    cantidad = cantidad + DataDetalleVenta.Cantidad;
+                                }
+                                if (cantidad > DatoKit.CantidadMaxima)
+                                {
+                                    codigo = "500";
+                                    mensaje = "Solo existe en stock la cantidad de " + DatoKit.CantidadMaxima.ToString() + " unidades";
+                                }
+                                else
+                                {
+                                    if (GestionStock.IngresoDetalleVentaPorKit(DetalleVenta) == true)
+                                    {
+                                        mensaje = "EXITO";
+                                        codigo = "200";
+                                    }
+                                    else
+                                    {
+                                        mensaje = "Ocurrio un eror al intentar ingresar el kit";
+                                        codigo = "500";
+                                    }
+                                }
                             }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -403,43 +417,47 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveDelete = ListaClaves.Where(c => c.Identificador == 3).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(DetalleVenta.encriptada, _claveDelete.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _claveDelete.Descripcion)
-                //{
-                if (DetalleVenta.IdCabeceraFactura == null || string.IsNullOrEmpty(DetalleVenta.IdCabeceraFactura.Trim()))
+                if (DetalleVenta.encriptada == null || string.IsNullOrEmpty(DetalleVenta.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Falta el id cabecera factura";
-                }
-                else if (DetalleVenta.IdKit == null || string.IsNullOrEmpty(DetalleVenta.IdKit.Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta el id del kit";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    DetalleVenta.IdKit = Seguridad.DesEncriptar(DetalleVenta.IdKit);
-                    DetalleVenta.IdCabeceraFactura = Seguridad.DesEncriptar(DetalleVenta.IdCabeceraFactura);
-                    if (GestionCabeceraFactura.ListarDetalleVentaPorKit(int.Parse(DetalleVenta.IdKit), int.Parse(DetalleVenta.IdCabeceraFactura)) == true)
+                    if (Seguridad.ConsultarUsuarioPorToken(DetalleVenta.encriptada).FirstOrDefault() == null)
                     {
-                        mensaje = "EXITO";
-                        codigo = "200";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        mensaje = "Ocurrio un error al eliminar el kit porfavor intentar de nuevo";
-                        codigo = "500";
+                        if (DetalleVenta.IdCabeceraFactura == null || string.IsNullOrEmpty(DetalleVenta.IdCabeceraFactura.Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta el id cabecera factura";
+                        }
+                        else if (DetalleVenta.IdKit == null || string.IsNullOrEmpty(DetalleVenta.IdKit.Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta el id del kit";
+                        }
+                        else
+                        {
+                            DetalleVenta.IdKit = Seguridad.DesEncriptar(DetalleVenta.IdKit);
+                            DetalleVenta.IdCabeceraFactura = Seguridad.DesEncriptar(DetalleVenta.IdCabeceraFactura);
+                            if (GestionCabeceraFactura.ListarDetalleVentaPorKit(int.Parse(DetalleVenta.IdKit), int.Parse(DetalleVenta.IdCabeceraFactura)) == true)
+                            {
+                                mensaje = "EXITO";
+                                codigo = "200";
+                            }
+                            else
+                            {
+                                mensaje = "Ocurrio un error al eliminar el kit porfavor intentar de nuevo";
+                                codigo = "500";
+                            }
+                        }
                     }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }

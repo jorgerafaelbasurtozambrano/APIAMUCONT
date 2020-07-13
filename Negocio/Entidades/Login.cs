@@ -10,6 +10,6 @@ namespace Negocio.Entidades
     {
         public string usuario { get; set; }
         public string contrasena { get; set; }
-        public string token { get; set; }
+        public string encriptada { get; set; }
     }
 }

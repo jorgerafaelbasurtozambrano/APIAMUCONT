@@ -29,61 +29,65 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(AsignarSeguro.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                if (AsignarSeguro.IdAsignarTUResp == null || string.IsNullOrEmpty(AsignarSeguro.IdAsignarTUResp))
+                if (AsignarSeguro.encriptada == null || string.IsNullOrEmpty(AsignarSeguro.encriptada.Trim()))
                 {
-                    mensaje = "Ingrese el responsable";
                     codigo = "418";
-                }
-                else if (AsignarSeguro.IdAsignarTUTecn == null || string.IsNullOrEmpty(AsignarSeguro.IdAsignarTUTecn))
-                {
-                    mensaje = "Ingrese el tecnico";
-                    codigo = "418";
-                }
-                else if(AsignarSeguro.IdConfigurarVenta == null || string.IsNullOrEmpty(AsignarSeguro.IdConfigurarVenta))
-                {
-                    mensaje = "Ingrese el configurar venta";
-                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    AsignarSeguro _DataAsignarSeguro = new AsignarSeguro();
-                    AsignarSeguro.IdAsignarTUResp = Seguridad.DesEncriptar(AsignarSeguro.IdAsignarTUResp);
-                    AsignarSeguro.IdAsignarTUTecn = Seguridad.DesEncriptar(AsignarSeguro.IdAsignarTUTecn);
-                    AsignarSeguro.IdConfigurarVenta = Seguridad.DesEncriptar(AsignarSeguro.IdConfigurarVenta);
-                    _DataAsignarSeguro = _CatalogoAsignarSeguro.ConsultarAsignarSeguroPorConfigurarVenta(int.Parse(AsignarSeguro.IdConfigurarVenta)).FirstOrDefault();
-                    if (_DataAsignarSeguro == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(AsignarSeguro.encriptada).FirstOrDefault() == null)
                     {
-                        respuesta = _CatalogoAsignarSeguro.IngresoAsignarSeguro(AsignarSeguro);
-                        mensaje = "EXITO";
-                        codigo = "200";
-                        objeto = new { codigo, mensaje, respuesta };
-                        return objeto;
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        mensaje = "Ya existe asignar seguro en esta factura";
-                        codigo = "418";
+                        if (AsignarSeguro.IdAsignarTUResp == null || string.IsNullOrEmpty(AsignarSeguro.IdAsignarTUResp))
+                        {
+                            mensaje = "Ingrese el responsable";
+                            codigo = "418";
+                        }
+                        else if (AsignarSeguro.IdAsignarTUTecn == null || string.IsNullOrEmpty(AsignarSeguro.IdAsignarTUTecn))
+                        {
+                            mensaje = "Ingrese el tecnico";
+                            codigo = "418";
+                        }
+                        else if (AsignarSeguro.IdConfigurarVenta == null || string.IsNullOrEmpty(AsignarSeguro.IdConfigurarVenta))
+                        {
+                            mensaje = "Ingrese el configurar venta";
+                            codigo = "418";
+                        }
+                        else
+                        {
+                            AsignarSeguro _DataAsignarSeguro = new AsignarSeguro();
+                            AsignarSeguro.IdAsignarTUResp = Seguridad.DesEncriptar(AsignarSeguro.IdAsignarTUResp);
+                            AsignarSeguro.IdAsignarTUTecn = Seguridad.DesEncriptar(AsignarSeguro.IdAsignarTUTecn);
+                            AsignarSeguro.IdConfigurarVenta = Seguridad.DesEncriptar(AsignarSeguro.IdConfigurarVenta);
+                            _DataAsignarSeguro = _CatalogoAsignarSeguro.ConsultarAsignarSeguroPorConfigurarVenta(int.Parse(AsignarSeguro.IdConfigurarVenta)).FirstOrDefault();
+                            if (_DataAsignarSeguro == null)
+                            {
+                                respuesta = _CatalogoAsignarSeguro.IngresoAsignarSeguro(AsignarSeguro);
+                                mensaje = "EXITO";
+                                codigo = "200";
+                                objeto = new { codigo, mensaje, respuesta };
+                                return objeto;
+                            }
+                            else
+                            {
+                                mensaje = "Ya existe asignar seguro en esta factura";
+                                codigo = "418";
+                            }
+                        }
                     }
                 }
-                objeto = new { codigo, mensaje};
+                objeto = new { codigo, mensaje };
                 return objeto;
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
             }
             catch (Exception e)
             {
                 mensaje = e.Message;
-                codigo = "418";
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

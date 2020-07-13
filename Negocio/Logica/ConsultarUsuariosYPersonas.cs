@@ -130,19 +130,13 @@ namespace Negocio.Logica
 
                 ListaDatos.Add(new UsuariosSistema()
                 {
-                    //IdPersona = seguridad.Encriptar(item.PersonaIdPersona.ToString()),
-                    //NumeroDocumento = item.PersonaNumeroDocumento,
-                    //ApellidoPaterno = item.PersonaApellidoPaterno,
-                    //ApellidoMaterno = item.PersonaApellidoMaterno,
-                    //PrimerNombre = item.PersonaPrimerNombre,
-                    //SegundoNombre = item.PersonaSegundoNombre,
-
                     IdUsuario = seguridad.Encriptar(item.UsuarioIdUsuario.ToString()),
                     UsuarioLogin = item.UsuarioUsuario,
                     Contrasena = item.UsuarioContrasena,
                     EstadoUsuario = item.UsuarioEstado,
                     PersonaEntidad = ListaPersona.FirstOrDefault(),
                     ListaTipoUsuario = ListaTipoUsuario,
+                    Token = item.Token
                 });
             }
             return ListaDatos.FirstOrDefault();

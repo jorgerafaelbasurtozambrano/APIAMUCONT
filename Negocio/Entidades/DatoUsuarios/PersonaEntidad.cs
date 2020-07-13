@@ -31,6 +31,12 @@ namespace Negocio.Entidades.DatoUsuarios
         public List<Comunidad> ListaComunidad { get; set; }
         public List<AsignarTecnicoPersonaComunidad> _AsignarTecnicoPersonaComunidad { get; set; }
         public string Correo { get; set; }
+        public string Telefono1 { get; set; }
+        public string IdTipoTelefono1 { get; set; }
+        public string Telefono2 { get; set; }
+        public string IdTipoTelefono2 { get; set; }
+        public string IdTelefono1 { get; set; }
+        public string IdTelefono2 { get; set; }
     }
     public class PersonaSeguimientoFinalizado
     {

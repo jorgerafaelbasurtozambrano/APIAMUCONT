@@ -5,11 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.IO;
+using Datos;
+using Negocio.Entidades.DatoUsuarios;
+using Negocio.Entidades;
 
 namespace Negocio.Metodos
 {
     public class Seguridad
     {
+        AMUCOMTEntities ConexionBD = new AMUCOMTEntities();
         private static byte[] _salt = System.Text.Encoding.ASCII.GetBytes("nothackingll");
 
         /// <summary>
@@ -160,6 +164,138 @@ namespace Negocio.Metodos
             }
 
             return buffer;
+        }
+        public string setTokenUsuario(UsuariosSistema _UsuariosSistema)
+        {
+            string token = "";
+            token = Encriptar(DesEncriptar(_UsuariosSistema.IdUsuario) + DateTime.Now.Date.ToString());
+            ConexionBD.sp_AsignarTokenUsuario(token,int.Parse(DesEncriptar(_UsuariosSistema.IdUsuario)));
+            return token;
+        }
+        public bool EliminarTokenUsuario(int _idUsario)
+        {
+            try
+            {
+                ConexionBD.sp_EliminarTokenUsuario(_idUsario);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public List<UsuariosSistema> ConsultarUsuarioPorToken(string _token)
+        {
+            List<UsuariosSistema> Usuario = new List<UsuariosSistema>();
+            foreach (var item in ConexionBD.sp_ConsultarUsuarioPorToken(_token))
+            {
+                Usuario.Add(new UsuariosSistema()
+                {
+                    IdUsuario = Encriptar(item.IdUsuario.ToString()),
+                    UsuarioLogin = item.Usuario,
+                    Contrasena = item.Contrasena
+                });
+            }
+            return Usuario;
+        }
+        public List<TicketVenta> ConsultarTicketVentaRubroPorPlaca(string Placa)
+        {
+            List<TicketVenta> ListaTicket = new List<TicketVenta>();
+            foreach (var item in ConexionBD.sp_ConsultarTicketVentaPorPlacaCarro(Placa))
+            {
+                ListaTicket.Add(new TicketVenta()
+                {
+                    IdTicketVenta = Encriptar(item.VentaRubroIdVentaRubro.ToString()),
+                    Codigo = item.VentaRubroCodigo,
+                    Anulada = item.VentaRubroAnulado,
+                    FechaIngreso = item.VentaRubroFechaEntrada,
+                    FechaSalida = item.VentaRubroFechaSalida,
+                    IdPersonaCliente = Encriptar(item.VentaRubroIdPersonaCliente.ToString()),
+                    IdPersonaChofer = Encriptar(item.VentaRubroIdPersonaChofer.ToString()),
+                    IdTipoRubro = Encriptar(item.VentaRubroIdTipoRubro.ToString()),
+                    IdTipoPresentacionRubro = Encriptar(item.VentaRubroIdTipoPresentacionRubro.ToString()),
+                    IdAsignarTU = Encriptar(item.VentaRubroIdAsignarTU.ToString()),
+                    IdVehiculo = Encriptar(item.VentaRubroIdVehiculo.ToString()),
+                    PesoTara = item.VentaRubroPesoTara,
+                    PesoBruto = item.VentaRubroPesoBruto,
+                    PrecioPorQuintal = item.VentaRubroPrecioPorQuintal,
+                    PorcentajeImpureza = item.VentaRubroPorcentajeImpureza,
+                    PorcentajeHumedad = item.VentaRubroPorcentajeHumedad,
+                    PesoNeto = item.VentaRubroPesoNeto,
+                    PesoACobrar = item.VentaRubroPesoACobrar,
+                    TotalACobrar = item.VentaRubroTotalACobrar,
+                    Estado = item.VentaRubroEstado,
+                    _Vehiculo = new Vehiculo()
+                    {
+                        IdVehiculo = Encriptar(item.VehiculoIdVehiculo.ToString()),
+                        Estado = item.VehiculoEstado,
+                        Placa = item.VehiculoPlaca,
+                        FechaCreacion = item.VehiculoFechaCreacion,
+                        IdAsignarTU = Encriptar(item.VehiculoIdAsignarTU.ToString()),
+                    },
+                    _TipoRubro = new TipoRubro()
+                    {
+                        IdTipoRubro = Encriptar(item.TipoRubroIdTipoRubro.ToString()),
+                        Descripcion = item.TipoRubroDescripcion,
+                        FechaCreacion = item.TipoRubroFechaCreacion,
+                        Identificador = item.TipoRuboIdentificador,
+                        Estado = item.TipoRubroEstado
+                    },
+                    _TipoPresentacionRubro = new TipoPresentacionRubro()
+                    {
+                        IdTipoPresentacionRubro = Encriptar(item.TipoPresentacionRubrosIdTipoPresentacionRubros.ToString()),
+                        Descripcion = item.TipoPresentacionRubrosDescripcion,
+                        FechaCreacion = item.TipoPresentacionRubrosFechaCreacion,
+                        Identificador = item.TipoPresentacionRubrosIdentificador,
+                        Estado = item.TipoPresentacionRubrosEstado
+                    }
+                });
+            }
+            return ListaTicket;
+        }
+        public List<Ticket> ConsultarTiketsPorPlaca(string Placa)
+        {
+            List<Ticket> ListaTicket = new List<Ticket>();
+            foreach (var item in ConexionBD.sp_ConsultarTicketPorCarroPorPlacaCarro(Placa))
+            {
+                ListaTicket.Add(new Ticket()
+                {
+                    IdTicket = Encriptar(item.TicketCompraIdTicket.ToString()),
+                    Codigo = item.TicketCompraCodigo,
+                    FechaIngreso = item.TicketCompraFechaIngreso,
+                    PesoBruto = item.TicketCompraPesoBruto,
+                    IdAsignarTU = Encriptar(item.TicketCompraIdAsignarTU.ToString()),
+                    IdPersona = Encriptar(item.TicketCompraIdPersona.ToString()),
+                    IdTipoPresentacionRubro = Encriptar(item.TicketCompraIdTipoPresentacionRubros.ToString()),
+                    IdTipoRubro = Encriptar(item.TicketCompraIdTipoRubro.ToString()),
+                    Estado = item.TicketCompraEstado,
+                    _Vehiculo = new Vehiculo()
+                    {
+                        IdVehiculo = Encriptar(item.VehiculoIdVehiculo.ToString()),
+                        Estado = item.VehiculoEstado,
+                        Placa = item.VehiculoPlaca,
+                        FechaCreacion = item.VehiculoFechaCreacion,
+                        IdAsignarTU = Encriptar(item.VehiculoIdAsignarTU.ToString()),
+                    },
+                    _TipoRubro = new TipoRubro()
+                    {
+                        IdTipoRubro = Encriptar(item.TipoRubroIdTipoRubro.ToString()),
+                        Descripcion = item.TipoRubroDescripcion,
+                        FechaCreacion = item.TipoRubroFechaCreacion,
+                        Identificador = item.TipoRuboIdentificador,
+                        Estado = item.TipoRubroEstado
+                    },
+                    _TipoPresentacionRubro = new TipoPresentacionRubro()
+                    {
+                        IdTipoPresentacionRubro = Encriptar(item.TipoPresentacionRubrosIdTipoPresentacionRubros.ToString()),
+                        Descripcion = item.TipoPresentacionRubrosDescripcion,
+                        FechaCreacion = item.TipoPresentacionRubrosFechaCreacion,
+                        Identificador = item.TipoPresentacionRubrosIdentificador,
+                        Estado = item.TipoPresentacionRubrosEstado
+                    },
+                });
+            }
+            return ListaTicket;
         }
     }
 }

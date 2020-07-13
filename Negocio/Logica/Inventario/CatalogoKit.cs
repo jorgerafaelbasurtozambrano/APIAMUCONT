@@ -77,7 +77,6 @@ namespace Negocio.Logica.Inventario
             }
             return ListaAsignarDescuentoKit;
         }
-
         public AsignarDescuentoKit InsertarAsignarDescuentoKit(AsignarDescuentoKit AsignarDescuentoKit)
         {
             try
@@ -132,17 +131,31 @@ namespace Negocio.Logica.Inventario
         {
             try
             {
-                foreach (var item in ConexionBD.sp_ModificarKit(int.Parse(Kit.IdKit), Kit.Codigo, Kit.Descripcion.ToUpper()))
+                Descuento DatoDescuento = new Descuento();
+                DatoDescuento = ConsultarDescuento(Kit.AsignarDescuentoKit.Descuento.Porcentaje).FirstOrDefault();
+                if (DatoDescuento == null)
                 {
-                    Kit.IdKit = Seguridad.Encriptar(item.IdKit.ToString());
-                    Kit.Descripcion = item.Descripcion;
-                    Kit.Codigo = item.Codigo;
-                    Kit.Descripcion = item.Descripcion;
-                    Kit.FechaActualizacion = item.FechaActualizacion;
-                    Kit.FechaCreacion = item.FechaCreacion;
-                    Kit.KitUtilizado = item.KitUtilizado;
+                    DatoDescuento = InsertarDescuento(new Descuento() { Porcentaje = Kit.AsignarDescuentoKit.Descuento.Porcentaje });
                 }
-                return Kit;
+                if (DatoDescuento.IdDescuento == null)
+                {
+                    Kit.IdKit = null;
+                    return Kit;
+                }
+                else
+                {
+                    foreach (var item in ConexionBD.sp_ModificarKit(int.Parse(Kit.IdKit), Kit.Codigo, Kit.Descripcion.ToUpper(),int.Parse(Seguridad.DesEncriptar(DatoDescuento.IdDescuento))))
+                    {
+                        Kit.IdKit = Seguridad.Encriptar(item.IdKit.ToString());
+                        Kit.Descripcion = item.Descripcion;
+                        Kit.Codigo = item.Codigo;
+                        Kit.Descripcion = item.Descripcion;
+                        Kit.FechaActualizacion = item.FechaActualizacion;
+                        Kit.FechaCreacion = item.FechaCreacion;
+                        Kit.KitUtilizado = item.KitUtilizado;
+                    }
+                }
+                return ConsultarKitPorId(int.Parse(Seguridad.DesEncriptar(Kit.IdKit))).FirstOrDefault();
             }
             catch (Exception)
             {
@@ -238,7 +251,6 @@ namespace Negocio.Logica.Inventario
             }
             return ListaKit;
         }
-
         public List<Descuento> ConsultarDescuento(int? Descuento)
         {
             List<Descuento> ListaDescuento = new List<Descuento>();

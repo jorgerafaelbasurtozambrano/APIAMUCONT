@@ -20,5 +20,6 @@ namespace Datos
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public Nullable<System.DateTime> FechaActualizacion { get; set; }
         public Nullable<bool> Estado { get; set; }
+        public string Token { get; set; }
     }
 }

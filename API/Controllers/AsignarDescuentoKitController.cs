@@ -27,30 +27,36 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(AsignarDescuentoKit.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                mensaje = "EXITO";
-                codigo = "200";
-                AsignarDescuentoKit.IdDescuento = Seguridad.DesEncriptar(AsignarDescuentoKit.IdDescuento);
-                AsignarDescuentoKit.IdKit = Seguridad.DesEncriptar(AsignarDescuentoKit.IdKit);
-                respuesta = GestionAsignarDescuentoKit.InsertarAsignarDescuentoKit(AsignarDescuentoKit);
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (AsignarDescuentoKit.encriptada == null || string.IsNullOrEmpty(AsignarDescuentoKit.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(AsignarDescuentoKit.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        AsignarDescuentoKit.IdDescuento = Seguridad.DesEncriptar(AsignarDescuentoKit.IdDescuento);
+                        AsignarDescuentoKit.IdKit = Seguridad.DesEncriptar(AsignarDescuentoKit.IdKit);
+                        respuesta = GestionAsignarDescuentoKit.InsertarAsignarDescuentoKit(AsignarDescuentoKit);
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

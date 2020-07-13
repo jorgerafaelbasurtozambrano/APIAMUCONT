@@ -330,6 +330,9 @@
     <Parameter Name="idAsignarProductoLote" Type="int" Mode="In" />
     <Parameter Name="idCabeceraFactura" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarFacturaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
+    <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarLote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
     <Parameter Name="IdCabecera" Type="int" Mode="In" />
     <Parameter Name="IdRelacionLogica" Type="int" Mode="In" />
@@ -395,6 +398,10 @@
   </Function>
   <Function Name="sp_EliminarDetalleFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
     <Parameter Name="IdDetalleFactura" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarFacturasPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
+    <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
+    <Parameter Name="IdTipoTransaccion" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_EliminarLote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
     <Parameter Name="IdLote" Type="int" Mode="In" />
@@ -578,6 +585,7 @@
     <Parameter Name="IdKit" Type="int" Mode="In" />
     <Parameter Name="Codigo" Type="nvarchar" Mode="In" />
     <Parameter Name="Descripcion" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdDescuento" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_ModificarMedida" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Inventario">
     <Parameter Name="IdMedida" Type="int" Mode="In" />
@@ -605,6 +613,106 @@
     <Parameter Name="idMedida" Type="int" Mode="In" />
     <Parameter Name="idPresentacion" Type="int" Mode="In" />
     <Parameter Name="cantidadMedida" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_AnularTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdTicket" Type="int" Mode="In" />
+    <Parameter Name="IdAsignarTU" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_AnularTicketVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdTicketVenta" Type="int" Mode="In" />
+    <Parameter Name="IdAsignarTUAnulado" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarStockRubroPorIdTipoRubro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdTipoRubro" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarStockRubros" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros" />
+  <Function Name="sp_ConsultarTickenVentaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdVentaRubro" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarTicketAnulados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros" />
+  <Function Name="sp_ConsultarTicketPorCarro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros" />
+  <Function Name="sp_ConsultarTicketPorCarroPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdTicket" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarTicketPorCarroPorPlacaCarro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="Placa" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarTicketPorSaco" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros" />
+  <Function Name="sp_ConsultarTicketVentaAnulados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros" />
+  <Function Name="sp_ConsultarTicketVentaFinalizados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros" />
+  <Function Name="sp_ConsultarTicketVentaPorPlacaCarro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="Placa" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarTicketVentaSinFinalizar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros" />
+  <Function Name="sp_ConsultarTipoPresentacionRubro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros" />
+  <Function Name="sp_ConsultarTipoPresentacionRubroPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdTipoPresentacionRubro" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarTipoRubro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros" />
+  <Function Name="sp_ConsultarVehiculoPorPlaca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="Placa" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_ConsultarVehiculos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros" />
+  <Function Name="sp_CrearTicketPorCarro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdAsignarTU" Type="int" Mode="In" />
+    <Parameter Name="PesoBruto" Type="decimal" Mode="In" />
+    <Parameter Name="IdVehiculo" Type="int" Mode="In" />
+    <Parameter Name="IdPersona" Type="int" Mode="In" />
+    <Parameter Name="IdTipoRubro" Type="int" Mode="In" />
+    <Parameter Name="IdTipoPresentacionRubro" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_CrearTicketPorSaco" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdAsignarTU" Type="int" Mode="In" />
+    <Parameter Name="PesoNeto" Type="decimal" Mode="In" />
+    <Parameter Name="IdPersona" Type="int" Mode="In" />
+    <Parameter Name="IdTipoRubro" Type="int" Mode="In" />
+    <Parameter Name="IdTipoPresentacionRubro" Type="int" Mode="In" />
+    <Parameter Name="PorcentajeHumedad" Type="decimal" Mode="In" />
+    <Parameter Name="PorcentajeImpureza" Type="decimal" Mode="In" />
+    <Parameter Name="PrecioPorQuintal" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="sp_CrearTicketVentaPorCarro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdPersonaCliente" Type="int" Mode="In" />
+    <Parameter Name="IdPersonaChofer" Type="int" Mode="In" />
+    <Parameter Name="IdTipoRubro" Type="int" Mode="In" />
+    <Parameter Name="IdTipoPresentacionRubro" Type="int" Mode="In" />
+    <Parameter Name="IdAsignarTU" Type="int" Mode="In" />
+    <Parameter Name="IdVehiculo" Type="int" Mode="In" />
+    <Parameter Name="PesoTara" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="sp_CrearTicketVentaPorSaco" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdPersonaCliente" Type="int" Mode="In" />
+    <Parameter Name="IdTipoRubro" Type="int" Mode="In" />
+    <Parameter Name="IdTipoPresentacionRubro" Type="int" Mode="In" />
+    <Parameter Name="IdAsignarTU" Type="int" Mode="In" />
+    <Parameter Name="PesoNeto" Type="decimal" Mode="In" />
+    <Parameter Name="PorcentajeImpureza" Type="decimal" Mode="In" />
+    <Parameter Name="PorcentajeHumedad" Type="decimal" Mode="In" />
+    <Parameter Name="PrecioPorQuintal" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="sp_CrearVehiculo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="Placa" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IdAsignarTU" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdTicket" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarTicketVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdVentaRubro" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_FinalizarTicket" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdTicket" Type="int" Mode="In" />
+    <Parameter Name="PesoTara" Type="decimal" Mode="In" />
+    <Parameter Name="PorcentajeHumedad" Type="decimal" Mode="In" />
+    <Parameter Name="PrecioPorQuintal" Type="decimal" Mode="In" />
+    <Parameter Name="PorcentajeImpureza" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="sp_FinalizarTicketVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Rubros">
+    <Parameter Name="IdTicketVenta" Type="int" Mode="In" />
+    <Parameter Name="PesoBruto" Type="decimal" Mode="In" />
+    <Parameter Name="PrecioPorQuintal" Type="decimal" Mode="In" />
+    <Parameter Name="PorcentajeImpureza" Type="decimal" Mode="In" />
+    <Parameter Name="PorcentajeHumedad" Type="decimal" Mode="In" />
   </Function>
   <Function Name="sp_ConsultarTokens" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seguridad" />
   <Function Name="ConsultarCantonesDeUnaProvincia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TalentoHumano">
@@ -802,6 +910,10 @@
     <Parameter Name="Numero" Type="nvarchar" Mode="In" />
     <Parameter Name="IdTipoTelefono" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_AsignarTokenUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+    <Parameter Name="Token" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IdUsuario" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_BuscarModulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
     <Parameter Name="IdTipoUsuario" Type="int" Mode="In" />
   </Function>
@@ -840,6 +952,9 @@
   <Function Name="sp_ConsultarUsuarioPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
     <Parameter Name="IdUsuario" Type="int" Mode="In" />
   </Function>
+  <Function Name="sp_ConsultarUsuarioPorToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+    <Parameter Name="Token" Type="nvarchar(max)" Mode="In" />
+  </Function>
   <Function Name="sp_ConsultarUsuarioPorUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
     <Parameter Name="Usuario" Type="nvarchar(max)" Mode="In" />
   </Function>
@@ -873,6 +988,9 @@
   </Function>
   <Function Name="sp_EliminarProvincia1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios" StoreFunctionName="sp_EliminarProvincia">
     <Parameter Name="IdProvincia" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EliminarTokenUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+    <Parameter Name="IdUsuario" Type="int" Mode="In" />
   </Function>
   <Function Name="sp_EliminarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
     <Parameter Name="IdUsuario" Type="int" Mode="In" />

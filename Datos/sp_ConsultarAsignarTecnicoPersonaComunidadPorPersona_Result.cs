@@ -19,5 +19,6 @@ namespace Datos
         public int IdComunidad { get; set; }
         public bool Estado { get; set; }
         public System.DateTime FechaAsignacion { get; set; }
+        public Nullable<System.DateTime> FechaFinalizacion { get; set; }
     }
 }

@@ -11,14 +11,15 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_ConsultarConfiguracionInteresPorId_Result1
+    public partial class sp_ConsultarStockRubros_Result
     {
-        public int IdConfiguracionInteres { get; set; }
-        public bool Estado { get; set; }
-        public int IdTipoInteres { get; set; }
-        public int IdTipoInteresMora { get; set; }
-        public int TasaInteres { get; set; }
-        public int TasaInteresMora { get; set; }
-        public string ConfigurarInteresUtilizado { get; set; }
+        public int StockRubroIdStockRubro { get; set; }
+        public int StockRubroIdTipoRubro { get; set; }
+        public Nullable<decimal> StockRubroStock { get; set; }
+        public int TipoRubroIdTipoRubro { get; set; }
+        public string TipoRubroDescripcion { get; set; }
+        public System.DateTime TipoRubroFechaCreacion { get; set; }
+        public int TipoRubroIdentificador { get; set; }
+        public bool TipoRubroEstado { get; set; }
     }
 }

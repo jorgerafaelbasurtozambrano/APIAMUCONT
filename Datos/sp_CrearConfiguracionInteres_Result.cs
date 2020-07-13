@@ -16,7 +16,8 @@ namespace Datos
         public int IdConfiguracionInteres { get; set; }
         public int IdTipoInteres { get; set; }
         public int TasaInteres { get; set; }
+        public int IdTipoInteresMora { get; set; }
+        public int TasaInteresMora { get; set; }
         public bool Estado { get; set; }
-        public int PlazoMeses { get; set; }
     }
 }

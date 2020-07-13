@@ -301,7 +301,8 @@ namespace Negocio.Logica.Inventario
         {
             CargarConfigurarProductos();
             //return ListaConfigurarProductos.Where(p => p.IdConfigurarProducto != "" && p.estado != false && p.Medida.Estado != false && p.Presentacion.Estado != false && p.Producto.Estado != false && p.Producto.TipoProducto.estado != false).GroupBy(a => a.Producto.IdProducto).Select(grp => grp.First()).ToList();
-            return ListaConfigurarProductos.Where(p => p.IdConfigurarProducto != "").GroupBy(a => a.Producto.IdProducto).Select(grp => grp.First()).ToList();
+            //return ListaConfigurarProductos.Where(p => p.IdConfigurarProducto != "").GroupBy(a => a.Producto.IdProducto).Select(grp => grp.First()).ToList();
+            return ListaConfigurarProductos;
         }
         public List<ConfigurarProductos> ListarConfigurarProductosTodos()
         {

@@ -80,6 +80,9 @@
     <Compile Include="spConsultarSiExisteYaUnaConfiguracion_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_AnularTicket_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_AumentarDetalleVenta_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -188,9 +191,6 @@
     <Compile Include="sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_ConsultarComunidadesDeUnaPersonaAsignadoAUnTecnico_Result1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="sp_ConsultarComunidadesParaSeguimientoPorTecnico_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -212,16 +212,7 @@
     <Compile Include="sp_ConsultarConfiguracionInteresPorId_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_ConsultarConfiguracionInteresPorId_Result1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="sp_ConsultarConfiguracionInteres_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_ConsultarConfiguracionInteres_Result1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_ConsultarConfiguracionInteres_Result2.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarConfigurarInteresActivo_Result.cs">
@@ -287,13 +278,10 @@
     <Compile Include="sp_ConsultarExisteConfiguracionInteres_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarFacturaPorId_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarFacturasPendientePorPersona_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_ConsultarFacturasPendientePorPersona_Result1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_ConsultarFacturasPendientePorPersona_Result2.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarHistorialAsistenciaSeguimientoFinalizadoPorTecnicoYPersona_Result.cs">
@@ -476,6 +464,12 @@
     <Compile Include="sp_ConsultarStockPorIdAsignarProductoLote_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarStockRubroPorIdTipoRubro_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarStockRubros_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarStock_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -483,6 +477,45 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarTelefono_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTickenVentaPorId_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTickenVentaPorId_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketAnulados_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketPorCarroPorId_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketPorCarroPorPlacaCarro_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketPorCarro_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketPorSaco_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketVentaAnulados_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketVentaFinalizados_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketVentaFinalizados_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketVentaPorPlacaCarro_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketVentaSinFinalizar_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTicketVentaSinFinalizar_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarTipoDocumento_Result.cs">
@@ -494,10 +527,19 @@
     <Compile Include="sp_ConsultarTipoInteres_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarTipoPresentacionRubroPorId_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTipoPresentacionRubro_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarTipoProductoPorId_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarTipoProducto_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarTipoRubro_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarTiposDeUsuariosQueNoTieneUnUsuario_Result.cs">
@@ -530,6 +572,9 @@
     <Compile Include="sp_ConsultarUsuarioPorId_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarUsuarioPorToken_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarUsuarioPorUsuario_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -539,6 +584,12 @@
     <Compile Include="sp_ConsultarUsuario_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarVehiculoPorPlaca_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarVehiculos_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarVisitaPorIdVisita_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -546,9 +597,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CrearAbono_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_CrearAbono_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CrearAsigancionPP_Result.cs">
@@ -572,9 +620,6 @@
     <Compile Include="sp_CrearAsignarTecnicoPersonaComunidad_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_CrearAsignarTecnicoPersonaComunidad_Result1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="sp_CrearCabeceraFactura_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -585,9 +630,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CrearConfiguracionInteres_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_CrearConfiguracionInteres_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CrearConfigurarProducto_Result.cs">
@@ -638,6 +680,21 @@
     <Compile Include="sp_CrearTelefono_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_CrearTicketPorCarro_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearTicketPorSaco_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearTicketVentaPorCarro_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearTicketVentaPorSaco_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_CrearTicketVentaPorSaco_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_CrearTipoInteres_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -647,7 +704,19 @@
     <Compile Include="sp_CrearUsuario_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_CrearVehiculo_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_CrearVisita_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_FinalizarTicketVenta_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_FinalizarTicketVenta_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_FinalizarTicket_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ModificarAsignarDescuentoKit_Result.cs">
@@ -668,10 +737,10 @@
     <Compile Include="sp_ModificarCorreo_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_ModificarCorreo_Result1.cs">
+    <Compile Include="sp_ModificarKit_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_ModificarKit_Result.cs">
+    <Compile Include="sp_ModificarKit_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ModificarMedida_Result.cs">
@@ -690,9 +759,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ModificarTelefono_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_ModificarTelefono_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ModificarTipoProducto_Result.cs">

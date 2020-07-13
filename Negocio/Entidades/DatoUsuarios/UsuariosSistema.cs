@@ -24,5 +24,6 @@ namespace Negocio.Entidades.DatoUsuarios
         public List<Privilegios> Privilegios { get; set; }
         public List<Modulo> Modulo { get; set; }
         public PersonaEntidad PersonaEntidad { get; set; }
+        public string Token { get; set; }
     }
 }

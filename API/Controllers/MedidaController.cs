@@ -28,52 +28,55 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(Medida.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                if (Medida.Descripcion == null || string.IsNullOrEmpty(Medida.Descripcion.Trim()))
+                if (Medida.encriptada == null || string.IsNullOrEmpty(Medida.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "Por favor ingrese la descripcion a guardar";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    Medida DatoMedida = new Medida();
-                    DatoMedida = GestionMedida.ConsultarMedidaPorDescripcion(Medida.Descripcion).FirstOrDefault();
-                    if (DatoMedida == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(Medida.encriptada).FirstOrDefault() == null)
                     {
-                        DatoMedida = new Medida();
-                        DatoMedida = GestionMedida.InsertarMedida(Medida);
-                        if (DatoMedida.IdMedida == null || string.IsNullOrEmpty(DatoMedida.IdMedida))
-                        {
-                            mensaje = "Ocurrio un error al ingresar la medida";
-                            codigo = "500";
-                        }
-                        else
-                        {
-                            mensaje = "EXITO";
-                            codigo = "200";
-                            respuesta = DatoMedida;
-                            objeto = new { codigo, mensaje, respuesta };
-                            return objeto;
-                        }
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        mensaje = "La medida "+ DatoMedida.Descripcion+ " ya existe";
-                        codigo = "500";
+                        if (Medida.Descripcion == null || string.IsNullOrEmpty(Medida.Descripcion.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Por favor ingrese la descripcion a guardar";
+                        }
+                        else
+                        {
+                            Medida DatoMedida = new Medida();
+                            DatoMedida = GestionMedida.ConsultarMedidaPorDescripcion(Medida.Descripcion).FirstOrDefault();
+                            if (DatoMedida == null)
+                            {
+                                DatoMedida = new Medida();
+                                DatoMedida = GestionMedida.InsertarMedida(Medida);
+                                if (DatoMedida.IdMedida == null || string.IsNullOrEmpty(DatoMedida.IdMedida))
+                                {
+                                    mensaje = "Ocurrio un error al ingresar la medida";
+                                    codigo = "500";
+                                }
+                                else
+                                {
+                                    mensaje = "EXITO";
+                                    codigo = "200";
+                                    respuesta = DatoMedida;
+                                    objeto = new { codigo, mensaje, respuesta };
+                                    return objeto;
+                                }
+                            }
+                            else
+                            {
+                                mensaje = "La medida " + DatoMedida.Descripcion + " ya existe";
+                                codigo = "500";
+                            }
+                        }
                     }
                 }
-                
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -96,52 +99,56 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveDelete = ListaClaves.Where(c => c.Identificador == 3).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(Medida.encriptada, _claveDelete.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _claveDelete.Descripcion)
-                //{
-                if (Medida.IdMedida == null || string.IsNullOrEmpty(Medida.IdMedida.Trim()))
+                if (Medida.encriptada == null || string.IsNullOrEmpty(Medida.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "Ingrese el id de la medida a eliminar";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    Medida.IdMedida = Seguridad.DesEncriptar(Medida.IdMedida);
-                    Medida DatoMedida = new Medida();
-                    DatoMedida = GestionMedida.ConsultarMedidaPorId(int.Parse(Medida.IdMedida)).FirstOrDefault();
-                    if (DatoMedida == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(Medida.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "500";
-                        mensaje = "La medida que intenta eliminar no existe";
-                    }
-                    else if(DatoMedida.MedidaUtilizado == "1")
-                    {
-                        codigo = "500";
-                        mensaje = "La medida que intenta eliminar ya esta siendo usada";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        if (GestionMedida.EliminarMedida(int.Parse(Medida.IdMedida)) == true)
+                        if (Medida.IdMedida == null || string.IsNullOrEmpty(Medida.IdMedida.Trim()))
                         {
-                            mensaje = "EXITO";
-                            codigo = "200";
+                            codigo = "418";
+                            mensaje = "Ingrese el id de la medida a eliminar";
                         }
                         else
                         {
-                            mensaje = "Ocurrio un error al intentar eliminar la medida";
-                            codigo = "500";
+                            Medida.IdMedida = Seguridad.DesEncriptar(Medida.IdMedida);
+                            Medida DatoMedida = new Medida();
+                            DatoMedida = GestionMedida.ConsultarMedidaPorId(int.Parse(Medida.IdMedida)).FirstOrDefault();
+                            if (DatoMedida == null)
+                            {
+                                codigo = "500";
+                                mensaje = "La medida que intenta eliminar no existe";
+                            }
+                            else if (DatoMedida.MedidaUtilizado == "1")
+                            {
+                                codigo = "500";
+                                mensaje = "La medida que intenta eliminar ya esta siendo usada";
+                            }
+                            else
+                            {
+                                if (GestionMedida.EliminarMedida(int.Parse(Medida.IdMedida)) == true)
+                                {
+                                    mensaje = "EXITO";
+                                    codigo = "200";
+                                }
+                                else
+                                {
+                                    mensaje = "Ocurrio un error al intentar eliminar la medida";
+                                    codigo = "500";
+                                }
+                            }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -164,68 +171,71 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePut = ListaClaves.Where(c => c.Identificador == 2).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(Medida.encriptada, _clavePut.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePut.Descripcion)
-                //{
-                if (Medida.IdMedida == null || string.IsNullOrEmpty(Medida.IdMedida.Trim()))
+                if (Medida.encriptada == null || string.IsNullOrEmpty(Medida.encriptada.Trim()))
                 {
-                    mensaje = "Ingrese el id medida";
                     codigo = "418";
-                }
-                else if(Medida.Descripcion == null || string.IsNullOrEmpty(Medida.Descripcion.Trim()))
-                {
-                    mensaje = "Ingrese la medida";
-                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    Medida DatoMedida = new Medida();
-                    DatoMedida = GestionMedida.ConsultarMedidaPorDescripcion(Medida.Descripcion).FirstOrDefault();
-                    if (DatoMedida == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(Medida.encriptada).FirstOrDefault() == null)
                     {
-                        DatoMedida = new Medida();
-                        Medida.IdMedida = Seguridad.DesEncriptar(Medida.IdMedida);
-                        DatoMedida = GestionMedida.ConsultarMedidaPorId(int.Parse(Medida.IdMedida)).FirstOrDefault();
-                        if (DatoMedida == null)
-                        {
-                            mensaje = "La medida que desea actualizar no existe";
-                            codigo = "500";
-                        }
-                        else
-                        {
-                            DatoMedida = new Medida();
-                            DatoMedida = GestionMedida.ModificarMedida(Medida);
-                            if (DatoMedida.IdMedida == null || string.IsNullOrEmpty(DatoMedida.IdMedida.Trim()))
-                            {
-                                mensaje = "Ocurrio un error al tratar de modificar la medida";
-                                codigo = "500";
-                            }
-                            else
-                            {
-                                codigo = "200";
-                                mensaje = "EXITO";
-                                respuesta = DatoMedida;
-                                objeto = new { codigo, mensaje, respuesta };
-                                return objeto;
-                            }
-                        }
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        mensaje = "La medida "+ DatoMedida.Descripcion+ " ya existe";
-                        codigo = "418";
+                        if (Medida.IdMedida == null || string.IsNullOrEmpty(Medida.IdMedida.Trim()))
+                        {
+                            mensaje = "Ingrese el id medida";
+                            codigo = "418";
+                        }
+                        else if (Medida.Descripcion == null || string.IsNullOrEmpty(Medida.Descripcion.Trim()))
+                        {
+                            mensaje = "Ingrese la medida";
+                            codigo = "418";
+                        }
+                        else
+                        {
+                            Medida DatoMedida = new Medida();
+                            DatoMedida = GestionMedida.ConsultarMedidaPorDescripcion(Medida.Descripcion).FirstOrDefault();
+                            if (DatoMedida == null)
+                            {
+                                DatoMedida = new Medida();
+                                Medida.IdMedida = Seguridad.DesEncriptar(Medida.IdMedida);
+                                DatoMedida = GestionMedida.ConsultarMedidaPorId(int.Parse(Medida.IdMedida)).FirstOrDefault();
+                                if (DatoMedida == null)
+                                {
+                                    mensaje = "La medida que desea actualizar no existe";
+                                    codigo = "500";
+                                }
+                                else
+                                {
+                                    DatoMedida = new Medida();
+                                    DatoMedida = GestionMedida.ModificarMedida(Medida);
+                                    if (DatoMedida.IdMedida == null || string.IsNullOrEmpty(DatoMedida.IdMedida.Trim()))
+                                    {
+                                        mensaje = "Ocurrio un error al tratar de modificar la medida";
+                                        codigo = "500";
+                                    }
+                                    else
+                                    {
+                                        codigo = "200";
+                                        mensaje = "EXITO";
+                                        respuesta = DatoMedida;
+                                        objeto = new { codigo, mensaje, respuesta };
+                                        return objeto;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                mensaje = "La medida " + DatoMedida.Descripcion + " ya existe";
+                                codigo = "418";
+                            }
+                        }
                     }
                 }
-
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -248,26 +258,34 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Tokens.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                mensaje = "EXITO";
-                codigo = "200";
-                respuesta = GestionMedida.ListarMedidas();
-                //}
-                //else
-                //{
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Tokens.encriptada == null || string.IsNullOrEmpty(Tokens.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Tokens.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        respuesta = GestionMedida.ListarMedidas();
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

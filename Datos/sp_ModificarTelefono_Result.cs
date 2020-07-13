@@ -18,7 +18,7 @@ namespace Datos
         public Nullable<System.DateTime> TelefonoFechaActualizacion { get; set; }
         public System.DateTime TelefonoFechaCreacion { get; set; }
         public int TelefonoIdPersona { get; set; }
-        public int TelefonoIdTelefono1 { get; set; }
+        public string TelefonoNumero { get; set; }
         public int TelefonoIdTipoTelefono { get; set; }
         public int TipoTelefonoIdTipoTelefono { get; set; }
         public string TipoTelefonoDescripcion { get; set; }

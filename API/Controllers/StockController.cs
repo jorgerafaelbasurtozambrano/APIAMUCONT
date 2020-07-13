@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using Negocio;
 using Negocio.Entidades;
 using Negocio.Logica.Factura;
-using Negocio;
-using Negocio.Logica.Seguridad;
 using Negocio.Logica.Inventario;
+using Negocio.Logica.Seguridad;
+using System;
+using System.Linq;
+using System.Web.Http;
 
 namespace API.Controllers
 {
@@ -25,40 +22,44 @@ namespace API.Controllers
         [Route("api/Factura/ListarStock")]
         public object ListarStock([FromBody] Tokens Tokens)
         {
-           
-            
             object objeto = new object();
             object respuesta = new object();
             string mensaje = "";
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Tokens.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                mensaje = "EXITO";
-                codigo = "200";
-                //respuesta = GestionCabeceraFactura.ListarStock();
-                respuesta = GestionStock.ListarStock();
-                //}
-                //else
-                //{
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Tokens.encriptada == null || string.IsNullOrEmpty(Tokens.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Tokens.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        respuesta = GestionStock.ListarStock();
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Stock/ListaAsignarProductoKitEnStock")]
         public object ListaAsignarProductoKitEnStock(Kit Kit)
@@ -69,27 +70,43 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Kit.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                mensaje = "EXITO";
-                codigo = "200";
-                Kit.IdKit = Seguridad.DesEncriptar(Kit.IdKit);
-                respuesta = GestionStock.ListarProductosDeUnKitEnEstock(int.Parse(Kit.IdKit));
-                //}
-                //else
-                //{
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Kit.encriptada == null || string.IsNullOrEmpty(Kit.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Kit.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (Kit.IdKit == null || string.IsNullOrEmpty(Kit.IdKit.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese el id kit";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            Kit.IdKit = Seguridad.DesEncriptar(Kit.IdKit);
+                            respuesta = GestionStock.ListarProductosDeUnKitEnEstock(int.Parse(Kit.IdKit));
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

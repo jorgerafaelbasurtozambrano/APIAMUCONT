@@ -13,5 +13,6 @@ namespace Negocio.Entidades.DatoUsuarios
         public string UsuarioLogin { get; set; }
         public string Contrasena { get; set; }
         public string encriptada { get; set; }
+        public string Cerrar { get; set; }
     }
 }

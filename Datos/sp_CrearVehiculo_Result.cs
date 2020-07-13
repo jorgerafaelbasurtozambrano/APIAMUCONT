@@ -11,13 +11,12 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_ConsultarConfiguracionInteres_Result1
+    public partial class sp_CrearVehiculo_Result
     {
-        public int IdConfiguracionInteres { get; set; }
-        public int IdTipoInteres { get; set; }
-        public int TasaInteres { get; set; }
-        public int IdTipoInteresMora { get; set; }
-        public int TasaInteresMora { get; set; }
+        public int IdVehiculo { get; set; }
+        public string Placa { get; set; }
+        public int IdAsignarTU { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
         public bool Estado { get; set; }
     }
 }

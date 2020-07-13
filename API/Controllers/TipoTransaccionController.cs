@@ -15,7 +15,7 @@ namespace API.Controllers
         CatalogoTipoTransaccion GestionTipoTransaccion = new CatalogoTipoTransaccion();
         CatalogoSeguridad GestionSeguridad = new CatalogoSeguridad();
         Prueba p = new Prueba();
-
+        Negocio.Metodos.Seguridad Seguridad = new Negocio.Metodos.Seguridad();
 
         [HttpPost]
         [Route("api/Inventario/ListaTipoTransaccion")]
@@ -27,26 +27,34 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Tokens.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                mensaje = "EXITO";
-                codigo = "200";
-                respuesta = GestionTipoTransaccion.ListarTiposTransaccion();
-                //}
-                //else
-                //{
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Tokens.encriptada == null || string.IsNullOrEmpty(Tokens.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Tokens.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        respuesta = GestionTipoTransaccion.ListarTiposTransaccion();
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

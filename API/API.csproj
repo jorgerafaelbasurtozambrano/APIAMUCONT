@@ -212,7 +212,6 @@
     <Compile Include="Controllers\ConfigurarProductoController.cs" />
     <Compile Include="Controllers\ConfigurarTipoInteresController.cs" />
     <Compile Include="Controllers\ConfigurarVentaController.cs" />
-    <Compile Include="Controllers\CorreoController.cs" />
     <Compile Include="Controllers\DescuentoController.cs" />
     <Compile Include="Controllers\DetalleFacturaController.cs" />
     <Compile Include="Controllers\DetalleVentaController.cs" />
@@ -234,12 +233,17 @@
     <Compile Include="Controllers\SeguridadController.cs" />
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\TelefonoController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\TicketVentaController.cs" />
     <Compile Include="Controllers\TipoDocumentoController.cs" />
+    <Compile Include="Controllers\TipoPresentacionRubroController.cs" />
     <Compile Include="Controllers\TipoProductoController.cs" />
+    <Compile Include="Controllers\TipoRubroController.cs" />
     <Compile Include="Controllers\TipoTelefonoController.cs" />
     <Compile Include="Controllers\TipoTransaccionController.cs" />
     <Compile Include="Controllers\TipoUsuarioController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\VehiculoController.cs" />
     <Compile Include="Controllers\VisitaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

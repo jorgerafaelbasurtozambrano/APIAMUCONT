@@ -496,12 +496,23 @@ namespace Negocio.Logica.Credito
                 return false;
             }
         }
-
         public bool TransferirTecnico(TrasnferirTecnico _TrasnferirTecnico)
         {
             try
             {
                 ConexionBD.sp_TrasnferirPersonasAOtroTecnico(int.Parse(_TrasnferirTecnico.IdAsignarTUAntiguo), int.Parse(_TrasnferirTecnico.IdAsignarTUNuevo));
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool eliminarAsignacionTipoUsuario(int IdAsignacionTU)
+        {
+            try
+            {
+                ConexionBD.sp_EliminarAsignacionTU(IdAsignacionTU);
                 return true;
             }
             catch (Exception)

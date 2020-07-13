@@ -31,75 +31,78 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(ComunidadEntidad.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                if (ComunidadEntidad.Descripcion == null || string.IsNullOrEmpty(ComunidadEntidad.Descripcion.Trim()))
+                if (ComunidadEntidad.encriptada == null || string.IsNullOrEmpty(ComunidadEntidad.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Falta la descripcion de la comunidad";
-                }
-                else if (ComunidadEntidad.IdParroquia == null || string.IsNullOrEmpty(ComunidadEntidad.IdParroquia.Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta el id de la parroquia";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    ComunidadEntidad.IdParroquia = Seguridad.DesEncriptar(ComunidadEntidad.IdParroquia);
-                    Parroquia DatoParroquia = new Parroquia();
-                    DatoParroquia = Gestionparroquia.ConsultarParroquiaPorId(int.Parse(ComunidadEntidad.IdParroquia)).FirstOrDefault();
-                    if (DatoParroquia == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(ComunidadEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "500";
-                        mensaje = "La parroquia a la que desea asignar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        Comunidad DatoComunidad = new Comunidad();
-                        //DatoComunidad = GestionComunidad.ConsultarComunidadPorDescripcion(ComunidadEntidad.Descripcion.ToUpper()).FirstOrDefault();
-                        DatoComunidad = GestionComunidad.ConsultarComunidadPorDescripcion(new ComunidadEntidad() { Descripcion = ComunidadEntidad.Descripcion.ToUpper(),IdParroquia = ComunidadEntidad.IdParroquia.Trim()}).FirstOrDefault();
-                        if (DatoComunidad == null)
+                        if (ComunidadEntidad.Descripcion == null || string.IsNullOrEmpty(ComunidadEntidad.Descripcion.Trim()))
                         {
-                            DatoComunidad = new Comunidad();
-                            DatoComunidad = GestionComunidad.IngresarComunidad(ComunidadEntidad);
-                            if (DatoComunidad.IdComunidad == null || string.IsNullOrEmpty(DatoComunidad.IdComunidad.Trim()))
-                            {
-                                codigo = "500";
-                                mensaje = "Ocurrio un error en el servidor";
-                            }
-                            else
-                            {
-                                mensaje = "EXITO";
-                                codigo = "200";
-                                respuesta = DatoComunidad;
-                                objeto = new { codigo, mensaje, respuesta };
-                                return objeto;
-                            }
+                            codigo = "400";
+                            mensaje = "Falta la descripcion de la comunidad";
+                        }
+                        else if (ComunidadEntidad.IdParroquia == null || string.IsNullOrEmpty(ComunidadEntidad.IdParroquia.Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta el id de la parroquia";
                         }
                         else
                         {
-                            codigo = "418";
-                            mensaje = "Ya existe la comunidad que quiere insertar";
+                            ComunidadEntidad.IdParroquia = Seguridad.DesEncriptar(ComunidadEntidad.IdParroquia);
+                            Parroquia DatoParroquia = new Parroquia();
+                            DatoParroquia = Gestionparroquia.ConsultarParroquiaPorId(int.Parse(ComunidadEntidad.IdParroquia)).FirstOrDefault();
+                            if (DatoParroquia == null)
+                            {
+                                codigo = "500";
+                                mensaje = "La parroquia a la que desea asignar no existe";
+                            }
+                            else
+                            {
+                                Comunidad DatoComunidad = new Comunidad();
+                                DatoComunidad = GestionComunidad.ConsultarComunidadPorDescripcion(new ComunidadEntidad() { Descripcion = ComunidadEntidad.Descripcion.ToUpper(), IdParroquia = ComunidadEntidad.IdParroquia.Trim() }).FirstOrDefault();
+                                if (DatoComunidad == null)
+                                {
+                                    DatoComunidad = new Comunidad();
+                                    DatoComunidad = GestionComunidad.IngresarComunidad(ComunidadEntidad);
+                                    if (DatoComunidad.IdComunidad == null || string.IsNullOrEmpty(DatoComunidad.IdComunidad.Trim()))
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error en el servidor";
+                                    }
+                                    else
+                                    {
+                                        mensaje = "EXITO";
+                                        codigo = "200";
+                                        respuesta = DatoComunidad;
+                                        objeto = new { codigo, mensaje, respuesta };
+                                        return objeto;
+                                    }
+                                }
+                                else
+                                {
+                                    codigo = "418";
+                                    mensaje = "Ya existe la comunidad que quiere insertar";
+                                }
+                            }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -115,55 +118,59 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveDelete = ListaClaves.Where(c => c.Identificador == 3).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(ComunidadEntidad.encriptada, _claveDelete.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _claveDelete.Descripcion)
-                //{
-                if (ComunidadEntidad.IdComunidad == null || string.IsNullOrEmpty(ComunidadEntidad.IdComunidad.Trim()))
+                if (ComunidadEntidad.encriptada == null || string.IsNullOrEmpty(ComunidadEntidad.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Falta el id de la comunidad a eliminar";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    ComunidadEntidad.IdComunidad = Seguridad.DesEncriptar(ComunidadEntidad.IdComunidad);
-                    Comunidad DatoComunidad = new Comunidad();
-                    DatoComunidad = GestionComunidad.ConsultarComunidadPorId(int.Parse(ComunidadEntidad.IdComunidad)).FirstOrDefault();
-                    if (DatoComunidad == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(ComunidadEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "418";
-                        mensaje = "La comunidad que intenta eliminar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        if (DatoComunidad.PermitirEliminacion == true)
+                        if (ComunidadEntidad.IdComunidad == null || string.IsNullOrEmpty(ComunidadEntidad.IdComunidad.Trim()))
                         {
-                            if (GestionComunidad.EliminarComunidad(int.Parse(ComunidadEntidad.IdComunidad)) == true)
-                            {
-                                mensaje = "EXITO";
-                                codigo = "200";
-                            }
-                            else
-                            {
-                                codigo = "500";
-                                mensaje = "Ocurrio un error al intentar eliminar la comunidad";
-                            }
+                            codigo = "400";
+                            mensaje = "Falta el id de la comunidad a eliminar";
                         }
                         else
                         {
-                            codigo = "500";
-                            mensaje = "No se puede eliminar la comunidad porque esta siendo usado";
+                            ComunidadEntidad.IdComunidad = Seguridad.DesEncriptar(ComunidadEntidad.IdComunidad);
+                            Comunidad DatoComunidad = new Comunidad();
+                            DatoComunidad = GestionComunidad.ConsultarComunidadPorId(int.Parse(ComunidadEntidad.IdComunidad)).FirstOrDefault();
+                            if (DatoComunidad == null)
+                            {
+                                codigo = "418";
+                                mensaje = "La comunidad que intenta eliminar no existe";
+                            }
+                            else
+                            {
+                                if (DatoComunidad.PermitirEliminacion == true)
+                                {
+                                    if (GestionComunidad.EliminarComunidad(int.Parse(ComunidadEntidad.IdComunidad)) == true)
+                                    {
+                                        mensaje = "EXITO";
+                                        codigo = "200";
+                                    }
+                                    else
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error al intentar eliminar la comunidad";
+                                    }
+                                }
+                                else
+                                {
+                                    codigo = "500";
+                                    mensaje = "No se puede eliminar la comunidad porque esta siendo usado";
+                                }
+                            }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -175,7 +182,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/TalentoHumano/ActualizarComunidad")]
         public object ActualizarComunidad(ComunidadEntidad ComunidadEntidad)
@@ -186,74 +192,77 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePut = ListaClaves.Where(c => c.Identificador == 2).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(ComunidadEntidad.encriptada, _clavePut.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePut.Descripcion)
-                //{
-                if (ComunidadEntidad.IdComunidad == null || string.IsNullOrEmpty(ComunidadEntidad.IdComunidad.Trim()))
+                if (ComunidadEntidad.encriptada == null || string.IsNullOrEmpty(ComunidadEntidad.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Falta el id de la comunidad a eliminar";
-                }
-                else if (ComunidadEntidad.IdParroquia == null || string.IsNullOrEmpty(ComunidadEntidad.IdParroquia.Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta el id de la parroquia";
-                }
-                else if (ComunidadEntidad.Descripcion == null || string.IsNullOrEmpty(ComunidadEntidad.Descripcion.Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta la descripcion de la comunidad";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    ComunidadEntidad.IdParroquia = Seguridad.DesEncriptar(ComunidadEntidad.IdParroquia);
-                    Parroquia DatoParroquia = new Parroquia();
-                    DatoParroquia = Gestionparroquia.ConsultarParroquiaPorId(int.Parse(ComunidadEntidad.IdParroquia)).FirstOrDefault();
-                    if (DatoParroquia == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(ComunidadEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "500";
-                        mensaje = "La parroquia a la que desea asignar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        ComunidadEntidad.IdComunidad = Seguridad.DesEncriptar(ComunidadEntidad.IdComunidad);
-                        Comunidad DatoComunidad = new Comunidad();
-                        DatoComunidad = GestionComunidad.ConsultarComunidadPorId(int.Parse(ComunidadEntidad.IdComunidad)).FirstOrDefault();
-                        if (DatoComunidad == null)
+                        if (ComunidadEntidad.IdComunidad == null || string.IsNullOrEmpty(ComunidadEntidad.IdComunidad.Trim()))
                         {
-                            codigo = "418";
-                            mensaje = "La comunidad que intenta actualizar no existe";
+                            codigo = "400";
+                            mensaje = "Falta el id de la comunidad a eliminar";
+                        }
+                        else if (ComunidadEntidad.IdParroquia == null || string.IsNullOrEmpty(ComunidadEntidad.IdParroquia.Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta el id de la parroquia";
+                        }
+                        else if (ComunidadEntidad.Descripcion == null || string.IsNullOrEmpty(ComunidadEntidad.Descripcion.Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta la descripcion de la comunidad";
                         }
                         else
                         {
-                            DatoComunidad = new Comunidad();
-                            DatoComunidad = GestionComunidad.ModificarComunidad(ComunidadEntidad);
-                            if (DatoComunidad.IdComunidad ==null || string.IsNullOrEmpty(DatoComunidad.IdComunidad))
+                            ComunidadEntidad.IdParroquia = Seguridad.DesEncriptar(ComunidadEntidad.IdParroquia);
+                            Parroquia DatoParroquia = new Parroquia();
+                            DatoParroquia = Gestionparroquia.ConsultarParroquiaPorId(int.Parse(ComunidadEntidad.IdParroquia)).FirstOrDefault();
+                            if (DatoParroquia == null)
                             {
                                 codigo = "500";
-                                mensaje = "Ocurrio un error al intentar modificar la comunidad";
+                                mensaje = "La parroquia a la que desea asignar no existe";
                             }
                             else
                             {
-                                respuesta = DatoComunidad;
-                                mensaje = "EXITO";
-                                codigo = "200";
-                                objeto = new { codigo, mensaje, respuesta };
-                                return objeto;
+                                ComunidadEntidad.IdComunidad = Seguridad.DesEncriptar(ComunidadEntidad.IdComunidad);
+                                Comunidad DatoComunidad = new Comunidad();
+                                DatoComunidad = GestionComunidad.ConsultarComunidadPorId(int.Parse(ComunidadEntidad.IdComunidad)).FirstOrDefault();
+                                if (DatoComunidad == null)
+                                {
+                                    codigo = "418";
+                                    mensaje = "La comunidad que intenta actualizar no existe";
+                                }
+                                else
+                                {
+                                    DatoComunidad = new Comunidad();
+                                    DatoComunidad = GestionComunidad.ModificarComunidad(ComunidadEntidad);
+                                    if (DatoComunidad.IdComunidad == null || string.IsNullOrEmpty(DatoComunidad.IdComunidad))
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error al intentar modificar la comunidad";
+                                    }
+                                    else
+                                    {
+                                        respuesta = DatoComunidad;
+                                        mensaje = "EXITO";
+                                        codigo = "200";
+                                        objeto = new { codigo, mensaje, respuesta };
+                                        return objeto;
+                                    }
+                                }
                             }
                         }
                     }
-
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -265,7 +274,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/TalentoHumano/ListaComunidad")]
         public object ListaComunidad([FromBody] Tokens Tokens)
@@ -276,33 +284,38 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Tokens.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    respuesta = GestionComunidad.ObtenerListaComunidad();
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Tokens.encriptada == null || string.IsNullOrEmpty(Tokens.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Tokens.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        respuesta = GestionComunidad.ObtenerListaComunidad();
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/TalentoHumano/ListaComunidadParroquia")]
         public object ListaComunidadParroquia(Parroquia Parroquia)
@@ -313,29 +326,43 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Parroquia.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    Parroquia.IdParroquia = Seguridad.DesEncriptar(Parroquia.IdParroquia);
-                    respuesta = GestionComunidad.ListarComunidadParroquia(int.Parse(Parroquia.IdParroquia));
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Parroquia.encriptada == null || string.IsNullOrEmpty(Parroquia.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Parroquia.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (Parroquia.IdParroquia == null || string.IsNullOrEmpty(Parroquia.IdParroquia.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese el id parroquia";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            Parroquia.IdParroquia = Seguridad.DesEncriptar(Parroquia.IdParroquia);
+                            respuesta = GestionComunidad.ListarComunidadParroquia(int.Parse(Parroquia.IdParroquia));
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -350,32 +377,36 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Parroquia.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                if (Parroquia.IdParroquia == null || string.IsNullOrEmpty(Parroquia.IdParroquia.Trim()))
+                if (Parroquia.encriptada == null || string.IsNullOrEmpty(Parroquia.encriptada.Trim()))
                 {
-                    mensaje = "Ingrese el id parroquia";
-                    codigo = "500";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    Parroquia.IdParroquia = Seguridad.DesEncriptar(Parroquia.IdParroquia);
-                    respuesta = GestionComunidad.ConsultarComunidadesParaSeguimiento(int.Parse(Parroquia.IdParroquia));
-                    objeto = new { codigo, mensaje, respuesta };
-                    return objeto;
+                    if (Seguridad.ConsultarUsuarioPorToken(Parroquia.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (Parroquia.IdParroquia == null || string.IsNullOrEmpty(Parroquia.IdParroquia.Trim()))
+                        {
+                            mensaje = "Ingrese el id parroquia";
+                            codigo = "500";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            Parroquia.IdParroquia = Seguridad.DesEncriptar(Parroquia.IdParroquia);
+                            respuesta = GestionComunidad.ConsultarComunidadesParaSeguimiento(int.Parse(Parroquia.IdParroquia));
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }

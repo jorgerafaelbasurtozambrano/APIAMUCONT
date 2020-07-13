@@ -44,11 +44,22 @@ namespace Negocio.Logica
                     PersonaEntidad.IdTipoDocumento = Seguridad.Encriptar(item.PersonaIdTipoDocumento.ToString());
                     PersonaEntidad.TipoDocumento = item.TipoDocumentoDescripcion;
                 }
-                PersonaEntidad.ListaTelefono[0].IdPersona = PersonaEntidad.IdPersona;
-                PersonaEntidad.ListaTelefono[1].IdPersona = PersonaEntidad.IdPersona;
 
-                ModificarTelefono(new TelefonoEntidad() {IdTelefono = PersonaEntidad.ListaTelefono[0].IdTelefono,IdPersona = PersonaEntidad.ListaTelefono[0].IdPersona , Numero = PersonaEntidad.ListaTelefono[0].Numero, IdTipoTelefono = PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono });
-                ModificarTelefono(new TelefonoEntidad() { IdTelefono = PersonaEntidad.ListaTelefono[1].IdTelefono, IdPersona = PersonaEntidad.ListaTelefono[1].IdPersona, Numero = PersonaEntidad.ListaTelefono[1].Numero, IdTipoTelefono = PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono });
+                ModificarTelefono(new TelefonoEntidad() {IdTelefono = PersonaEntidad.IdTelefono1,IdPersona = PersonaEntidad.IdPersona, Numero = PersonaEntidad.Telefono1, IdTipoTelefono = PersonaEntidad.IdTipoTelefono1 });
+                if (PersonaEntidad.IdTelefono2 == null)
+                {
+                    if (PersonaEntidad.Telefono2 != null)
+                    {
+                        IngresoTelefono(new Telefono() { IdPersona = PersonaEntidad.IdPersona, Numero = PersonaEntidad.Telefono2, TipoTelefono = new TipoTelefono() { IdTipoTelefono = PersonaEntidad.IdTipoTelefono2 } });
+                    }
+                }
+                else
+                {
+                    if (PersonaEntidad.Telefono2 != null)
+                    {
+                        ModificarTelefono(new TelefonoEntidad() { IdTelefono = PersonaEntidad.IdTelefono2, IdPersona = PersonaEntidad.IdPersona, Numero = PersonaEntidad.Telefono2, IdTipoTelefono = PersonaEntidad.IdTipoTelefono2 });
+                    }
+                }
 
 
                 if (PersonaEntidad.Correo!=null)
@@ -66,6 +77,95 @@ namespace Negocio.Logica
                 DatoNuevoPersona = ConsultarPersonaPorId(int.Parse(PersonaEntidad.IdPersona)).FirstOrDefault();
                 DatoNuevoPersona.IdUsuario = "1";
                 return DatoNuevoPersona;
+            }
+            catch (Exception)
+            {
+                DatoNuevoPersona = ConsultarPersonaPorId(int.Parse(PersonaEntidad.IdPersona)).FirstOrDefault();
+                DatoNuevoPersona.IdUsuario = null;
+                return DatoNuevoPersona;
+            }
+        }
+        public PersonaEntidad CompletarDatosPersona(PersonaEntidad PersonaEntidad)
+        {
+            PersonaEntidad DatoNuevoPersona = new PersonaEntidad();
+            try
+            {
+                foreach (var item in ConexionBD.sp_ModificarPersona(int.Parse(PersonaEntidad.IdPersona), PersonaEntidad.NumeroDocumento, PersonaEntidad.ApellidoPaterno.ToUpper(), PersonaEntidad.ApellidoMaterno.ToUpper(), PersonaEntidad.PrimerNombre.ToUpper(), PersonaEntidad.SegundoNombre.ToUpper(), int.Parse(PersonaEntidad.IdTipoDocumento)))
+                {
+                    PersonaEntidad.IdPersona = item.PersonaIdPersona.ToString();
+                    PersonaEntidad.NumeroDocumento = item.PersonaNumeroDocumento;
+                    PersonaEntidad.ApellidoPaterno = item.PersonaApellidoPaterno;
+                    PersonaEntidad.ApellidoMaterno = item.PersonaApellidoMaterno;
+                    PersonaEntidad.PrimerNombre = item.PersonaPrimerNombre;
+                    PersonaEntidad.SegundoNombre = item.PersonaSegundoNombre;
+                    PersonaEntidad.IdTipoDocumento = Seguridad.Encriptar(item.PersonaIdTipoDocumento.ToString());
+                    PersonaEntidad.TipoDocumento = item.TipoDocumentoDescripcion;
+                }
+
+                //revisar si tiene correo
+                if (PersonaEntidad.Correo != null)
+                {
+                    Correo DatoCorreo = new Correo();
+                    DatoCorreo = ConsultarCorreoPorPersona(new Correo() { IdPersona = PersonaEntidad.IdPersona, CorreoValor = PersonaEntidad.Correo }).FirstOrDefault();
+                    if (DatoCorreo == null)
+                    {
+                        DatoCorreo = new Correo();
+                        DatoCorreo = IngresoCorreo(new Correo() { IdPersona = PersonaEntidad.IdPersona, CorreoValor = PersonaEntidad.Correo });
+                        if (DatoCorreo.IdCorreo == null)
+                        {
+                            DatoNuevoPersona.IdUsuario = null;
+                            return DatoNuevoPersona;
+                        }
+                    }
+                    else
+                    {
+                        DatoCorreo.CorreoValor = PersonaEntidad.Correo;
+                        DatoCorreo.IdPersona = Seguridad.DesEncriptar(DatoCorreo.IdPersona);
+                        DatoCorreo.IdCorreo = Seguridad.DesEncriptar(DatoCorreo.IdCorreo);
+                        Correo DatoCorreo1 = new Correo();
+                        DatoCorreo1 = ModificarCorreo(DatoCorreo);
+                        if (DatoCorreo1.IdCorreo == null)
+                        {
+                            DatoNuevoPersona.IdUsuario = null;
+                            return DatoNuevoPersona;
+                        }
+                    }
+                }
+                //fin correo
+
+                //telefono
+                Telefono DatoTelefono = new Telefono();
+                DatoTelefono = IngresoTelefono(new Telefono() { IdPersona = PersonaEntidad.IdPersona, Numero = PersonaEntidad.Telefono1, TipoTelefono = new TipoTelefono() { IdTipoTelefono = PersonaEntidad.IdTipoTelefono1 } });
+                if (DatoTelefono.IdTelefono == null || string.IsNullOrEmpty(DatoTelefono.IdTelefono.Trim()))
+                {
+                    DatoNuevoPersona.IdUsuario = null;
+                    return DatoNuevoPersona;
+                }
+                if (PersonaEntidad.Telefono2 != null)
+                {
+                    if (PersonaEntidad.Telefono2 != "" && PersonaEntidad.Telefono2.ToUpper().Trim() != "NULL")
+                    {
+                        DatoTelefono = new Telefono();
+                        DatoTelefono = IngresoTelefono(new Telefono() { IdPersona = PersonaEntidad.IdPersona, Numero = PersonaEntidad.Telefono2, TipoTelefono = new TipoTelefono() { IdTipoTelefono = Seguridad.DesEncriptar(PersonaEntidad.IdTipoTelefono2) } });
+                        if (DatoTelefono.IdTelefono == null || string.IsNullOrEmpty(DatoTelefono.IdTelefono.Trim()))
+                        {
+                            DatoNuevoPersona.IdUsuario = null;
+                            return DatoNuevoPersona;
+                        }
+                    }
+                }
+                // Fin Telefono
+
+                //AsignarPersonaParroquia
+                AsignacionPersonaParroquia DatoAsignacionPersonaParroquia = new AsignacionPersonaParroquia();
+                DatoAsignacionPersonaParroquia = IngresoAsignacionPersonaComunidad(new AsignacionPersonaParroquiaEntidad() { IdPersona = PersonaEntidad.IdPersona, IdParroquia = PersonaEntidad.AsignacionPersonaComunidad.Parroquia.IdParroquia, Referencia = PersonaEntidad.AsignacionPersonaComunidad.Referencia });
+                if (DatoAsignacionPersonaParroquia.IdAsignacionPC == null || string.IsNullOrEmpty(DatoAsignacionPersonaParroquia.IdAsignacionPC.Trim()))
+                {
+                    DatoNuevoPersona.IdUsuario = null;
+                    return DatoNuevoPersona;
+                }
+                //Fin AsignarPersonaParroquia
+                return ConsultarPersonaPorId(int.Parse(PersonaEntidad.IdPersona)).FirstOrDefault();
             }
             catch (Exception)
             {
@@ -119,17 +219,18 @@ namespace Negocio.Logica
 
                     //telefono
                     Telefono DatoTelefono = new Telefono();
-                    DatoTelefono = IngresoTelefono(new Telefono() { IdPersona = IdPersona.ToString(), Numero = PersonaEntidad.ListaTelefono[0].Numero, TipoTelefono = new TipoTelefono() { IdTipoTelefono = PersonaEntidad.ListaTelefono[0].TipoTelefono.IdTipoTelefono } });
+                    DatoTelefono = IngresoTelefono(new Telefono() { IdPersona = IdPersona.ToString(), Numero = PersonaEntidad.Telefono1, TipoTelefono = new TipoTelefono() { IdTipoTelefono = PersonaEntidad.IdTipoTelefono1 } });
                     if (DatoTelefono.IdTelefono == null || string.IsNullOrEmpty(DatoTelefono.IdTelefono.Trim()))
                     {
                         EliminarPersona(IdPersona);
                         DatoPersonaEntidad.IdPersona = null;
                         return DatoPersonaEntidad;
                     }
-                    else
+
+                    if (PersonaEntidad.Telefono2 != null)
                     {
                         DatoTelefono = new Telefono();
-                        DatoTelefono = IngresoTelefono(new Telefono() { IdPersona = IdPersona.ToString(), Numero = PersonaEntidad.ListaTelefono[1].Numero, TipoTelefono = new TipoTelefono() { IdTipoTelefono = PersonaEntidad.ListaTelefono[1].TipoTelefono.IdTipoTelefono } });
+                        DatoTelefono = IngresoTelefono(new Telefono() { IdPersona = IdPersona.ToString(), Numero = PersonaEntidad.Telefono2, TipoTelefono = new TipoTelefono() { IdTipoTelefono = PersonaEntidad.IdTipoTelefono2 } });
                         if (DatoTelefono.IdTelefono == null || string.IsNullOrEmpty(DatoTelefono.IdTelefono.Trim()))
                         {
                             EliminarPersona(IdPersona);
@@ -166,8 +267,21 @@ namespace Negocio.Logica
                 DatoPersonaEntidad.IdPersona = null;
                 return DatoPersonaEntidad;
             }
-            
-
+        }
+        public PersonaEntidad CrearSoloDatosDePersona(PersonaEntidad _PersonaEntidad)
+        {
+            int IdPersona = 0;
+            IdPersona = int.Parse(ConexionBD.sp_CrearPersona(_PersonaEntidad.NumeroDocumento.Trim(), _PersonaEntidad.ApellidoPaterno.ToUpper(), _PersonaEntidad.ApellidoMaterno.ToUpper(), _PersonaEntidad.PrimerNombre.ToUpper(), _PersonaEntidad.SegundoNombre.ToUpper(), int.Parse(_PersonaEntidad.IdTipoDocumento)).Select(x => x.Value.ToString()).FirstOrDefault());
+            if (IdPersona == 0)
+            {
+                _PersonaEntidad = new PersonaEntidad();
+                _PersonaEntidad.IdPersona = null;
+                return _PersonaEntidad;
+            }
+            else
+            {
+                return ConsultarPersonaPorId(IdPersona).FirstOrDefault();
+            }
         }
         public List<PersonaEntidad> ConsultarPersonaPorIdentificacion(string Identifacion)
         {

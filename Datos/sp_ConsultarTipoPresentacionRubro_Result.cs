@@ -11,14 +11,12 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_ConsultarConfiguracionInteres_Result2
+    public partial class sp_ConsultarTipoPresentacionRubro_Result
     {
-        public int IdConfiguracionInteres { get; set; }
+        public int IdTipoPresentacionRubros { get; set; }
+        public string Descripcion { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
+        public int Identificador { get; set; }
         public bool Estado { get; set; }
-        public int IdTipoInteres { get; set; }
-        public int IdTipoInteresMora { get; set; }
-        public int TasaInteres { get; set; }
-        public int TasaInteresMora { get; set; }
-        public string ConfigurarVentaUtilizado { get; set; }
     }
 }

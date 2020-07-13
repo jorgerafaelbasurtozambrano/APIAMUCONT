@@ -30,31 +30,49 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePostEncripBD = p.desencriptar(AsignacionPersonaParroquiaEntidad.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePostEncripBD == _clavePost.Descripcion)
-                //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                AsignacionPersonaParroquiaEntidad.IdParroquia = Seguridad.DesEncriptar(AsignacionPersonaParroquiaEntidad.IdParroquia);
-                AsignacionPersonaParroquiaEntidad.IdPersona = Seguridad.DesEncriptar(AsignacionPersonaParroquiaEntidad.IdPersona);
-                
-                respuesta = GestionAsignacionPersonaComunidad.IngresoAsignacionPersonaComunidad(AsignacionPersonaParroquiaEntidad);
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (AsignacionPersonaParroquiaEntidad.encriptada == null || string.IsNullOrEmpty(AsignacionPersonaParroquiaEntidad.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(AsignacionPersonaParroquiaEntidad.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (AsignacionPersonaParroquiaEntidad.IdParroquia == null || string.IsNullOrEmpty(AsignacionPersonaParroquiaEntidad.IdParroquia.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese el id de la parroquia";
+                        }
+                        else if (AsignacionPersonaParroquiaEntidad.IdPersona == null || string.IsNullOrEmpty(AsignacionPersonaParroquiaEntidad.IdPersona.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese el id de la persona";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            AsignacionPersonaParroquiaEntidad.IdParroquia = Seguridad.DesEncriptar(AsignacionPersonaParroquiaEntidad.IdParroquia);
+                            AsignacionPersonaParroquiaEntidad.IdPersona = Seguridad.DesEncriptar(AsignacionPersonaParroquiaEntidad.IdPersona);
+                            respuesta = GestionAsignacionPersonaComunidad.IngresoAsignacionPersonaComunidad(AsignacionPersonaParroquiaEntidad);
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -70,30 +88,35 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveDelete = ListaClaves.Where(c => c.Identificador == 3).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(AsignacionPersonaComunidadEntidad.encriptada, _claveDelete.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _claveDelete.Descripcion)
-                //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    AsignacionPersonaComunidadEntidad.IdAsignacionPC = Seguridad.DesEncriptar(AsignacionPersonaComunidadEntidad.IdAsignacionPC);
-                    respuesta = GestionAsignacionPersonaComunidad.EliminarAsignacionPersonaComunidad(int.Parse(AsignacionPersonaComunidadEntidad.IdAsignacionPC));
-
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (AsignacionPersonaComunidadEntidad.encriptada == null || string.IsNullOrEmpty(AsignacionPersonaComunidadEntidad.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(AsignacionPersonaComunidadEntidad.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        AsignacionPersonaComunidadEntidad.IdAsignacionPC = Seguridad.DesEncriptar(AsignacionPersonaComunidadEntidad.IdAsignacionPC);
+                        respuesta = GestionAsignacionPersonaComunidad.EliminarAsignacionPersonaComunidad(int.Parse(AsignacionPersonaComunidadEntidad.IdAsignacionPC));
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -109,32 +132,37 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePut = ListaClaves.Where(c => c.Identificador == 2).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(AsignacionPersonaParroquiaEntidad.encriptada, _clavePut.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePut.Descripcion)
-                //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    AsignacionPersonaParroquiaEntidad.IdParroquia = Seguridad.DesEncriptar(AsignacionPersonaParroquiaEntidad.IdParroquia);
-                    AsignacionPersonaParroquiaEntidad.IdPersona = Seguridad.DesEncriptar(AsignacionPersonaParroquiaEntidad.IdPersona);
-                    AsignacionPersonaParroquiaEntidad.IdAsignacionPC = Seguridad.DesEncriptar(AsignacionPersonaParroquiaEntidad.IdAsignacionPC);
-                    respuesta = GestionAsignacionPersonaComunidad.ModificarAsignacionPersonaComunidad(AsignacionPersonaParroquiaEntidad);
-
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (AsignacionPersonaParroquiaEntidad.encriptada == null || string.IsNullOrEmpty(AsignacionPersonaParroquiaEntidad.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(AsignacionPersonaParroquiaEntidad.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        AsignacionPersonaParroquiaEntidad.IdParroquia = Seguridad.DesEncriptar(AsignacionPersonaParroquiaEntidad.IdParroquia);
+                        AsignacionPersonaParroquiaEntidad.IdPersona = Seguridad.DesEncriptar(AsignacionPersonaParroquiaEntidad.IdPersona);
+                        AsignacionPersonaParroquiaEntidad.IdAsignacionPC = Seguridad.DesEncriptar(AsignacionPersonaParroquiaEntidad.IdAsignacionPC);
+                        respuesta = GestionAsignacionPersonaComunidad.ModificarAsignacionPersonaComunidad(AsignacionPersonaParroquiaEntidad);
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }

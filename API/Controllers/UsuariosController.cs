@@ -18,9 +18,7 @@ namespace API.Controllers
     public class UsuariosController : ApiController
     {
         static ConsultarUsuariosYPersonas GestionUsuarios = new ConsultarUsuariosYPersonas();
-        //CatalogoPersona GestionPersona = new CatalogoPersona();
         CatalogoAsignarComunidadFactura _GestionAsignarComunidadConfigurarVenta = new CatalogoAsignarComunidadFactura();
-        CatalogoSeguridad GestionSeguridad = new CatalogoSeguridad();
         CatalogoUsuario GestionUsuario = new CatalogoUsuario();
         CatalogoTipoUsuario GestionTipoUsuario = new CatalogoTipoUsuario();
         Prueba p = new Prueba();
@@ -36,28 +34,34 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Tokens.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    respuesta = GestionUsuarios.ObtenerListaUsuarios();
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Tokens.encriptada == null || string.IsNullOrEmpty(Tokens.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Tokens.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        respuesta = GestionUsuarios.ObtenerListaUsuarios();
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -72,22 +76,28 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Tokens.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    respuesta = GestionUsuarios.ObtenerUsuariosClientes();
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Tokens.encriptada == null || string.IsNullOrEmpty(Tokens.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Tokens.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        respuesta = GestionUsuarios.ObtenerUsuariosClientes();
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
@@ -108,28 +118,34 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Tokens.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                mensaje = "EXITO";
-                codigo = "200";
-                respuesta = GestionUsuarios.ObtenerUsuariosClientesInformacion();
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Tokens.encriptada == null || string.IsNullOrEmpty(Tokens.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Tokens.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        respuesta = GestionUsuarios.ObtenerUsuariosClientesInformacion();
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -144,12 +160,6 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePostEncripBD = p.desencriptar(Login.token, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePostEncripBD == _clavePost.Descripcion)
-                //{
                 if (Login.usuario == null || string.IsNullOrEmpty(Login.usuario.Trim()))
                 {
                     codigo = "418";
@@ -171,20 +181,22 @@ namespace API.Controllers
                     }
                     else
                     {
+                        string Token = "";
+                        if (DatoUsuariosSistema.Token == null)
+                        {
+                            Token = Seguridad.setTokenUsuario(DatoUsuariosSistema);
+                        }
+                        else
+                        {
+                            Token = DatoUsuariosSistema.Token;
+                        }
                         respuesta = DatoUsuariosSistema;
                         mensaje = "EXITO";
                         codigo = "200";
-                        objeto = new { mensaje, codigo, respuesta };
+                        objeto = new { mensaje, codigo, respuesta, Token };
                         return objeto;
                     }
-
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { mensaje, codigo};
                 return objeto;
             }
@@ -206,29 +218,34 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePostEncripBD = p.desencriptar(Login.token, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePostEncripBD == _clavePost.Descripcion)
-                //{
-                respuesta = GestionUsuarios.UsuarioExistente(Login.usuario);
-                mensaje = "EXITO";
-                codigo = "200";
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
-                objeto = new { mensaje, codigo, respuesta };
+                if (Login.encriptada == null || string.IsNullOrEmpty(Login.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Login.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        respuesta = GestionUsuarios.UsuarioExistente(Login.usuario);
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        objeto = new { mensaje, codigo, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { mensaje, codigo };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
-
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { mensaje, codigo };
                 return objeto;
             }
@@ -245,57 +262,68 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(UsuarioEntidad.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                if (UsuarioEntidad.UsuarioLogin == null || string.IsNullOrEmpty(UsuarioEntidad.UsuarioLogin.Trim()))
+                if (UsuarioEntidad.encriptada == null || string.IsNullOrEmpty(UsuarioEntidad.encriptada.Trim()))
                 {
-                    mensaje = "Ingrese el usuario";
                     codigo = "418";
-                }
-                else if (UsuarioEntidad.Contrasena == null || string.IsNullOrEmpty(UsuarioEntidad.Contrasena.Trim()))
-                {
-                    mensaje = "Ingrese la contrasena";
-                    codigo = "418";
-                }
-                else if (UsuarioEntidad.IdPersona == null || string.IsNullOrEmpty(UsuarioEntidad.IdPersona.Trim()))
-                {
-                    mensaje = "Seleccione la persona a asignar el usuario";
-                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    UsuariosSistema DatoUsuariosSistema = new UsuariosSistema();
-                    DatoUsuariosSistema = GestionUsuario.ConsultarUsuario(UsuarioEntidad.UsuarioLogin).FirstOrDefault();
-                    if (DatoUsuariosSistema == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(UsuarioEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        UsuarioEntidad.Contrasena = p.encriptar(UsuarioEntidad.Contrasena, "Contrasena");
-                        UsuarioEntidad.IdPersona = Seguridad.DesEncriptar(UsuarioEntidad.IdPersona);
-                        DatoUsuariosSistema = new UsuariosSistema();
-                        DatoUsuariosSistema = GestionUsuario.IngresarUsuario(UsuarioEntidad);
-                        if (DatoUsuariosSistema.IdUsuario == null || string.IsNullOrEmpty(DatoUsuariosSistema.IdUsuario.Trim()))
-                        {
-                            codigo = "500";
-                            mensaje = "Ocurrio un error al ingresar el usuario";
-                        }
-                        else
-                        {
-                            codigo = "200";
-                            mensaje = "EXITO";
-                            respuesta = DatoUsuariosSistema;
-                            objeto = new { codigo, mensaje, respuesta };
-                            return objeto;
-                        }
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        mensaje = "El usuario"+ DatoUsuariosSistema.UsuarioLogin + " no esta disponible porque ya esta siendo usado";
-                        codigo = "418";
+                        if (UsuarioEntidad.UsuarioLogin == null || string.IsNullOrEmpty(UsuarioEntidad.UsuarioLogin.Trim()))
+                        {
+                            mensaje = "Ingrese el usuario";
+                            codigo = "418";
+                        }
+                        else if (UsuarioEntidad.Contrasena == null || string.IsNullOrEmpty(UsuarioEntidad.Contrasena.Trim()))
+                        {
+                            mensaje = "Ingrese la contrasena";
+                            codigo = "418";
+                        }
+                        else if (UsuarioEntidad.IdPersona == null || string.IsNullOrEmpty(UsuarioEntidad.IdPersona.Trim()))
+                        {
+                            mensaje = "Seleccione la persona a asignar el usuario";
+                            codigo = "418";
+                        }
+                        else
+                        {
+                            UsuariosSistema DatoUsuariosSistema = new UsuariosSistema();
+                            DatoUsuariosSistema = GestionUsuario.ConsultarUsuario(UsuarioEntidad.UsuarioLogin).FirstOrDefault();
+                            if (DatoUsuariosSistema == null)
+                            {
+                                UsuarioEntidad.Contrasena = p.encriptar(UsuarioEntidad.Contrasena, "Contrasena");
+                                UsuarioEntidad.IdPersona = Seguridad.DesEncriptar(UsuarioEntidad.IdPersona);
+                                DatoUsuariosSistema = new UsuariosSistema();
+                                DatoUsuariosSistema = GestionUsuario.IngresarUsuario(UsuarioEntidad);
+                                if (DatoUsuariosSistema.IdUsuario == null || string.IsNullOrEmpty(DatoUsuariosSistema.IdUsuario.Trim()))
+                                {
+                                    codigo = "500";
+                                    mensaje = "Ocurrio un error al ingresar el usuario";
+                                }
+                                else
+                                {
+                                    codigo = "200";
+                                    mensaje = "EXITO";
+                                    respuesta = DatoUsuariosSistema;
+                                    objeto = new { codigo, mensaje, respuesta };
+                                    return objeto;
+                                }
+                            }
+                            else
+                            {
+                                mensaje = "El usuario " + DatoUsuariosSistema.UsuarioLogin + " no esta disponible porque ya esta siendo usado";
+                                codigo = "418";
+                            }
+                        }
                     }
                 }
+                
 
                 //}
                 //else
@@ -324,71 +352,75 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveDelete = ListaClaves.Where(c => c.Identificador == 3).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(UsuarioEntidad.encriptada, _claveDelete.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _claveDelete.Descripcion)
-                //{
-                if (UsuarioEntidad.IdUsuario == null || string.IsNullOrEmpty(UsuarioEntidad.IdUsuario.Trim()))
+                if (UsuarioEntidad.encriptada == null || string.IsNullOrEmpty(UsuarioEntidad.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "Ingrese el id usuario";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    UsuariosSistema Usuario = new UsuariosSistema();
-                    UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
-                    Usuario = GestionUsuario.ConsultarUsuarioPorId(int.Parse(UsuarioEntidad.IdUsuario)).FirstOrDefault();
-                    if (Usuario == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(UsuarioEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "418";
-                        mensaje = "El usuario que intenta eliminar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        if (Usuario.EstadoUsuario == false)
+                        if (UsuarioEntidad.IdUsuario == null || string.IsNullOrEmpty(UsuarioEntidad.IdUsuario.Trim()))
                         {
-                            codigo = "500";
-                            mensaje = "El usuario "+ Usuario.UsuarioLogin+ " ya esta inhabilitado";
+                            codigo = "418";
+                            mensaje = "Ingrese el id usuario";
                         }
                         else
                         {
-                            List<AsignacionTipoUsuario> ListaTipoUsuario = new List<AsignacionTipoUsuario>();
-                            ListaTipoUsuario = GestionUsuario.ConsultarTiposUsuarioQueTieneUnUsuario(int.Parse(UsuarioEntidad.IdUsuario));
-                            List<PersonaEntidad> PersonasAsignadas = new List<PersonaEntidad>();
-                            foreach (var item in ListaTipoUsuario)
+                            UsuariosSistema Usuario = new UsuariosSistema();
+                            UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
+                            Usuario = GestionUsuario.ConsultarUsuarioPorId(int.Parse(UsuarioEntidad.IdUsuario)).FirstOrDefault();
+                            if (Usuario == null)
                             {
-                                PersonasAsignadas = new List<PersonaEntidad>();
-                                PersonasAsignadas = _GestionAsignarComunidadConfigurarVenta.ConsultarPersonasAsignadasPorTecnico(int.Parse(Seguridad.DesEncriptar(item.IdAsignacionTUEncriptada)));
-                                if (PersonasAsignadas.Count>0)
-                                {
-                                    codigo = "409";
-                                    mensaje = "No se puede eliminar el rol "+item.TipoUsuario.Descripcion+" porque tiene cliente para seguimiento asignados, por favor vaya a la seccion de trasnferencia de técnico";
-                                    respuesta = PersonasAsignadas;
-                                    objeto = new { codigo, mensaje, respuesta };
-                                    return objeto;
-                                }
-                            }
-                            if (GestionUsuario.EliminarUsuario(int.Parse(UsuarioEntidad.IdUsuario)) == true)
-                            {
-                                mensaje = "EXITO";
-                                codigo = "200";
+                                codigo = "418";
+                                mensaje = "El usuario que intenta eliminar no existe";
                             }
                             else
                             {
-                                mensaje = "Ocurrio un error al tratar de eliminar el usuario";
-                                codigo = "500";
+                                if (Usuario.EstadoUsuario == false)
+                                {
+                                    codigo = "500";
+                                    mensaje = "El usuario " + Usuario.UsuarioLogin + " ya esta inhabilitado";
+                                }
+                                else
+                                {
+                                    List<AsignacionTipoUsuario> ListaTipoUsuario = new List<AsignacionTipoUsuario>();
+                                    ListaTipoUsuario = GestionUsuario.ConsultarTiposUsuarioQueTieneUnUsuario(int.Parse(UsuarioEntidad.IdUsuario));
+                                    List<PersonaEntidad> PersonasAsignadas = new List<PersonaEntidad>();
+                                    foreach (var item in ListaTipoUsuario)
+                                    {
+                                        PersonasAsignadas = new List<PersonaEntidad>();
+                                        PersonasAsignadas = _GestionAsignarComunidadConfigurarVenta.ConsultarPersonasAsignadasPorTecnico(int.Parse(Seguridad.DesEncriptar(item.IdAsignacionTUEncriptada)));
+                                        if (PersonasAsignadas.Count > 0)
+                                        {
+                                            codigo = "409";
+                                            mensaje = "No se puede eliminar el rol " + item.TipoUsuario.Descripcion + " porque tiene cliente para seguimiento asignados, por favor vaya a la seccion de trasnferencia de técnico";
+                                            respuesta = PersonasAsignadas;
+                                            objeto = new { codigo, mensaje, respuesta };
+                                            return objeto;
+                                        }
+                                    }
+                                    if (GestionUsuario.EliminarUsuario(int.Parse(UsuarioEntidad.IdUsuario)) == true)
+                                    {
+                                        mensaje = "EXITO";
+                                        codigo = "200";
+                                    }
+                                    else
+                                    {
+                                        mensaje = "Ocurrio un error al tratar de eliminar el usuario";
+                                        codigo = "500";
+                                    }
+                                }
                             }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -410,71 +442,78 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePut = ListaClaves.Where(c => c.Identificador == 2).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(UsuarioEntidad.encriptada, _clavePut.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePut.Descripcion)
-                //{
-                if (UsuarioEntidad.IdUsuario == null  || string.IsNullOrEmpty(UsuarioEntidad.IdUsuario.Trim()))
+                if (UsuarioEntidad.encriptada == null || string.IsNullOrEmpty(UsuarioEntidad.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "Ingrese el id usuario";
-                }
-                else if (UsuarioEntidad.IdPersona == null || string.IsNullOrEmpty(UsuarioEntidad.IdPersona.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "ingrese el id persona";
-                }
-                else if (UsuarioEntidad.UsuarioLogin == null || string.IsNullOrEmpty(UsuarioEntidad.UsuarioLogin.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "ingrese el usuario";
-                }
-                else if (UsuarioEntidad.Contrasena == null || string.IsNullOrEmpty(UsuarioEntidad.Contrasena.Trim()))
-                {
-                    codigo = "418";
-                    mensaje = "ingrese la contraseña";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    UsuarioEntidad.Contrasena = p.encriptar(UsuarioEntidad.Contrasena, "Contrasena");
-                    UsuarioEntidad.IdPersona = Seguridad.DesEncriptar(UsuarioEntidad.IdPersona);
-                    UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
-                    UsuariosSistema DatoUsuario = new UsuariosSistema();
-                    DatoUsuario = GestionUsuario.ConsultarUsuarioPorId(int.Parse(UsuarioEntidad.IdUsuario)).FirstOrDefault();
-                    if (DatoUsuario == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(UsuarioEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "418";
-                        mensaje = "El usuario que intenta modificar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        UsuarioEntidad.UsuarioLogin = DatoUsuario.UsuarioLogin;
-                        DatoUsuario = new UsuariosSistema();
-                        DatoUsuario = GestionUsuario.ModificarUsuario(UsuarioEntidad);
-                        if (DatoUsuario.IdUsuario == null)
+                        if (UsuarioEntidad.IdUsuario == null || string.IsNullOrEmpty(UsuarioEntidad.IdUsuario.Trim()))
                         {
-                            mensaje = "Ocurrio un error al modificar el usuario";
-                            codigo = "500";
+                            codigo = "418";
+                            mensaje = "Ingrese el id usuario";
+                        }
+                        else if (UsuarioEntidad.IdPersona == null || string.IsNullOrEmpty(UsuarioEntidad.IdPersona.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "ingrese el id persona";
+                        }
+                        else if (UsuarioEntidad.UsuarioLogin == null || string.IsNullOrEmpty(UsuarioEntidad.UsuarioLogin.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "ingrese el usuario";
+                        }
+                        else if (UsuarioEntidad.Contrasena == null || string.IsNullOrEmpty(UsuarioEntidad.Contrasena.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "ingrese la contraseña";
                         }
                         else
                         {
-                            codigo = "200";
-                            mensaje = "EXITO";
-                            respuesta = DatoUsuario;
-                            objeto = new { codigo, mensaje, respuesta };
-                            return objeto;
+                            UsuarioEntidad.Contrasena = p.encriptar(UsuarioEntidad.Contrasena, "Contrasena");
+                            UsuarioEntidad.IdPersona = Seguridad.DesEncriptar(UsuarioEntidad.IdPersona);
+                            UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
+                            UsuariosSistema DatoUsuario = new UsuariosSistema();
+                            DatoUsuario = GestionUsuario.ConsultarUsuarioPorId(int.Parse(UsuarioEntidad.IdUsuario)).FirstOrDefault();
+                            if (DatoUsuario == null)
+                            {
+                                codigo = "418";
+                                mensaje = "El usuario que intenta modificar no existe";
+                            }
+                            else
+                            {
+                                UsuarioEntidad.UsuarioLogin = DatoUsuario.UsuarioLogin;
+                                DatoUsuario = new UsuariosSistema();
+                                DatoUsuario = GestionUsuario.ModificarUsuario(UsuarioEntidad);
+                                if (DatoUsuario.IdUsuario == null)
+                                {
+                                    mensaje = "Ocurrio un error al modificar el usuario";
+                                    codigo = "500";
+                                }
+                                else
+                                {
+                                    if (UsuarioEntidad.Cerrar=="1")
+                                    {
+                                        Seguridad.EliminarTokenUsuario(int.Parse(UsuarioEntidad.IdUsuario));
+                                    }
+                                    codigo = "200";
+                                    mensaje = "EXITO";
+                                    respuesta = DatoUsuario;
+                                    objeto = new { codigo, mensaje, respuesta };
+                                    return objeto;
+                                }
+                            }
                         }
                     }
-
-                }  
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
+                }
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -486,7 +525,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Usuario/HabilitarUsuario")]
         public object Habilitarusuario(UsuarioEntidad UsuarioEntidad)
@@ -497,56 +535,59 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(UsuarioEntidad.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                
-                if (UsuarioEntidad.IdUsuario == null || string.IsNullOrEmpty(UsuarioEntidad.IdUsuario.Trim()))
+                if (UsuarioEntidad.encriptada == null || string.IsNullOrEmpty(UsuarioEntidad.encriptada.Trim()))
                 {
-                    mensaje = "Ingrese el id usuario";
                     codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    UsuariosSistema Usuario = new UsuariosSistema();
-                    UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
-                    Usuario = GestionUsuario.ConsultarUsuarioPorId(int.Parse(UsuarioEntidad.IdUsuario)).FirstOrDefault();
-                    if (Usuario == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(UsuarioEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "418";
-                        mensaje = "El usuario que intenta habilitar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        if (Usuario.EstadoUsuario == true)
+                        if (UsuarioEntidad.IdUsuario == null || string.IsNullOrEmpty(UsuarioEntidad.IdUsuario.Trim()))
                         {
+                            mensaje = "Ingrese el id usuario";
                             codigo = "418";
-                            mensaje = "El usuario"+ Usuario.UsuarioLogin+ " ya se encuentra habilitado";
                         }
                         else
                         {
-                            if (GestionUsuarios.HabilitarUsuario(int.Parse(UsuarioEntidad.IdUsuario)) == true)
+                            UsuariosSistema Usuario = new UsuariosSistema();
+                            UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
+                            Usuario = GestionUsuario.ConsultarUsuarioPorId(int.Parse(UsuarioEntidad.IdUsuario)).FirstOrDefault();
+                            if (Usuario == null)
                             {
-                                codigo = "200";
-                                mensaje = "EXITO";
+                                codigo = "418";
+                                mensaje = "El usuario que intenta habilitar no existe";
                             }
                             else
                             {
-                                codigo = "500";
-                                mensaje = "Ocurrio un error al tratar de habilitar el usuario";
+                                if (Usuario.EstadoUsuario == true)
+                                {
+                                    codigo = "418";
+                                    mensaje = "El usuario" + Usuario.UsuarioLogin + " ya se encuentra habilitado";
+                                }
+                                else
+                                {
+                                    if (GestionUsuarios.HabilitarUsuario(int.Parse(UsuarioEntidad.IdUsuario)) == true)
+                                    {
+                                        codigo = "200";
+                                        mensaje = "EXITO";
+                                    }
+                                    else
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error al tratar de habilitar el usuario";
+                                    }
+                                }
                             }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -558,8 +599,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
-
         [HttpPost]
         [Route("api/Usuarios/ObtenerTipoUsuarioDeUnUsuario")]
         public object ObtenerTipoUsuarioDeunUsuario(UsuarioEntidad UsuarioEntidad)
@@ -570,23 +609,29 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(UsuarioEntidad.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                mensaje = "EXITO";
-                codigo = "200";
-                UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
-                respuesta = GestionTipoUsuario.ObtenerListaTipoUsuarioDeUnUsuario(int.Parse(UsuarioEntidad.IdUsuario));
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (UsuarioEntidad.encriptada == null || string.IsNullOrEmpty(UsuarioEntidad.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(UsuarioEntidad.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
+                        respuesta = GestionTipoUsuario.ObtenerListaTipoUsuarioDeUnUsuario(int.Parse(UsuarioEntidad.IdUsuario));
+                        objeto = new { codigo, mensaje,respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
@@ -597,8 +642,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
-
         [HttpPost]
         [Route("api/Usuario/ConsultarTiposUsuarioQueNoTieneUnUsuario")]
         public object ConsultarTiposUsuarioQueNoTieneUnUsuario(UsuarioEntidad UsuarioEntidad)
@@ -609,32 +652,36 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePostEncripBD = p.desencriptar(UsuarioEntidad.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePostEncripBD == _clavePost.Descripcion)
-                //{
-                if (UsuarioEntidad.IdUsuario == null || string.IsNullOrEmpty(UsuarioEntidad.IdUsuario.Trim()))
+                if (UsuarioEntidad.encriptada == null || string.IsNullOrEmpty(UsuarioEntidad.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "ingrese el id usuario";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    respuesta = GestionUsuario.ConsultarTiposUsuarioQueNoTieneUnUsuario(int.Parse(UsuarioEntidad.IdUsuario));
-                    objeto = new { mensaje, codigo, respuesta };
-                    return objeto;
+                    if (Seguridad.ConsultarUsuarioPorToken(UsuarioEntidad.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (UsuarioEntidad.IdUsuario == null || string.IsNullOrEmpty(UsuarioEntidad.IdUsuario.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "ingrese el id usuario";
+                        }
+                        else
+                        {
+                            UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            respuesta = GestionUsuario.ConsultarTiposUsuarioQueNoTieneUnUsuario(int.Parse(UsuarioEntidad.IdUsuario));
+                            objeto = new { mensaje, codigo, respuesta };
+                            return objeto;
+                        }
+                    }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { mensaje, codigo};
                 return objeto;
             }
@@ -646,7 +693,6 @@ namespace API.Controllers
                 return objeto;
             }
         }
-
         [HttpPost]
         [Route("api/Usuario/ConsultarTiposUsuarioQueTieneUnUsuario")]
         public object ConsultarTiposUsuarioQueTieneUnUsuario(UsuarioEntidad UsuarioEntidad)
@@ -657,32 +703,36 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePostEncripBD = p.desencriptar(UsuarioEntidad.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePostEncripBD == _clavePost.Descripcion)
-                //{
-                if (UsuarioEntidad.IdUsuario == null || string.IsNullOrEmpty(UsuarioEntidad.IdUsuario.Trim()))
+                if (UsuarioEntidad.encriptada == null || string.IsNullOrEmpty(UsuarioEntidad.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "ingrese el id usuario";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    respuesta = GestionUsuario.ConsultarTiposUsuarioQueTieneUnUsuario(int.Parse(UsuarioEntidad.IdUsuario));
-                    objeto = new { mensaje, codigo, respuesta };
-                    return objeto;
+                    if (Seguridad.ConsultarUsuarioPorToken(UsuarioEntidad.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (UsuarioEntidad.IdUsuario == null || string.IsNullOrEmpty(UsuarioEntidad.IdUsuario.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "ingrese el id usuario";
+                        }
+                        else
+                        {
+                            UsuarioEntidad.IdUsuario = Seguridad.DesEncriptar(UsuarioEntidad.IdUsuario);
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            respuesta = GestionUsuario.ConsultarTiposUsuarioQueTieneUnUsuario(int.Parse(UsuarioEntidad.IdUsuario));
+                            objeto = new { mensaje, codigo, respuesta };
+                            return objeto;
+                        }
+                    }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { mensaje, codigo };
                 return objeto;
             }

@@ -31,67 +31,71 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePost = ListaClaves.Where(c => c.Identificador == 1).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(ParroquiaEntidad.encriptada, _clavePost.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePost.Descripcion)
-                //{
-                if (ParroquiaEntidad.IdCanton == null || string.IsNullOrEmpty(ParroquiaEntidad.IdCanton.Trim()))
+                if (ParroquiaEntidad.encriptada == null || string.IsNullOrEmpty(ParroquiaEntidad.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Falta el id del canton";
-                }
-                else if (ParroquiaEntidad.Descripcion == null || string.IsNullOrEmpty(ParroquiaEntidad.Descripcion.Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta la descripcion de la parroquia";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    ParroquiaEntidad.IdCanton = Seguridad.DesEncriptar(ParroquiaEntidad.IdCanton);
-                    Canton DatoCanton = new Canton();
-                    DatoCanton = GestionCanton.ConsultarCantonPorId(int.Parse(ParroquiaEntidad.IdCanton)).FirstOrDefault();
-                    if (DatoCanton == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(ParroquiaEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "500";
-                        mensaje = "El canton que desea asignar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        Parroquia DatoParroquia = new Parroquia();
-                        DatoParroquia = GestionParroquia.ConsultarParroquiaPorDescripcion(ParroquiaEntidad.Descripcion).FirstOrDefault();
-                        if (DatoParroquia == null)
+                        if (ParroquiaEntidad.IdCanton == null || string.IsNullOrEmpty(ParroquiaEntidad.IdCanton.Trim()))
                         {
-                            DatoParroquia = new Parroquia();
-                            DatoParroquia = GestionParroquia.IngresarParroquia(ParroquiaEntidad);
-                            if (DatoCanton.IdCanton == null || string.IsNullOrEmpty(DatoCanton.IdCanton.Trim()))
-                            {
-                                codigo = "500";
-                                mensaje = "Ocurrio un error en el servidor";
-                            }
-                            else
-                            {
-                                respuesta = DatoParroquia;
-                                codigo = "200";
-                                mensaje = "EXITO";
-                                objeto = new { codigo, mensaje, respuesta };
-                                return objeto;
-                            }
+                            codigo = "400";
+                            mensaje = "Falta el id del canton";
+                        }
+                        else if (ParroquiaEntidad.Descripcion == null || string.IsNullOrEmpty(ParroquiaEntidad.Descripcion.Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta la descripcion de la parroquia";
                         }
                         else
                         {
-                            codigo = "418";
-                            mensaje = "Ya existe la parroquia que quiere insertar";
+                            ParroquiaEntidad.IdCanton = Seguridad.DesEncriptar(ParroquiaEntidad.IdCanton);
+                            Canton DatoCanton = new Canton();
+                            DatoCanton = GestionCanton.ConsultarCantonPorId(int.Parse(ParroquiaEntidad.IdCanton)).FirstOrDefault();
+                            if (DatoCanton == null)
+                            {
+                                codigo = "500";
+                                mensaje = "El canton que desea asignar no existe";
+                            }
+                            else
+                            {
+                                Parroquia DatoParroquia = new Parroquia();
+                                DatoParroquia = GestionParroquia.ConsultarParroquiaPorDescripcion(ParroquiaEntidad.Descripcion).FirstOrDefault();
+                                if (DatoParroquia == null)
+                                {
+                                    DatoParroquia = new Parroquia();
+                                    DatoParroquia = GestionParroquia.IngresarParroquia(ParroquiaEntidad);
+                                    if (DatoCanton.IdCanton == null || string.IsNullOrEmpty(DatoCanton.IdCanton.Trim()))
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error en el servidor";
+                                    }
+                                    else
+                                    {
+                                        respuesta = DatoParroquia;
+                                        codigo = "200";
+                                        mensaje = "EXITO";
+                                        objeto = new { codigo, mensaje, respuesta };
+                                        return objeto;
+                                    }
+                                }
+                                else
+                                {
+                                    codigo = "418";
+                                    mensaje = "Ya existe la parroquia que quiere insertar";
+                                }
+                            }
                         }
                     }
-                }   
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
+                }                
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -113,55 +117,59 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveDelete = ListaClaves.Where(c => c.Identificador == 3).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(ParroquiaEntidad.encriptada, _claveDelete.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _claveDelete.Descripcion)
-                //{
-                if (ParroquiaEntidad.IdParroquia == null || string.IsNullOrEmpty(ParroquiaEntidad.IdParroquia.Trim()))
+                if (ParroquiaEntidad.encriptada == null || string.IsNullOrEmpty(ParroquiaEntidad.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Falta el id de la parroquia";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    ParroquiaEntidad.IdParroquia = Seguridad.DesEncriptar(ParroquiaEntidad.IdParroquia);
-                    Parroquia DatoParroquia = new Parroquia();
-                    DatoParroquia = GestionParroquia.ConsultarParroquiaPorId(int.Parse(ParroquiaEntidad.IdParroquia)).FirstOrDefault();
-                    if (DatoParroquia == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(ParroquiaEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "418";
-                        mensaje = "La parroquia que intenta eliminar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        if (DatoParroquia.PermitirEliminacion == true)
+                        if (ParroquiaEntidad.IdParroquia == null || string.IsNullOrEmpty(ParroquiaEntidad.IdParroquia.Trim()))
                         {
-                            if (GestionParroquia.EliminarParroquia(int.Parse(ParroquiaEntidad.IdParroquia)) == true)
-                            {
-                                mensaje = "EXITO";
-                                codigo = "200";
-                            }
-                            else
-                            {
-                                codigo = "500";
-                                mensaje = "Ocurrio un error al intentar eliminar la parroquia";
-                            }
+                            codigo = "400";
+                            mensaje = "Falta el id de la parroquia";
                         }
                         else
                         {
-                            codigo = "500";
-                            mensaje = "No se puede eliminar la parroquia porque esta siendo usado";
+                            ParroquiaEntidad.IdParroquia = Seguridad.DesEncriptar(ParroquiaEntidad.IdParroquia);
+                            Parroquia DatoParroquia = new Parroquia();
+                            DatoParroquia = GestionParroquia.ConsultarParroquiaPorId(int.Parse(ParroquiaEntidad.IdParroquia)).FirstOrDefault();
+                            if (DatoParroquia == null)
+                            {
+                                codigo = "418";
+                                mensaje = "La parroquia que intenta eliminar no existe";
+                            }
+                            else
+                            {
+                                if (DatoParroquia.PermitirEliminacion == true)
+                                {
+                                    if (GestionParroquia.EliminarParroquia(int.Parse(ParroquiaEntidad.IdParroquia)) == true)
+                                    {
+                                        mensaje = "EXITO";
+                                        codigo = "200";
+                                    }
+                                    else
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error al intentar eliminar la parroquia";
+                                    }
+                                }
+                                else
+                                {
+                                    codigo = "500";
+                                    mensaje = "No se puede eliminar la parroquia porque esta siendo usado";
+                                }
+                            }
                         }
                     }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -183,74 +191,78 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _clavePut = ListaClaves.Where(c => c.Identificador == 2).FirstOrDefault();
-                Object resultado = new object();
-                string ClavePutEncripBD = p.desencriptar(ParroquiaEntidad.encriptada, _clavePut.Clave.Descripcion.Trim());
-                //if (ClavePutEncripBD == _clavePut.Descripcion)
-                //{
-                if (ParroquiaEntidad.IdCanton == null || string.IsNullOrEmpty(ParroquiaEntidad.IdCanton.Trim()))
+                if (ParroquiaEntidad.encriptada == null || string.IsNullOrEmpty(ParroquiaEntidad.encriptada.Trim()))
                 {
-                    codigo = "400";
-                    mensaje = "Falta el id del canton";
-                }
-                else if (ParroquiaEntidad.Descripcion == null || string.IsNullOrEmpty(ParroquiaEntidad.Descripcion.Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta la descripcion de la parroquia";
-                }
-                else if (ParroquiaEntidad.IdParroquia == null || string.IsNullOrEmpty(ParroquiaEntidad.IdParroquia.Trim()))
-                {
-                    codigo = "400";
-                    mensaje = "Falta el id de la parroquia";
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    ParroquiaEntidad.IdParroquia = Seguridad.DesEncriptar(ParroquiaEntidad.IdParroquia);
-                    Parroquia DatoParroquia = new Parroquia();
-                    DatoParroquia = GestionParroquia.ConsultarParroquiaPorId(int.Parse(ParroquiaEntidad.IdParroquia)).FirstOrDefault();
-                    if (DatoParroquia == null)
+                    if (Seguridad.ConsultarUsuarioPorToken(ParroquiaEntidad.encriptada).FirstOrDefault() == null)
                     {
-                        codigo = "418";
-                        mensaje = "La parroquia que intenta actualizar no existe";
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
                     }
                     else
                     {
-                        ParroquiaEntidad.IdCanton = Seguridad.DesEncriptar(ParroquiaEntidad.IdCanton);
-                        Canton DatoCanton = new Canton();
-                        DatoCanton = GestionCanton.ConsultarCantonPorId(int.Parse(ParroquiaEntidad.IdCanton)).FirstOrDefault();
-                        if (DatoCanton == null)
+                        if (ParroquiaEntidad.IdCanton == null || string.IsNullOrEmpty(ParroquiaEntidad.IdCanton.Trim()))
                         {
-                            codigo = "500";
-                            mensaje = "El canton que desea asignar no existe";
+                            codigo = "400";
+                            mensaje = "Falta el id del canton";
+                        }
+                        else if (ParroquiaEntidad.Descripcion == null || string.IsNullOrEmpty(ParroquiaEntidad.Descripcion.Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta la descripcion de la parroquia";
+                        }
+                        else if (ParroquiaEntidad.IdParroquia == null || string.IsNullOrEmpty(ParroquiaEntidad.IdParroquia.Trim()))
+                        {
+                            codigo = "400";
+                            mensaje = "Falta el id de la parroquia";
                         }
                         else
                         {
-                            DatoParroquia = new Parroquia();
-                            DatoParroquia = GestionParroquia.ModificarParroquia(ParroquiaEntidad);
-                            if (DatoParroquia.IdParroquia == null || string.IsNullOrEmpty(DatoParroquia.IdParroquia))
+                            ParroquiaEntidad.IdParroquia = Seguridad.DesEncriptar(ParroquiaEntidad.IdParroquia);
+                            Parroquia DatoParroquia = new Parroquia();
+                            DatoParroquia = GestionParroquia.ConsultarParroquiaPorId(int.Parse(ParroquiaEntidad.IdParroquia)).FirstOrDefault();
+                            if (DatoParroquia == null)
                             {
-                                codigo = "500";
-                                mensaje = "Ocurrio un error al intentar actualizarla parroquia";
+                                codigo = "418";
+                                mensaje = "La parroquia que intenta actualizar no existe";
                             }
                             else
                             {
-                                respuesta = DatoParroquia;
-                                mensaje = "EXITO";
-                                codigo = "200";
-                                objeto = new { codigo, mensaje, respuesta };
-                                return objeto;
+                                ParroquiaEntidad.IdCanton = Seguridad.DesEncriptar(ParroquiaEntidad.IdCanton);
+                                Canton DatoCanton = new Canton();
+                                DatoCanton = GestionCanton.ConsultarCantonPorId(int.Parse(ParroquiaEntidad.IdCanton)).FirstOrDefault();
+                                if (DatoCanton == null)
+                                {
+                                    codigo = "500";
+                                    mensaje = "El canton que desea asignar no existe";
+                                }
+                                else
+                                {
+                                    DatoParroquia = new Parroquia();
+                                    DatoParroquia = GestionParroquia.ModificarParroquia(ParroquiaEntidad);
+                                    if (DatoParroquia.IdParroquia == null || string.IsNullOrEmpty(DatoParroquia.IdParroquia))
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error al intentar actualizarla parroquia";
+                                    }
+                                    else
+                                    {
+                                        respuesta = DatoParroquia;
+                                        mensaje = "EXITO";
+                                        codigo = "200";
+                                        objeto = new { codigo, mensaje, respuesta };
+                                        return objeto;
+                                    }
+                                }
+
                             }
                         }
-
                     }
-                }   
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
+                }
                 objeto = new { codigo, mensaje};
                 return objeto;
             }
@@ -272,28 +284,34 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Tokens.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    respuesta = GestionParroquia.ObtenerListaParroquia();
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Tokens.encriptada == null || string.IsNullOrEmpty(Tokens.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Tokens.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        mensaje = "EXITO";
+                        codigo = "200";
+                        respuesta = GestionParroquia.ObtenerListaParroquia();
+                        objeto = new { codigo, mensaje, respuesta };
+                        return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje};
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -308,29 +326,43 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Canton.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    Canton.IdCanton = Seguridad.DesEncriptar(Canton.IdCanton);
-                    respuesta = GestionParroquia.ListarParroquiaCanton(int.Parse(Canton.IdCanton));
-                //}
-                //else
-                //{
-                    //mensaje = "ERROR";
-                    //codigo = "401";
-                //}
-                objeto = new { codigo, mensaje, respuesta };
+                if (Canton.encriptada == null || string.IsNullOrEmpty(Canton.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(Canton.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (Canton.IdCanton == null || string.IsNullOrEmpty(Canton.IdCanton.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese el id del canton";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            Canton.IdCanton = Seguridad.DesEncriptar(Canton.IdCanton);
+                            respuesta = GestionParroquia.ListarParroquiaCanton(int.Parse(Canton.IdCanton));
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
+                }
+                objeto = new { codigo, mensaje };
                 return objeto;
             }
             catch (Exception e)
             {
-                mensaje = "ERROR";
-                codigo = "418";
+                mensaje = e.Message;
+                codigo = "500";
                 objeto = new { codigo, mensaje };
                 return objeto;
             }
@@ -345,32 +377,36 @@ namespace API.Controllers
             string codigo = "";
             try
             {
-                var ListaClaves = GestionSeguridad.ListarTokens().Where(c => c.Estado == true).ToList();
-                var _claveGet = ListaClaves.Where(c => c.Identificador == 4).FirstOrDefault();
-                Object resultado = new object();
-                string ClaveGetEncripBD = p.desencriptar(Canton.encriptada, _claveGet.Clave.Descripcion.Trim());
-                //if (ClaveGetEncripBD == _claveGet.Descripcion)
-                //{
-                if (Canton.IdCanton == null || string.IsNullOrEmpty(Canton.IdCanton.Trim()))
+                if (Canton.encriptada == null || string.IsNullOrEmpty(Canton.encriptada.Trim()))
                 {
                     codigo = "418";
-                    mensaje = "Ingrese el id canton";
+                    mensaje = "Ingrese el token";
                 }
                 else
                 {
-                    mensaje = "EXITO";
-                    codigo = "200";
-                    Canton.IdCanton = Seguridad.DesEncriptar(Canton.IdCanton);
-                    respuesta = GestionParroquia.ConsultarParroquiaParaSeguimiento(int.Parse(Canton.IdCanton));
-                    objeto = new { codigo, mensaje, respuesta };
-                    return objeto;
+                    if (Seguridad.ConsultarUsuarioPorToken(Canton.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (Canton.IdCanton == null || string.IsNullOrEmpty(Canton.IdCanton.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese el id canton";
+                        }
+                        else
+                        {
+                            mensaje = "EXITO";
+                            codigo = "200";
+                            Canton.IdCanton = Seguridad.DesEncriptar(Canton.IdCanton);
+                            respuesta = GestionParroquia.ConsultarParroquiaParaSeguimiento(int.Parse(Canton.IdCanton));
+                            objeto = new { codigo, mensaje, respuesta };
+                            return objeto;
+                        }
+                    }
                 }
-                //}
-                //else
-                //{
-                //mensaje = "ERROR";
-                //codigo = "401";
-                //}
                 objeto = new { codigo, mensaje};
                 return objeto;
             }

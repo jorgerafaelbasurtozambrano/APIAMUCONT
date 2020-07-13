@@ -11,13 +11,12 @@ namespace Datos
 {
     using System;
     
-    public partial class sp_ModificarCorreo_Result1
+    public partial class sp_ConsultarVehiculoPorPlaca_Result
     {
-        public int IdCorreo { get; set; }
-        public int IdPersona { get; set; }
-        public string Correo { get; set; }
+        public int IdVehiculo { get; set; }
+        public string Placa { get; set; }
+        public int IdAsignarTU { get; set; }
         public System.DateTime FechaCreacion { get; set; }
-        public Nullable<System.DateTime> FechaActualizacion { get; set; }
         public bool Estado { get; set; }
     }
 }

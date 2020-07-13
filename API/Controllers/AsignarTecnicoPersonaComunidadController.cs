@@ -320,8 +320,16 @@ namespace API.Controllers
                         {
                             if (_CatalogoAsignarTPC.TransferirTecnico(_TrasnferirTecnico) == true)
                             {
-                                mensaje = "EXITO";
-                                codigo = "200";
+                                if (_CatalogoAsignarTPC.eliminarAsignacionTipoUsuario(int.Parse(_TrasnferirTecnico.IdAsignarTUAntiguo)) == true)
+                                {
+                                    mensaje = "EXITO";
+                                    codigo = "200";
+                                }
+                                else
+                                {
+                                    mensaje = "Ocurrio un error al hacer la transferencia";
+                                    codigo = "500";
+                                }
                             }
                             else
                             {
