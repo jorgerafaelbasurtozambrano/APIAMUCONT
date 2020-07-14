@@ -277,6 +277,7 @@
     <Parameter Name="IdAsignacionTUAntiguo" Type="int" Mode="In" />
     <Parameter Name="IdAsignacionTUNuevo" Type="int" Mode="In" />
   </Function>
+  <Function Name="AumentarMoraFacturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="sp_AnularFactura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Factura">
     <Parameter Name="IdCabeceraFactura" Type="int" Mode="In" />
     <Parameter Name="IdAsignacionTU" Type="int" Mode="In" />

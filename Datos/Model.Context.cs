@@ -938,6 +938,11 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_TrasnferirPersonasAOtroTecnico", idAsignacionTUAntiguoParameter, idAsignacionTUNuevoParameter);
         }
     
+        public virtual int AumentarMoraFacturas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AumentarMoraFacturas");
+        }
+    
         public virtual int sp_AnularFactura(Nullable<int> idCabeceraFactura, Nullable<int> idAsignacionTU)
         {
             var idCabeceraFacturaParameter = idCabeceraFactura.HasValue ?
@@ -1935,6 +1940,27 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarDescuento", procentajeParameter, idDescuentoParameter);
         }
     
+        public virtual ObjectResult<sp_ModificarKit_Result> sp_ModificarKit(Nullable<int> idKit, string codigo, string descripcion, Nullable<int> idDescuento)
+        {
+            var idKitParameter = idKit.HasValue ?
+                new ObjectParameter("IdKit", idKit) :
+                new ObjectParameter("IdKit", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var idDescuentoParameter = idDescuento.HasValue ?
+                new ObjectParameter("IdDescuento", idDescuento) :
+                new ObjectParameter("IdDescuento", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarKit_Result>("sp_ModificarKit", idKitParameter, codigoParameter, descripcionParameter, idDescuentoParameter);
+        }
+    
         public virtual ObjectResult<sp_ModificarMedida_Result> sp_ModificarMedida(Nullable<int> idMedida, string descripcion)
         {
             var idMedidaParameter = idMedida.HasValue ?
@@ -2038,6 +2064,19 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_AnularTicket_Result>("sp_AnularTicket", idTicketParameter, idAsignarTUParameter);
         }
     
+        public virtual int sp_AnularTicketVenta(Nullable<int> idTicketVenta, Nullable<int> idAsignarTUAnulado)
+        {
+            var idTicketVentaParameter = idTicketVenta.HasValue ?
+                new ObjectParameter("IdTicketVenta", idTicketVenta) :
+                new ObjectParameter("IdTicketVenta", typeof(int));
+    
+            var idAsignarTUAnuladoParameter = idAsignarTUAnulado.HasValue ?
+                new ObjectParameter("IdAsignarTUAnulado", idAsignarTUAnulado) :
+                new ObjectParameter("IdAsignarTUAnulado", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AnularTicketVenta", idTicketVentaParameter, idAsignarTUAnuladoParameter);
+        }
+    
         public virtual ObjectResult<sp_ConsultarStockRubroPorIdTipoRubro_Result> sp_ConsultarStockRubroPorIdTipoRubro(Nullable<int> idTipoRubro)
         {
             var idTipoRubroParameter = idTipoRubro.HasValue ?
@@ -2050,6 +2089,15 @@ namespace Datos
         public virtual ObjectResult<sp_ConsultarStockRubros_Result> sp_ConsultarStockRubros()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarStockRubros_Result>("sp_ConsultarStockRubros");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarTickenVentaPorId_Result> sp_ConsultarTickenVentaPorId(Nullable<int> idVentaRubro)
+        {
+            var idVentaRubroParameter = idVentaRubro.HasValue ?
+                new ObjectParameter("IdVentaRubro", idVentaRubro) :
+                new ObjectParameter("IdVentaRubro", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTickenVentaPorId_Result>("sp_ConsultarTickenVentaPorId", idVentaRubroParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarTicketAnulados_Result> sp_ConsultarTicketAnulados()
@@ -2085,6 +2133,16 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTicketPorSaco_Result>("sp_ConsultarTicketPorSaco");
         }
     
+        public virtual ObjectResult<sp_ConsultarTicketVentaAnulados_Result> sp_ConsultarTicketVentaAnulados()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTicketVentaAnulados_Result>("sp_ConsultarTicketVentaAnulados");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarTicketVentaFinalizados_Result> sp_ConsultarTicketVentaFinalizados()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTicketVentaFinalizados_Result>("sp_ConsultarTicketVentaFinalizados");
+        }
+    
         public virtual ObjectResult<sp_ConsultarTicketVentaPorPlacaCarro_Result> sp_ConsultarTicketVentaPorPlacaCarro(string placa)
         {
             var placaParameter = placa != null ?
@@ -2092,6 +2150,11 @@ namespace Datos
                 new ObjectParameter("Placa", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTicketVentaPorPlacaCarro_Result>("sp_ConsultarTicketVentaPorPlacaCarro", placaParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarTicketVentaSinFinalizar_Result> sp_ConsultarTicketVentaSinFinalizar()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTicketVentaSinFinalizar_Result>("sp_ConsultarTicketVentaSinFinalizar");
         }
     
         public virtual ObjectResult<sp_ConsultarTipoPresentacionRubro_Result> sp_ConsultarTipoPresentacionRubro()
@@ -2226,6 +2289,43 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearTicketVentaPorCarro_Result>("sp_CrearTicketVentaPorCarro", idPersonaClienteParameter, idPersonaChoferParameter, idTipoRubroParameter, idTipoPresentacionRubroParameter, idAsignarTUParameter, idVehiculoParameter, pesoTaraParameter);
         }
     
+        public virtual ObjectResult<sp_CrearTicketVentaPorSaco_Result> sp_CrearTicketVentaPorSaco(Nullable<int> idPersonaCliente, Nullable<int> idTipoRubro, Nullable<int> idTipoPresentacionRubro, Nullable<int> idAsignarTU, Nullable<decimal> pesoNeto, Nullable<decimal> porcentajeImpureza, Nullable<decimal> porcentajeHumedad, Nullable<decimal> precioPorQuintal)
+        {
+            var idPersonaClienteParameter = idPersonaCliente.HasValue ?
+                new ObjectParameter("IdPersonaCliente", idPersonaCliente) :
+                new ObjectParameter("IdPersonaCliente", typeof(int));
+    
+            var idTipoRubroParameter = idTipoRubro.HasValue ?
+                new ObjectParameter("IdTipoRubro", idTipoRubro) :
+                new ObjectParameter("IdTipoRubro", typeof(int));
+    
+            var idTipoPresentacionRubroParameter = idTipoPresentacionRubro.HasValue ?
+                new ObjectParameter("IdTipoPresentacionRubro", idTipoPresentacionRubro) :
+                new ObjectParameter("IdTipoPresentacionRubro", typeof(int));
+    
+            var idAsignarTUParameter = idAsignarTU.HasValue ?
+                new ObjectParameter("IdAsignarTU", idAsignarTU) :
+                new ObjectParameter("IdAsignarTU", typeof(int));
+    
+            var pesoNetoParameter = pesoNeto.HasValue ?
+                new ObjectParameter("PesoNeto", pesoNeto) :
+                new ObjectParameter("PesoNeto", typeof(decimal));
+    
+            var porcentajeImpurezaParameter = porcentajeImpureza.HasValue ?
+                new ObjectParameter("PorcentajeImpureza", porcentajeImpureza) :
+                new ObjectParameter("PorcentajeImpureza", typeof(decimal));
+    
+            var porcentajeHumedadParameter = porcentajeHumedad.HasValue ?
+                new ObjectParameter("PorcentajeHumedad", porcentajeHumedad) :
+                new ObjectParameter("PorcentajeHumedad", typeof(decimal));
+    
+            var precioPorQuintalParameter = precioPorQuintal.HasValue ?
+                new ObjectParameter("PrecioPorQuintal", precioPorQuintal) :
+                new ObjectParameter("PrecioPorQuintal", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearTicketVentaPorSaco_Result>("sp_CrearTicketVentaPorSaco", idPersonaClienteParameter, idTipoRubroParameter, idTipoPresentacionRubroParameter, idAsignarTUParameter, pesoNetoParameter, porcentajeImpurezaParameter, porcentajeHumedadParameter, precioPorQuintalParameter);
+        }
+    
         public virtual ObjectResult<sp_CrearVehiculo_Result> sp_CrearVehiculo(string placa, Nullable<int> idAsignarTU)
         {
             var placaParameter = placa != null ?
@@ -2280,6 +2380,31 @@ namespace Datos
                 new ObjectParameter("PorcentajeImpureza", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_FinalizarTicket_Result>("sp_FinalizarTicket", idTicketParameter, pesoTaraParameter, porcentajeHumedadParameter, precioPorQuintalParameter, porcentajeImpurezaParameter);
+        }
+    
+        public virtual ObjectResult<sp_FinalizarTicketVenta_Result> sp_FinalizarTicketVenta(Nullable<int> idTicketVenta, Nullable<decimal> pesoBruto, Nullable<decimal> precioPorQuintal, Nullable<decimal> porcentajeImpureza, Nullable<decimal> porcentajeHumedad)
+        {
+            var idTicketVentaParameter = idTicketVenta.HasValue ?
+                new ObjectParameter("IdTicketVenta", idTicketVenta) :
+                new ObjectParameter("IdTicketVenta", typeof(int));
+    
+            var pesoBrutoParameter = pesoBruto.HasValue ?
+                new ObjectParameter("PesoBruto", pesoBruto) :
+                new ObjectParameter("PesoBruto", typeof(decimal));
+    
+            var precioPorQuintalParameter = precioPorQuintal.HasValue ?
+                new ObjectParameter("PrecioPorQuintal", precioPorQuintal) :
+                new ObjectParameter("PrecioPorQuintal", typeof(decimal));
+    
+            var porcentajeImpurezaParameter = porcentajeImpureza.HasValue ?
+                new ObjectParameter("PorcentajeImpureza", porcentajeImpureza) :
+                new ObjectParameter("PorcentajeImpureza", typeof(decimal));
+    
+            var porcentajeHumedadParameter = porcentajeHumedad.HasValue ?
+                new ObjectParameter("PorcentajeHumedad", porcentajeHumedad) :
+                new ObjectParameter("PorcentajeHumedad", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_FinalizarTicketVenta_Result>("sp_FinalizarTicketVenta", idTicketVentaParameter, pesoBrutoParameter, precioPorQuintalParameter, porcentajeImpurezaParameter, porcentajeHumedadParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarTokens_Result> sp_ConsultarTokens()
@@ -3297,126 +3422,6 @@ namespace Datos
                 new ObjectParameter("Contrasena", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarUsuario_Result>("sp_ModificarUsuario", idUsuarioParameter, idPersonaParameter, usuarioParameter, contrasenaParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarTickenVentaPorId_Result1> sp_ConsultarTickenVentaPorId(Nullable<int> idVentaRubro)
-        {
-            var idVentaRubroParameter = idVentaRubro.HasValue ?
-                new ObjectParameter("IdVentaRubro", idVentaRubro) :
-                new ObjectParameter("IdVentaRubro", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTickenVentaPorId_Result1>("sp_ConsultarTickenVentaPorId", idVentaRubroParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarTicketVentaFinalizados_Result1> sp_ConsultarTicketVentaFinalizados()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTicketVentaFinalizados_Result1>("sp_ConsultarTicketVentaFinalizados");
-        }
-    
-        public virtual ObjectResult<sp_ConsultarTicketVentaSinFinalizar_Result1> sp_ConsultarTicketVentaSinFinalizar()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTicketVentaSinFinalizar_Result1>("sp_ConsultarTicketVentaSinFinalizar");
-        }
-    
-        public virtual ObjectResult<sp_CrearTicketVentaPorSaco_Result1> sp_CrearTicketVentaPorSaco(Nullable<int> idPersonaCliente, Nullable<int> idTipoRubro, Nullable<int> idTipoPresentacionRubro, Nullable<int> idAsignarTU, Nullable<decimal> pesoNeto, Nullable<decimal> porcentajeImpureza, Nullable<decimal> porcentajeHumedad, Nullable<decimal> precioPorQuintal)
-        {
-            var idPersonaClienteParameter = idPersonaCliente.HasValue ?
-                new ObjectParameter("IdPersonaCliente", idPersonaCliente) :
-                new ObjectParameter("IdPersonaCliente", typeof(int));
-    
-            var idTipoRubroParameter = idTipoRubro.HasValue ?
-                new ObjectParameter("IdTipoRubro", idTipoRubro) :
-                new ObjectParameter("IdTipoRubro", typeof(int));
-    
-            var idTipoPresentacionRubroParameter = idTipoPresentacionRubro.HasValue ?
-                new ObjectParameter("IdTipoPresentacionRubro", idTipoPresentacionRubro) :
-                new ObjectParameter("IdTipoPresentacionRubro", typeof(int));
-    
-            var idAsignarTUParameter = idAsignarTU.HasValue ?
-                new ObjectParameter("IdAsignarTU", idAsignarTU) :
-                new ObjectParameter("IdAsignarTU", typeof(int));
-    
-            var pesoNetoParameter = pesoNeto.HasValue ?
-                new ObjectParameter("PesoNeto", pesoNeto) :
-                new ObjectParameter("PesoNeto", typeof(decimal));
-    
-            var porcentajeImpurezaParameter = porcentajeImpureza.HasValue ?
-                new ObjectParameter("PorcentajeImpureza", porcentajeImpureza) :
-                new ObjectParameter("PorcentajeImpureza", typeof(decimal));
-    
-            var porcentajeHumedadParameter = porcentajeHumedad.HasValue ?
-                new ObjectParameter("PorcentajeHumedad", porcentajeHumedad) :
-                new ObjectParameter("PorcentajeHumedad", typeof(decimal));
-    
-            var precioPorQuintalParameter = precioPorQuintal.HasValue ?
-                new ObjectParameter("PrecioPorQuintal", precioPorQuintal) :
-                new ObjectParameter("PrecioPorQuintal", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearTicketVentaPorSaco_Result1>("sp_CrearTicketVentaPorSaco", idPersonaClienteParameter, idTipoRubroParameter, idTipoPresentacionRubroParameter, idAsignarTUParameter, pesoNetoParameter, porcentajeImpurezaParameter, porcentajeHumedadParameter, precioPorQuintalParameter);
-        }
-    
-        public virtual int sp_AnularTicketVenta(Nullable<int> idTicketVenta, Nullable<int> idAsignarTUAnulado)
-        {
-            var idTicketVentaParameter = idTicketVenta.HasValue ?
-                new ObjectParameter("IdTicketVenta", idTicketVenta) :
-                new ObjectParameter("IdTicketVenta", typeof(int));
-    
-            var idAsignarTUAnuladoParameter = idAsignarTUAnulado.HasValue ?
-                new ObjectParameter("IdAsignarTUAnulado", idAsignarTUAnulado) :
-                new ObjectParameter("IdAsignarTUAnulado", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AnularTicketVenta", idTicketVentaParameter, idAsignarTUAnuladoParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarTicketVentaAnulados_Result> sp_ConsultarTicketVentaAnulados()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTicketVentaAnulados_Result>("sp_ConsultarTicketVentaAnulados");
-        }
-    
-        public virtual ObjectResult<sp_FinalizarTicketVenta_Result1> sp_FinalizarTicketVenta(Nullable<int> idTicketVenta, Nullable<decimal> pesoBruto, Nullable<decimal> precioPorQuintal, Nullable<decimal> porcentajeImpureza, Nullable<decimal> porcentajeHumedad)
-        {
-            var idTicketVentaParameter = idTicketVenta.HasValue ?
-                new ObjectParameter("IdTicketVenta", idTicketVenta) :
-                new ObjectParameter("IdTicketVenta", typeof(int));
-    
-            var pesoBrutoParameter = pesoBruto.HasValue ?
-                new ObjectParameter("PesoBruto", pesoBruto) :
-                new ObjectParameter("PesoBruto", typeof(decimal));
-    
-            var precioPorQuintalParameter = precioPorQuintal.HasValue ?
-                new ObjectParameter("PrecioPorQuintal", precioPorQuintal) :
-                new ObjectParameter("PrecioPorQuintal", typeof(decimal));
-    
-            var porcentajeImpurezaParameter = porcentajeImpureza.HasValue ?
-                new ObjectParameter("PorcentajeImpureza", porcentajeImpureza) :
-                new ObjectParameter("PorcentajeImpureza", typeof(decimal));
-    
-            var porcentajeHumedadParameter = porcentajeHumedad.HasValue ?
-                new ObjectParameter("PorcentajeHumedad", porcentajeHumedad) :
-                new ObjectParameter("PorcentajeHumedad", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_FinalizarTicketVenta_Result1>("sp_FinalizarTicketVenta", idTicketVentaParameter, pesoBrutoParameter, precioPorQuintalParameter, porcentajeImpurezaParameter, porcentajeHumedadParameter);
-        }
-    
-        public virtual ObjectResult<sp_ModificarKit_Result1> sp_ModificarKit(Nullable<int> idKit, string codigo, string descripcion, Nullable<int> idDescuento)
-        {
-            var idKitParameter = idKit.HasValue ?
-                new ObjectParameter("IdKit", idKit) :
-                new ObjectParameter("IdKit", typeof(int));
-    
-            var codigoParameter = codigo != null ?
-                new ObjectParameter("Codigo", codigo) :
-                new ObjectParameter("Codigo", typeof(string));
-    
-            var descripcionParameter = descripcion != null ?
-                new ObjectParameter("Descripcion", descripcion) :
-                new ObjectParameter("Descripcion", typeof(string));
-    
-            var idDescuentoParameter = idDescuento.HasValue ?
-                new ObjectParameter("IdDescuento", idDescuento) :
-                new ObjectParameter("IdDescuento", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ModificarKit_Result1>("sp_ModificarKit", idKitParameter, codigoParameter, descripcionParameter, idDescuentoParameter);
         }
     }
 }

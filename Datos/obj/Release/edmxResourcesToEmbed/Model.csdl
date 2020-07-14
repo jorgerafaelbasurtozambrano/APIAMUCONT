@@ -278,6 +278,7 @@
       <Parameter Name="IdAsignacionTUAntiguo" Mode="In" Type="Int32" />
       <Parameter Name="IdAsignacionTUNuevo" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="AumentarMoraFacturas" />
     <FunctionImport Name="sp_AnularFactura">
       <Parameter Name="IdCabeceraFactura" Mode="In" Type="Int32" />
       <Parameter Name="IdAsignacionTU" Mode="In" Type="Int32" />
@@ -582,6 +583,12 @@
       <Parameter Name="Procentaje" Mode="In" Type="Int32" />
       <Parameter Name="IdDescuento" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="sp_ModificarKit" ReturnType="Collection(AMUCOMTModel.sp_ModificarKit_Result)">
+      <Parameter Name="IdKit" Mode="In" Type="Int32" />
+      <Parameter Name="Codigo" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="IdDescuento" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="sp_ModificarMedida" ReturnType="Collection(AMUCOMTModel.sp_ModificarMedida_Result)">
       <Parameter Name="IdMedida" Mode="In" Type="Int32" />
       <Parameter Name="Descripcion" Mode="In" Type="String" />
@@ -613,10 +620,17 @@
       <Parameter Name="IdTicket" Mode="In" Type="Int32" />
       <Parameter Name="IdAsignarTU" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="sp_AnularTicketVenta">
+      <Parameter Name="IdTicketVenta" Mode="In" Type="Int32" />
+      <Parameter Name="IdAsignarTUAnulado" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="sp_ConsultarStockRubroPorIdTipoRubro" ReturnType="Collection(AMUCOMTModel.sp_ConsultarStockRubroPorIdTipoRubro_Result)">
       <Parameter Name="IdTipoRubro" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="sp_ConsultarStockRubros" ReturnType="Collection(AMUCOMTModel.sp_ConsultarStockRubros_Result)" />
+    <FunctionImport Name="sp_ConsultarTickenVentaPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTickenVentaPorId_Result)">
+      <Parameter Name="IdVentaRubro" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="sp_ConsultarTicketAnulados" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketAnulados_Result)" />
     <FunctionImport Name="sp_ConsultarTicketPorCarro" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketPorCarro_Result)" />
     <FunctionImport Name="sp_ConsultarTicketPorCarroPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketPorCarroPorId_Result)">
@@ -626,9 +640,12 @@
       <Parameter Name="Placa" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_ConsultarTicketPorSaco" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketPorSaco_Result)" />
+    <FunctionImport Name="sp_ConsultarTicketVentaAnulados" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketVentaAnulados_Result)" />
+    <FunctionImport Name="sp_ConsultarTicketVentaFinalizados" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketVentaFinalizados_Result)" />
     <FunctionImport Name="sp_ConsultarTicketVentaPorPlacaCarro" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketVentaPorPlacaCarro_Result)">
       <Parameter Name="Placa" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="sp_ConsultarTicketVentaSinFinalizar" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketVentaSinFinalizar_Result)" />
     <FunctionImport Name="sp_ConsultarTipoPresentacionRubro" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTipoPresentacionRubro_Result)" />
     <FunctionImport Name="sp_ConsultarTipoPresentacionRubroPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTipoPresentacionRubroPorId_Result)">
       <Parameter Name="IdTipoPresentacionRubro" Mode="In" Type="Int32" />
@@ -665,6 +682,16 @@
       <Parameter Name="IdVehiculo" Mode="In" Type="Int32" />
       <Parameter Name="PesoTara" Mode="In" Type="Decimal" />
     </FunctionImport>
+    <FunctionImport Name="sp_CrearTicketVentaPorSaco" ReturnType="Collection(AMUCOMTModel.sp_CrearTicketVentaPorSaco_Result)">
+      <Parameter Name="IdPersonaCliente" Mode="In" Type="Int32" />
+      <Parameter Name="IdTipoRubro" Mode="In" Type="Int32" />
+      <Parameter Name="IdTipoPresentacionRubro" Mode="In" Type="Int32" />
+      <Parameter Name="IdAsignarTU" Mode="In" Type="Int32" />
+      <Parameter Name="PesoNeto" Mode="In" Type="Decimal" />
+      <Parameter Name="PorcentajeImpureza" Mode="In" Type="Decimal" />
+      <Parameter Name="PorcentajeHumedad" Mode="In" Type="Decimal" />
+      <Parameter Name="PrecioPorQuintal" Mode="In" Type="Decimal" />
+    </FunctionImport>
     <FunctionImport Name="sp_CrearVehiculo" ReturnType="Collection(AMUCOMTModel.sp_CrearVehiculo_Result)">
       <Parameter Name="Placa" Mode="In" Type="String" />
       <Parameter Name="IdAsignarTU" Mode="In" Type="Int32" />
@@ -681,6 +708,13 @@
       <Parameter Name="PorcentajeHumedad" Mode="In" Type="Decimal" />
       <Parameter Name="PrecioPorQuintal" Mode="In" Type="Decimal" />
       <Parameter Name="PorcentajeImpureza" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="sp_FinalizarTicketVenta" ReturnType="Collection(AMUCOMTModel.sp_FinalizarTicketVenta_Result)">
+      <Parameter Name="IdTicketVenta" Mode="In" Type="Int32" />
+      <Parameter Name="PesoBruto" Mode="In" Type="Decimal" />
+      <Parameter Name="PrecioPorQuintal" Mode="In" Type="Decimal" />
+      <Parameter Name="PorcentajeImpureza" Mode="In" Type="Decimal" />
+      <Parameter Name="PorcentajeHumedad" Mode="In" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="sp_ConsultarTokens" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTokens_Result)" />
     <FunctionImport Name="ConsultarCantonesDeUnaProvincia" ReturnType="Collection(AMUCOMTModel.ConsultarCantonesDeUnaProvincia_Result)">
@@ -986,39 +1020,6 @@
       <Parameter Name="IdPersona" Mode="In" Type="Int32" />
       <Parameter Name="Usuario" Mode="In" Type="String" />
       <Parameter Name="Contrasena" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="sp_ConsultarTickenVentaPorId" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTickenVentaPorId_Result1)">
-      <Parameter Name="IdVentaRubro" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_ConsultarTicketVentaFinalizados" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketVentaFinalizados_Result1)" />
-    <FunctionImport Name="sp_ConsultarTicketVentaSinFinalizar" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketVentaSinFinalizar_Result1)" />
-    <FunctionImport Name="sp_CrearTicketVentaPorSaco" ReturnType="Collection(AMUCOMTModel.sp_CrearTicketVentaPorSaco_Result1)">
-      <Parameter Name="IdPersonaCliente" Mode="In" Type="Int32" />
-      <Parameter Name="IdTipoRubro" Mode="In" Type="Int32" />
-      <Parameter Name="IdTipoPresentacionRubro" Mode="In" Type="Int32" />
-      <Parameter Name="IdAsignarTU" Mode="In" Type="Int32" />
-      <Parameter Name="PesoNeto" Mode="In" Type="Decimal" />
-      <Parameter Name="PorcentajeImpureza" Mode="In" Type="Decimal" />
-      <Parameter Name="PorcentajeHumedad" Mode="In" Type="Decimal" />
-      <Parameter Name="PrecioPorQuintal" Mode="In" Type="Decimal" />
-    </FunctionImport>
-    <FunctionImport Name="sp_AnularTicketVenta">
-      <Parameter Name="IdTicketVenta" Mode="In" Type="Int32" />
-      <Parameter Name="IdAsignarTUAnulado" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_ConsultarTicketVentaAnulados" ReturnType="Collection(AMUCOMTModel.sp_ConsultarTicketVentaAnulados_Result)" />
-    <FunctionImport Name="sp_FinalizarTicketVenta" ReturnType="Collection(AMUCOMTModel.sp_FinalizarTicketVenta_Result1)">
-      <Parameter Name="IdTicketVenta" Mode="In" Type="Int32" />
-      <Parameter Name="PesoBruto" Mode="In" Type="Decimal" />
-      <Parameter Name="PrecioPorQuintal" Mode="In" Type="Decimal" />
-      <Parameter Name="PorcentajeImpureza" Mode="In" Type="Decimal" />
-      <Parameter Name="PorcentajeHumedad" Mode="In" Type="Decimal" />
-    </FunctionImport>
-    <FunctionImport Name="sp_ModificarKit" ReturnType="Collection(AMUCOMTModel.sp_ModificarKit_Result1)">
-      <Parameter Name="IdKit" Mode="In" Type="Int32" />
-      <Parameter Name="Codigo" Mode="In" Type="String" />
-      <Parameter Name="Descripcion" Mode="In" Type="String" />
-      <Parameter Name="IdDescuento" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_AumentarDetalleVenta_Result">
@@ -2950,6 +2951,63 @@
     <Property Type="Boolean" Name="TipoPresentacionRubrosEstado" Nullable="false" />
     <Property Type="Int32" Name="TipoPresentacionRubrosIdentificador" Nullable="false" />
   </ComplexType>
+  <ComplexType Name="sp_ConsultarTicketVentaAnulados_Result">
+    <Property Type="Int32" Name="VentaRubroIdVentaRubro" Nullable="false" />
+    <Property Type="String" Name="VentaRubroCodigo" Nullable="false" />
+    <Property Type="DateTime" Name="VentaRubroFechaEntrada" Nullable="false" Precision="16" />
+    <Property Type="DateTime" Name="VentaRubroFechaSalida" Nullable="true" Precision="16" />
+    <Property Type="Int32" Name="VentaRubroIdPersonaCliente" Nullable="false" />
+    <Property Type="Int32" Name="VentaRubroIdPersonaChofer" Nullable="true" />
+    <Property Type="Int32" Name="VentaRubroIdTipoRubro" Nullable="false" />
+    <Property Type="Int32" Name="VentaRubroIdTipoPresentacionRubro" Nullable="false" />
+    <Property Type="Int32" Name="VentaRubroIdAsignarTU" Nullable="false" />
+    <Property Type="Int32" Name="VentaRubroIdVehiculo" Nullable="true" />
+    <Property Type="Decimal" Name="VentaRubroPesoTara" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="VentaRubroPesoBruto" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="VentaRubroPrecioPorQuintal" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="VentaRubroPorcentajeImpureza" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="VentaRubroPorcentajeHumedad" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="VentaRubroPesoNeto" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="VentaRubroPesoACobrar" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="VentaRubroTotalACobrar" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="VentaRubroEstado" Nullable="false" />
+    <Property Type="Boolean" Name="VentaRubroAnulado" Nullable="false" />
+    <Property Type="Int32" Name="VentaRubroIdAsignarTUAnulado" Nullable="true" />
+    <Property Type="Int32" Name="VehiculoIdVehiculo" Nullable="true" />
+    <Property Type="String" Name="VehiculoPlaca" Nullable="true" />
+    <Property Type="Int32" Name="VehiculoIdAsignarTU" Nullable="true" />
+    <Property Type="DateTime" Name="VehiculoFechaCreacion" Nullable="true" Precision="16" />
+    <Property Type="Boolean" Name="VehiculoEstado" Nullable="true" />
+    <Property Type="Int32" Name="TipoRubroIdTipoRubro" Nullable="false" />
+    <Property Type="String" Name="TipoRubroDescripcion" Nullable="false" />
+    <Property Type="DateTime" Name="TipoRubroFechaCreacion" Nullable="false" Precision="16" />
+    <Property Type="Boolean" Name="TipoRubroEstado" Nullable="false" />
+    <Property Type="Int32" Name="TipoRuboIdentificador" Nullable="false" />
+    <Property Type="Int32" Name="TipoPresentacionRubrosIdTipoPresentacionRubros" Nullable="false" />
+    <Property Type="String" Name="TipoPresentacionRubrosDescripcion" Nullable="false" />
+    <Property Type="DateTime" Name="TipoPresentacionRubrosFechaCreacion" Nullable="false" Precision="16" />
+    <Property Type="Boolean" Name="TipoPresentacionRubrosEstado" Nullable="false" />
+    <Property Type="Int32" Name="TipoPresentacionRubrosIdentificador" Nullable="false" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdAsignacionTU" Nullable="true" />
+    <Property Type="Boolean" Name="AsignacionTipoUsuarioEstado" Nullable="true" />
+    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaCreacion" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdTipoUsuario" Nullable="true" />
+    <Property Type="Int32" Name="AsignacionTipoUsuarioIdUsuario" Nullable="true" />
+    <Property Type="Int32" Name="UsuarioIdUsuario" Nullable="false" />
+    <Property Type="String" Name="UsuarioContrasena" Nullable="false" MaxLength="1000" />
+    <Property Type="Boolean" Name="UsuarioEstado" Nullable="true" />
+    <Property Type="DateTime" Name="UsuarioFechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="UsuarioFechaCreacion" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="UsuarioIdPersona" Nullable="false" />
+    <Property Type="String" Name="UsuarioUsuario" Nullable="false" MaxLength="1000" />
+    <Property Type="Int32" Name="TipoUsuarioIdTipoUsuario" Nullable="false" />
+    <Property Type="String" Name="TipoUsuarioDescripcion" Nullable="false" MaxLength="1000" />
+    <Property Type="Boolean" Name="TipoUsuarioEstado" Nullable="false" />
+    <Property Type="DateTime" Name="TipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="TipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
+    <Property Type="String" Name="TipoUsuarioIdentificacion" Nullable="false" MaxLength="1000" />
+  </ComplexType>
   <ComplexType Name="sp_ConsultarTicketVentaFinalizados_Result">
     <Property Type="Int32" Name="VentaRubroIdVentaRubro" Nullable="false" />
     <Property Type="String" Name="VentaRubroCodigo" Nullable="false" />
@@ -4264,298 +4322,5 @@
     <Property Type="Int32" Name="TipoDocumentoIdentificador" Nullable="false" />
     <Property Type="DateTime" Name="TipoDocumentoFechaCreacion" Nullable="false" Precision="23" />
     <Property Type="Boolean" Name="TipoDocumentoEstado" Nullable="false" />
-  </ComplexType>
-  <ComplexType Name="sp_ConsultarTickenVentaPorId_Result1">
-    <Property Type="Int32" Name="IdVentaRubro" Nullable="false" />
-    <Property Type="String" Name="Codigo" Nullable="false" />
-    <Property Type="DateTime" Name="FechaEntrada" Nullable="false" Precision="16" />
-    <Property Type="DateTime" Name="FechaSalida" Nullable="true" Precision="16" />
-    <Property Type="Int32" Name="IdPersonaCliente" Nullable="false" />
-    <Property Type="Int32" Name="IdPersonaChofer" Nullable="true" />
-    <Property Type="Int32" Name="IdTipoRubro" Nullable="false" />
-    <Property Type="Int32" Name="IdTipoPresentacionRubro" Nullable="false" />
-    <Property Type="Int32" Name="IdAsignarTU" Nullable="false" />
-    <Property Type="Int32" Name="IdVehiculo" Nullable="true" />
-    <Property Type="Decimal" Name="PesoTara" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="PesoBruto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="PrecioPorQuintal" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="PorcentajeImpureza" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="PorcentajeHumedad" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="PesoNeto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="PesoACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="TotalACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Boolean" Name="Estado" Nullable="false" />
-    <Property Type="Boolean" Name="Anulado" Nullable="false" />
-    <Property Type="Int32" Name="IdAsignarTUAnulado" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="sp_ConsultarTicketVentaFinalizados_Result1">
-    <Property Type="Int32" Name="VentaRubroIdVentaRubro" Nullable="false" />
-    <Property Type="String" Name="VentaRubroCodigo" Nullable="false" />
-    <Property Type="DateTime" Name="VentaRubroFechaEntrada" Nullable="false" Precision="16" />
-    <Property Type="DateTime" Name="VentaRubroFechaSalida" Nullable="true" Precision="16" />
-    <Property Type="Int32" Name="VentaRubroIdPersonaCliente" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdPersonaChofer" Nullable="true" />
-    <Property Type="Int32" Name="VentaRubroIdTipoRubro" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdTipoPresentacionRubro" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdAsignarTU" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdVehiculo" Nullable="true" />
-    <Property Type="Decimal" Name="VentaRubroPesoTara" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoBruto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPrecioPorQuintal" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPorcentajeImpureza" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPorcentajeHumedad" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoNeto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroTotalACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Boolean" Name="VentaRubroEstado" Nullable="false" />
-    <Property Type="Boolean" Name="VentaRubroAnulado" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdAsignarTUAnulado" Nullable="true" />
-    <Property Type="Int32" Name="VehiculoIdVehiculo" Nullable="true" />
-    <Property Type="String" Name="VehiculoPlaca" Nullable="true" />
-    <Property Type="Int32" Name="VehiculoIdAsignarTU" Nullable="true" />
-    <Property Type="DateTime" Name="VehiculoFechaCreacion" Nullable="true" Precision="16" />
-    <Property Type="Boolean" Name="VehiculoEstado" Nullable="true" />
-    <Property Type="Int32" Name="TipoRubroIdTipoRubro" Nullable="false" />
-    <Property Type="String" Name="TipoRubroDescripcion" Nullable="false" />
-    <Property Type="DateTime" Name="TipoRubroFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="TipoRubroEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoRuboIdentificador" Nullable="false" />
-    <Property Type="Int32" Name="TipoPresentacionRubrosIdTipoPresentacionRubros" Nullable="false" />
-    <Property Type="String" Name="TipoPresentacionRubrosDescripcion" Nullable="false" />
-    <Property Type="DateTime" Name="TipoPresentacionRubrosFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="TipoPresentacionRubrosEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoPresentacionRubrosIdentificador" Nullable="false" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdAsignacionTU" Nullable="true" />
-    <Property Type="Boolean" Name="AsignacionTipoUsuarioEstado" Nullable="true" />
-    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaCreacion" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdTipoUsuario" Nullable="true" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdUsuario" Nullable="true" />
-    <Property Type="Int32" Name="UsuarioIdUsuario" Nullable="false" />
-    <Property Type="String" Name="UsuarioContrasena" Nullable="false" MaxLength="1000" />
-    <Property Type="Boolean" Name="UsuarioEstado" Nullable="true" />
-    <Property Type="DateTime" Name="UsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="UsuarioFechaCreacion" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="UsuarioIdPersona" Nullable="false" />
-    <Property Type="String" Name="UsuarioUsuario" Nullable="false" MaxLength="1000" />
-    <Property Type="Int32" Name="TipoUsuarioIdTipoUsuario" Nullable="false" />
-    <Property Type="String" Name="TipoUsuarioDescripcion" Nullable="false" MaxLength="1000" />
-    <Property Type="Boolean" Name="TipoUsuarioEstado" Nullable="false" />
-    <Property Type="DateTime" Name="TipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="TipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
-    <Property Type="String" Name="TipoUsuarioIdentificacion" Nullable="false" MaxLength="1000" />
-  </ComplexType>
-  <ComplexType Name="sp_ConsultarTicketVentaSinFinalizar_Result1">
-    <Property Type="Int32" Name="VentaRubroIdVentaRubro" Nullable="false" />
-    <Property Type="String" Name="VentaRubroCodigo" Nullable="false" />
-    <Property Type="DateTime" Name="VentaRubroFechaEntrada" Nullable="false" Precision="16" />
-    <Property Type="DateTime" Name="VentaRubroFechaSalida" Nullable="true" Precision="16" />
-    <Property Type="Int32" Name="VentaRubroIdPersonaCliente" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdPersonaChofer" Nullable="true" />
-    <Property Type="Int32" Name="VentaRubroIdTipoRubro" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdTipoPresentacionRubro" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdAsignarTU" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdVehiculo" Nullable="true" />
-    <Property Type="Decimal" Name="VentaRubroPesoTara" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoBruto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPrecioPorQuintal" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPorcentajeImpureza" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPorcentajeHumedad" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoNeto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroTotalACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Boolean" Name="VentaRubroEstado" Nullable="false" />
-    <Property Type="Boolean" Name="VentaRubroAnulado" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdAsignarTUAnulado" Nullable="true" />
-    <Property Type="Int32" Name="VehiculoIdVehiculo" Nullable="false" />
-    <Property Type="String" Name="VehiculoPlaca" Nullable="false" />
-    <Property Type="Int32" Name="VehiculoIdAsignarTU" Nullable="false" />
-    <Property Type="DateTime" Name="VehiculoFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="VehiculoEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoRubroIdTipoRubro" Nullable="false" />
-    <Property Type="String" Name="TipoRubroDescripcion" Nullable="false" />
-    <Property Type="DateTime" Name="TipoRubroFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="TipoRubroEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoRuboIdentificador" Nullable="false" />
-    <Property Type="Int32" Name="TipoPresentacionRubrosIdTipoPresentacionRubros" Nullable="false" />
-    <Property Type="String" Name="TipoPresentacionRubrosDescripcion" Nullable="false" />
-    <Property Type="DateTime" Name="TipoPresentacionRubrosFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="TipoPresentacionRubrosEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoPresentacionRubrosIdentificador" Nullable="false" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdAsignacionTU" Nullable="true" />
-    <Property Type="Boolean" Name="AsignacionTipoUsuarioEstado" Nullable="true" />
-    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaCreacion" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdTipoUsuario" Nullable="true" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdUsuario" Nullable="true" />
-    <Property Type="Int32" Name="UsuarioIdUsuario" Nullable="false" />
-    <Property Type="String" Name="UsuarioContrasena" Nullable="false" MaxLength="1000" />
-    <Property Type="Boolean" Name="UsuarioEstado" Nullable="true" />
-    <Property Type="DateTime" Name="UsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="UsuarioFechaCreacion" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="UsuarioIdPersona" Nullable="false" />
-    <Property Type="String" Name="UsuarioUsuario" Nullable="false" MaxLength="1000" />
-    <Property Type="Int32" Name="TipoUsuarioIdTipoUsuario" Nullable="false" />
-    <Property Type="String" Name="TipoUsuarioDescripcion" Nullable="false" MaxLength="1000" />
-    <Property Type="Boolean" Name="TipoUsuarioEstado" Nullable="false" />
-    <Property Type="DateTime" Name="TipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="TipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
-    <Property Type="String" Name="TipoUsuarioIdentificacion" Nullable="false" MaxLength="1000" />
-  </ComplexType>
-  <ComplexType Name="sp_CrearTicketVentaPorSaco_Result1">
-    <Property Type="Int32" Name="VentaRubroIdVentaRubro" Nullable="false" />
-    <Property Type="String" Name="VentaRubroCodigo" Nullable="false" />
-    <Property Type="DateTime" Name="VentaRubroFechaEntrada" Nullable="false" Precision="16" />
-    <Property Type="DateTime" Name="VentaRubroFechaSalida" Nullable="true" Precision="16" />
-    <Property Type="Int32" Name="VentaRubroIdPersonaCliente" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdPersonaChofer" Nullable="true" />
-    <Property Type="Int32" Name="VentaRubroIdTipoRubro" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdTipoPresentacionRubro" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdAsignarTU" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdVehiculo" Nullable="true" />
-    <Property Type="Decimal" Name="VentaRubroPesoTara" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoBruto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPrecioPorQuintal" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPorcentajeImpureza" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPorcentajeHumedad" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoNeto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroTotalACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Boolean" Name="VentaRubroEstado" Nullable="false" />
-    <Property Type="Boolean" Name="VentaRubroAnulado" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdAsignarTUAnulado" Nullable="true" />
-    <Property Type="Int32" Name="TipoRubroIdTipoRubro" Nullable="false" />
-    <Property Type="String" Name="TipoRubroDescripcion" Nullable="false" />
-    <Property Type="DateTime" Name="TipoRubroFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="TipoRubroEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoRuboIdentificador" Nullable="false" />
-    <Property Type="Int32" Name="TipoPresentacionRubrosIdTipoPresentacionRubros" Nullable="false" />
-    <Property Type="String" Name="TipoPresentacionRubrosDescripcion" Nullable="false" />
-    <Property Type="DateTime" Name="TipoPresentacionRubrosFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="TipoPresentacionRubrosEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoPresentacionRubrosIdentificador" Nullable="false" />
-  </ComplexType>
-  <ComplexType Name="sp_ConsultarTicketVentaAnulados_Result">
-    <Property Type="Int32" Name="VentaRubroIdVentaRubro" Nullable="false" />
-    <Property Type="String" Name="VentaRubroCodigo" Nullable="false" />
-    <Property Type="DateTime" Name="VentaRubroFechaEntrada" Nullable="false" Precision="16" />
-    <Property Type="DateTime" Name="VentaRubroFechaSalida" Nullable="true" Precision="16" />
-    <Property Type="Int32" Name="VentaRubroIdPersonaCliente" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdPersonaChofer" Nullable="true" />
-    <Property Type="Int32" Name="VentaRubroIdTipoRubro" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdTipoPresentacionRubro" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdAsignarTU" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdVehiculo" Nullable="true" />
-    <Property Type="Decimal" Name="VentaRubroPesoTara" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoBruto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPrecioPorQuintal" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPorcentajeImpureza" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPorcentajeHumedad" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoNeto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroTotalACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Boolean" Name="VentaRubroEstado" Nullable="false" />
-    <Property Type="Boolean" Name="VentaRubroAnulado" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdAsignarTUAnulado" Nullable="true" />
-    <Property Type="Int32" Name="VehiculoIdVehiculo" Nullable="true" />
-    <Property Type="String" Name="VehiculoPlaca" Nullable="true" />
-    <Property Type="Int32" Name="VehiculoIdAsignarTU" Nullable="true" />
-    <Property Type="DateTime" Name="VehiculoFechaCreacion" Nullable="true" Precision="16" />
-    <Property Type="Boolean" Name="VehiculoEstado" Nullable="true" />
-    <Property Type="Int32" Name="TipoRubroIdTipoRubro" Nullable="false" />
-    <Property Type="String" Name="TipoRubroDescripcion" Nullable="false" />
-    <Property Type="DateTime" Name="TipoRubroFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="TipoRubroEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoRuboIdentificador" Nullable="false" />
-    <Property Type="Int32" Name="TipoPresentacionRubrosIdTipoPresentacionRubros" Nullable="false" />
-    <Property Type="String" Name="TipoPresentacionRubrosDescripcion" Nullable="false" />
-    <Property Type="DateTime" Name="TipoPresentacionRubrosFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="TipoPresentacionRubrosEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoPresentacionRubrosIdentificador" Nullable="false" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdAsignacionTU" Nullable="true" />
-    <Property Type="Boolean" Name="AsignacionTipoUsuarioEstado" Nullable="true" />
-    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaCreacion" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdTipoUsuario" Nullable="true" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdUsuario" Nullable="true" />
-    <Property Type="Int32" Name="UsuarioIdUsuario" Nullable="false" />
-    <Property Type="String" Name="UsuarioContrasena" Nullable="false" MaxLength="1000" />
-    <Property Type="Boolean" Name="UsuarioEstado" Nullable="true" />
-    <Property Type="DateTime" Name="UsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="UsuarioFechaCreacion" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="UsuarioIdPersona" Nullable="false" />
-    <Property Type="String" Name="UsuarioUsuario" Nullable="false" MaxLength="1000" />
-    <Property Type="Int32" Name="TipoUsuarioIdTipoUsuario" Nullable="false" />
-    <Property Type="String" Name="TipoUsuarioDescripcion" Nullable="false" MaxLength="1000" />
-    <Property Type="Boolean" Name="TipoUsuarioEstado" Nullable="false" />
-    <Property Type="DateTime" Name="TipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="TipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
-    <Property Type="String" Name="TipoUsuarioIdentificacion" Nullable="false" MaxLength="1000" />
-  </ComplexType>
-  <ComplexType Name="sp_FinalizarTicketVenta_Result1">
-    <Property Type="Int32" Name="VentaRubroIdVentaRubro" Nullable="false" />
-    <Property Type="String" Name="VentaRubroCodigo" Nullable="false" />
-    <Property Type="DateTime" Name="VentaRubroFechaEntrada" Nullable="false" Precision="16" />
-    <Property Type="DateTime" Name="VentaRubroFechaSalida" Nullable="true" Precision="16" />
-    <Property Type="Int32" Name="VentaRubroIdPersonaCliente" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdPersonaChofer" Nullable="true" />
-    <Property Type="Int32" Name="VentaRubroIdTipoRubro" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdTipoPresentacionRubro" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdAsignarTU" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdVehiculo" Nullable="true" />
-    <Property Type="Decimal" Name="VentaRubroPesoTara" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoBruto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPrecioPorQuintal" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPorcentajeImpureza" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPorcentajeHumedad" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoNeto" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroPesoACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Decimal" Name="VentaRubroTotalACobrar" Nullable="true" Precision="18" Scale="2" />
-    <Property Type="Boolean" Name="VentaRubroEstado" Nullable="false" />
-    <Property Type="Boolean" Name="VentaRubroAnulado" Nullable="false" />
-    <Property Type="Int32" Name="VentaRubroIdAsignarTUAnulado" Nullable="true" />
-    <Property Type="Int32" Name="VehiculoIdVehiculo" Nullable="false" />
-    <Property Type="String" Name="VehiculoPlaca" Nullable="false" />
-    <Property Type="Int32" Name="VehiculoIdAsignarTU" Nullable="false" />
-    <Property Type="DateTime" Name="VehiculoFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="VehiculoEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoRubroIdTipoRubro" Nullable="false" />
-    <Property Type="String" Name="TipoRubroDescripcion" Nullable="false" />
-    <Property Type="DateTime" Name="TipoRubroFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="TipoRubroEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoRuboIdentificador" Nullable="false" />
-    <Property Type="Int32" Name="TipoPresentacionRubrosIdTipoPresentacionRubros" Nullable="false" />
-    <Property Type="String" Name="TipoPresentacionRubrosDescripcion" Nullable="false" />
-    <Property Type="DateTime" Name="TipoPresentacionRubrosFechaCreacion" Nullable="false" Precision="16" />
-    <Property Type="Boolean" Name="TipoPresentacionRubrosEstado" Nullable="false" />
-    <Property Type="Int32" Name="TipoPresentacionRubrosIdentificador" Nullable="false" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdAsignacionTU" Nullable="true" />
-    <Property Type="Boolean" Name="AsignacionTipoUsuarioEstado" Nullable="true" />
-    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="AsignacionTipoUsuarioFechaCreacion" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdTipoUsuario" Nullable="true" />
-    <Property Type="Int32" Name="AsignacionTipoUsuarioIdUsuario" Nullable="true" />
-    <Property Type="Int32" Name="UsuarioIdUsuario" Nullable="false" />
-    <Property Type="String" Name="UsuarioContrasena" Nullable="false" MaxLength="1000" />
-    <Property Type="Boolean" Name="UsuarioEstado" Nullable="true" />
-    <Property Type="DateTime" Name="UsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="UsuarioFechaCreacion" Nullable="true" Precision="23" />
-    <Property Type="Int32" Name="UsuarioIdPersona" Nullable="false" />
-    <Property Type="String" Name="UsuarioUsuario" Nullable="false" MaxLength="1000" />
-    <Property Type="Int32" Name="TipoUsuarioIdTipoUsuario" Nullable="false" />
-    <Property Type="String" Name="TipoUsuarioDescripcion" Nullable="false" MaxLength="1000" />
-    <Property Type="Boolean" Name="TipoUsuarioEstado" Nullable="false" />
-    <Property Type="DateTime" Name="TipoUsuarioFechaActualizacion" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="TipoUsuarioFechaCreacion" Nullable="false" Precision="23" />
-    <Property Type="String" Name="TipoUsuarioIdentificacion" Nullable="false" MaxLength="1000" />
-  </ComplexType>
-  <ComplexType Name="sp_ModificarKit_Result1">
-    <Property Type="String" Name="Codigo" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="250" />
-    <Property Type="Boolean" Name="Estado" Nullable="false" />
-    <Property Type="DateTime" Name="FechaActualizacion" Nullable="false" Precision="23" />
-    <Property Type="DateTime" Name="FechaCreacion" Nullable="false" Precision="23" />
-    <Property Type="Int32" Name="IdKit" Nullable="false" />
-    <Property Type="String" Name="KitUtilizado" Nullable="false" MaxLength="1" />
   </ComplexType>
 </Schema>

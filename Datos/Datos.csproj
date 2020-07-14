@@ -482,9 +482,6 @@
     <Compile Include="sp_ConsultarTickenVentaPorId_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_ConsultarTickenVentaPorId_Result1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="sp_ConsultarTicketAnulados_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -506,16 +503,10 @@
     <Compile Include="sp_ConsultarTicketVentaFinalizados_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_ConsultarTicketVentaFinalizados_Result1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="sp_ConsultarTicketVentaPorPlacaCarro_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarTicketVentaSinFinalizar_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_ConsultarTicketVentaSinFinalizar_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarTipoDocumento_Result.cs">
@@ -692,9 +683,6 @@
     <Compile Include="sp_CrearTicketVentaPorSaco_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_CrearTicketVentaPorSaco_Result1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="sp_CrearTipoInteres_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -711,9 +699,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_FinalizarTicketVenta_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_FinalizarTicketVenta_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_FinalizarTicket_Result.cs">
@@ -738,9 +723,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ModificarKit_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_ModificarKit_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ModificarMedida_Result.cs">
