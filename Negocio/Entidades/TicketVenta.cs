@@ -38,5 +38,8 @@ namespace Negocio.Entidades
         public bool Anulada { get; set; }
         public string IdAsignarTUAnulada { get; set; }
         public string encriptada { get; set; }
+        public bool? Modificado { get; set; }
+        //public string _IdPersonaModifica { get; set; }
+        //public PersonaEntidad _PersonaQueModifica { get; set; }
     }
 }

@@ -1,0 +1,156 @@
+﻿<div id="comprobante">
+    <div style="text-align:center">
+        <img width="400" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+    </div>
+    <br />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/TicketStyle.css" type="text/css" rel="stylesheet" />
+    <div class="container">
+        <div class="row">
+            <div class="col-6">VENTA DE PRODUCTO</div>
+            <div class="col-6">@ViewBag.Datos.Codigo</div>
+        </div>
+        <div class="row">
+            <div class="col-6">PRODUCTO: @ViewBag.Datos._TipoRubro.Descripcion</div>
+            <div class="col-6">VENTA POR @ViewBag.Datos._TipoPresentacionRubro.Descripcion</div>
+        </div>
+        <div class="row">
+            <div class="col-6">CEDULA: @ViewBag.Datos._PersonaCliente.NumeroDocumento</div>
+            <div class="col-6">
+                CLIENTE:
+                @ViewBag.Datos._PersonaCliente.PrimerNombre
+                @ViewBag.Datos._PersonaCliente.SegundoNombre
+                @ViewBag.Datos._PersonaCliente.ApellidoPaterno
+                @ViewBag.Datos._PersonaCliente.ApellidoPaterno
+            </div>
+        </div>
+        @if (ViewBag.Datos._PersonaChofer != null)
+        {
+            if (ViewBag.Datos._PersonaChofer.NumeroDocumento!=ViewBag.Datos._PersonaCliente.NumeroDocumento)
+            {
+                <div class="row">
+                    <div class="col-6">CEDULA: @ViewBag.Datos._PersonaChofer.NumeroDocumento</div>
+                    <div class="col-6">
+                        CHOFER:
+                        @ViewBag.Datos._PersonaChofer.PrimerNombre
+                        @ViewBag.Datos._PersonaChofer.SegundoNombre
+                        @ViewBag.Datos._PersonaChofer.ApellidoPaterno
+                        @ViewBag.Datos._PersonaChofer.ApellidoPaterno
+                    </div>
+                </div>
+            }
+        }
+        @if (ViewBag.Datos._Vehiculo.Placa != null)
+        {
+            <div class="row">
+                <div class="col-12">CAMIÓN PLACA Nro: @ViewBag.Datos._Vehiculo.Placa</div>
+            </div>
+        }
+    </div>
+    <br />
+    <div class="container">
+        <div class="row">
+            <div style="border-left: 1px solid black;border-top: 1px solid black;" class="col-6">
+                @if (ViewBag.Datos._TipoPresentacionRubro.Identificador ==1)
+                {
+                    <span>PESO BRUTO: @ViewBag.Datos.PesoBruto kg</span>
+                }
+            </div>
+            <div style="border-top: 1px solid black;border-right: 1px solid black;" class="col-6">
+                HUMEDAD: @ViewBag.Datos.PorcentajeHumedad %
+            </div>
+        </div>
+        <div class="row">
+            <div style="border-left: 1px solid black;" class="col-6">
+                @if (ViewBag.Datos._TipoPresentacionRubro.Identificador == 1)
+                {
+                    <span>PESO TARA: @ViewBag.Datos.PesoTara Kg</span>
+                }
+            </div>
+            <div style="border-right: 1px solid black;" class="col-6">
+                IMPUREZA:
+                @ViewBag.Datos.PorcentajeImpureza %
+            </div>
+        </div>
+        <div class="row">
+            @if (ViewBag.Datos._TipoPresentacionRubro.Identificador != 1)
+            {
+                <div style="border-left: 1px solid black;" class="col-6">
+                </div>
+                <div style="border-right: 1px solid black;" class="col-6">---------------</div>
+            }
+            else
+            {
+                <div style="border-left: 1px solid black;" class="col-6">
+                    @if (ViewBag.Datos.PesoNeto != null)
+                    {
+                        <span>PESO NETO: @ViewBag.Datos.PesoNeto Kg</span>
+                    }
+                </div>
+                <div style="border-right: 1px solid black;" class="col-6">---------------</div>
+            }
+        </div>
+        <div class="row">
+            <div style="border-bottom: 1px solid black;border-left: 1px solid black;" class="col-6">
+            </div>
+            <div style="border-bottom: 1px solid black;border-right: 1px solid black;" class="col-6">
+                @if (ViewBag.Datos.PesoACobrar != null)
+                {
+                    <span>EQUIVALENTE A: @ViewBag.Datos.PesoACobrar qq</span>
+                }
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <div class="row">
+            <div style="text-align:center" class="col-6">
+                @if (ViewBag.Datos.PrecioPorQuintal != null)
+                {
+                    <span>PRECIO qq :$ @ViewBag.Datos.PrecioPorQuintal</span>
+                }
+            </div>
+            <div style="text-align:center" class="col-6">
+                @if (ViewBag.Datos.TotalACobrar != null)
+                {
+                    <span>TOTAL: $@ViewBag.Datos.TotalACobrar</span>
+                }
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <div class="row">
+            <div style="text-align:center" class="col-6">ENTRADA</div>
+            <div style="text-align:center" class="col-6">SALIDA</div>
+        </div>
+        <div class="row">
+            <div style="text-align:center" class="col-6">
+                @ViewBag.Datos.FechaIngreso
+            </div>
+            <div style="text-align:center" class="col-6">
+                @ViewBag.Datos.FechaSalida
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <div class="row">
+            <div style="text-align:center" class="col-6">BALANZA</div>
+            <div style="text-align:center" class="col-6">CLIENTE</div>
+        </div>
+        <br />
+        <div class="row">
+            <div style="text-align:center;color:blue" class="col-6">
+                <strong style="font-size: 150%">
+                    _________________________________
+                </strong>
+            </div>
+            <div style="text-align:center;color:blue" class="col-6">
+                <strong style="font-size: 150%">
+                    _________________________________
+                </strong>
+            </div>
+        </div>
+    </div>
+</div>

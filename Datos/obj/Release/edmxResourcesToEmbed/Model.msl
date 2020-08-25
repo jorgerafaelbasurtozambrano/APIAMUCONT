@@ -2273,33 +2273,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_ConsultarTickenVentaPorId" FunctionName="AMUCOMTModel.Store.sp_ConsultarTickenVentaPorId">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTickenVentaPorId_Result">
-          <ScalarProperty Name="IdVentaRubro" ColumnName="IdVentaRubro" />
-          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-          <ScalarProperty Name="FechaEntrada" ColumnName="FechaEntrada" />
-          <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
-          <ScalarProperty Name="IdPersonaCliente" ColumnName="IdPersonaCliente" />
-          <ScalarProperty Name="IdPersonaChofer" ColumnName="IdPersonaChofer" />
-          <ScalarProperty Name="IdTipoRubro" ColumnName="IdTipoRubro" />
-          <ScalarProperty Name="IdTipoPresentacionRubro" ColumnName="IdTipoPresentacionRubro" />
-          <ScalarProperty Name="IdAsignarTU" ColumnName="IdAsignarTU" />
-          <ScalarProperty Name="IdVehiculo" ColumnName="IdVehiculo" />
-          <ScalarProperty Name="PesoTara" ColumnName="PesoTara" />
-          <ScalarProperty Name="PesoBruto" ColumnName="PesoBruto" />
-          <ScalarProperty Name="PrecioPorQuintal" ColumnName="PrecioPorQuintal" />
-          <ScalarProperty Name="PorcentajeImpureza" ColumnName="PorcentajeImpureza" />
-          <ScalarProperty Name="PorcentajeHumedad" ColumnName="PorcentajeHumedad" />
-          <ScalarProperty Name="PesoNeto" ColumnName="PesoNeto" />
-          <ScalarProperty Name="PesoACobrar" ColumnName="PesoACobrar" />
-          <ScalarProperty Name="TotalACobrar" ColumnName="TotalACobrar" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Anulado" ColumnName="Anulado" />
-          <ScalarProperty Name="IdAsignarTUAnulado" ColumnName="IdAsignarTUAnulado" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_ConsultarTicketAnulados" FunctionName="AMUCOMTModel.Store.sp_ConsultarTicketAnulados">
       <ResultMapping>
         <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTicketAnulados_Result">
@@ -2553,6 +2526,8 @@
           <ScalarProperty Name="VentaRubroEstado" ColumnName="VentaRubroEstado" />
           <ScalarProperty Name="VentaRubroAnulado" ColumnName="VentaRubroAnulado" />
           <ScalarProperty Name="VentaRubroIdAsignarTUAnulado" ColumnName="VentaRubroIdAsignarTUAnulado" />
+          <ScalarProperty Name="VentaRubroModificado" ColumnName="VentaRubroModificado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUModificado" ColumnName="VentaRubroIdAsignarTUModificado" />
           <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
           <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
           <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
@@ -2614,6 +2589,8 @@
           <ScalarProperty Name="VentaRubroEstado" ColumnName="VentaRubroEstado" />
           <ScalarProperty Name="VentaRubroAnulado" ColumnName="VentaRubroAnulado" />
           <ScalarProperty Name="VentaRubroIdAsignarTUAnulado" ColumnName="VentaRubroIdAsignarTUAnulado" />
+          <ScalarProperty Name="VentaRubroModificado" ColumnName="VentaRubroModificado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUModificado" ColumnName="VentaRubroIdAsignarTUModificado" />
           <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
           <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
           <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
@@ -2717,6 +2694,8 @@
           <ScalarProperty Name="VentaRubroEstado" ColumnName="VentaRubroEstado" />
           <ScalarProperty Name="VentaRubroAnulado" ColumnName="VentaRubroAnulado" />
           <ScalarProperty Name="VentaRubroIdAsignarTUAnulado" ColumnName="VentaRubroIdAsignarTUAnulado" />
+          <ScalarProperty Name="VentaRubroModificado" ColumnName="VentaRubroModificado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUModificado" ColumnName="VentaRubroIdAsignarTUModificado" />
           <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
           <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
           <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
@@ -2912,48 +2891,13 @@
           <ScalarProperty Name="VentaRubroEstado" ColumnName="VentaRubroEstado" />
           <ScalarProperty Name="VentaRubroAnulado" ColumnName="VentaRubroAnulado" />
           <ScalarProperty Name="VentaRubroIdAsignarTUAnulado" ColumnName="VentaRubroIdAsignarTUAnulado" />
+          <ScalarProperty Name="VentaRubroModificado" ColumnName="VentaRubroModificado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUModificado" ColumnName="VentaRubroIdAsignarTUModificado" />
           <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
           <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
           <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
           <ScalarProperty Name="VehiculoFechaCreacion" ColumnName="VehiculoFechaCreacion" />
           <ScalarProperty Name="VehiculoEstado" ColumnName="VehiculoEstado" />
-          <ScalarProperty Name="TipoRubroIdTipoRubro" ColumnName="TipoRubroIdTipoRubro" />
-          <ScalarProperty Name="TipoRubroDescripcion" ColumnName="TipoRubroDescripcion" />
-          <ScalarProperty Name="TipoRubroFechaCreacion" ColumnName="TipoRubroFechaCreacion" />
-          <ScalarProperty Name="TipoRubroEstado" ColumnName="TipoRubroEstado" />
-          <ScalarProperty Name="TipoRuboIdentificador" ColumnName="TipoRuboIdentificador" />
-          <ScalarProperty Name="TipoPresentacionRubrosIdTipoPresentacionRubros" ColumnName="TipoPresentacionRubrosIdTipoPresentacionRubros" />
-          <ScalarProperty Name="TipoPresentacionRubrosDescripcion" ColumnName="TipoPresentacionRubrosDescripcion" />
-          <ScalarProperty Name="TipoPresentacionRubrosFechaCreacion" ColumnName="TipoPresentacionRubrosFechaCreacion" />
-          <ScalarProperty Name="TipoPresentacionRubrosEstado" ColumnName="TipoPresentacionRubrosEstado" />
-          <ScalarProperty Name="TipoPresentacionRubrosIdentificador" ColumnName="TipoPresentacionRubrosIdentificador" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_CrearTicketVentaPorSaco" FunctionName="AMUCOMTModel.Store.sp_CrearTicketVentaPorSaco">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearTicketVentaPorSaco_Result">
-          <ScalarProperty Name="VentaRubroIdVentaRubro" ColumnName="VentaRubroIdVentaRubro" />
-          <ScalarProperty Name="VentaRubroCodigo" ColumnName="VentaRubroCodigo" />
-          <ScalarProperty Name="VentaRubroFechaEntrada" ColumnName="VentaRubroFechaEntrada" />
-          <ScalarProperty Name="VentaRubroFechaSalida" ColumnName="VentaRubroFechaSalida" />
-          <ScalarProperty Name="VentaRubroIdPersonaCliente" ColumnName="VentaRubroIdPersonaCliente" />
-          <ScalarProperty Name="VentaRubroIdPersonaChofer" ColumnName="VentaRubroIdPersonaChofer" />
-          <ScalarProperty Name="VentaRubroIdTipoRubro" ColumnName="VentaRubroIdTipoRubro" />
-          <ScalarProperty Name="VentaRubroIdTipoPresentacionRubro" ColumnName="VentaRubroIdTipoPresentacionRubro" />
-          <ScalarProperty Name="VentaRubroIdAsignarTU" ColumnName="VentaRubroIdAsignarTU" />
-          <ScalarProperty Name="VentaRubroIdVehiculo" ColumnName="VentaRubroIdVehiculo" />
-          <ScalarProperty Name="VentaRubroPesoTara" ColumnName="VentaRubroPesoTara" />
-          <ScalarProperty Name="VentaRubroPesoBruto" ColumnName="VentaRubroPesoBruto" />
-          <ScalarProperty Name="VentaRubroPrecioPorQuintal" ColumnName="VentaRubroPrecioPorQuintal" />
-          <ScalarProperty Name="VentaRubroPorcentajeImpureza" ColumnName="VentaRubroPorcentajeImpureza" />
-          <ScalarProperty Name="VentaRubroPorcentajeHumedad" ColumnName="VentaRubroPorcentajeHumedad" />
-          <ScalarProperty Name="VentaRubroPesoNeto" ColumnName="VentaRubroPesoNeto" />
-          <ScalarProperty Name="VentaRubroPesoACobrar" ColumnName="VentaRubroPesoACobrar" />
-          <ScalarProperty Name="VentaRubroTotalACobrar" ColumnName="VentaRubroTotalACobrar" />
-          <ScalarProperty Name="VentaRubroEstado" ColumnName="VentaRubroEstado" />
-          <ScalarProperty Name="VentaRubroAnulado" ColumnName="VentaRubroAnulado" />
-          <ScalarProperty Name="VentaRubroIdAsignarTUAnulado" ColumnName="VentaRubroIdAsignarTUAnulado" />
           <ScalarProperty Name="TipoRubroIdTipoRubro" ColumnName="TipoRubroIdTipoRubro" />
           <ScalarProperty Name="TipoRubroDescripcion" ColumnName="TipoRubroDescripcion" />
           <ScalarProperty Name="TipoRubroFechaCreacion" ColumnName="TipoRubroFechaCreacion" />
@@ -4293,6 +4237,908 @@
           <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
           <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
           <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ModificarTicketVenta" FunctionName="AMUCOMTModel.Store.sp_ModificarTicketVenta">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ModificarTicketVenta_Result1">
+          <ScalarProperty Name="VentaRubroIdVentaRubro" ColumnName="VentaRubroIdVentaRubro" />
+          <ScalarProperty Name="VentaRubroCodigo" ColumnName="VentaRubroCodigo" />
+          <ScalarProperty Name="VentaRubroFechaEntrada" ColumnName="VentaRubroFechaEntrada" />
+          <ScalarProperty Name="VentaRubroFechaSalida" ColumnName="VentaRubroFechaSalida" />
+          <ScalarProperty Name="VentaRubroIdPersonaCliente" ColumnName="VentaRubroIdPersonaCliente" />
+          <ScalarProperty Name="VentaRubroIdPersonaChofer" ColumnName="VentaRubroIdPersonaChofer" />
+          <ScalarProperty Name="VentaRubroIdTipoRubro" ColumnName="VentaRubroIdTipoRubro" />
+          <ScalarProperty Name="VentaRubroIdTipoPresentacionRubro" ColumnName="VentaRubroIdTipoPresentacionRubro" />
+          <ScalarProperty Name="VentaRubroIdAsignarTU" ColumnName="VentaRubroIdAsignarTU" />
+          <ScalarProperty Name="VentaRubroIdVehiculo" ColumnName="VentaRubroIdVehiculo" />
+          <ScalarProperty Name="VentaRubroPesoTara" ColumnName="VentaRubroPesoTara" />
+          <ScalarProperty Name="VentaRubroPesoBruto" ColumnName="VentaRubroPesoBruto" />
+          <ScalarProperty Name="VentaRubroPrecioPorQuintal" ColumnName="VentaRubroPrecioPorQuintal" />
+          <ScalarProperty Name="VentaRubroPorcentajeImpureza" ColumnName="VentaRubroPorcentajeImpureza" />
+          <ScalarProperty Name="VentaRubroPorcentajeHumedad" ColumnName="VentaRubroPorcentajeHumedad" />
+          <ScalarProperty Name="VentaRubroPesoNeto" ColumnName="VentaRubroPesoNeto" />
+          <ScalarProperty Name="VentaRubroPesoACobrar" ColumnName="VentaRubroPesoACobrar" />
+          <ScalarProperty Name="VentaRubroTotalACobrar" ColumnName="VentaRubroTotalACobrar" />
+          <ScalarProperty Name="VentaRubroEstado" ColumnName="VentaRubroEstado" />
+          <ScalarProperty Name="VentaRubroAnulado" ColumnName="VentaRubroAnulado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUAnulado" ColumnName="VentaRubroIdAsignarTUAnulado" />
+          <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
+          <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
+          <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
+          <ScalarProperty Name="VehiculoFechaCreacion" ColumnName="VehiculoFechaCreacion" />
+          <ScalarProperty Name="VehiculoEstado" ColumnName="VehiculoEstado" />
+          <ScalarProperty Name="TipoRubroIdTipoRubro" ColumnName="TipoRubroIdTipoRubro" />
+          <ScalarProperty Name="TipoRubroDescripcion" ColumnName="TipoRubroDescripcion" />
+          <ScalarProperty Name="TipoRubroFechaCreacion" ColumnName="TipoRubroFechaCreacion" />
+          <ScalarProperty Name="TipoRubroEstado" ColumnName="TipoRubroEstado" />
+          <ScalarProperty Name="TipoRuboIdentificador" ColumnName="TipoRuboIdentificador" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdTipoPresentacionRubros" ColumnName="TipoPresentacionRubrosIdTipoPresentacionRubros" />
+          <ScalarProperty Name="TipoPresentacionRubrosDescripcion" ColumnName="TipoPresentacionRubrosDescripcion" />
+          <ScalarProperty Name="TipoPresentacionRubrosFechaCreacion" ColumnName="TipoPresentacionRubrosFechaCreacion" />
+          <ScalarProperty Name="TipoPresentacionRubrosEstado" ColumnName="TipoPresentacionRubrosEstado" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdentificador" ColumnName="TipoPresentacionRubrosIdentificador" />
+          <ScalarProperty Name="AsignacionTipoUsuarioIdAsignacionTU" ColumnName="AsignacionTipoUsuarioIdAsignacionTU" />
+          <ScalarProperty Name="AsignacionTipoUsuarioEstado" ColumnName="AsignacionTipoUsuarioEstado" />
+          <ScalarProperty Name="AsignacionTipoUsuarioFechaActualizacion" ColumnName="AsignacionTipoUsuarioFechaActualizacion" />
+          <ScalarProperty Name="AsignacionTipoUsuarioFechaCreacion" ColumnName="AsignacionTipoUsuarioFechaCreacion" />
+          <ScalarProperty Name="AsignacionTipoUsuarioIdTipoUsuario" ColumnName="AsignacionTipoUsuarioIdTipoUsuario" />
+          <ScalarProperty Name="AsignacionTipoUsuarioIdUsuario" ColumnName="AsignacionTipoUsuarioIdUsuario" />
+          <ScalarProperty Name="UsuarioIdUsuario" ColumnName="UsuarioIdUsuario" />
+          <ScalarProperty Name="UsuarioContrasena" ColumnName="UsuarioContrasena" />
+          <ScalarProperty Name="UsuarioEstado" ColumnName="UsuarioEstado" />
+          <ScalarProperty Name="UsuarioFechaActualizacion" ColumnName="UsuarioFechaActualizacion" />
+          <ScalarProperty Name="UsuarioFechaCreacion" ColumnName="UsuarioFechaCreacion" />
+          <ScalarProperty Name="UsuarioIdPersona" ColumnName="UsuarioIdPersona" />
+          <ScalarProperty Name="UsuarioUsuario" ColumnName="UsuarioUsuario" />
+          <ScalarProperty Name="TipoUsuarioIdTipoUsuario" ColumnName="TipoUsuarioIdTipoUsuario" />
+          <ScalarProperty Name="TipoUsuarioDescripcion" ColumnName="TipoUsuarioDescripcion" />
+          <ScalarProperty Name="TipoUsuarioEstado" ColumnName="TipoUsuarioEstado" />
+          <ScalarProperty Name="TipoUsuarioFechaActualizacion" ColumnName="TipoUsuarioFechaActualizacion" />
+          <ScalarProperty Name="TipoUsuarioFechaCreacion" ColumnName="TipoUsuarioFechaCreacion" />
+          <ScalarProperty Name="TipoUsuarioIdentificacion" ColumnName="TipoUsuarioIdentificacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_CrearTicketVentaPorSaco" FunctionName="AMUCOMTModel.Store.sp_CrearTicketVentaPorSaco">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_CrearTicketVentaPorSaco_Result1">
+          <ScalarProperty Name="VentaRubroIdVentaRubro" ColumnName="VentaRubroIdVentaRubro" />
+          <ScalarProperty Name="VentaRubroCodigo" ColumnName="VentaRubroCodigo" />
+          <ScalarProperty Name="VentaRubroFechaEntrada" ColumnName="VentaRubroFechaEntrada" />
+          <ScalarProperty Name="VentaRubroFechaSalida" ColumnName="VentaRubroFechaSalida" />
+          <ScalarProperty Name="VentaRubroIdPersonaCliente" ColumnName="VentaRubroIdPersonaCliente" />
+          <ScalarProperty Name="VentaRubroIdPersonaChofer" ColumnName="VentaRubroIdPersonaChofer" />
+          <ScalarProperty Name="VentaRubroIdTipoRubro" ColumnName="VentaRubroIdTipoRubro" />
+          <ScalarProperty Name="VentaRubroIdTipoPresentacionRubro" ColumnName="VentaRubroIdTipoPresentacionRubro" />
+          <ScalarProperty Name="VentaRubroIdAsignarTU" ColumnName="VentaRubroIdAsignarTU" />
+          <ScalarProperty Name="VentaRubroIdVehiculo" ColumnName="VentaRubroIdVehiculo" />
+          <ScalarProperty Name="VentaRubroPesoTara" ColumnName="VentaRubroPesoTara" />
+          <ScalarProperty Name="VentaRubroPesoBruto" ColumnName="VentaRubroPesoBruto" />
+          <ScalarProperty Name="VentaRubroPrecioPorQuintal" ColumnName="VentaRubroPrecioPorQuintal" />
+          <ScalarProperty Name="VentaRubroPorcentajeImpureza" ColumnName="VentaRubroPorcentajeImpureza" />
+          <ScalarProperty Name="VentaRubroPorcentajeHumedad" ColumnName="VentaRubroPorcentajeHumedad" />
+          <ScalarProperty Name="VentaRubroPesoNeto" ColumnName="VentaRubroPesoNeto" />
+          <ScalarProperty Name="VentaRubroPesoACobrar" ColumnName="VentaRubroPesoACobrar" />
+          <ScalarProperty Name="VentaRubroTotalACobrar" ColumnName="VentaRubroTotalACobrar" />
+          <ScalarProperty Name="VentaRubroEstado" ColumnName="VentaRubroEstado" />
+          <ScalarProperty Name="VentaRubroAnulado" ColumnName="VentaRubroAnulado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUAnulado" ColumnName="VentaRubroIdAsignarTUAnulado" />
+          <ScalarProperty Name="VentaRubroModificado" ColumnName="VentaRubroModificado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUModificado" ColumnName="VentaRubroIdAsignarTUModificado" />
+          <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
+          <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
+          <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
+          <ScalarProperty Name="VehiculoFechaCreacion" ColumnName="VehiculoFechaCreacion" />
+          <ScalarProperty Name="VehiculoEstado" ColumnName="VehiculoEstado" />
+          <ScalarProperty Name="TipoRubroIdTipoRubro" ColumnName="TipoRubroIdTipoRubro" />
+          <ScalarProperty Name="TipoRubroDescripcion" ColumnName="TipoRubroDescripcion" />
+          <ScalarProperty Name="TipoRubroFechaCreacion" ColumnName="TipoRubroFechaCreacion" />
+          <ScalarProperty Name="TipoRubroEstado" ColumnName="TipoRubroEstado" />
+          <ScalarProperty Name="TipoRuboIdentificador" ColumnName="TipoRuboIdentificador" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdTipoPresentacionRubros" ColumnName="TipoPresentacionRubrosIdTipoPresentacionRubros" />
+          <ScalarProperty Name="TipoPresentacionRubrosDescripcion" ColumnName="TipoPresentacionRubrosDescripcion" />
+          <ScalarProperty Name="TipoPresentacionRubrosFechaCreacion" ColumnName="TipoPresentacionRubrosFechaCreacion" />
+          <ScalarProperty Name="TipoPresentacionRubrosEstado" ColumnName="TipoPresentacionRubrosEstado" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdentificador" ColumnName="TipoPresentacionRubrosIdentificador" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarTickenVentaPorId" FunctionName="AMUCOMTModel.Store.sp_ConsultarTickenVentaPorId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTickenVentaPorId_Result1">
+          <ScalarProperty Name="VentaRubroIdVentaRubro" ColumnName="VentaRubroIdVentaRubro" />
+          <ScalarProperty Name="VentaRubroCodigo" ColumnName="VentaRubroCodigo" />
+          <ScalarProperty Name="VentaRubroFechaEntrada" ColumnName="VentaRubroFechaEntrada" />
+          <ScalarProperty Name="VentaRubroFechaSalida" ColumnName="VentaRubroFechaSalida" />
+          <ScalarProperty Name="VentaRubroIdPersonaCliente" ColumnName="VentaRubroIdPersonaCliente" />
+          <ScalarProperty Name="VentaRubroIdPersonaChofer" ColumnName="VentaRubroIdPersonaChofer" />
+          <ScalarProperty Name="VentaRubroIdTipoRubro" ColumnName="VentaRubroIdTipoRubro" />
+          <ScalarProperty Name="VentaRubroIdTipoPresentacionRubro" ColumnName="VentaRubroIdTipoPresentacionRubro" />
+          <ScalarProperty Name="VentaRubroIdAsignarTU" ColumnName="VentaRubroIdAsignarTU" />
+          <ScalarProperty Name="VentaRubroIdVehiculo" ColumnName="VentaRubroIdVehiculo" />
+          <ScalarProperty Name="VentaRubroPesoTara" ColumnName="VentaRubroPesoTara" />
+          <ScalarProperty Name="VentaRubroPesoBruto" ColumnName="VentaRubroPesoBruto" />
+          <ScalarProperty Name="VentaRubroPrecioPorQuintal" ColumnName="VentaRubroPrecioPorQuintal" />
+          <ScalarProperty Name="VentaRubroPorcentajeImpureza" ColumnName="VentaRubroPorcentajeImpureza" />
+          <ScalarProperty Name="VentaRubroPorcentajeHumedad" ColumnName="VentaRubroPorcentajeHumedad" />
+          <ScalarProperty Name="VentaRubroPesoNeto" ColumnName="VentaRubroPesoNeto" />
+          <ScalarProperty Name="VentaRubroPesoACobrar" ColumnName="VentaRubroPesoACobrar" />
+          <ScalarProperty Name="VentaRubroTotalACobrar" ColumnName="VentaRubroTotalACobrar" />
+          <ScalarProperty Name="VentaRubroEstado" ColumnName="VentaRubroEstado" />
+          <ScalarProperty Name="VentaRubroAnulado" ColumnName="VentaRubroAnulado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUAnulado" ColumnName="VentaRubroIdAsignarTUAnulado" />
+          <ScalarProperty Name="VentaRubroModificado" ColumnName="VentaRubroModificado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUModificado" ColumnName="VentaRubroIdAsignarTUModificado" />
+          <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
+          <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
+          <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
+          <ScalarProperty Name="VehiculoFechaCreacion" ColumnName="VehiculoFechaCreacion" />
+          <ScalarProperty Name="VehiculoEstado" ColumnName="VehiculoEstado" />
+          <ScalarProperty Name="TipoRubroIdTipoRubro" ColumnName="TipoRubroIdTipoRubro" />
+          <ScalarProperty Name="TipoRubroDescripcion" ColumnName="TipoRubroDescripcion" />
+          <ScalarProperty Name="TipoRubroFechaCreacion" ColumnName="TipoRubroFechaCreacion" />
+          <ScalarProperty Name="TipoRubroEstado" ColumnName="TipoRubroEstado" />
+          <ScalarProperty Name="TipoRuboIdentificador" ColumnName="TipoRuboIdentificador" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdTipoPresentacionRubros" ColumnName="TipoPresentacionRubrosIdTipoPresentacionRubros" />
+          <ScalarProperty Name="TipoPresentacionRubrosDescripcion" ColumnName="TipoPresentacionRubrosDescripcion" />
+          <ScalarProperty Name="TipoPresentacionRubrosFechaCreacion" ColumnName="TipoPresentacionRubrosFechaCreacion" />
+          <ScalarProperty Name="TipoPresentacionRubrosEstado" ColumnName="TipoPresentacionRubrosEstado" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdentificador" ColumnName="TipoPresentacionRubrosIdentificador" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarPromedioPrecioCompraPorFecha" FunctionName="AMUCOMTModel.Store.sp_ConsultarPromedioPrecioCompraPorFecha">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarPromedioPrecioCompraPorFecha_Result">
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="PromedioPrecio" ColumnName="PromedioPrecio" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarPromedioPrecioVentaPorFecha" FunctionName="AMUCOMTModel.Store.sp_ConsultarPromedioPrecioVentaPorFecha">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarPromedioPrecioVentaPorFecha_Result">
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="PromedioPrecio" ColumnName="PromedioPrecio" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarCompraRubroPorPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarCompraRubroPorPersona">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarCompraRubroPorPersona_Result">
+          <ScalarProperty Name="TicketCompraIdTicket" ColumnName="TicketCompraIdTicket" />
+          <ScalarProperty Name="TicketCompraCodigo" ColumnName="TicketCompraCodigo" />
+          <ScalarProperty Name="TicketCompraFechaIngreso" ColumnName="TicketCompraFechaIngreso" />
+          <ScalarProperty Name="TicketCompraFechaSalida" ColumnName="TicketCompraFechaSalida" />
+          <ScalarProperty Name="TicketCompraPesoBruto" ColumnName="TicketCompraPesoBruto" />
+          <ScalarProperty Name="TicketCompraPesoTara" ColumnName="TicketCompraPesoTara" />
+          <ScalarProperty Name="TicketCompraPesoNeto" ColumnName="TicketCompraPesoNeto" />
+          <ScalarProperty Name="TicketCompraPesoSinImpurezas" ColumnName="TicketCompraPesoSinImpurezas" />
+          <ScalarProperty Name="TicketCompraPesoAPagar" ColumnName="TicketCompraPesoAPagar" />
+          <ScalarProperty Name="TicketCompraPrecioPorQuintal" ColumnName="TicketCompraPrecioPorQuintal" />
+          <ScalarProperty Name="TicketCompraIdAsignarTU" ColumnName="TicketCompraIdAsignarTU" />
+          <ScalarProperty Name="TicketCompraIdVehiculo" ColumnName="TicketCompraIdVehiculo" />
+          <ScalarProperty Name="TicketCompraIdPersona" ColumnName="TicketCompraIdPersona" />
+          <ScalarProperty Name="TicketCompraIdTipoRubro" ColumnName="TicketCompraIdTipoRubro" />
+          <ScalarProperty Name="TicketCompraIdTipoPresentacionRubros" ColumnName="TicketCompraIdTipoPresentacionRubros" />
+          <ScalarProperty Name="TicketCompraPorcentajeImpurezas" ColumnName="TicketCompraPorcentajeImpurezas" />
+          <ScalarProperty Name="TicketCompraPorcentajeHumedad" ColumnName="TicketCompraPorcentajeHumedad" />
+          <ScalarProperty Name="TicketCompraTotalAPagar" ColumnName="TicketCompraTotalAPagar" />
+          <ScalarProperty Name="TicketCompraEstado" ColumnName="TicketCompraEstado" />
+          <ScalarProperty Name="TicketCompraAnulada" ColumnName="TicketCompraAnulada" />
+          <ScalarProperty Name="TicketCompraIdAsignacionTUAnulada" ColumnName="TicketCompraIdAsignacionTUAnulada" />
+          <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
+          <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
+          <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
+          <ScalarProperty Name="VehiculoFechaCreacion" ColumnName="VehiculoFechaCreacion" />
+          <ScalarProperty Name="VehiculoEstado" ColumnName="VehiculoEstado" />
+          <ScalarProperty Name="TipoRubroIdTipoRubro" ColumnName="TipoRubroIdTipoRubro" />
+          <ScalarProperty Name="TipoRubroDescripcion" ColumnName="TipoRubroDescripcion" />
+          <ScalarProperty Name="TipoRubroFechaCreacion" ColumnName="TipoRubroFechaCreacion" />
+          <ScalarProperty Name="TipoRubroEstado" ColumnName="TipoRubroEstado" />
+          <ScalarProperty Name="TipoRuboIdentificador" ColumnName="TipoRuboIdentificador" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdTipoPresentacionRubros" ColumnName="TipoPresentacionRubrosIdTipoPresentacionRubros" />
+          <ScalarProperty Name="TipoPresentacionRubrosDescripcion" ColumnName="TipoPresentacionRubrosDescripcion" />
+          <ScalarProperty Name="TipoPresentacionRubrosFechaCreacion" ColumnName="TipoPresentacionRubrosFechaCreacion" />
+          <ScalarProperty Name="TipoPresentacionRubrosEstado" ColumnName="TipoPresentacionRubrosEstado" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdentificador" ColumnName="TipoPresentacionRubrosIdentificador" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarCompraRubroPorPresentacionRubro" FunctionName="AMUCOMTModel.Store.sp_ConsultarCompraRubroPorPresentacionRubro">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarCompraRubroPorPresentacionRubro_Result">
+          <ScalarProperty Name="TicketCompraIdTicket" ColumnName="TicketCompraIdTicket" />
+          <ScalarProperty Name="TicketCompraCodigo" ColumnName="TicketCompraCodigo" />
+          <ScalarProperty Name="TicketCompraFechaIngreso" ColumnName="TicketCompraFechaIngreso" />
+          <ScalarProperty Name="TicketCompraFechaSalida" ColumnName="TicketCompraFechaSalida" />
+          <ScalarProperty Name="TicketCompraPesoBruto" ColumnName="TicketCompraPesoBruto" />
+          <ScalarProperty Name="TicketCompraPesoTara" ColumnName="TicketCompraPesoTara" />
+          <ScalarProperty Name="TicketCompraPesoNeto" ColumnName="TicketCompraPesoNeto" />
+          <ScalarProperty Name="TicketCompraPesoSinImpurezas" ColumnName="TicketCompraPesoSinImpurezas" />
+          <ScalarProperty Name="TicketCompraPesoAPagar" ColumnName="TicketCompraPesoAPagar" />
+          <ScalarProperty Name="TicketCompraPrecioPorQuintal" ColumnName="TicketCompraPrecioPorQuintal" />
+          <ScalarProperty Name="TicketCompraIdAsignarTU" ColumnName="TicketCompraIdAsignarTU" />
+          <ScalarProperty Name="TicketCompraIdVehiculo" ColumnName="TicketCompraIdVehiculo" />
+          <ScalarProperty Name="TicketCompraIdPersona" ColumnName="TicketCompraIdPersona" />
+          <ScalarProperty Name="TicketCompraIdTipoRubro" ColumnName="TicketCompraIdTipoRubro" />
+          <ScalarProperty Name="TicketCompraIdTipoPresentacionRubros" ColumnName="TicketCompraIdTipoPresentacionRubros" />
+          <ScalarProperty Name="TicketCompraPorcentajeImpurezas" ColumnName="TicketCompraPorcentajeImpurezas" />
+          <ScalarProperty Name="TicketCompraPorcentajeHumedad" ColumnName="TicketCompraPorcentajeHumedad" />
+          <ScalarProperty Name="TicketCompraTotalAPagar" ColumnName="TicketCompraTotalAPagar" />
+          <ScalarProperty Name="TicketCompraEstado" ColumnName="TicketCompraEstado" />
+          <ScalarProperty Name="TicketCompraAnulada" ColumnName="TicketCompraAnulada" />
+          <ScalarProperty Name="TicketCompraIdAsignacionTUAnulada" ColumnName="TicketCompraIdAsignacionTUAnulada" />
+          <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
+          <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
+          <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
+          <ScalarProperty Name="VehiculoFechaCreacion" ColumnName="VehiculoFechaCreacion" />
+          <ScalarProperty Name="VehiculoEstado" ColumnName="VehiculoEstado" />
+          <ScalarProperty Name="TipoRubroIdTipoRubro" ColumnName="TipoRubroIdTipoRubro" />
+          <ScalarProperty Name="TipoRubroDescripcion" ColumnName="TipoRubroDescripcion" />
+          <ScalarProperty Name="TipoRubroFechaCreacion" ColumnName="TipoRubroFechaCreacion" />
+          <ScalarProperty Name="TipoRubroEstado" ColumnName="TipoRubroEstado" />
+          <ScalarProperty Name="TipoRuboIdentificador" ColumnName="TipoRuboIdentificador" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdTipoPresentacionRubros" ColumnName="TipoPresentacionRubrosIdTipoPresentacionRubros" />
+          <ScalarProperty Name="TipoPresentacionRubrosDescripcion" ColumnName="TipoPresentacionRubrosDescripcion" />
+          <ScalarProperty Name="TipoPresentacionRubrosFechaCreacion" ColumnName="TipoPresentacionRubrosFechaCreacion" />
+          <ScalarProperty Name="TipoPresentacionRubrosEstado" ColumnName="TipoPresentacionRubrosEstado" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdentificador" ColumnName="TipoPresentacionRubrosIdentificador" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarVentaRubroPorPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarVentaRubroPorPersona">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarVentaRubroPorPersona_Result">
+          <ScalarProperty Name="VentaRubroIdVentaRubro" ColumnName="VentaRubroIdVentaRubro" />
+          <ScalarProperty Name="VentaRubroCodigo" ColumnName="VentaRubroCodigo" />
+          <ScalarProperty Name="VentaRubroFechaEntrada" ColumnName="VentaRubroFechaEntrada" />
+          <ScalarProperty Name="VentaRubroFechaSalida" ColumnName="VentaRubroFechaSalida" />
+          <ScalarProperty Name="VentaRubroIdPersonaCliente" ColumnName="VentaRubroIdPersonaCliente" />
+          <ScalarProperty Name="VentaRubroIdPersonaChofer" ColumnName="VentaRubroIdPersonaChofer" />
+          <ScalarProperty Name="VentaRubroIdTipoRubro" ColumnName="VentaRubroIdTipoRubro" />
+          <ScalarProperty Name="VentaRubroIdTipoPresentacionRubro" ColumnName="VentaRubroIdTipoPresentacionRubro" />
+          <ScalarProperty Name="VentaRubroIdAsignarTU" ColumnName="VentaRubroIdAsignarTU" />
+          <ScalarProperty Name="VentaRubroIdVehiculo" ColumnName="VentaRubroIdVehiculo" />
+          <ScalarProperty Name="VentaRubroPesoTara" ColumnName="VentaRubroPesoTara" />
+          <ScalarProperty Name="VentaRubroPesoBruto" ColumnName="VentaRubroPesoBruto" />
+          <ScalarProperty Name="VentaRubroPrecioPorQuintal" ColumnName="VentaRubroPrecioPorQuintal" />
+          <ScalarProperty Name="VentaRubroPorcentajeImpureza" ColumnName="VentaRubroPorcentajeImpureza" />
+          <ScalarProperty Name="VentaRubroPorcentajeHumedad" ColumnName="VentaRubroPorcentajeHumedad" />
+          <ScalarProperty Name="VentaRubroPesoNeto" ColumnName="VentaRubroPesoNeto" />
+          <ScalarProperty Name="VentaRubroPesoACobrar" ColumnName="VentaRubroPesoACobrar" />
+          <ScalarProperty Name="VentaRubroTotalACobrar" ColumnName="VentaRubroTotalACobrar" />
+          <ScalarProperty Name="VentaRubroEstado" ColumnName="VentaRubroEstado" />
+          <ScalarProperty Name="VentaRubroAnulado" ColumnName="VentaRubroAnulado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUAnulado" ColumnName="VentaRubroIdAsignarTUAnulado" />
+          <ScalarProperty Name="VentaRubroModificado" ColumnName="VentaRubroModificado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUModificado" ColumnName="VentaRubroIdAsignarTUModificado" />
+          <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
+          <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
+          <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
+          <ScalarProperty Name="VehiculoFechaCreacion" ColumnName="VehiculoFechaCreacion" />
+          <ScalarProperty Name="VehiculoEstado" ColumnName="VehiculoEstado" />
+          <ScalarProperty Name="TipoRubroIdTipoRubro" ColumnName="TipoRubroIdTipoRubro" />
+          <ScalarProperty Name="TipoRubroDescripcion" ColumnName="TipoRubroDescripcion" />
+          <ScalarProperty Name="TipoRubroFechaCreacion" ColumnName="TipoRubroFechaCreacion" />
+          <ScalarProperty Name="TipoRubroEstado" ColumnName="TipoRubroEstado" />
+          <ScalarProperty Name="TipoRuboIdentificador" ColumnName="TipoRuboIdentificador" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdTipoPresentacionRubros" ColumnName="TipoPresentacionRubrosIdTipoPresentacionRubros" />
+          <ScalarProperty Name="TipoPresentacionRubrosDescripcion" ColumnName="TipoPresentacionRubrosDescripcion" />
+          <ScalarProperty Name="TipoPresentacionRubrosFechaCreacion" ColumnName="TipoPresentacionRubrosFechaCreacion" />
+          <ScalarProperty Name="TipoPresentacionRubrosEstado" ColumnName="TipoPresentacionRubrosEstado" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdentificador" ColumnName="TipoPresentacionRubrosIdentificador" />
+          <ScalarProperty Name="AsignacionTipoUsuarioIdAsignacionTU" ColumnName="AsignacionTipoUsuarioIdAsignacionTU" />
+          <ScalarProperty Name="AsignacionTipoUsuarioEstado" ColumnName="AsignacionTipoUsuarioEstado" />
+          <ScalarProperty Name="AsignacionTipoUsuarioFechaActualizacion" ColumnName="AsignacionTipoUsuarioFechaActualizacion" />
+          <ScalarProperty Name="AsignacionTipoUsuarioFechaCreacion" ColumnName="AsignacionTipoUsuarioFechaCreacion" />
+          <ScalarProperty Name="AsignacionTipoUsuarioIdTipoUsuario" ColumnName="AsignacionTipoUsuarioIdTipoUsuario" />
+          <ScalarProperty Name="AsignacionTipoUsuarioIdUsuario" ColumnName="AsignacionTipoUsuarioIdUsuario" />
+          <ScalarProperty Name="UsuarioIdUsuario" ColumnName="UsuarioIdUsuario" />
+          <ScalarProperty Name="UsuarioContrasena" ColumnName="UsuarioContrasena" />
+          <ScalarProperty Name="UsuarioEstado" ColumnName="UsuarioEstado" />
+          <ScalarProperty Name="UsuarioFechaActualizacion" ColumnName="UsuarioFechaActualizacion" />
+          <ScalarProperty Name="UsuarioFechaCreacion" ColumnName="UsuarioFechaCreacion" />
+          <ScalarProperty Name="UsuarioIdPersona" ColumnName="UsuarioIdPersona" />
+          <ScalarProperty Name="UsuarioUsuario" ColumnName="UsuarioUsuario" />
+          <ScalarProperty Name="TipoUsuarioIdTipoUsuario" ColumnName="TipoUsuarioIdTipoUsuario" />
+          <ScalarProperty Name="TipoUsuarioDescripcion" ColumnName="TipoUsuarioDescripcion" />
+          <ScalarProperty Name="TipoUsuarioEstado" ColumnName="TipoUsuarioEstado" />
+          <ScalarProperty Name="TipoUsuarioFechaActualizacion" ColumnName="TipoUsuarioFechaActualizacion" />
+          <ScalarProperty Name="TipoUsuarioFechaCreacion" ColumnName="TipoUsuarioFechaCreacion" />
+          <ScalarProperty Name="TipoUsuarioIdentificacion" ColumnName="TipoUsuarioIdentificacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarVentaRubroPorPresentacionRubro" FunctionName="AMUCOMTModel.Store.sp_ConsultarVentaRubroPorPresentacionRubro">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarVentaRubroPorPresentacionRubro_Result1">
+          <ScalarProperty Name="VentaRubroIdVentaRubro" ColumnName="VentaRubroIdVentaRubro" />
+          <ScalarProperty Name="VentaRubroCodigo" ColumnName="VentaRubroCodigo" />
+          <ScalarProperty Name="VentaRubroFechaEntrada" ColumnName="VentaRubroFechaEntrada" />
+          <ScalarProperty Name="VentaRubroFechaSalida" ColumnName="VentaRubroFechaSalida" />
+          <ScalarProperty Name="VentaRubroIdPersonaCliente" ColumnName="VentaRubroIdPersonaCliente" />
+          <ScalarProperty Name="VentaRubroIdPersonaChofer" ColumnName="VentaRubroIdPersonaChofer" />
+          <ScalarProperty Name="VentaRubroIdTipoRubro" ColumnName="VentaRubroIdTipoRubro" />
+          <ScalarProperty Name="VentaRubroIdTipoPresentacionRubro" ColumnName="VentaRubroIdTipoPresentacionRubro" />
+          <ScalarProperty Name="VentaRubroIdAsignarTU" ColumnName="VentaRubroIdAsignarTU" />
+          <ScalarProperty Name="VentaRubroIdVehiculo" ColumnName="VentaRubroIdVehiculo" />
+          <ScalarProperty Name="VentaRubroPesoTara" ColumnName="VentaRubroPesoTara" />
+          <ScalarProperty Name="VentaRubroPesoBruto" ColumnName="VentaRubroPesoBruto" />
+          <ScalarProperty Name="VentaRubroPrecioPorQuintal" ColumnName="VentaRubroPrecioPorQuintal" />
+          <ScalarProperty Name="VentaRubroPorcentajeImpureza" ColumnName="VentaRubroPorcentajeImpureza" />
+          <ScalarProperty Name="VentaRubroPorcentajeHumedad" ColumnName="VentaRubroPorcentajeHumedad" />
+          <ScalarProperty Name="VentaRubroPesoNeto" ColumnName="VentaRubroPesoNeto" />
+          <ScalarProperty Name="VentaRubroPesoACobrar" ColumnName="VentaRubroPesoACobrar" />
+          <ScalarProperty Name="VentaRubroTotalACobrar" ColumnName="VentaRubroTotalACobrar" />
+          <ScalarProperty Name="VentaRubroEstado" ColumnName="VentaRubroEstado" />
+          <ScalarProperty Name="VentaRubroAnulado" ColumnName="VentaRubroAnulado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUAnulado" ColumnName="VentaRubroIdAsignarTUAnulado" />
+          <ScalarProperty Name="VentaRubroModificado" ColumnName="VentaRubroModificado" />
+          <ScalarProperty Name="VentaRubroIdAsignarTUModificado" ColumnName="VentaRubroIdAsignarTUModificado" />
+          <ScalarProperty Name="VehiculoIdVehiculo" ColumnName="VehiculoIdVehiculo" />
+          <ScalarProperty Name="VehiculoPlaca" ColumnName="VehiculoPlaca" />
+          <ScalarProperty Name="VehiculoIdAsignarTU" ColumnName="VehiculoIdAsignarTU" />
+          <ScalarProperty Name="VehiculoFechaCreacion" ColumnName="VehiculoFechaCreacion" />
+          <ScalarProperty Name="VehiculoEstado" ColumnName="VehiculoEstado" />
+          <ScalarProperty Name="TipoRubroIdTipoRubro" ColumnName="TipoRubroIdTipoRubro" />
+          <ScalarProperty Name="TipoRubroDescripcion" ColumnName="TipoRubroDescripcion" />
+          <ScalarProperty Name="TipoRubroFechaCreacion" ColumnName="TipoRubroFechaCreacion" />
+          <ScalarProperty Name="TipoRubroEstado" ColumnName="TipoRubroEstado" />
+          <ScalarProperty Name="TipoRuboIdentificador" ColumnName="TipoRuboIdentificador" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdTipoPresentacionRubros" ColumnName="TipoPresentacionRubrosIdTipoPresentacionRubros" />
+          <ScalarProperty Name="TipoPresentacionRubrosDescripcion" ColumnName="TipoPresentacionRubrosDescripcion" />
+          <ScalarProperty Name="TipoPresentacionRubrosFechaCreacion" ColumnName="TipoPresentacionRubrosFechaCreacion" />
+          <ScalarProperty Name="TipoPresentacionRubrosEstado" ColumnName="TipoPresentacionRubrosEstado" />
+          <ScalarProperty Name="TipoPresentacionRubrosIdentificador" ColumnName="TipoPresentacionRubrosIdentificador" />
+          <ScalarProperty Name="AsignacionTipoUsuarioIdAsignacionTU" ColumnName="AsignacionTipoUsuarioIdAsignacionTU" />
+          <ScalarProperty Name="AsignacionTipoUsuarioEstado" ColumnName="AsignacionTipoUsuarioEstado" />
+          <ScalarProperty Name="AsignacionTipoUsuarioFechaActualizacion" ColumnName="AsignacionTipoUsuarioFechaActualizacion" />
+          <ScalarProperty Name="AsignacionTipoUsuarioFechaCreacion" ColumnName="AsignacionTipoUsuarioFechaCreacion" />
+          <ScalarProperty Name="AsignacionTipoUsuarioIdTipoUsuario" ColumnName="AsignacionTipoUsuarioIdTipoUsuario" />
+          <ScalarProperty Name="AsignacionTipoUsuarioIdUsuario" ColumnName="AsignacionTipoUsuarioIdUsuario" />
+          <ScalarProperty Name="UsuarioIdUsuario" ColumnName="UsuarioIdUsuario" />
+          <ScalarProperty Name="UsuarioContrasena" ColumnName="UsuarioContrasena" />
+          <ScalarProperty Name="UsuarioEstado" ColumnName="UsuarioEstado" />
+          <ScalarProperty Name="UsuarioFechaActualizacion" ColumnName="UsuarioFechaActualizacion" />
+          <ScalarProperty Name="UsuarioFechaCreacion" ColumnName="UsuarioFechaCreacion" />
+          <ScalarProperty Name="UsuarioIdPersona" ColumnName="UsuarioIdPersona" />
+          <ScalarProperty Name="UsuarioUsuario" ColumnName="UsuarioUsuario" />
+          <ScalarProperty Name="TipoUsuarioIdTipoUsuario" ColumnName="TipoUsuarioIdTipoUsuario" />
+          <ScalarProperty Name="TipoUsuarioDescripcion" ColumnName="TipoUsuarioDescripcion" />
+          <ScalarProperty Name="TipoUsuarioEstado" ColumnName="TipoUsuarioEstado" />
+          <ScalarProperty Name="TipoUsuarioFechaActualizacion" ColumnName="TipoUsuarioFechaActualizacion" />
+          <ScalarProperty Name="TipoUsuarioFechaCreacion" ColumnName="TipoUsuarioFechaCreacion" />
+          <ScalarProperty Name="TipoUsuarioIdentificacion" ColumnName="TipoUsuarioIdentificacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarQuintalesComprado" FunctionName="AMUCOMTModel.Store.sp_ConsultarQuintalesComprado" />
+    <FunctionImportMapping FunctionImportName="sp_ConsultarQuintalesVendidos" FunctionName="AMUCOMTModel.Store.sp_ConsultarQuintalesVendidos" />
+    <FunctionImportMapping FunctionImportName="sp_ConsultarPromedioHumedadCompraPorFecha" FunctionName="AMUCOMTModel.Store.sp_ConsultarPromedioHumedadCompraPorFecha">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarPromedioHumedadCompraPorFecha_Result">
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="PromedioHumedad" ColumnName="PromedioHumedad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarPromedioHumedadVentaPorFecha" FunctionName="AMUCOMTModel.Store.sp_ConsultarPromedioHumedadVentaPorFecha">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarPromedioHumedadVentaPorFecha_Result">
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="PromedioHumedad" ColumnName="PromedioHumedad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasPendientes" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasPendientes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasPendientes_Result1">
+          <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
+          <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
+          <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
+          <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
+          <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
+          <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
+          <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
+          <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
+          <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
+          <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
+          <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
+          <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
+          <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
+          <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
+          <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
+          <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
+          <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
+          <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
+          <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
+          <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
+          <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+          <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+          <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+          <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+          <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+          <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+          <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+          <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+          <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+          <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+          <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+          <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+          <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+          <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+          <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+          <ScalarProperty Name="SaldoPendienteIdSaldoPendiente" ColumnName="SaldoPendienteIdSaldoPendiente" />
+          <ScalarProperty Name="SaldoPendienteFechaRegistro" ColumnName="SaldoPendienteFechaRegistro" />
+          <ScalarProperty Name="SaldoPendienteIdConfiguracionVenta" ColumnName="SaldoPendienteIdConfiguracionVenta" />
+          <ScalarProperty Name="SaldoPendientePendiente" ColumnName="SaldoPendientePendiente" />
+          <ScalarProperty Name="SaldoPendienteTotalFactura" ColumnName="SaldoPendienteTotalFactura" />
+          <ScalarProperty Name="SaldoPendienteTotalInteres" ColumnName="SaldoPendienteTotalInteres" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasVencidas" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasVencidas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasVencidas_Result">
+          <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
+          <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
+          <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
+          <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
+          <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
+          <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
+          <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
+          <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
+          <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
+          <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
+          <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
+          <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
+          <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
+          <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
+          <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
+          <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
+          <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
+          <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
+          <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
+          <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
+          <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+          <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+          <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+          <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+          <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+          <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+          <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+          <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+          <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+          <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+          <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+          <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+          <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+          <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+          <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+          <ScalarProperty Name="SaldoPendienteIdSaldoPendiente" ColumnName="SaldoPendienteIdSaldoPendiente" />
+          <ScalarProperty Name="SaldoPendienteFechaRegistro" ColumnName="SaldoPendienteFechaRegistro" />
+          <ScalarProperty Name="SaldoPendienteIdConfiguracionVenta" ColumnName="SaldoPendienteIdConfiguracionVenta" />
+          <ScalarProperty Name="SaldoPendientePendiente" ColumnName="SaldoPendientePendiente" />
+          <ScalarProperty Name="SaldoPendienteTotalFactura" ColumnName="SaldoPendienteTotalFactura" />
+          <ScalarProperty Name="SaldoPendienteTotalInteres" ColumnName="SaldoPendienteTotalInteres" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasCanceladas" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasCanceladas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasCanceladas_Result1">
+          <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
+          <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
+          <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
+          <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
+          <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
+          <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
+          <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
+          <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
+          <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
+          <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
+          <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
+          <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
+          <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
+          <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
+          <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
+          <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
+          <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
+          <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
+          <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
+          <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
+          <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+          <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+          <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+          <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+          <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+          <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+          <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+          <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+          <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+          <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+          <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+          <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+          <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+          <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+          <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarAbonoPorId" FunctionName="AMUCOMTModel.Store.sp_ConsultarAbonoPorId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarAbonoPorId_Result">
+          <ScalarProperty Name="AbonoIdAbono" ColumnName="AbonoIdAbono" />
+          <ScalarProperty Name="AbonoIdConfigurarVenta" ColumnName="AbonoIdConfigurarVenta" />
+          <ScalarProperty Name="AbonoIdAsignacionTU" ColumnName="AbonoIdAsignacionTU" />
+          <ScalarProperty Name="AbonoMonto" ColumnName="AbonoMonto" />
+          <ScalarProperty Name="AbonoFechaRegistro" ColumnName="AbonoFechaRegistro" />
+          <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
+          <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
+          <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
+          <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
+          <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
+          <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
+          <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
+          <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
+          <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
+          <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasPendientesPorIdPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasPendientesPorIdPersona">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasPendientesPorIdPersona_Result">
+          <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
+          <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
+          <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
+          <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
+          <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
+          <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
+          <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
+          <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
+          <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
+          <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
+          <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
+          <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
+          <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
+          <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
+          <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
+          <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
+          <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
+          <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
+          <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
+          <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
+          <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+          <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+          <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+          <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+          <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+          <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+          <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+          <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+          <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+          <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+          <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+          <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+          <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+          <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+          <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+          <ScalarProperty Name="SaldoPendienteIdSaldoPendiente" ColumnName="SaldoPendienteIdSaldoPendiente" />
+          <ScalarProperty Name="SaldoPendienteFechaRegistro" ColumnName="SaldoPendienteFechaRegistro" />
+          <ScalarProperty Name="SaldoPendienteIdConfiguracionVenta" ColumnName="SaldoPendienteIdConfiguracionVenta" />
+          <ScalarProperty Name="SaldoPendientePendiente" ColumnName="SaldoPendientePendiente" />
+          <ScalarProperty Name="SaldoPendienteTotalFactura" ColumnName="SaldoPendienteTotalFactura" />
+          <ScalarProperty Name="SaldoPendienteTotalInteres" ColumnName="SaldoPendienteTotalInteres" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasCreditoCanceladas" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasCreditoCanceladas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasCreditoCanceladas_Result1">
+          <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
+          <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
+          <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
+          <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
+          <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
+          <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
+          <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
+          <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
+          <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
+          <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
+          <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
+          <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
+          <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
+          <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
+          <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
+          <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
+          <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
+          <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
+          <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
+          <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
+          <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+          <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+          <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+          <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+          <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+          <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+          <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+          <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+          <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+          <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+          <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+          <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+          <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+          <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+          <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+          <ScalarProperty Name="SaldoPendienteIdSaldoPendiente" ColumnName="SaldoPendienteIdSaldoPendiente" />
+          <ScalarProperty Name="SaldoPendienteFechaRegistro" ColumnName="SaldoPendienteFechaRegistro" />
+          <ScalarProperty Name="SaldoPendienteIdConfiguracionVenta" ColumnName="SaldoPendienteIdConfiguracionVenta" />
+          <ScalarProperty Name="SaldoPendientePendiente" ColumnName="SaldoPendientePendiente" />
+          <ScalarProperty Name="SaldoPendienteTotalFactura" ColumnName="SaldoPendienteTotalFactura" />
+          <ScalarProperty Name="SaldoPendienteTotalInteres" ColumnName="SaldoPendienteTotalInteres" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasCreditoEmitidas" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasCreditoEmitidas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasCreditoEmitidas_Result2">
+          <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
+          <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
+          <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
+          <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
+          <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
+          <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
+          <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
+          <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
+          <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
+          <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
+          <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
+          <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
+          <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
+          <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
+          <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
+          <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
+          <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
+          <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
+          <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
+          <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
+          <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+          <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+          <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+          <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+          <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+          <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+          <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+          <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+          <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+          <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+          <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+          <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+          <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+          <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+          <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+          <ScalarProperty Name="SaldoPendienteIdSaldoPendiente" ColumnName="SaldoPendienteIdSaldoPendiente" />
+          <ScalarProperty Name="SaldoPendienteFechaRegistro" ColumnName="SaldoPendienteFechaRegistro" />
+          <ScalarProperty Name="SaldoPendienteIdConfiguracionVenta" ColumnName="SaldoPendienteIdConfiguracionVenta" />
+          <ScalarProperty Name="SaldoPendientePendiente" ColumnName="SaldoPendientePendiente" />
+          <ScalarProperty Name="SaldoPendienteTotalFactura" ColumnName="SaldoPendienteTotalFactura" />
+          <ScalarProperty Name="SaldoPendienteTotalInteres" ColumnName="SaldoPendienteTotalInteres" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasFinalizadaPorRangoFecha" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasFinalizadaPorRangoFecha">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasFinalizadaPorRangoFecha_Result">
+          <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
+          <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
+          <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
+          <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
+          <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
+          <ScalarProperty Name="CabeceraFacturaEstadoCabeceraFactura" ColumnName="CabeceraFacturaEstadoCabeceraFactura" />
+          <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
+          <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
+          <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
+          <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
+          <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarTecnicosConPersonasParaSeguimientos" FunctionName="AMUCOMTModel.Store.sp_ConsultarTecnicosConPersonasParaSeguimientos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTecnicosConPersonasParaSeguimientos_Result">
+          <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdAsignarTUTecnico" ColumnName="AsignarTecnicoPersonaComunidadIdAsignarTUTecnico" />
+          <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+          <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+          <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+          <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+          <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+          <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+          <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+          <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+          <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+          <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+          <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+          <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+          <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarPersonasAsignadasATecnicosParaSeguimientos" FunctionName="AMUCOMTModel.Store.sp_ConsultarPersonasAsignadasATecnicosParaSeguimientos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarPersonasAsignadasATecnicosParaSeguimientos_Result">
+          <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdPersona" ColumnName="AsignarTecnicoPersonaComunidadIdPersona" />
+          <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+          <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+          <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+          <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+          <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+          <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+          <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+          <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+          <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+          <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+          <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+          <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+          <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarTecnicoParaSeguimiento" FunctionName="AMUCOMTModel.Store.sp_ConsultarTecnicoParaSeguimiento">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTecnicoParaSeguimiento_Result">
+          <ScalarProperty Name="AsignarTecnicoPersonaComunidadIdAsignarTUTecnico" ColumnName="AsignarTecnicoPersonaComunidadIdAsignarTUTecnico" />
+          <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+          <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+          <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+          <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+          <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+          <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+          <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+          <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+          <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+          <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+          <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+          <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+          <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarValorInvertidoCompra" FunctionName="AMUCOMTModel.Store.sp_ConsultarValorInvertidoCompra">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarValorInvertidoCompra_Result">
+          <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarValorRecuperadoVenta" FunctionName="AMUCOMTModel.Store.sp_ConsultarValorRecuperadoVenta">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarValorRecuperadoVenta_Result">
+          <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasVendidasEnEfectivo" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasVendidasEnEfectivo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasVendidasEnEfectivo_Result">
+          <ScalarProperty Name="CabeceraFacturaIdCabeceraFactura" ColumnName="CabeceraFacturaIdCabeceraFactura" />
+          <ScalarProperty Name="CabeceraFacturaCodigo" ColumnName="CabeceraFacturaCodigo" />
+          <ScalarProperty Name="CabeceraFacturaEstado_Cabecera_Factura" ColumnName="CabeceraFacturaEstado_Cabecera_Factura" />
+          <ScalarProperty Name="CabeceraFacturaFechaGeneracion" ColumnName="CabeceraFacturaFechaGeneracion" />
+          <ScalarProperty Name="CabeceraFacturaFinalizado" ColumnName="CabeceraFacturaFinalizado" />
+          <ScalarProperty Name="CabeceraFacturaIdAsignacionTU" ColumnName="CabeceraFacturaIdAsignacionTU" />
+          <ScalarProperty Name="CabeceraFacturaIdTipoTransaccion" ColumnName="CabeceraFacturaIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionIdTipoTransaccion" ColumnName="TipoTransaccionIdTipoTransaccion" />
+          <ScalarProperty Name="TipoTransaccionDescripcion" ColumnName="TipoTransaccionDescripcion" />
+          <ScalarProperty Name="TipoTransaccionIdentificador" ColumnName="TipoTransaccionIdentificador" />
+          <ScalarProperty Name="TipoTransaccionFechaCreacion" ColumnName="TipoTransaccionFechaCreacion" />
+          <ScalarProperty Name="TipoTransaccionFechaModificacion" ColumnName="TipoTransaccionFechaModificacion" />
+          <ScalarProperty Name="ConfigurarVentaIdConfigurarVenta" ColumnName="ConfigurarVentaIdConfigurarVenta" />
+          <ScalarProperty Name="ConfigurarVentaAplicaSeguro" ColumnName="ConfigurarVentaAplicaSeguro" />
+          <ScalarProperty Name="ConfigurarVentaDescuento" ColumnName="ConfigurarVentaDescuento" />
+          <ScalarProperty Name="ConfigurarVentaEfectivo" ColumnName="ConfigurarVentaEfectivo" />
+          <ScalarProperty Name="ConfigurarVentaEstadoConfVenta" ColumnName="ConfigurarVentaEstadoConfVenta" />
+          <ScalarProperty Name="ConfigurarVentaFechaFinCredito" ColumnName="ConfigurarVentaFechaFinCredito" />
+          <ScalarProperty Name="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" ColumnName="ConfigurarVentaIdAsignarTecnicoPersonaComunidad" />
+          <ScalarProperty Name="ConfigurarVentaIdCabeceraFactura" ColumnName="ConfigurarVentaIdCabeceraFactura" />
+          <ScalarProperty Name="ConfigurarVentaIdConfiguracionInteres" ColumnName="ConfigurarVentaIdConfiguracionInteres" />
+          <ScalarProperty Name="ConfigurarVentaIdPersona" ColumnName="ConfigurarVentaIdPersona" />
+          <ScalarProperty Name="PersonaIdPersona" ColumnName="PersonaIdPersona" />
+          <ScalarProperty Name="PersonaApellidoMaterno" ColumnName="PersonaApellidoMaterno" />
+          <ScalarProperty Name="PersonaApellidoPaterno" ColumnName="PersonaApellidoPaterno" />
+          <ScalarProperty Name="PersonaEstado" ColumnName="PersonaEstado" />
+          <ScalarProperty Name="PersonaFechaActualizacion" ColumnName="PersonaFechaActualizacion" />
+          <ScalarProperty Name="PersonaFechaCreacion" ColumnName="PersonaFechaCreacion" />
+          <ScalarProperty Name="PersonaIdTipoDocumento" ColumnName="PersonaIdTipoDocumento" />
+          <ScalarProperty Name="PersonaNumeroDocumento" ColumnName="PersonaNumeroDocumento" />
+          <ScalarProperty Name="PersonaPrimerNombre" ColumnName="PersonaPrimerNombre" />
+          <ScalarProperty Name="PersonaSegundoNombre" ColumnName="PersonaSegundoNombre" />
+          <ScalarProperty Name="TipoDocumentoIdTipoDocumento" ColumnName="TipoDocumentoIdTipoDocumento" />
+          <ScalarProperty Name="TipoDocumentoDescripcion" ColumnName="TipoDocumentoDescripcion" />
+          <ScalarProperty Name="TipoDocumentoEstado" ColumnName="TipoDocumentoEstado" />
+          <ScalarProperty Name="TipoDocumentoFechaActualizacion" ColumnName="TipoDocumentoFechaActualizacion" />
+          <ScalarProperty Name="TipoDocumentoFechaCreacion" ColumnName="TipoDocumentoFechaCreacion" />
+          <ScalarProperty Name="TipoDocumentoIdentificador" ColumnName="TipoDocumentoIdentificador" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasCreditosFinalizadas" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasCreditosFinalizadas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasCreditosFinalizadas_Result">
+          <ScalarProperty Name="IdCabeceraFactura" ColumnName="IdCabeceraFactura" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarFacturasCreditosPendientes" FunctionName="AMUCOMTModel.Store.sp_ConsultarFacturasCreditosPendientes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarFacturasCreditosPendientes_Result">
+          <ScalarProperty Name="IdCabeceraFactura" ColumnName="IdCabeceraFactura" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarTotalDeFacturasCompradasACreditoPorPersonaEnAnoActual" FunctionName="AMUCOMTModel.Store.sp_ConsultarTotalDeFacturasCompradasACreditoPorPersonaEnAnoActual">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTotalDeFacturasCompradasACreditoPorPersonaEnAnoActual_Result1">
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+          <ScalarProperty Name="CANTIDAD_COMPRADA" ColumnName="CANTIDAD_COMPRADA" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarTotalDeAbonosFacturasCompradasACreditoPorPersonaEnAnoActual" FunctionName="AMUCOMTModel.Store.sp_ConsultarTotalDeAbonosFacturasCompradasACreditoPorPersonaEnAnoActual">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarTotalDeAbonosFacturasCompradasACreditoPorPersonaEnAnoActual_Result1">
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+          <ScalarProperty Name="CANTIDAD_ABONADA" ColumnName="CANTIDAD_ABONADA" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarSaldoPendientePorPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarSaldoPendientePorPersona">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarSaldoPendientePorPersona_Result2">
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+          <ScalarProperty Name="Pendiente" ColumnName="Pendiente" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ConsultarSaldoAbonadoPorPersona" FunctionName="AMUCOMTModel.Store.sp_ConsultarSaldoAbonadoPorPersona">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="AMUCOMTModel.sp_ConsultarSaldoAbonadoPorPersona_Result">
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+          <ScalarProperty Name="Abonado" ColumnName="Abonado" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

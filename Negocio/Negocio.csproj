@@ -97,6 +97,8 @@
     <Compile Include="Entidades\Privilegios.cs" />
     <Compile Include="Entidades\Producto.cs" />
     <Compile Include="Entidades\Provincia.cs" />
+    <Compile Include="Entidades\Reporte\PromedioPrecios.cs" />
+    <Compile Include="Entidades\Reporte\Tecnico.cs" />
     <Compile Include="Entidades\SaldoPendiente.cs" />
     <Compile Include="Entidades\Stock.cs" />
     <Compile Include="Entidades\StockRubro.cs" />
@@ -140,6 +142,7 @@
     <Compile Include="Logica\Inventario\CatalogoProducto.cs" />
     <Compile Include="Logica\Inventario\CatalogoTipoProducto.cs" />
     <Compile Include="Logica\Inventario\CatalogoTipoTransaccion.cs" />
+    <Compile Include="Logica\Reporte\CatalogoReporte.cs" />
     <Compile Include="Logica\Rubros\CatalogoTipoPresentacionRubro.cs" />
     <Compile Include="Logica\Rubros\CatalogoTipoRubro.cs" />
     <Compile Include="Logica\Rubros\CatalogoVehiculo.cs" />

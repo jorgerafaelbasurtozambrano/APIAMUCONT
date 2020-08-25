@@ -21,7 +21,7 @@ namespace Negocio.Logica.Rubros
             if (_Vehiculo == null)
             {
                 _Vehiculo = new Vehiculo();
-                _Vehiculo = GestionVehiculo.IngresarVehiculo(new Vehiculo() { Placa = _TicketVenta._Vehiculo.Placa, IdAsignarTU = _TicketVenta.IdAsignarTU });
+                _Vehiculo = GestionVehiculo.IngresarVehiculo(new Vehiculo() { Placa = _TicketVenta._Vehiculo.Placa.ToUpper(), IdAsignarTU = _TicketVenta.IdAsignarTU });
                 if (_Vehiculo.IdVehiculo == null)
                 {
                     _TicketVenta.IdTicketVenta = null;
@@ -84,14 +84,31 @@ namespace Negocio.Logica.Rubros
         }
         public TicketVenta InsertarTicketVentaRubroPorSaco(TicketVenta _TicketVenta)
         {
-            foreach (var item in ConexionBD.sp_CrearTicketVentaPorSaco(int.Parse(_TicketVenta.IdPersonaCliente), int.Parse(_TicketVenta._TipoRubro.IdTipoRubro), int.Parse(_TicketVenta._TipoPresentacionRubro.IdTipoPresentacionRubro), int.Parse(_TicketVenta.IdAsignarTU), _TicketVenta.PesoNeto, _TicketVenta.PorcentajeImpureza, _TicketVenta.PorcentajeHumedad, _TicketVenta.PrecioPorQuintal))
+            Vehiculo _Vehiculo = new Vehiculo();
+            _Vehiculo = GestionVehiculo.ConsultarVehiculoPorPlaca(_TicketVenta._Vehiculo.Placa).FirstOrDefault();
+            if (_Vehiculo == null)
             {
+                _Vehiculo = new Vehiculo();
+                _Vehiculo = GestionVehiculo.IngresarVehiculo(new Vehiculo() { Placa = _TicketVenta._Vehiculo.Placa.ToUpper(), IdAsignarTU = _TicketVenta.IdAsignarTU });
+                if (_Vehiculo.IdVehiculo == null)
+                {
+                    _TicketVenta.IdTicketVenta = null;
+                    return _TicketVenta;
+                }
+            }
+            _Vehiculo.IdVehiculo = Seguridad.DesEncriptar(_Vehiculo.IdVehiculo);
+            foreach (var item in ConexionBD.sp_CrearTicketVentaPorSaco(int.Parse(_TicketVenta.IdPersonaCliente), int.Parse(_TicketVenta._TipoRubro.IdTipoRubro), int.Parse(_TicketVenta._TipoPresentacionRubro.IdTipoPresentacionRubro), int.Parse(_TicketVenta.IdAsignarTU), _TicketVenta.PesoNeto, _TicketVenta.PorcentajeImpureza, _TicketVenta.PorcentajeHumedad, _TicketVenta.PrecioPorQuintal, int.Parse(_TicketVenta.IdPersonaCliente), int.Parse(_Vehiculo.IdVehiculo)))
+            {
+                PersonaEntidad _Persona = new PersonaEntidad();
+                _Persona = GestionPersona.ConsultarPersonaPorId(item.VentaRubroIdPersonaCliente).FirstOrDefault();
                 _TicketVenta.IdTicketVenta = Seguridad.Encriptar(item.VentaRubroIdVentaRubro.ToString());
                 _TicketVenta.Codigo = item.VentaRubroCodigo;
                 _TicketVenta.FechaIngreso = item.VentaRubroFechaEntrada;
                 _TicketVenta.FechaSalida = item.VentaRubroFechaSalida;
                 _TicketVenta.IdPersonaCliente = Seguridad.Encriptar(item.VentaRubroIdPersonaCliente.ToString());
-                _TicketVenta._PersonaCliente = GestionPersona.ConsultarPersonaPorId(item.VentaRubroIdPersonaCliente).FirstOrDefault();
+                _TicketVenta._PersonaChofer = _Persona;
+                _TicketVenta._PersonaCliente = _Persona;
+                _TicketVenta._Vehiculo = _Vehiculo;
                 _TicketVenta.IdTipoRubro = Seguridad.Encriptar(item.VentaRubroIdTipoRubro.ToString());
                 _TicketVenta.IdTipoPresentacionRubro = Seguridad.Encriptar(item.VentaRubroIdTipoPresentacionRubro.ToString());
                 _TicketVenta.IdAsignarTU = Seguridad.Encriptar(item.VentaRubroIdAsignarTU.ToString());
@@ -105,6 +122,14 @@ namespace Negocio.Logica.Rubros
                 _TicketVenta.TotalACobrar = item.VentaRubroTotalACobrar;
                 _TicketVenta.Estado = item.VentaRubroEstado;
                 _TicketVenta.Anulada = item.VentaRubroAnulado;
+                _TicketVenta._Vehiculo = new Vehiculo()
+                {
+                    IdVehiculo = Seguridad.Encriptar(item.VehiculoIdVehiculo.ToString()),
+                    Estado = item.VehiculoEstado,
+                    Placa = item.VehiculoPlaca,
+                    FechaCreacion = item.VehiculoFechaCreacion,
+                    IdAsignarTU = Seguridad.Encriptar(item.VehiculoIdAsignarTU.ToString()),
+                };
                 _TicketVenta._TipoRubro = new TipoRubro()
                 {
                     IdTipoRubro = Seguridad.Encriptar(item.TipoRubroIdTipoRubro.ToString()),
@@ -244,8 +269,11 @@ namespace Negocio.Logica.Rubros
                     Chofer.Add(GestionPersona.ConsultarPersonaPorId(idChofer).FirstOrDefault());
                     Personas.Add(Chofer.FirstOrDefault());
                 }
+                //string IdPersonaModificada = "";
                 _TicketVentas.Add(new TicketVenta()
                 {
+                    Modificado = item.VentaRubroModificado,
+                    //_IdPersonaModifica = IdPersonaModificada,
                     IdTicketVenta = Seguridad.Encriptar(item.VentaRubroIdVentaRubro.ToString()),
                     Anulada = item.VentaRubroAnulado,
                     Codigo = item.VentaRubroCodigo,
@@ -392,26 +420,65 @@ namespace Negocio.Logica.Rubros
             List<TicketVenta> ListaTicket = new List<TicketVenta>();
             foreach (var item in ConexionBD.sp_ConsultarTickenVentaPorId(IdTicketVenta))
             {
+                List<PersonaEntidad> Cliente = new List<PersonaEntidad>();
+                List<PersonaEntidad> Chofer = new List<PersonaEntidad>();
+                Cliente.Add(GestionPersona.ConsultarPersonaPorId(item.VentaRubroIdPersonaCliente).FirstOrDefault());
+                if (item.VentaRubroIdPersonaChofer!=null)
+                {
+                    if (item.VentaRubroIdPersonaChofer != item.VentaRubroIdPersonaCliente)
+                    {
+                        Chofer.Add(GestionPersona.ConsultarPersonaPorId(item.VentaRubroIdPersonaChofer.Value).FirstOrDefault());
+                    }
+                    else
+                    {
+                        Chofer.Add(Cliente.FirstOrDefault());
+                    }
+                }
                 ListaTicket.Add(new TicketVenta()
                 {
-                    Anulada = item.Anulado,
-                    IdTicketVenta = Seguridad.Encriptar(item.IdVentaRubro.ToString()),
-                    Codigo = item.Codigo,
-                    FechaIngreso = item.FechaEntrada,
-                    FechaSalida = item.FechaSalida,
-                    IdPersonaCliente = Seguridad.Encriptar(item.IdPersonaCliente.ToString()),
-                    IdTipoRubro = Seguridad.Encriptar(item.IdTipoRubro.ToString()),
-                    IdTipoPresentacionRubro = Seguridad.Encriptar(item.IdTipoPresentacionRubro.ToString()),
-                    IdAsignarTU = Seguridad.Encriptar(item.IdAsignarTU.ToString()),
-                    PesoTara = item.PesoTara,
-                    PesoBruto = item.PesoBruto,
-                    PrecioPorQuintal = item.PrecioPorQuintal,
-                    PorcentajeImpureza = item.PorcentajeImpureza,
-                    PorcentajeHumedad = item.PorcentajeHumedad,
-                    PesoNeto = item.PesoNeto,
-                    PesoACobrar = item.PesoACobrar,
-                    TotalACobrar = item.TotalACobrar,
-                    Estado = item.Estado,
+                    Modificado = item.VentaRubroModificado,
+                    Anulada = item.VentaRubroAnulado,
+                    IdTicketVenta = Seguridad.Encriptar(item.VentaRubroIdVentaRubro.ToString()),
+                    Codigo = item.VentaRubroCodigo,
+                    FechaIngreso = item.VentaRubroFechaEntrada,
+                    FechaSalida = item.VentaRubroFechaSalida,
+                    IdPersonaCliente = Seguridad.Encriptar(item.VentaRubroIdPersonaCliente.ToString()),
+                    _PersonaCliente = Cliente.FirstOrDefault(),
+                    _PersonaChofer = Chofer.FirstOrDefault(),
+                    IdTipoRubro = Seguridad.Encriptar(item.VentaRubroIdTipoRubro.ToString()),
+                    IdTipoPresentacionRubro = Seguridad.Encriptar(item.VentaRubroIdTipoPresentacionRubro.ToString()),
+                    IdAsignarTU = Seguridad.Encriptar(item.VentaRubroIdAsignarTU.ToString()),
+                    PesoTara = item.VentaRubroPesoTara,
+                    PesoBruto = item.VentaRubroPesoBruto,
+                    PrecioPorQuintal = item.VentaRubroPrecioPorQuintal,
+                    PorcentajeImpureza = item.VentaRubroPorcentajeImpureza,
+                    PorcentajeHumedad = item.VentaRubroPorcentajeHumedad,
+                    PesoNeto = item.VentaRubroPesoNeto,
+                    PesoACobrar = item.VentaRubroPesoACobrar,
+                    TotalACobrar = item.VentaRubroTotalACobrar,
+                    Estado = item.VentaRubroEstado,
+                    _Vehiculo = new Vehiculo()
+                    {
+                        Estado = item.VehiculoEstado,
+                        Placa = item.VehiculoPlaca,
+                        FechaCreacion = item.VehiculoFechaCreacion,
+                    },
+                    _TipoRubro = new TipoRubro()
+                    {
+                        IdTipoRubro = Seguridad.Encriptar(item.TipoRubroIdTipoRubro.ToString()),
+                        Descripcion = item.TipoRubroDescripcion,
+                        FechaCreacion = item.TipoRubroFechaCreacion,
+                        Identificador = item.TipoRuboIdentificador,
+                        Estado = item.TipoRubroEstado
+                    },
+                    _TipoPresentacionRubro = new TipoPresentacionRubro()
+                    {
+                        IdTipoPresentacionRubro = Seguridad.Encriptar(item.TipoPresentacionRubrosIdTipoPresentacionRubros.ToString()),
+                        Descripcion = item.TipoPresentacionRubrosDescripcion,
+                        FechaCreacion = item.TipoPresentacionRubrosFechaCreacion,
+                        Identificador = item.TipoPresentacionRubrosIdentificador,
+                        Estado = item.TipoPresentacionRubrosEstado
+                    }
                 });
             }
             return ListaTicket;
@@ -567,6 +634,7 @@ namespace Negocio.Logica.Rubros
                 }
                 _TicketVentas.Add(new TicketVenta()
                 {
+                    Modificado = item.VentaRubroModificado,
                     IdTicketVenta = Seguridad.Encriptar(item.VentaRubroIdVentaRubro.ToString()),
                     Anulada = item.VentaRubroAnulado,
                     Codigo = item.VentaRubroCodigo,
@@ -611,6 +679,81 @@ namespace Negocio.Logica.Rubros
                 });
             }
             return _TicketVentas;
+        }
+        public TicketVenta ModificarTicketVentaRubro(TicketVenta _TicketVenta)
+        {
+            try
+            {
+                foreach (var item in ConexionBD.sp_ModificarTicketVenta(int.Parse(_TicketVenta.IdTicketVenta), _TicketVenta.PesoBruto, _TicketVenta.PrecioPorQuintal, _TicketVenta.PorcentajeImpureza, _TicketVenta.PorcentajeHumedad,_TicketVenta.PesoTara,int.Parse(_TicketVenta.IdAsignarTU)))
+                {
+                    PersonaEntidad AsignacionTU = new PersonaEntidad();
+                    AsignacionTU = GestionPersona.ConsultarPersonaPorId(item.UsuarioIdPersona).FirstOrDefault();
+                    AsignacionTU.AsignacionTipoUsuario = new AsignacionTipoUsuario()
+                    {
+                        IdAsignacionTUEncriptada = Seguridad.Encriptar(item.AsignacionTipoUsuarioIdAsignacionTU.ToString()),
+                        TipoUsuario = new TipoUsuario()
+                        {
+                            IdTipoUsuario = Seguridad.Encriptar(item.TipoUsuarioIdTipoUsuario.ToString()),
+                            Identificacion = item.TipoUsuarioIdentificacion,
+                            Descripcion = item.TipoUsuarioDescripcion,
+                            FechaCreacion = item.TipoUsuarioFechaCreacion
+                        },
+                    };
+                    _TicketVenta._PersonaCliente = GestionPersona.ConsultarPersonaPorId(item.VentaRubroIdPersonaCliente).FirstOrDefault();
+                    _TicketVenta._PersonaUsuario = AsignacionTU;
+                    _TicketVenta.IdTicketVenta = Seguridad.Encriptar(item.VentaRubroIdVentaRubro.ToString());
+                    _TicketVenta.Codigo = item.VentaRubroCodigo;
+                    _TicketVenta.FechaIngreso = item.VentaRubroFechaEntrada;
+                    _TicketVenta.FechaSalida = item.VentaRubroFechaSalida;
+                    _TicketVenta.IdPersonaCliente = Seguridad.Encriptar(item.VentaRubroIdPersonaCliente.ToString());
+                    _TicketVenta.IdPersonaChofer = Seguridad.Encriptar(item.VentaRubroIdPersonaChofer.ToString());
+                    _TicketVenta._PersonaChofer = GestionPersona.ConsultarPersonaPorId(int.Parse(Seguridad.DesEncriptar(_TicketVenta.IdPersonaChofer))).FirstOrDefault();
+                    _TicketVenta.IdTipoRubro = Seguridad.Encriptar(item.VentaRubroIdTipoRubro.ToString());
+                    _TicketVenta.IdTipoPresentacionRubro = Seguridad.Encriptar(item.VentaRubroIdTipoPresentacionRubro.ToString());
+                    _TicketVenta.IdAsignarTU = Seguridad.Encriptar(item.VentaRubroIdAsignarTU.ToString());
+                    _TicketVenta.IdVehiculo = Seguridad.Encriptar(item.VentaRubroIdVehiculo.ToString());
+                    _TicketVenta.PesoTara = item.VentaRubroPesoTara;
+                    _TicketVenta.PesoBruto = item.VentaRubroPesoBruto;
+                    _TicketVenta.PrecioPorQuintal = item.VentaRubroPrecioPorQuintal;
+                    _TicketVenta.PorcentajeImpureza = item.VentaRubroPorcentajeImpureza;
+                    _TicketVenta.PorcentajeHumedad = item.VentaRubroPorcentajeHumedad;
+                    _TicketVenta.PesoNeto = item.VentaRubroPesoNeto;
+                    _TicketVenta.PesoACobrar = item.VentaRubroPesoACobrar;
+                    _TicketVenta.TotalACobrar = item.VentaRubroTotalACobrar;
+                    _TicketVenta.Estado = item.VentaRubroEstado;
+                    _TicketVenta.Modificado = true;
+                    _TicketVenta._Vehiculo = new Vehiculo()
+                    {
+                        IdVehiculo = Seguridad.Encriptar(item.VehiculoIdVehiculo.ToString()),
+                        Estado = item.VehiculoEstado,
+                        Placa = item.VehiculoPlaca,
+                        FechaCreacion = item.VehiculoFechaCreacion,
+                        IdAsignarTU = Seguridad.Encriptar(item.VehiculoIdAsignarTU.ToString()),
+                    };
+                    _TicketVenta._TipoRubro = new TipoRubro()
+                    {
+                        IdTipoRubro = Seguridad.Encriptar(item.TipoRubroIdTipoRubro.ToString()),
+                        Descripcion = item.TipoRubroDescripcion,
+                        FechaCreacion = item.TipoRubroFechaCreacion,
+                        Identificador = item.TipoRuboIdentificador,
+                        Estado = item.TipoRubroEstado
+                    };
+                    _TicketVenta._TipoPresentacionRubro = new TipoPresentacionRubro()
+                    {
+                        IdTipoPresentacionRubro = Seguridad.Encriptar(item.TipoPresentacionRubrosIdTipoPresentacionRubros.ToString()),
+                        Descripcion = item.TipoPresentacionRubrosDescripcion,
+                        FechaCreacion = item.TipoPresentacionRubrosFechaCreacion,
+                        Identificador = item.TipoPresentacionRubrosIdentificador,
+                        Estado = item.TipoPresentacionRubrosEstado
+                    };
+                }
+                return _TicketVenta;
+            }
+            catch (Exception)
+            {
+                _TicketVenta.IdTicketVenta = null;
+                return _TicketVenta;
+            }
         }
     }
 }

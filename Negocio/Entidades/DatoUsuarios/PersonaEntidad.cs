@@ -37,6 +37,10 @@ namespace Negocio.Entidades.DatoUsuarios
         public string IdTipoTelefono2 { get; set; }
         public string IdTelefono1 { get; set; }
         public string IdTelefono2 { get; set; }
+        public Decimal Pendiente { get; set; }
+        public Decimal Abonado { get; set; }
+        public Decimal CantidadComprada { get; set; }
+        public Decimal CantidadAbonada { get; set; }
     }
     public class PersonaSeguimientoFinalizado
     {

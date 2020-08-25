@@ -1,0 +1,352 @@
+﻿<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<div class="container">
+    <div style="text-align:center">
+        <img width="400" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+    </div>
+    <div style="text-align:center" class="row">
+        <div class="col-12">
+            <font size="5">
+                COMPRAS REALIZADAS <span> @ViewBag.TipoRubro</span>
+            </font>
+        </div>
+    </div>
+    @if (ViewBag.Identificacion != null && ViewBag.Identificacion != "")
+    {
+        if (ViewBag.Datos.Count == 0)
+        {
+            <div style="background-color:#d9534f;text-align:left" class="row">
+                <div class="col-12">
+                    <font size="4">
+                        LA PERSONA CON EL NÚMERO DE DOCUMENTO @ViewBag.Identificacion NO REGISTRA NINGUNA COMPRA CON LA FECHA SELECCIONADA
+                    </font>
+                </div>
+            </div>
+        }
+        if (ViewBag.Datos.Count > 0)
+        {
+            <div class="container">
+                <div style="border: 1px solid black;text-align:center;background-color:lavender" class="row">
+                    <div class="col-12">
+                        <strong>
+                            <font size="4">
+                                DATOS PERSONALES
+                            </font>
+                        </strong>
+                    </div>
+                </div>
+                <div style="border-left: 1px solid black;border-right: 1px solid black;" class="row">
+                    <div class="col-9">
+                        <font size="2">
+                            NOMBRE
+                        </font>
+                    </div>
+                    <div style="border-left: 1px solid black" class="col-3">
+                        <font size="2">
+                            @ViewBag.Datos[0]._PersonaEntidad._objTipoDocumento.Documento
+                        </font>
+                    </div>
+                </div>
+                <div style="border-bottom: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;" class="row">
+                    <div class="col-9">
+                        @ViewBag.Datos[0]._PersonaEntidad.PrimerNombre
+                        @ViewBag.Datos[0]._PersonaEntidad.SegundoNombre
+                        @ViewBag.Datos[0]._PersonaEntidad.ApellidoPaterno
+                        @ViewBag.Datos[0]._PersonaEntidad.ApellidoMaterno
+                    </div>
+                    <div style="border-left: 1px solid black" class="col-3">
+                        @ViewBag.Datos[0]._PersonaEntidad.NumeroDocumento
+                    </div>
+                </div>
+                <div style="border-left: 1px solid black;border-right: 1px solid black;" class="row">
+                    <div class="col-4">
+                        <font size="2">
+                            TELÉFONO #1 : @ViewBag.Datos[0]._PersonaEntidad.ListaTelefono[0].TipoTelefono.Descripcion
+                        </font>
+                    </div>
+                    <div style="border-left: 1px solid black" class="col-5">
+                        <font size="2">
+                            TELÉFONO #2 @if (ViewBag.Datos[0]._PersonaEntidad.ListaTelefono.Count > 1)
+                            {
+                                <span> :</span> @ViewBag.Datos[0]._PersonaEntidad.ListaTelefono[1].TipoTelefono.Descripcion
+                            }
+                        </font>
+                    </div>
+                    <div style="border-left: 1px solid black" class="col-3">
+                        <font size="2">
+                            CORREO
+                        </font>
+                    </div>
+                </div>
+                <div style="border-left: 1px solid black;border-right: 1px solid black;" class="row">
+                    <div style="border-bottom: 1px solid black" class="col-4">
+                        @ViewBag.Datos[0]._PersonaEntidad.ListaTelefono[0].Numero
+                    </div>
+                    <div style="border-bottom: 1px solid black;border-left: 1px solid black" class="col-5">
+                        @if (ViewBag.Datos[0]._PersonaEntidad.ListaTelefono.Count > 1)
+                        {
+                            @ViewBag.Datos[0]._PersonaEntidad.ListaTelefono[1].Numero
+                        }
+                        else
+                        {
+                            <span>N/A</span>
+                        }
+                    </div>
+                    <div style="border-bottom: 1px solid black;border-left: 1px solid black" class="col-3">
+                        @if (ViewBag.Datos[0]._PersonaEntidad.ListaCorreo.Count > 0)
+                        {
+                            @ViewBag.Datos[0]._PersonaEntidad.ListaCorreo[0].CorreoValor
+                        }
+                        else
+                        {
+                            <span>N/A</span>
+                        }
+                    </div>
+                </div>
+                <div style="border-bottom: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;background-color:lavender" class="row">
+                    <div style="text-align:center" class="col-12">
+                        <strong>
+                            <font size="4">
+                                RESIDENCIA
+                            </font>
+                        </strong>
+                    </div>
+                </div>
+                <div style="border-left: 1px solid black;border-right: 1px solid black;" class="row">
+                    <div class="col-3">
+                        <font size="2">
+                            PROVINCIA
+                        </font>
+                    </div>
+                    <div style="border-left: 1px solid black" class="col-3">
+                        <font size="2">
+                            CANTÓN
+                        </font>
+                    </div>
+                    <div style="border-left: 1px solid black" class="col-3">
+                        <font size="2">
+                            PARROQUIA
+                        </font>
+                    </div>
+                    <div style="border-left: 1px solid black" class="col-3">
+                        <font size="2">
+                            REFERENCIA
+                        </font>
+                    </div>
+                </div>
+                <div style="border-bottom: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;" class="row">
+                    <div class="col-3">
+                        @ViewBag.Datos[0]._PersonaEntidad.AsignacionPersonaParroquia[0].Parroquia.Canton.Provincia.Descripcion
+                    </div>
+                    <div style="border-left: 1px solid black" class="col-3">
+                        @ViewBag.Datos[0]._PersonaEntidad.AsignacionPersonaParroquia[0].Parroquia.Canton.Descripcion
+                    </div>
+                    <div style="border-left: 1px solid black" class="col-3">
+                        @ViewBag.Datos[0]._PersonaEntidad.AsignacionPersonaParroquia[0].Parroquia.Descripcion
+                    </div>
+                    <div style="border-left: 1px solid black" class="col-3">
+                        @ViewBag.Datos[0]._PersonaEntidad.AsignacionPersonaParroquia[0].Referencia
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div style="border: 1px solid black;text-align:center;background-color:lavender" class="col-12">
+                        <strong>
+                            <font size="4">
+                                FILTRO
+                            </font>
+                        </strong>
+                        <span> @ViewBag.Inicio</span>
+                        <strong>
+                            <font size="4">
+                                HASTA
+                            </font>
+                        </strong>
+                        <span> @ViewBag.Fin</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="border-left:1px solid black;border-right:1px solid black;border-bottom:1px solid black;" class="col-6">
+                        <strong>
+                            <font size="2">
+                                CARRO : @ViewBag.Carro.Count Ticket
+                            </font>
+                        </strong>
+                    </div>
+                    <div style="border-bottom:1px solid black;border-right:1px solid black" class="col-6">
+                        <strong>
+                            <font size="2">
+                                SACO : @ViewBag.Saco.Count Ticket
+                            </font>
+                        </strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;" class="col-6">
+                        <br />
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr style="text-align:center">
+                                    <th scope="col">HUMEDAD</th>
+                                    <th scope="col">IMPUREZA</th>
+                                    <th scope="col">PLACA</th>
+                                    <th scope="col">PESO</th>
+                                    <th scope="col">PRECIO</th>
+                                    <th scope="col">TOTAL</th>
+                                    <th scope="col">FECHA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int counter = 1;
+                                    foreach (var item in ViewBag.Carro)
+                                    {
+                                        <tr style="text-align:center;vertical-align:middle">
+                                            <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
+                                            <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
+                                            <td style="vertical-align:middle">@item._Vehiculo.Placa</td>
+                                            <td style="vertical-align:middle">@item.PesoSinImpurezas kg</td>
+                                            <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
+                                            <td style="vertical-align:middle"><span>$</span>@item.TotalAPagar</td>
+                                            <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
+                                        </tr>
+                                        counter = counter + 1;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="border-bottom:1px solid black;border-right:1px solid black" class="col-6">
+                        <br />
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr style="text-align:center">
+                                    <th scope="col">HUMEDAD</th>
+                                    <th scope="col">IMPUREZA</th>
+                                    <th scope="col">PESO</th>
+                                    <th scope="col">PRECIO</th>
+                                    <th scope="col">TOTAL</th>
+                                    <th scope="col">FECHA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in ViewBag.Saco)
+                                    {
+                                        <tr style="text-align:center;vertical-align:middle">
+                                            <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
+                                            <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
+                                            <td style="vertical-align:middle">@item.PesoSinImpurezas kg</td>
+                                            <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
+                                            <td style="vertical-align:middle"><span>$</span>@item.TotalAPagar</td>
+                                            <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        if (ViewBag.Identificador == null || ViewBag.Identificador == "")
+        {
+            <div style="background-color:#d9534f;text-align:left" class="row">
+                <div class="col-12">
+                    <font size="4">
+                        NO INGRESO EL TIPO DE RUBRO A CONSULTAR
+                    </font>
+                </div>
+            </div>
+        }
+        else
+        {
+            <br />
+            <div class="container">
+                @if (ViewBag.Datos.Count == 0)
+                {
+                    <div style="background-color:#d9534f;text-align:left" class="row">
+                        <div class="col-12">
+                            <font size="4">
+                                NO EXISTE NINGUN REGISTRO PARA MOSTRAR
+                            </font>
+                        </div>
+                    </div>
+                }
+                else {
+                    <div class="row">
+                        <div style="border: 1px solid black;text-align:center;background-color:lavender" class="col-12">
+                            <strong>
+                                <font size="4">
+                                    FILTRO
+                                </font>
+                            </strong>
+                            <span> @ViewBag.Inicio</span>
+                            <strong>
+                                <font size="4">
+                                    HASTA
+                                </font>
+                            </strong>
+                            <span> @ViewBag.Fin</span>
+                        </div>
+                    </div>
+                    <br />
+                    <table class="table">
+                            <thead class="thead-dark table-condensed table-bordered table-hover">
+                                <tr style="text-align:center">
+                                    <th scope="col">#</th>
+                                    <th scope="col">CLIENTE</th>
+                                    <th scope="col">IDENTIFICACIÓN</th>
+                                    @if (ViewBag.Identificador == "1")
+                                    {
+                                        <th scope="col">CARRO</th>
+                                    }
+                                    <th scope="col">HUMEDAD</th>
+                                    <th scope="col">IMPUREZA</th>
+                                    <th scope="col">PESO</th>
+                                    <th scope="col">PRECIO</th>
+                                    <th scope="col">TOTAL</th>
+                                    <th scope="col">FECHA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int counter = 1;
+                                    foreach (var item in ViewBag.Datos)
+                                    {
+                                        <tr style="text-align:center;vertical-align:middle">
+                                            <td style="vertical-align:middle">
+                                                @counter
+                                            </td>
+                                            <td style="vertical-align:middle;display:block">
+                                                @item._PersonaEntidad.PrimerNombre
+                                                @item._PersonaEntidad.SegundoNombre
+                                                @item._PersonaEntidad.ApellidoPaterno
+                                                @item._PersonaEntidad.ApellidoMaterno
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                @item._PersonaEntidad.NumeroDocumento
+                                            </td>
+                                             @if (ViewBag.Identificador == "1")
+                                             {
+                                                <td style="vertical-align:middle">@item._Vehiculo.Placa</td>
+                                             }
+                                            <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
+                                            <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
+                                            <td style="vertical-align:middle">@item.PesoSinImpurezas kg</td>
+                                            <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
+                                            <td style="vertical-align:middle"><span>$</span>@item.TotalAPagar</td>
+                                            <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
+                                        </tr>
+                                        counter = counter + 1;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                }
+            </div>
+        }
+    }
+</div>

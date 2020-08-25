@@ -17,7 +17,12 @@ namespace Negocio.Logica.Credito
         public ConfigurarVenta InsertarConfigurarVenta(ConfigurarVenta ConfigurarVenta)
         {
             ConfigurarVenta DataConfigurarVenta = new ConfigurarVenta();
-            foreach (var item in ConexionBD.sp_CrearConfigurarVenta(int.Parse(ConfigurarVenta.IdCabeceraFactura), int.Parse(ConfigurarVenta.IdPersona), ConfigurarVenta.EstadoConfVenta,int.Parse(ConfigurarVenta.IdConfiguracionInteres), ConfigurarVenta.Efectivo, null, ConfigurarVenta.FechaFinalCredito, ConfigurarVenta.AplicaSeguro))
+            int? IdConfiguracionInteres = null;
+            if (ConfigurarVenta.IdConfiguracionInteres!=null)
+            {
+                IdConfiguracionInteres = int.Parse(ConfigurarVenta.IdConfiguracionInteres);
+            }
+            foreach (var item in ConexionBD.sp_CrearConfigurarVenta(int.Parse(ConfigurarVenta.IdCabeceraFactura), int.Parse(ConfigurarVenta.IdPersona), ConfigurarVenta.EstadoConfVenta,IdConfiguracionInteres, ConfigurarVenta.Efectivo, null, ConfigurarVenta.FechaFinalCredito, ConfigurarVenta.AplicaSeguro))
             {
                 DataConfigurarVenta.IdConfigurarVenta = Seguridad.Encriptar(item.IdConfigurarVenta.ToString());
                 DataConfigurarVenta.IdCabeceraFactura = Seguridad.Encriptar(item.IdCabeceraFactura.ToString());

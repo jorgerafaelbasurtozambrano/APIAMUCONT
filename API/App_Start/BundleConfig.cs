@@ -22,7 +22,18 @@ namespace API
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/TicketStyle.css",
+                      "~/Content/font-awesome.css"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                        "~/Scripts/jquery-{version}.js"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+"~/Scripts/jquery-ui-{version}.js"));
+            //css   
+            bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include(
+            "~/Content/themes/base/jquery-ui.css"));
         }
     }
 }

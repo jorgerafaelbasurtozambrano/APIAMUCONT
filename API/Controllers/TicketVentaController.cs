@@ -143,7 +143,7 @@ namespace API.Controllers
                                 }
                                 else
                                 {
-                                    if (_TicketVenta.PesoNeto <= 0)
+                                    if (_TicketVenta.PesoNeto == null ||_TicketVenta.PesoNeto <= 0)
                                     {
                                         codigo = "418";
                                         mensaje = "Ingrese un peso neto correcto";
@@ -162,6 +162,16 @@ namespace API.Controllers
                                     {
                                         codigo = "418";
                                         mensaje = "Ingrese un precio por quintal correcto";
+                                    }
+                                    if (_TicketVenta._Vehiculo.Placa == null || string.IsNullOrEmpty(_TicketVenta._Vehiculo.Placa.Trim()))
+                                    {
+                                        codigo = "418";
+                                        mensaje = "Ingrese la placa del vehiculo";
+                                    }
+                                    else if (_TicketVenta.IdPersonaChofer == null || string.IsNullOrEmpty(_TicketVenta.IdPersonaChofer.Trim()))
+                                    {
+                                        codigo = "418";
+                                        mensaje = "Seleccione el chofer";
                                     }
                                     else
                                     {
@@ -182,6 +192,7 @@ namespace API.Controllers
                                             else
                                             {
                                                 TicketVenta DatoTicketVenta = new TicketVenta();
+                                                _TicketVenta.IdPersonaChofer = Seguridad.DesEncriptar(_TicketVenta.IdPersonaChofer);
                                                 DatoTicketVenta = GestionTicketVenta.InsertarTicketVentaRubroPorSaco(_TicketVenta);
                                                 if (DatoTicketVenta.IdTicketVenta == null)
                                                 {
@@ -607,6 +618,122 @@ namespace API.Controllers
                         respuesta = GestionTicketVenta.ConsultarTicketVentaAnulados();
                         objeto = new { codigo, mensaje, respuesta };
                         return objeto;
+                    }
+                }
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+            catch (Exception e)
+            {
+                mensaje = e.Message;
+                codigo = "500";
+                objeto = new { codigo, mensaje };
+                return objeto;
+            }
+        }
+        [Route("api/Rubros/ModificarVentaRubro")]
+        public object ModificarVentaRubro(TicketVenta _TicketVenta)
+        {
+            object objeto = new object();
+            object respuesta = new object();
+            string mensaje = "";
+            string codigo = "";
+            try
+            {
+                if (_TicketVenta.encriptada == null || string.IsNullOrEmpty(_TicketVenta.encriptada.Trim()))
+                {
+                    codigo = "418";
+                    mensaje = "Ingrese el token";
+                }
+                else
+                {
+                    if (Seguridad.ConsultarUsuarioPorToken(_TicketVenta.encriptada).FirstOrDefault() == null)
+                    {
+                        codigo = "403";
+                        mensaje = "No tiene los permisos para poder realizar dicha consulta";
+                    }
+                    else
+                    {
+                        if (_TicketVenta.IdTicketVenta == null || string.IsNullOrEmpty(_TicketVenta.IdTicketVenta.Trim()))
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese el id ticket de la venta";
+                        }
+                        else if (_TicketVenta.PorcentajeImpureza < 0 || _TicketVenta.PorcentajeImpureza > 100)
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese un porcentaje de impureza correcto";
+                        }
+                        else if (_TicketVenta.PorcentajeHumedad < 11 || _TicketVenta.PorcentajeHumedad > 100)
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese un porcentaje de humedad correcto";
+                        }
+                        else if (_TicketVenta.IdAsignarTU == null || string.IsNullOrEmpty(_TicketVenta.IdAsignarTU))
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese el idasignartu";
+                        }
+                        else if (_TicketVenta.PrecioPorQuintal <= 0)
+                        {
+                            codigo = "418";
+                            mensaje = "Ingrese un precio por quintal correcto";
+                        }
+                        else
+                        {
+                            _TicketVenta.IdAsignarTU = Seguridad.DesEncriptar(_TicketVenta.IdAsignarTU);
+                            _TicketVenta.IdTicketVenta = Seguridad.DesEncriptar(_TicketVenta.IdTicketVenta);
+                            TicketVenta DatoTicketVenta = new TicketVenta();
+                            DatoTicketVenta = GestionTicketVenta.ConsultarTicketVentaRubroPorId(int.Parse(_TicketVenta.IdTicketVenta)).FirstOrDefault();
+                            if (DatoTicketVenta == null)
+                            {
+                                codigo = "418";
+                                mensaje = "El ticket a eliminar no existe";
+                            }
+                            else if (DatoTicketVenta.Estado == true)
+                            {
+                                codigo = "418";
+                                mensaje = "El ticket no se encuetra finalizado";
+                            }
+                            else if (DatoTicketVenta._TipoPresentacionRubro.Identificador == 2)
+                            {
+                                codigo = "418";
+                                mensaje = "Solo se puede modificar cuando es venta por carro";
+                            }
+                            else if (DatoTicketVenta.Modificado == true)
+                            {
+                                codigo = "418";
+                                mensaje = "Esta venta ya fue modificada, no se puede modificar dos veces";
+                            }
+                            else
+                            {
+                                _TicketVenta.PesoBruto = DatoTicketVenta.PesoBruto;
+                                _TicketVenta.PesoTara = DatoTicketVenta.PesoTara;
+                                if (_TicketVenta.PesoBruto > _TicketVenta.PesoTara)
+                                {
+                                    DatoTicketVenta = new TicketVenta();
+                                    DatoTicketVenta = GestionTicketVenta.ModificarTicketVentaRubro(_TicketVenta);
+                                    if (DatoTicketVenta.IdTicketVenta == null)
+                                    {
+                                        codigo = "500";
+                                        mensaje = "Ocurrio un error al modificar la venta";
+                                    }
+                                    else
+                                    {
+                                        codigo = "200";
+                                        mensaje = "EXITO";
+                                        respuesta = DatoTicketVenta;
+                                        objeto = new { codigo, mensaje, respuesta };
+                                        return objeto;
+                                    }
+                                }
+                                else
+                                {
+                                    codigo = "418";
+                                    mensaje = "El peso bruto no puede ser menor al peso tara";
+                                }
+                            }
+                        }
                     }
                 }
                 objeto = new { codigo, mensaje };

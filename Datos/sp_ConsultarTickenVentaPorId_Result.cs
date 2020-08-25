@@ -13,26 +13,38 @@ namespace Datos
     
     public partial class sp_ConsultarTickenVentaPorId_Result
     {
-        public int IdVentaRubro { get; set; }
-        public string Codigo { get; set; }
-        public System.DateTime FechaEntrada { get; set; }
-        public Nullable<System.DateTime> FechaSalida { get; set; }
-        public int IdPersonaCliente { get; set; }
-        public Nullable<int> IdPersonaChofer { get; set; }
-        public int IdTipoRubro { get; set; }
-        public int IdTipoPresentacionRubro { get; set; }
-        public int IdAsignarTU { get; set; }
-        public Nullable<int> IdVehiculo { get; set; }
-        public Nullable<decimal> PesoTara { get; set; }
-        public Nullable<decimal> PesoBruto { get; set; }
-        public Nullable<decimal> PrecioPorQuintal { get; set; }
-        public Nullable<decimal> PorcentajeImpureza { get; set; }
-        public Nullable<decimal> PorcentajeHumedad { get; set; }
-        public Nullable<decimal> PesoNeto { get; set; }
-        public Nullable<decimal> PesoACobrar { get; set; }
-        public Nullable<decimal> TotalACobrar { get; set; }
-        public bool Estado { get; set; }
-        public bool Anulado { get; set; }
-        public Nullable<int> IdAsignarTUAnulado { get; set; }
+        public int VentaRubroIdVentaRubro { get; set; }
+        public string VentaRubroCodigo { get; set; }
+        public System.DateTime VentaRubroFechaEntrada { get; set; }
+        public Nullable<System.DateTime> VentaRubroFechaSalida { get; set; }
+        public int VentaRubroIdPersonaCliente { get; set; }
+        public Nullable<int> VentaRubroIdPersonaChofer { get; set; }
+        public int VentaRubroIdTipoRubro { get; set; }
+        public int VentaRubroIdTipoPresentacionRubro { get; set; }
+        public int VentaRubroIdAsignarTU { get; set; }
+        public Nullable<int> VentaRubroIdVehiculo { get; set; }
+        public Nullable<decimal> VentaRubroPesoTara { get; set; }
+        public Nullable<decimal> VentaRubroPesoBruto { get; set; }
+        public Nullable<decimal> VentaRubroPrecioPorQuintal { get; set; }
+        public Nullable<decimal> VentaRubroPorcentajeImpureza { get; set; }
+        public Nullable<decimal> VentaRubroPorcentajeHumedad { get; set; }
+        public Nullable<decimal> VentaRubroPesoNeto { get; set; }
+        public Nullable<decimal> VentaRubroPesoACobrar { get; set; }
+        public Nullable<decimal> VentaRubroTotalACobrar { get; set; }
+        public bool VentaRubroEstado { get; set; }
+        public bool VentaRubroAnulado { get; set; }
+        public Nullable<int> VentaRubroIdAsignarTUAnulado { get; set; }
+        public Nullable<bool> VentaRubroModificado { get; set; }
+        public Nullable<int> VentaRubroIdAsignarTUModificado { get; set; }
+        public int TipoRubroIdTipoRubro { get; set; }
+        public string TipoRubroDescripcion { get; set; }
+        public System.DateTime TipoRubroFechaCreacion { get; set; }
+        public bool TipoRubroEstado { get; set; }
+        public int TipoRuboIdentificador { get; set; }
+        public int TipoPresentacionRubrosIdTipoPresentacionRubros { get; set; }
+        public string TipoPresentacionRubrosDescripcion { get; set; }
+        public System.DateTime TipoPresentacionRubrosFechaCreacion { get; set; }
+        public bool TipoPresentacionRubrosEstado { get; set; }
+        public int TipoPresentacionRubrosIdentificador { get; set; }
     }
 }

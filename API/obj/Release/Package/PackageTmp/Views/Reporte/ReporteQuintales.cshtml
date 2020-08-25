@@ -1,0 +1,336 @@
+﻿<script src="~/Scripts/chart/exporting.js"></script>
+<script src="~/Scripts/chart/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<link href="~/Content/font-awesome.min.css" type="text/css"/>
+<br />
+<br />
+<br />
+<br />
+<br />
+<div style="vertical-align:middle" class="container">
+    <div hidden id="png-container" style="min-width: 300px; height: 300px; margin: 1em">imagen</div>
+    <div class="row">
+        <div style="background-color:hotpink;text-align:center" class="col-12">
+            <font size="4">
+                <strong>
+                    REPORTE QUINTALES COMPRADOS Y VENDIDOS DESDE @ViewBag.Inicio HASTA @ViewBag.Fin
+                </strong>
+            </font>
+        </div>
+    </div>
+    <div class="row">
+        <div style="border-left:4px solid hotpink;border-bottom:4px solid hotpink;border-right:4px solid hotpink" class="col-5">
+            @if (ViewBag.Pdf == true)
+            {
+                <img id="imagenC" style="padding-top:10px; width:inherit;height:max-content" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/Quintales.png" />
+            }
+            else
+            {
+                <figure class="highcharts-figure">
+                    <div id="container">
+                    </div>
+                </figure>
+            }
+        </div>
+        <div style="border-right:4px solid hotpink;border-bottom:4px solid hotpink;" class="col-7">
+            <div style="text-align:center;padding-top:5px">
+                <img width="300" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+            </div>
+            <div style="padding-top:1%" class="container">
+                <div class="row">
+                    <div style="text-align:center;border-bottom:1px solid hotpink" class="col-12">
+                        <font size="3">
+                            <strong>
+                                RESULTADOS
+                            </strong>
+                        </font>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <table style="text-align:center" width="100%">
+                        <tr style="border-right: 2px solid gainsboro ">
+                            <td style="background-color:gainsboro" width="20%">
+                            </td>
+                            <td style="background-color:gainsboro">
+                                <font size="3">
+                                    <strong>
+                                        QUINTALES
+                                    </strong>
+                                </font>
+                            </td>
+                            <td style="background-color:gainsboro">
+                                <font size="3">
+                                    <strong>
+                                        %
+                                    </strong>
+                                </font>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:2px solid gainsboro;border-right:2px solid gainsboro">
+                            <td width="20%" style="background-color:gainsboro">
+                                <font size="3">
+                                    <strong>
+                                        COMPRA
+                                    </strong>
+                                </font>
+                            </td>
+                            <td>
+                                <font size="2">
+                                    @ViewBag.QuintalesComprados
+                                </font>
+                            </td>
+                            <td>
+                                <font size="2">
+                                    @ViewBag.PorcentajeQuintalesComprados %
+                                </font>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:2px solid gainsboro;border-right:2px solid gainsboro">
+                            <td width="20%" style="background-color:gainsboro">
+                                <font size="3">
+                                    <strong>
+                                        VENTA
+                                    </strong>
+                                </font>
+                            </td>
+                            <td>
+                                <font size="2">
+                                    @ViewBag.QuintalesVendidos
+                                </font>
+                            </td>
+                            <td>
+                                <font size="2">
+                                    @ViewBag.PorcentajeQuintalesVendidos %
+                                </font>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br />
+            <div class="container">
+                <div class="row">
+                    <div style="text-align:center;border-bottom:1px solid hotpink" class="col-12">
+                        <font size="3">
+                            <strong>
+                                DIFERENCIA COMPRA - VENTA
+                            </strong>
+                        </font>
+                    </div>
+                </div>
+                <br />
+                <div class="row" style="background-color:gainsboro">
+                    <div style="text-align:center" class="col-12">
+                        <font size="3">
+                            <strong>
+                                @ViewBag.Diferencia qq
+                            </strong>
+                        </font>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div style="padding-top:1%" class="container">
+                <div class="row">
+                    <div style="text-align:center;border-bottom:1px solid hotpink" class="col-12">
+                        <font size="3">
+                            <strong>
+                                INVENTARIO
+                            </strong>
+                        </font>
+                    </div>
+                </div>
+                <br />
+                <div class="row" style="background-color:gainsboro">
+                    <div style="text-align:center" class="col-4">
+                        <font size="2">
+                            <strong>
+                                EGRESO
+                            </strong>
+                        </font>
+                    </div>
+                    <div style="text-align:center" class="col-4">
+                        <font size="2">
+                            <strong>
+                                INGRESO
+                            </strong>
+                        </font>
+                    </div>
+                    <div style="text-align:center" class="col-4">
+                        <font size="2">
+                            <strong>
+                                UTILIDAD
+                            </strong>
+                        </font>
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="text-align:center" class="col-4">
+                        <font size="2">
+                            $@Math.Round(ViewBag.Invertido, 2)
+                        </font>
+                    </div>
+                    <div style="text-align:center" class="col-4">
+                        <font size="2">
+                            $@Math.Round(ViewBag.Recuperado, 2)
+                        </font>
+                    </div>
+                    @if ((@Math.Round(ViewBag.Invertido, 2) - @Math.Round(ViewBag.Recuperado, 2)) > 0)
+                    {
+                        <div style="text-align:center;background-color:tomato" class="col-4">
+                            <font size="2">
+                                @{ 
+                                    Decimal Valor = Math.Round(ViewBag.Invertido, 2) - Math.Round(ViewBag.Recuperado, 2);
+                                    Valor = Math.Abs(Valor);
+                                    <span>
+                                        $@Valor
+                                    </span>
+                                }
+                            </font>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="text-align:center;background-color:darkseagreen" class="col-4">
+                            <font size="2">
+                                @{
+                                    Decimal Valor = Math.Round(ViewBag.Invertido, 2) - Math.Round(ViewBag.Recuperado, 2);
+                                    Valor = Math.Abs(Valor);
+                                    <span>
+                                        $@Valor
+                                    </span>
+                                }
+                            </font>
+                        </div>
+                    }
+                </div>
+            </div>
+            <br />
+            @if (ViewBag.Pdf == false)
+            {
+                <div class="container">
+                    <div class="row">
+                        <div style="text-align:center" class="col-12">
+                            <a href="~/reporte/PDF?Inicio=@ViewBag.Inicio&Fin=@ViewBag.Fin" style="color:white" id="exportButton" class="btn btn-lg btn-danger clearfix">
+                                <span class="fa fa-file-pdf-o"></span>
+                                Export to PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            }
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/JavaScript">
+        var PorcentajeQuintalesComprados = @Html.Raw(Json.Encode(ViewBag.PorcentajeQuintalesComprados));
+        var PorcentajeQuintalesVendidos = @Html.Raw(Json.Encode(ViewBag.PorcentajeQuintalesVendidos));
+        var char = Highcharts.chart('container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: 'Quintales<br>Compra/Venta',
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 60
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        distance: -50,
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%'],
+                    size: '110%',
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Quintales',
+                innerSize: '50%',
+                data: [
+                    ['Compra', PorcentajeQuintalesComprados],
+                    ['Venta', PorcentajeQuintalesVendidos],
+                ]
+                }]
+
+        });
+        let svg = char.getSVG();
+        var imgSrc = 'data:image/svg+xml;base64,' + btoa(svg);
+        var canvas = document.createElement("canvas");
+        canvas.width = 600;
+        canvas.height = 400;
+        var context = canvas.getContext("2d");
+        var image = new Image;
+        image.src = imgSrc;
+        var pngSrc = canvas.toDataURL("image/png");
+        var file = "";
+        image.onload = function() {
+
+            // Add the image to the canvas.
+            // http://www.w3schools.com/tags/canvas_drawimage.asp
+            context.drawImage(image, 0, 0);
+
+            // Save the canvas as a dataurl.
+            // https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toDataURL
+            var pngSrc = canvas.toDataURL("image/png");
+
+            //  Wrap the dataurl in html.
+            var pngTag = '<img src="' + pngSrc + '">';
+            file = pngSrc;
+            // Set png to container.
+            document.getElementById("png-container").innerHTML = pngTag;
+            var formdata = new FormData();
+            formdata.append("base64image", pngSrc);
+            $.ajax({
+                url: "@Url.Action("SaveImage")",
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    document.getElementById("imagenC").src = "@Url.Content("~/Imagenes/Quintales.png")";
+                    //alert(data);
+                },
+            });
+        };
+        //console.log(imgSrc)
+        ////console.log(canvas)
+        //$(document).ready(function () {
+
+        //    ////let svgString = chart.getSVG();
+        //    ////let parser = new DOMParser();
+        //    ////let svg = parser.parseFromString(svgString, "image/svg+xml").documentElement;
+        //    ////document.getElementById("svg").innerHTML = svg.outerHTML;
+        //    //let svgString = chart.getSVG();
+        //    //// Use DOMParser to parse new svg element from svgString
+        //    //let parser = new DOMParser();
+        //    //let svgElem = parser.parseFromString(svgString, "image/svg+xml").documentElement;
+        //    //console.log(svgString)
+        //});
+
+    </script>
+}

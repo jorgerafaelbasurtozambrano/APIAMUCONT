@@ -1,0 +1,255 @@
+﻿<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div style="text-align:right">
+                <img width="400" height="115" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+                <br />
+                <font size="2">
+                    <span><strong>RUC :</strong>1391748612001<br /></span>
+                </font>
+                <font size="2">
+                    <span><strong>DIRECCIÓN :</strong>PASO LATERAL TOSAGUA SECTOR SANTA ANA<br /></span>
+                </font>
+            </div>
+        </div>
+    </div>
+    <div style="border-bottom:1px solid hotpink;padding-bottom:20px" class="row">
+        <div class="col-6">
+            <div style="padding-top:75px" class="row">
+                <div style="text-align:left" class="col-12">
+                    <font size="2">
+                        <strong>CLIENTE</strong>
+                    </font>
+                </div>
+            </div>
+            <div class="row">
+                <div style="text-align:left" class="col-12">
+                    <font size="4">
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.PrimerNombre
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.SegundoNombre
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.ApellidoPaterno
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.ApellidoMaterno
+                    </font>
+                </div>
+            </div>
+            <div class="row">
+                <div style="text-align:left" class="col-12">
+                    <font size="2">
+                        <strong>@ViewBag.Datos.ConfigurarVenta._PersonaEntidad.TipoDocumento</strong>
+                    </font>
+                </div>
+            </div>
+            <div class="row">
+                <div style="text-align:left" class="col-12">
+                    <font size="4">
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.NumeroDocumento
+                    </font>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div style="border-bottom:1px solid hotpink" class="row">
+                <div style="text-align:center;font-family:'Times New Roman'" class="col-12">
+                    <font size="10">
+                        <strong>
+                            ABONO
+                        </strong>
+                    </font>
+                </div>
+            </div>
+            <div style="padding-top:20px" class="row">
+                <div style="text-align:left;font-family:'Times New Roman'" class="col-5">
+                    <font size="4">
+                        <strong>N. FACTURA</strong>
+                    </font>
+                </div>
+                <div style="text-align:left;font-family:'Times New Roman'" class="col-7">
+                    <font size="4">
+                        @ViewBag.Datos.Codigo
+                    </font>
+                </div>
+            </div>
+            <div class="row">
+                <div style="text-align:left;font-family:'Times New Roman'" class="col-5">
+                    <font size="4">
+                        <strong>FECHA FACTURA</strong>
+                    </font>
+                </div>
+                <div style="text-align:left;font-family:'Times New Roman'" class="col-7">
+                    <font size="4">
+                        @ViewBag.Datos.FechaGeneracion.ToShortDateString()
+                    </font>
+                </div>
+            </div>
+            <div class="row">
+                <div style="text-align:left;font-family:'Times New Roman'" class="col-5">
+                    <font size="4">
+                        <strong>FECHA ABONO</strong>
+                    </font>
+                </div>
+                <div style="text-align:left;font-family:'Times New Roman'" class="col-7">
+                    <font size="4">
+                        @ViewBag.Abono.FechaRegistro.ToShortDateString()
+                    </font>
+                </div>
+            </div>
+            <div style="background-color:hotpink" class="row">
+                <div style="text-align:left;font-family:'Times New Roman'" class="col-5">
+                    <font size="4">
+                        <strong>VALOR</strong>
+                    </font>
+                </div>
+                <div style="text-align:left;font-family:'Times New Roman'" class="col-7">
+                    <font size="4">
+                        $@ViewBag.Abono.Monto
+                    </font>
+                </div>
+            </div>
+            @if (ViewBag.Datos.ConfigurarVenta._SaldoPendiente.Pendiente == 0)
+            {
+                <div style="background-color:darkseagreen" class="row">
+                    <div style="text-align:left;font-family:'Times New Roman'" class="col-12">
+                        <font size="4">
+                            <strong>FACTURA CANCELADA</strong>
+                        </font>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div style="text-align:left;font-family:'Times New Roman'" class="col-5">
+                        <font size="4">
+                            <strong>PENDIENTE</strong>
+                        </font>
+                    </div>
+                    <div style="text-align:left;font-family:'Times New Roman'" class="col-7">
+                        <font size="4">
+                            $@ViewBag.Datos.ConfigurarVenta._SaldoPendiente.Pendiente
+                        </font>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <font style="font-family:'Times New Roman'" size="4">
+                <strong>
+                    PRODUCTOS
+                </strong>
+            </font>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead style="background-color:hotpink;">
+                    <tr style="text-align:center;font-size:12px">
+                        <th scope="col">COD</th>
+                        <th scope="col">DESCR</th>
+                        <th scope="col">PRESENTACIÓN</th>
+                        <th scope="col">KIT</th>
+                        <th scope="col">LOTE</th>
+                        <th scope="col">V.U</th>
+                        <th scope="col">CANT</th>
+                        <th scope="col">IVA</th>
+                        <th scope="col">TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align:center;font-size:13px">
+                    @{
+                        foreach (var item in ViewBag.Datos.DetalleVenta)
+                        {
+                            if (item.AsignarProductoLote.PerteneceKit == "True")
+                            {
+                                <tr style="text-align:center;vertical-align:middle">
+                                    <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Codigo</td>
+                                    <td style="vertical-align:middle">
+                                        @item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Producto.Nombre
+                                        @item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Presentacion.Descripcion
+                                    </td>
+                                    <td style="vertical-align:middle">
+                                        @item.AsignarProductoLote.AsignarProductoKit.ListaProductos.CantidadMedida
+                                        @item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Medida.Descripcion
+                                    </td>
+                                    <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.Kit.Codigo</td>
+                                    <td>
+                                        @if (@item.AsignarProductoLote.IdLote != "")
+                                        {
+                                            @item.AsignarProductoLote.Lote.Codigo
+                                        }
+                                    </td>
+                                    <td>
+                                        $@Math.Round(@item.ValorUnitario, 2)
+                                    </td>
+                                    <td>
+                                        @item.Cantidad
+                                    </td>
+                                    <td>
+                                        @item.Iva
+                                    </td>
+                                    <td>
+                                        $@Math.Round(@item.Total, 2)
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr style="text-align:center;vertical-align:middle">
+                                    <td style="vertical-align:middle">@item.AsignarProductoLote.ConfigurarProductos.Codigo</td>
+                                    <td style="vertical-align:middle">
+                                        @item.AsignarProductoLote.ConfigurarProductos.Producto.Nombre
+                                        @item.AsignarProductoLote.ConfigurarProductos.Presentacion.Descripcion
+                                    </td>
+                                    <td style="vertical-align:middle">
+                                        @item.AsignarProductoLote.ConfigurarProductos.CantidadMedida
+                                        @item.AsignarProductoLote.ConfigurarProductos.Medida.Descripcion
+                                    </td>
+                                    <td style="vertical-align:middle"></td>
+                                    <td>
+                                        @if (@item.AsignarProductoLote.IdLote != "")
+                                        {
+                                            @item.AsignarProductoLote.Lote.Codigo
+                                        }
+                                    </td>
+                                    <td>
+                                        $@Math.Round(@item.ValorUnitario, 2)
+                                    </td>
+                                    <td>
+                                        @item.Cantidad
+                                    </td>
+                                    <td>
+                                        @item.Iva
+                                    </td>
+                                    <td>
+                                        $@Math.Round(@item.Total, 2)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer style="position:fixed;left:0px;bottom:0px;height:auto;width:100%;">
+        <div style="color:hotpink;text-align:center" class="row">
+            <div class="col-12">
+                <font size="3">
+                    <strong>
+                        _____________________________________________________
+                    </strong>
+                </font>
+            </div>
+        </div>
+        <div style="text-align:center" class="row">
+            <div class="col-12">
+                <font size="3">
+                    <strong>GERENTE</strong>
+                </font>
+            </div>
+        </div>          
+    </footer>
+</div>

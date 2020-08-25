@@ -68,7 +68,6 @@ namespace Negocio.Logica.Inventario
             }
             return ListaAsignarProductoLote;
         }
-
         public void CargarAsignarProductoKit()
         {
             ListaAsignarProductosKits = new List<AsignarProductosKits>();

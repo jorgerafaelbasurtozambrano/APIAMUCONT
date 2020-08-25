@@ -1,0 +1,145 @@
+﻿<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<div class="container">
+    <div style="text-align:center">
+        <img width="400" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+    </div>
+    <div style="text-align:center" class="row">
+        <div class="col-12">
+            <font size="7">
+                LISTA STOCK
+            </font>
+        </div>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr style="text-align:center">
+                <th scope="col">#</th>
+                <th scope="col">CODIGO</th>
+                <th scope="col">PRODUCTO</th>
+                <th scope="col">TIPO</th>
+                <th scope="col">PRESENTACIÓN</th>
+                <th scope="col">CONTENIDO</th>
+                <th scope="col">MEDIDA</th>
+                <th scope="col">DESCRIPCIÓN</th>
+                <th scope="col">IVA</th>
+                <th scope="col">KIT</th>
+                <th scope="col">LOTE</th>
+                <th scope="col">EXPIRA</th>
+                <th scope="col">CANTIDAD</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+                foreach (var item in ViewBag.Datos)
+                {
+                    if (item.AsignarProductoLote.PerteneceKit == "False")
+                    {
+                        <tr style="text-align:center;vertical-align:middle">
+                            <th style="vertical-align:middle" scope="row">@counter</th>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.ConfigurarProductos.Codigo</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.ConfigurarProductos.Producto.Nombre</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.ConfigurarProductos.Producto.TipoProducto.Descripcion</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.ConfigurarProductos.Presentacion.Descripcion</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.ConfigurarProductos.CantidadMedida</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.ConfigurarProductos.Medida.Descripcion</td>
+                            <td style="vertical-align:middle">
+                                @if (@item.AsignarProductoLote.ConfigurarProductos.Producto.Descripcion != null)
+                                {
+                                    @item.AsignarProductoLote.ConfigurarProductos.Producto.Descripcion
+                                }
+                                else
+                                {
+                                    <span>S/D</span>
+                                }
+                            </td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.ConfigurarProductos.Iva</td>
+                            <td></td>
+                            <td style="vertical-align:middle">
+                                @if (@item.AsignarProductoLote.Lote != null)
+                                {
+                                    @item.AsignarProductoLote.Lote.Codigo
+                                }
+                            </td>
+                            <td style="vertical-align:middle">
+                                @if (@item.AsignarProductoLote.Lote != null)
+                                {
+                                    @item.AsignarProductoLote.Lote.FechaExpiracion.ToShortDateString()
+                                }
+                                else if (@item.AsignarProductoLote.FechaExpiracion != null)
+                                {
+                                    @item.AsignarProductoLote.FechaExpiracion.ToShortDateString()
+                                }
+                            </td>
+                            @if (@item.Cantidad <= 6)
+                            {
+                                <td style="background-color:#d9534f;vertical-align:middle">
+                                    @item.Cantidad
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="background-color:#02B875;vertical-align:middle">
+                                    @item.Cantidad
+                                </td>
+                            }
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr style="text-align:center;vertical-align:middle">
+                            <th style="vertical-align:middle" scope="row">@counter</th>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Codigo</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Producto.Nombre</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Producto.TipoProducto.Descripcion</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Presentacion.Descripcion</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.ListaProductos.CantidadMedida</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Medida.Descripcion</td>
+                            <td style="vertical-align:middle">
+                                @if (@item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Producto.Descripcion != null)
+                                {
+                                    @item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Producto.Descripcion
+                                }
+                                else
+                                {
+                                    <span>S/D</span>
+                                }
+                            </td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Iva</td>
+                            <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.Kit.Codigo</td>
+                            <td style="vertical-align:middle">
+                                @if (@item.AsignarProductoLote.Lote != null)
+                                {
+                                    @item.AsignarProductoLote.Lote.Codigo
+                                }
+                            </td>
+                            <td style="vertical-align:middle">
+                                @if (@item.AsignarProductoLote.Lote != null)
+                                {
+                                    @item.AsignarProductoLote.Lote.FechaExpiracion.ToShortDateString()
+                                }
+                                else if(@item.AsignarProductoLote.FechaExpiracion!=null)
+                                {
+                                    @item.AsignarProductoLote.FechaExpiracion.ToShortDateString()
+                                }
+                            </td>
+                            @if (@item.Cantidad <= 6)
+                            {
+                                <td style="background-color:#d9534f;vertical-align:middle">
+                                    @item.Cantidad
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="background-color:#02B875;vertical-align:middle">
+                                    @item.Cantidad
+                                </td>
+                            }
+                        </tr>
+                    }
+                    counter = counter + 1;
+                }
+            }
+        </tbody>
+    </table>
+</div>

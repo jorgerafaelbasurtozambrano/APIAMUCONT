@@ -1,0 +1,71 @@
+﻿<script src="~/Scripts/chart/exporting.js"></script>
+<script src="~/Scripts/chart/highcharts.js"></script>
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p hidden class="highcharts-description">
+        A demo showing a stacked area chart, also sometimes referred to as a
+        mountain chart. In a stacked chart, the data series values are added
+        together to make up a total.
+    </p>
+</figure>
+<script>
+    var Fechas =@Html.Raw(Json.Encode(ViewBag.Fechas));
+    var Compra =@Html.Raw(Json.Encode(ViewBag.PrecioCompra));
+    var Venta =@Html.Raw(Json.Encode(ViewBag.PrecioVenta));
+    var Title =@Html.Raw(Json.Encode(ViewBag.Title));
+    var yAxis =@Html.Raw(Json.Encode(ViewBag.yAxis));
+    var tooltip =@Html.Raw(Json.Encode(ViewBag.tooltip));
+    var series_a =@Html.Raw(Json.Encode(ViewBag.series_a));
+    var series_b=@Html.Raw(Json.Encode(ViewBag.series_b));
+    Highcharts.chart('container', {
+    chart: {
+        type: 'area'
+    },
+    title: {
+        text: Title
+    },
+    subtitle: {
+        //text: 'Source: Wikipedia.org'
+        text: ''
+    },
+    xAxis: {
+        categories: Fechas,
+        tickmarkPlacement: 'on',
+        title: {
+            enabled: false
+        }
+    },
+    yAxis: {
+        title: {
+            text: yAxis
+        },
+        labels: {
+            formatter: function () {
+                return this.value / 1;
+            }
+        }
+    },
+    tooltip: {
+        split: true,
+        valueSuffix: tooltip
+    },
+    plotOptions: {
+        area: {
+            stacking: 'normal',
+            lineColor: '#666666',
+            lineWidth: 1,
+            marker: {
+                lineWidth: 1,
+                lineColor: '#666666'
+            }
+        }
+    },
+    series: [{
+        name: series_a,
+        data: Compra
+    }, {
+        name: series_b,
+        data: Venta
+    }]
+});
+</script>

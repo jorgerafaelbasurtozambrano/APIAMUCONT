@@ -34,6 +34,8 @@ namespace Datos
         public bool VentaRubroEstado { get; set; }
         public bool VentaRubroAnulado { get; set; }
         public Nullable<int> VentaRubroIdAsignarTUAnulado { get; set; }
+        public Nullable<bool> VentaRubroModificado { get; set; }
+        public Nullable<int> VentaRubroIdAsignarTUModificado { get; set; }
         public int VehiculoIdVehiculo { get; set; }
         public string VehiculoPlaca { get; set; }
         public int VehiculoIdAsignarTU { get; set; }

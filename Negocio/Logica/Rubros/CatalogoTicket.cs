@@ -23,7 +23,7 @@ namespace Negocio.Logica.Rubros
             if (_Vehiculo == null)
             {
                 _Vehiculo = new Vehiculo();
-                _Vehiculo = GestionVehiculo.IngresarVehiculo(new Vehiculo() {Placa = _Ticket._Vehiculo.Placa,IdAsignarTU = _Ticket.IdAsignarTU });
+                _Vehiculo = GestionVehiculo.IngresarVehiculo(new Vehiculo() {Placa = _Ticket._Vehiculo.Placa.ToUpper(),IdAsignarTU = _Ticket.IdAsignarTU });
                 if (_Vehiculo.IdVehiculo == null)
                 {
                     _Ticket.IdTicket = null;
@@ -322,6 +322,7 @@ namespace Negocio.Logica.Rubros
                     IdAsignarTU = Seguridad.Encriptar(item.TicketCompraIdAsignarTU.ToString()),
 
                     IdPersona = Seguridad.Encriptar(item.TicketCompraIdPersona.ToString()),
+                    _PersonaEntidad = GestionPersona.ConsultarPersonaPorId(item.TicketCompraIdPersona).FirstOrDefault(),
                     IdTipoRubro = Seguridad.Encriptar(item.TicketCompraIdTipoRubro.ToString()),
                     IdTipoPresentacionRubro = Seguridad.Encriptar(item.TicketCompraIdTipoPresentacionRubros.ToString()),
                     PorcentajeImpureza = item.TicketCompraPorcentajeImpurezas,

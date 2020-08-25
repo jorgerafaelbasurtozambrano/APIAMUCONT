@@ -1,0 +1,721 @@
+﻿<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+@{ 
+    decimal SumaTotal = 0;
+}
+<div class="container">
+    @if (@ViewBag.Tipo == "COMPRA")
+    {
+        <div class="container">
+            <div class="row">
+                    <div class="col-6">
+                        <div style="padding-top:30px" class="container">
+                            <img width="400" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+                            <font size="2">
+                                <span><strong>RUC :</strong>1391748612001<br /></span>
+                            </font>
+                            <font size="2">
+                                <span><strong>DIRECCIÓN :</strong>PASO LATERAL TOSAGUA SECTOR SANTA ANA<br /></span>
+                            </font>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div style="text-align:center;background-color:hotpink;border-top-left-radius:9px;border-top-right-radius:9px;border-right:1px solid hotpink;border-bottom:1px solid hotpink;border-top:1px solid hotpink" class="col-6">
+                                    <font size="5">
+                                        <strong>
+                                            FACTURA
+                                        </strong>
+                                    </font>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div style="border-bottom-right-radius:9px;border-bottom-left-radius:9px;text-align:center;border-right:1px solid hotpink;border-left:1px solid hotpink;border-bottom:1px solid hotpink" class="col-6">
+                                    <font size="4">
+                                        @ViewBag.Datos.Codigo
+                                    </font>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div style="margin-top:5px;text-align:center;background-color:hotpink;border-top-left-radius:9px;border-top-right-radius:9px;border-right:1px solid hotpink;border-bottom:1px solid hotpink;border-top:1px solid hotpink;border-bottom:1px solid hotpink" class="col-6">
+                                    <font size="5">
+                                        <strong>
+                                            FECHA
+                                        </strong>
+                                    </font>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div style="text-align:center;border-right:1px solid hotpink;border-left:1px solid hotpink;border-bottom:1px solid hotpink" class="col-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <font size="3">
+                                                @ViewBag.Datos.FechaGeneracion.Day
+                                            </font>
+                                        </div>
+                                        <div class="col-4">
+                                            <font size="3">
+                                                @ViewBag.Datos.FechaGeneracion.Month
+                                            </font>
+                                        </div>
+                                        <div class="col-4">
+                                            <font size="3">
+                                                @ViewBag.Datos.FechaGeneracion.Year
+                                            </font>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div style="background-color:hotpink;border-bottom-right-radius:9px;border-bottom-left-radius:9px;text-align:center;border-right:1px solid hotpink;border-top:1px solid hotpink;border-bottom:1px solid hotpink" class="col-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <strong>
+                                                <font size="2">
+                                                    DÍA
+                                                </font>
+                                            </strong>
+                                        </div>
+                                        <div class="col-4">
+                                            <strong>
+                                                <font size="2">
+                                                    MES
+                                                </font>
+                                            </strong>
+                                        </div>
+                                        <div class="col-4">
+                                            <strong>
+                                                <font size="2">
+                                                    AÑO
+                                                </font>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="row">
+                <table class="table">
+                    <thead style="background-color:hotpink;">
+                        <tr style="text-align:center;font-size:12px">
+                            <th scope="col">COD</th>
+                            <th scope="col">DESCR</th>
+                            <th scope="col">PRESENTACIÓN</th>
+                            <th scope="col">KIT</th>
+                            <th scope="col">LOTE</th>
+                            <th scope="col">EXP.</th>
+                            <th scope="col">V.U</th>
+                            <th scope="col">CANT</th>
+                            <th scope="col">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align:center;font-size:13px">
+                        @{
+                            foreach (var item in ViewBag.Datos.DetalleFactura)
+                            {
+                                if (item.AsignarProductoLote[0].PerteneceKit == "True")
+                                {
+                                    <tr style="text-align:center;vertical-align:middle">
+                                        <td style="vertical-align:middle">@item.AsignarProductoLote[0].AsignarProductoKit.ListaProductos.Codigo</td>
+                                        <td style="vertical-align:middle">
+                                            @item.AsignarProductoLote[0].AsignarProductoKit.ListaProductos.Producto.Nombre
+                                            @item.AsignarProductoLote[0].AsignarProductoKit.ListaProductos.Presentacion.Descripcion
+                                        </td>
+                                        <td style="vertical-align:middle">
+                                            @item.AsignarProductoLote[0].AsignarProductoKit.ListaProductos.CantidadMedida
+                                            @item.AsignarProductoLote[0].AsignarProductoKit.ListaProductos.Medida.Descripcion
+                                        </td>
+                                        <td style="vertical-align:middle">@item.AsignarProductoLote[0].AsignarProductoKit.Kit.Codigo</td>
+                                        <td>
+                                            @if (@item.AsignarProductoLote[0].IdLote != "")
+                                            {
+                                                @item.AsignarProductoLote[0].Lote.Codigo
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (@item.AsignarProductoLote[0].IdLote != "")
+                                            {
+                                                @item.AsignarProductoLote[0].Lote.FechaExpiracion.ToShortDateString()
+                                            }
+                                            else
+                                            {
+                                                if (@item.AsignarProductoLote[0].FechaExpiracion != null)
+                                                {
+                                                    <span>
+                                                        @item.AsignarProductoLote[0].FechaExpiracion.ToShortDateString()
+                                                    </span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            $@Math.Round(@item.AsignarProductoLote[0].ValorUnitario, 2)
+                                        </td>
+                                        <td>
+                                            @item.Cantidad
+                                        </td>
+                                        <td>
+                                            @{ 
+                                                <span>
+                                                    $@Math.Round(@item.AsignarProductoLote[0].ValorUnitario*@item.Cantidad, 2)
+                                                </span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr style="text-align:center;vertical-align:middle">
+                                        <td style="vertical-align:middle">@item.AsignarProductoLote[0].ConfigurarProductos.Codigo</td>
+                                        <td style="vertical-align:middle">
+                                            @item.AsignarProductoLote[0].ConfigurarProductos.Producto.Nombre
+                                            @item.AsignarProductoLote[0].ConfigurarProductos.Presentacion.Descripcion
+                                        </td>
+                                        <td style="vertical-align:middle">
+                                            @item.AsignarProductoLote[0].ConfigurarProductos.CantidadMedida
+                                            @item.AsignarProductoLote[0].ConfigurarProductos.Medida.Descripcion
+                                        </td>
+                                        <td style="vertical-align:middle"></td>
+                                        <td>
+                                            @if (@item.AsignarProductoLote[0].IdLote != "")
+                                            {
+                                                @item.AsignarProductoLote[0].Lote.Codigo
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (@item.AsignarProductoLote[0].IdLote != "")
+                                            {
+                                                @item.AsignarProductoLote[0].Lote.FechaExpiracion.ToShortDateString()
+                                            }
+                                            else
+                                            {
+                                                if (@item.AsignarProductoLote[0].FechaExpiracion != null)
+                                                {
+                                                    <span>
+                                                        @item.AsignarProductoLote[0].FechaExpiracion.ToShortDateString()
+                                                    </span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            $@Math.Round(@item.AsignarProductoLote[0].ValorUnitario, 2)
+                                        </td>
+                                        <td>
+                                            @item.Cantidad
+                                        </td>
+                                        <td>
+                                            @{
+                                                <span>
+                                                    $@Math.Round(@item.AsignarProductoLote[0].ValorUnitario * @item.Cantidad, 2)
+                                                </span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+                <footer style="position:fixed;left:0px;bottom:0px;height:auto;width:100%;border:1px solid hotpink">
+                    <div class="container">
+                        <div class="row">
+                            <div style="text-align:center;border-right:1px solid hotpink" class="col-7">
+                                <div style="padding-top:15px;" class="row">
+                                    <div style="color:hotpink" class="col-12">
+                                        ______________________________________
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        RECIBÍ CONFORME
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div style="padding-top:17px;" class="row">
+                                    <div class="col-7">
+                                        <strong>TOTAL :</strong>
+                                    </div>
+                                    <div class="col-5">
+                                        $@Math.Round(@ViewBag.Datos.Total, 2)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+        </div>
+    }
+    else
+    {
+        if (@ViewBag.Columna != "FACTURA")
+        {
+            <div style="text-align:center">
+                <img width="400" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+            </div>
+            <div style="text-align:center" class="row">
+                <div class="col-12">
+                    <font size="6">
+                        @ViewBag.Titulo
+                    </font>
+                </div>
+            </div>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr style="text-align:center">
+                        <th scope="col">#</th>
+                        <th scope="col">FACTURA</th>
+                        <th scope="col">IDENTIFICACIÓN</th>
+                        <th scope="col">CLIENTE</th>
+                        <th scope="col">REMITENTE</th>
+                        <th scope="col">@ViewBag.Columna</th>
+                        <th scope="col">GENERACIÓN</th>
+                        @if (@ViewBag.Columna == "PENDIENTE")
+                        {
+                            <th scope="col">FIN CREDITO</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 1;
+                        foreach (var item in ViewBag.Datos)
+                        {
+                            <tr style="text-align:center;vertical-align:middle">
+                                <th style="vertical-align:middle" scope="row">@counter</th>
+                                <td style="vertical-align:middle">@item.Codigo</td>
+                                <td style="vertical-align:middle">
+                                    @item.ConfigurarVenta._PersonaEntidad.NumeroDocumento
+                                </td>
+                                <td style="vertical-align:middle">
+                                    @item.ConfigurarVenta._PersonaEntidad.PrimerNombre
+                                    @item.ConfigurarVenta._PersonaEntidad.SegundoNombre
+                                    @item.ConfigurarVenta._PersonaEntidad.ApellidoPaterno
+                                    @item.ConfigurarVenta._PersonaEntidad.ApellidoMaterno
+                                </td>
+                                <td style="vertical-align:middle">
+                                    @item.PersonaEntidad.PrimerNombre
+                                    @*@item.PersonaEntidad.SegundoNombre*@
+                                    @item.PersonaEntidad.ApellidoPaterno
+                                    @*@item.PersonaEntidad.ApellidoMaterno*@
+                                </td>
+                                <td style="vertical-align:middle">$ @item.ConfigurarVenta._SaldoPendiente.Pendiente</td>
+                                <td style="vertical-align:middle">@item.FechaGeneracion.ToShortDateString()</td>
+                                @if (@ViewBag.Columna == "PENDIENTE")
+                                {
+                                    <td style="vertical-align:middle">@item.ConfigurarVenta.FechaFinalCredito.ToShortDateString()</td>
+                                }
+                            </tr>
+                            counter = counter + 1;
+                            SumaTotal = SumaTotal + @item.ConfigurarVenta._SaldoPendiente.Pendiente;
+                        }
+                    }
+                </tbody>
+            </table>
+            <footer style="position:fixed;left:0px;bottom:0px;height:auto;width:100%">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-9">
+                            </div>
+                            <div style="text-align:center;border:1px solid hotpink" class="col-3">
+                                <strong>@ViewBag.Columna :</strong>
+                                $@SumaTotal
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+        }
+        else
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <div style="padding-top:30px" class="container">
+                            <img width="400" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+                            <font size="2">
+                                <span><strong>RUC :</strong>1391748612001<br /></span>
+                            </font>
+                            <font size="2">
+                                <span><strong>DIRECCIÓN :</strong>PASO LATERAL TOSAGUA SECTOR SANTA ANA<br /></span>
+                            </font>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div style="text-align:center;background-color:hotpink;border-top-left-radius:9px;border-top-right-radius:9px;border-right:1px solid hotpink;border-bottom:1px solid hotpink;border-top:1px solid hotpink" class="col-6">
+                                    <font size="5">
+                                        <strong>
+                                            FACTURA
+                                        </strong>
+                                    </font>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div style="border-bottom-right-radius:9px;border-bottom-left-radius:9px;text-align:center;border-right:1px solid hotpink;border-left:1px solid hotpink;border-bottom:1px solid hotpink" class="col-6">
+                                    <font size="4">
+                                        @ViewBag.Datos.Codigo
+                                    </font>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div style="margin-top:5px;text-align:center;background-color:hotpink;border-top-left-radius:9px;border-top-right-radius:9px;border-right:1px solid hotpink;border-bottom:1px solid hotpink;border-top:1px solid hotpink;border-bottom:1px solid hotpink" class="col-6">
+                                    <font size="5">
+                                        <strong>
+                                            FECHA
+                                        </strong>
+                                    </font>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div style="text-align:center;border-right:1px solid hotpink;border-left:1px solid hotpink;border-bottom:1px solid hotpink" class="col-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <font size="3">
+                                                @ViewBag.Datos.FechaGeneracion.Day
+                                            </font>
+                                        </div>
+                                        <div class="col-4">
+                                            <font size="3">
+                                                @ViewBag.Datos.FechaGeneracion.Month
+                                            </font>
+                                        </div>
+                                        <div class="col-4">
+                                            <font size="3">
+                                                @ViewBag.Datos.FechaGeneracion.Year
+                                            </font>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div style="background-color:hotpink;border-bottom-right-radius:9px;border-bottom-left-radius:9px;text-align:center;border-right:1px solid hotpink;border-top:1px solid hotpink;border-bottom:1px solid hotpink" class="col-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <strong>
+                                                <font size="2">
+                                                    DÍA
+                                                </font>
+                                            </strong>
+                                        </div>
+                                        <div class="col-4">
+                                            <strong>
+                                                <font size="2">
+                                                    MES
+                                                </font>
+                                            </strong>
+                                        </div>
+                                        <div class="col-4">
+                                            <strong>
+                                                <font size="2">
+                                                    AÑO
+                                                </font>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div style="border-right:1px solid hotpink;border-top:1px solid hotpink;border-left:1px solid hotpink" class="row">
+                    <div class="col-9">
+                        <strong>
+                            <font size="2">
+                                CLIENTE
+                            </font>
+                        </strong>
+                    </div>
+                    <div class="col-3">
+                        <strong>
+                            <font size="2">
+                                @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.TipoDocumento
+                            </font>
+                        </strong>
+                    </div>
+                </div>
+                <div style="border-left:1px solid hotpink;border-right:1px solid hotpink" class="row">
+                    <div class="col-9">
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.PrimerNombre
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.SegundoNombre
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.ApellidoPaterno
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.ApellidoMaterno
+                    </div>
+                    <div class="col-3">
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.NumeroDocumento
+                    </div>
+                </div>
+                <div style="border-right:1px solid hotpink;border-top:1px solid hotpink;border-left:1px solid hotpink" class="row">
+                    <div class="col-12">
+                        <strong>
+                            <font size="2">
+                                DIRECCIÓN (PROVINCIA-CANTON-PARROQUIA)
+                            </font>
+                        </strong>
+                    </div>
+                </div>
+                <div style="border-left:1px solid hotpink;border-right:1px solid hotpink" class="row">
+                    <div class="col-12">
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.AsignacionPersonaComunidad.Parroquia.Canton.Provincia.Descripcion -
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.AsignacionPersonaComunidad.Parroquia.Canton.Descripcion -
+                        @ViewBag.Datos.ConfigurarVenta._PersonaEntidad.AsignacionPersonaComunidad.Parroquia.Descripcion
+                        @if (ViewBag.Datos.ConfigurarVenta._PersonaEntidad.AsignacionPersonaComunidad.Referencia != "" || ViewBag.Datos.ConfigurarVenta._PersonaEntidad.AsignacionPersonaComunidad.Referencia != null)
+                        {
+                            <span>(@ViewBag.Datos.ConfigurarVenta._PersonaEntidad.AsignacionPersonaComunidad.Referencia)</span>
+                        }
+                    </div>
+                </div>
+                <div style="border-right:1px solid hotpink;border-top:1px solid hotpink;border-left:1px solid hotpink" class="row">
+                    @{
+                        foreach (var item in ViewBag.Datos.ConfigurarVenta._PersonaEntidad.ListaTelefono)
+                        {
+                            <div class="col-6">
+                                <strong>
+                                    <font size="2">
+                                        @item.TipoTelefono.Descripcion
+                                    </font>
+                                </strong>
+                            </div>
+                        }
+                    }
+                </div>
+                <div style="border-bottom:1px solid hotpink;border-left:1px solid hotpink;border-right:1px solid hotpink" class="row">
+                    @{
+                        foreach (var item1 in ViewBag.Datos.ConfigurarVenta._PersonaEntidad.ListaTelefono)
+                        {
+                            <div class="col-6">
+                                <font size="2">
+                                    @item1.Numero
+                                </font>
+                            </div>
+                        }
+                    }
+                </div>
+                <br />
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead style="background-color:hotpink;">
+                        <tr style="text-align:center;font-size:12px">
+                            <th scope="col">COD</th>
+                            <th scope="col">DESCR</th>
+                            <th scope="col">PRESENTACIÓN</th>
+                            <th scope="col">KIT</th>
+                            <th scope="col">LOTE</th>
+                            <th scope="col">EXP.</th>
+                            <th scope="col">V.U</th>
+                            <th scope="col">CANT</th>
+                            <th scope="col">IVA</th>
+                            <th scope="col">%DES</th>
+                            <th scope="col">V.DES</th>
+                            <th scope="col">SUB</th>
+                            <th scope="col">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align:center;font-size:13px">
+                        @{
+                            foreach (var item in ViewBag.Datos.DetalleVenta)
+                            {
+                                if (item.AsignarProductoLote.PerteneceKit == "True")
+                                {
+                                    <tr style="text-align:center;vertical-align:middle">
+                                        <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Codigo</td>
+                                        <td style="vertical-align:middle">
+                                            @item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Producto.Nombre
+                                            @item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Presentacion.Descripcion
+                                        </td>
+                                        <td style="vertical-align:middle">
+                                            @item.AsignarProductoLote.AsignarProductoKit.ListaProductos.CantidadMedida
+                                            @item.AsignarProductoLote.AsignarProductoKit.ListaProductos.Medida.Descripcion
+                                        </td>
+                                        <td style="vertical-align:middle">@item.AsignarProductoLote.AsignarProductoKit.Kit.Codigo</td>
+                                        <td>
+                                            @if (@item.AsignarProductoLote.IdLote != "")
+                                            {
+                                                @item.AsignarProductoLote.Lote.Codigo
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (@item.AsignarProductoLote.IdLote != "")
+                                            {
+                                                @item.AsignarProductoLote.Lote.FechaExpiracion.ToShortDateString()
+                                            }
+                                            else
+                                            {
+                                                if (@item.AsignarProductoLote.FechaExpiracion != null)
+                                                {
+                                                    <span>
+                                                        @item.AsignarProductoLote.FechaExpiracion.ToShortDateString()
+                                                    </span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            $@Math.Round(@item.ValorUnitario, 2)
+                                        </td>
+                                        <td>
+                                            @item.Cantidad
+                                        </td>
+                                        <td>
+                                            @item.Iva
+                                        </td>
+                                        <td>
+                                            @item.PorcentajeDescuento
+                                        </td>
+                                        <td>
+                                            @if (item.CantidadDescontada > 0)
+                                            {
+                                                <span>$</span>Math.Round(@item.CantidadDescontada, 2);
+                                            }
+                                        </td>
+                                        <td>
+                                            $@Math.Round(@item.Subtotal, 2)
+                                        </td>
+                                        <td>
+                                            $@Math.Round(@item.Total, 2)
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr style="text-align:center;vertical-align:middle">
+                                        <td style="vertical-align:middle">@item.AsignarProductoLote.ConfigurarProductos.Codigo</td>
+                                        <td style="vertical-align:middle">
+                                            @item.AsignarProductoLote.ConfigurarProductos.Producto.Nombre
+                                            @item.AsignarProductoLote.ConfigurarProductos.Presentacion.Descripcion
+                                        </td>
+                                        <td style="vertical-align:middle">
+                                            @item.AsignarProductoLote.ConfigurarProductos.CantidadMedida
+                                            @item.AsignarProductoLote.ConfigurarProductos.Medida.Descripcion
+                                        </td>
+                                        <td style="vertical-align:middle"></td>
+                                        <td>
+                                            @if (@item.AsignarProductoLote.IdLote != "")
+                                            {
+                                                @item.AsignarProductoLote.Lote.Codigo
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (@item.AsignarProductoLote.IdLote != "")
+                                            {
+                                                @item.AsignarProductoLote.Lote.FechaExpiracion.ToShortDateString()
+                                            }
+                                            else
+                                            {
+                                                if (@item.AsignarProductoLote.FechaExpiracion != null)
+                                                {
+                                                    <span>
+                                                        @item.AsignarProductoLote.FechaExpiracion.ToShortDateString()
+                                                    </span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            $@Math.Round(@item.ValorUnitario, 2)
+                                        </td>
+                                        <td>
+                                            @item.Cantidad
+                                        </td>
+                                        <td>
+                                            @item.Iva
+                                        </td>
+                                        <td>
+                                            @item.PorcentajeDescuento
+                                        </td>
+                                        <td>
+                                            @if (item.CantidadDescontada > 0)
+                                            {
+                                                <span>$</span>Math.Round(@item.CantidadDescontada, 2);
+                                            }
+                                        </td>
+                                        <td>
+                                            $@Math.Round(@item.Subtotal, 2)
+                                        </td>
+                                        <td>
+                                            $@Math.Round(@item.Total, 2)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+                <footer style="position:fixed;left:0px;bottom:0px;height:auto;width:100%;border:1px solid hotpink">
+                    <div class="container">
+                        <div class="row">
+                            <div style="text-align:center;border-right:1px solid hotpink" class="col-7">
+                                <div style="padding-top:50px;" class="row">
+                                    <div style="color:hotpink" class="col-12">
+                                        ______________________________________
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        RECIBÍ CONFORME
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <strong>SUBTOTAL :</strong>
+                                    </div>
+                                    <div class="col-5">
+                                        $@Math.Round(@ViewBag.Datos.Subtotal, 2)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <strong>TOTAL IVA :</strong>
+                                    </div>
+                                    <div class="col-5">
+                                        $@Math.Round(@ViewBag.Datos.TotalIva, 2)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <strong>TOTAL DESCUENTO :</strong>
+                                    </div>
+                                    <div class="col-5">
+                                        $@Math.Round(@ViewBag.Datos.TotalDescuento, 2)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <strong>TOTAL :</strong>
+                                    </div>
+                                    <div class="col-5">
+                                        $@Math.Round(@ViewBag.Datos.Total, 2)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        }
+    }
+</div>

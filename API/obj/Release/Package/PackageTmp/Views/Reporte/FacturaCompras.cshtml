@@ -1,0 +1,49 @@
+﻿<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<div class="container">
+    <div style="text-align:center">
+        <img width="400" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+    </div>
+    <div style="text-align:center" class="row">
+        <div class="col-12">
+            <font size="6">
+                @ViewBag.Titulo
+            </font>
+        </div>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr style="text-align:center">
+                <th scope="col">#</th>
+                <th scope="col">FACTURA</th>
+                <th scope="col">IDENTIFICACIÓN</th>
+                <th scope="col">REMITENTE</th>
+                <th scope="col">GENERACIÓN</th>
+                <th scope="col">TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+                foreach (var item in ViewBag.Datos)
+                {
+                    <tr style="text-align:center;vertical-align:middle">
+                        <th style="vertical-align:middle" scope="row">@counter</th>
+                        <td style="vertical-align:middle">@item.Codigo</td>
+                        <td style="vertical-align:middle">
+                            @item.PersonaEntidad.NumeroDocumento
+                        </td>
+                        <td style="vertical-align:middle">
+                            @item.PersonaEntidad.PrimerNombre
+                            @item.PersonaEntidad.SegundoNombre
+                            @item.PersonaEntidad.ApellidoPaterno
+                            @item.PersonaEntidad.ApellidoMaterno
+                        </td>
+                        <td style="vertical-align:middle">@item.FechaGeneracion.ToShortDateString()</td>
+                        <td style="vertical-align:middle">$@Math.Round(@item.Total, 2)</td>
+                    </tr>
+                    counter = counter + 1;
+                }
+            }
+        </tbody>
+    </table>
+</div>

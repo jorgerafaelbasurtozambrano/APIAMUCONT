@@ -35,7 +35,6 @@ namespace Negocio.Logica.Factura
                 return false;
             }
         }
-
         public void CargarStock()
         {
             ListaStock = new List<Stock>();
@@ -504,6 +503,5 @@ namespace Negocio.Logica.Factura
             }
             return ListaDetalleVenta;
         }
-
     }
 }

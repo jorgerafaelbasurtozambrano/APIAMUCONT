@@ -1,0 +1,315 @@
+﻿<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+    .tree, .tree ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .tree ul {
+            margin-left: 1em;
+            position: relative;
+        }
+
+            .tree ul ul {
+                margin-left: .5em;
+            }
+
+            .tree ul:before {
+                content: "";
+                display: block;
+                width: 0;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                border-left: 1px solid;
+            }
+
+        .tree li {
+            margin: 0;
+            padding: 0 1em;
+            line-height: 2em;
+            color: #369;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .tree ul li:before {
+            content: "";
+            display: block;
+            width: 10px;
+            height: 0;
+            border-top: 1px solid;
+            margin-top: -1px;
+            position: absolute;
+            top: 1em;
+            left: 0;
+        }
+
+        .tree ul li:last-child:before {
+            background: #fff;
+            height: auto;
+            top: 1em;
+            bottom: 0;
+        }
+
+    .indicator {
+        margin-right: 5px;
+    }
+
+    .tree li a {
+        text-decoration: none;
+        color: #369;
+    }
+
+    .tree li button, .tree li button:active, .tree li button:focus {
+        text-decoration: none;
+        color: #369;
+        border: none;
+        background: transparent;
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+        outline: 0;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div style="text-align:center">
+                <img width="400" height="115" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div style="text-align:center;font-size:30px">
+                LISTADO DE SEGUIMIENTO DE LOS TÉCNICOS
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @*<div style="padding-left:5%" class="row">
+            <div style="border:1px solid black;text-align:center;font-weight:bold" class="col-4">
+                <font size="3">
+                    INFORMACIÓN
+                </font>
+            </div>
+        </div>
+        <div style="padding-left:5%" class="row">
+            <div style="border-right:1px solid black;border-left:1px solid black;text-align:left" class="col-4">
+                <font size="1">
+                    REFERENCIA
+                </font>
+            </div>
+        </div>
+        <div style="padding-left:5%" class="row">
+            <div style="border-bottom:1px solid black;border-right:1px solid black;border-left:1px solid black;text-align:left" class="col-4">
+                <font size="2">
+                    PROVINCIA - CANTÓN - PARROQUIA
+                </font>
+            </div>
+        </div>*@
+        <ul id="tree1">
+            @{
+                foreach (var item in ViewBag.Datos)
+                {
+                    <li>
+                        <strong>
+                            <u style="font-size:20px">
+                                @item._Tecnico.PrimerNombre
+                                @item._Tecnico.SegundoNombre
+                                @item._Tecnico.ApellidoPaterno
+                                @item._Tecnico.ApellidoMaterno
+                            </u>
+                            (TÉCNICO)
+                        </strong>
+                        @item._Clientes.Count Clientes
+                        <ul>
+                            @{
+                                foreach (var item1 in item._Clientes)
+                                {
+                                    <li>
+                                        @item1.PrimerNombre
+                                        @item1.SegundoNombre
+                                        @item1.ApellidoPaterno
+                                        @item1.ApellidoMaterno
+                                        (CLIENTE)
+                                        <div style="border-top:1px solid black;border-left:1px solid black;border-right:1px solid black" class="row">
+                                            <div class="col-3">
+                                                <font size="1">
+                                                    @item1._objTipoDocumento.Documento
+                                                </font>
+                                            </div>
+                                            <div style="border-left:1px solid black" class="col-2">
+                                                <font size="1">
+                                                    @item1.ListaTelefono[0].TipoTelefono.Descripcion
+                                                </font>
+                                            </div>
+                                            <div style="border-left:1px solid black" class="col-2">
+                                                <font size="1">
+                                                    @if (item1.ListaTelefono.Count > 1)
+                                                    {
+                                                        <span>@item1.ListaTelefono[1].TipoTelefono.Descripcion</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>TELÉFONO #2</span>
+                                                    }
+                                                </font>
+                                            </div>
+                                            @if (ViewBag.Pendiente == false)
+                                            {
+                                                <div style="border-left:1px solid black;border-right:1px solid black" class="col-6">
+                                                    <font size="1">
+                                                        PROVINCIA - CANTÓN - PARROQUIA
+                                                    </font>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div style="border-left:1px solid black" class="col-6">
+                                                    <font size="1">
+                                                        DEUDA INICIAL
+                                                    </font>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div style="border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black" class="row">
+                                            <div class="col-3">
+                                                <font size="2">
+                                                    @item1.NumeroDocumento
+                                                </font>
+                                            </div>
+                                            <div style="border-left:1px solid black" class="col-2">
+                                                <font size="2">
+                                                    @item1.ListaTelefono[0].Numero
+                                                </font>
+                                            </div>
+                                            <div style="border-left:1px solid black" class="col-2">
+                                                <font size="2">
+                                                    @if (item1.ListaTelefono.Count > 1)
+                                                    {
+                                                        <span>@item1.ListaTelefono[1].Numero</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>N/A</span>
+                                                    }
+                                                </font>
+                                            </div>
+                                            @if (ViewBag.Pendiente == false)
+                                            {
+                                                <div style="border-left:1px solid black;position: absolute;z-index: 999" class="col-6">
+                                                    <font size="2">
+                                                        @item1.AsignacionPersonaParroquia[0].Parroquia.Canton.Provincia.Descripcion -
+                                                        @item1.AsignacionPersonaParroquia[0].Parroquia.Canton.Descripcion -
+                                                        @item1.AsignacionPersonaParroquia[0].Parroquia.Descripcion
+                                                        @*@if (@item1.AsignacionPersonaParroquia[0].Referencia != "" || @item1.AsignacionPersonaParroquia[0].Referencia != null)
+                                                        {
+                                                            <span>(@item1.AsignacionPersonaParroquia[0].Referencia)</span>
+                                                        }*@
+                                                    </font>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div style="border-left:1px solid black" class="col-6">
+                                                    <font size="2">
+                                                        $@item1.CantidadComprada
+                                                    </font>
+                                                </div>
+                                            }
+                                        </div>
+                                        @if (ViewBag.Pendiente != false)
+                                        {
+                                            <div style="border-left:1px solid black;border-right:1px solid black" class="row">
+                                                <div class="col-7">
+                                                    <font size="1">
+                                                        PROVINCIA - CANTÓN - PARROQUIA
+                                                    </font>
+                                                </div>
+                                                <div style="border-left:1px solid black" class="col-6">
+                                                    <font size="1">
+                                                        DEUDA RECAUDADA
+                                                    </font>
+                                                </div>
+                                            </div>
+                                            <div style="border-bottom:1px solid black;border-right:1px solid black" class="row">
+                                                <div style="border-left:1px solid black" class="col-7">
+                                                    <font size="2">
+                                                        @item1.AsignacionPersonaParroquia[0].Parroquia.Canton.Provincia.Descripcion -
+                                                        @item1.AsignacionPersonaParroquia[0].Parroquia.Canton.Descripcion -
+                                                        @item1.AsignacionPersonaParroquia[0].Parroquia.Descripcion
+                                                        @*@if (@item1.AsignacionPersonaParroquia[0].Referencia != "" || @item1.AsignacionPersonaParroquia[0].Referencia != null)
+                                                        {
+                                                            <span>(@item1.AsignacionPersonaParroquia[0].Referencia)</span>
+                                                        }*@
+                                                    </font>
+                                                </div>
+                                                <div style="border-left:1px solid black" class="col-6">
+                                                    <font size="2">
+                                                        $@item1.CantidadAbonada
+                                                    </font>
+                                                </div>
+                                            </div>
+                                            <div style="border-right:1px solid black" class="row">
+                                                <div class="col-7">
+                                                </div>
+                                                <div style="border-left:1px solid black" class="col-6">
+                                                    <font size="1">
+                                                        ABONO
+                                                    </font>
+                                                </div>
+                                            </div>
+                                            <div style="border-right:1px solid black" class="row">
+                                                <div class="col-7">
+                                                </div>
+                                                <div style="border-bottom:1px solid black;border-left:1px solid black" class="col-5">
+                                                    <font size="2">
+                                                        $@item1.Abonado
+                                                    </font>
+                                                </div>
+                                            </div>
+                                            <div style="border-right:1px solid black" class="row">
+                                                <div class="col-7">
+                                                </div>
+                                                <div style="border-left:1px solid black" class="col-6">
+                                                    <font size="1">
+                                                        PENDIENTE
+                                                    </font>
+                                                </div>
+                                            </div>
+                                            <div style="border-right:1px solid black" class="row">
+                                                <div class="col-7">
+                                                </div>
+                                                <div style="border-bottom:1px solid black;border-left:1px solid black" class="col-5">
+                                                    <font size="2">
+                                                        $@item1.Pendiente
+                                                    </font>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        @if (ViewBag.Pendiente == false)
+                                        {
+                                            foreach (var item2 in item1._AsignarTecnicoPersonaComunidad)
+                                            {
+                                                <ul>
+                                                    <li>
+                                                        @item2.Comunidad.Descripcion - @item2.Comunidad.Parroquia.Descripcion - @item2.Comunidad.Parroquia.Canton.Descripcion
+                                                        (@item2.NumeroVisita Visitas)
+                                                    </li>
+                                                </ul>
+                                            }
+                                        }
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

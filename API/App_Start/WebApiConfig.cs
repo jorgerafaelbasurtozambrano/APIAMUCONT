@@ -11,7 +11,6 @@ namespace API
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de API web
-
             // Rutas de API web
             config.MapHttpAttributeRoutes();
 
@@ -21,6 +20,10 @@ namespace API
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
+            //var json = config.Formatters.JsonFormatter;
+            //json.SerializerSettings.PreserveReferencesHandling =
+            //Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            //config.Formatters.Remove(config.Formatters.XmlFormatter);
 
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);

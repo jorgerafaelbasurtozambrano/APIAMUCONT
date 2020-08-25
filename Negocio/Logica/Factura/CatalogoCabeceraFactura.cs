@@ -740,6 +740,139 @@ namespace Negocio.Logica.Inventario
             }
             return ListaCabeceraFactura.Where(p => p.Finalizado == false).GroupBy(a => a.IdCabeceraFactura).Select(grp => grp.First()).ToList();
         }
+        public List<CabeceraFactura> ConsultarCabeceraFacturaVentaFinalizada(int idCabecera)
+        {
+            //var ListaStock = GestionStock.ListarStock();
+            ListaCabeceraFactura = new List<CabeceraFactura>();
+            var AsignarProductoLote = GestionAsignarProductoLote.ListarAsignarProductoLote();
+            decimal? TotalDescuento = 0;
+            decimal? TotalIva = 0;
+            decimal? TotalSubtotal = 0;
+            foreach (var item in ConexionBD.sp_ConsultarCabeceraFactura().Where(p => p.CabeceraFacturaIdTipoTransaccion == 2 && p.CabeceraFacturaIdCabeceraFactura == idCabecera).ToList())
+            {
+                List<DetalleVenta> DetalleVenta = new List<DetalleVenta>();
+                TotalDescuento = 0;
+                TotalIva = 0;
+                TotalSubtotal = 0;
+                foreach (var item1 in GestionDetalleVenta.ListarDetalleVentaPorFactura(item.CabeceraFacturaIdCabeceraFactura))
+                {
+                    var ProductoLote = AsignarProductoLote.Where(p => Seguridad.DesEncriptar(p.IdAsignarProductoLote) == Seguridad.DesEncriptar(item1.IdAsignarProductoLote.ToString())).FirstOrDefault();
+                    //var ProductoEnStock = ListaStock.Where(p => Seguridad.DesEncriptar(p.IdAsignarProductoLote) == Seguridad.DesEncriptar(ProductoLote.IdAsignarProductoLote)).FirstOrDefault();
+                    int? cantidadDisponible = 0;
+                    bool PermitirVender = false;
+                    //if (item1.Cantidad <= ProductoEnStock.Cantidad)
+                    //{
+                    //    PermitirVender = true;
+                    //    cantidadDisponible = ProductoEnStock.Cantidad;
+                    //}
+                    //else
+                    //{
+                    //    PermitirVender = false;
+                    //    cantidadDisponible = ProductoEnStock.Cantidad;
+                    //}
+                    decimal ValorUnitario = 0;
+                    decimal? Total = 0;
+                    decimal? Subtotal = 0;
+                    decimal? IvaAnadido = 0;
+                    decimal? Descuento = 0;
+                    ValorUnitario = item1.ValorUnitario;
+                    Subtotal = ValorUnitario * item1.Cantidad;
+                    if (item1.AplicaDescuento == "True")
+                    {
+                        if (item1.Iva > 0)
+                        {
+                            IvaAnadido = (Subtotal * (Convert.ToDecimal(item1.Iva) / 100));
+                        }
+                        Descuento = (Subtotal + IvaAnadido) * (Convert.ToDecimal(item1.PorcentajeDescuento) / 100);
+                        Total = (Subtotal + IvaAnadido) - Descuento;
+                        //CantidadDescontada = Subtotal - Total;
+                    }
+                    else
+                    {
+                        if (item1.Iva > 0)
+                        {
+                            IvaAnadido = Subtotal * (Convert.ToDecimal(item1.Iva) / 100);
+                        }
+                        Total = (Subtotal + IvaAnadido) - Descuento;
+                    }
+                    TotalDescuento = TotalDescuento + Descuento;
+                    TotalSubtotal = TotalSubtotal + Subtotal;
+                    TotalIva = TotalIva + IvaAnadido;
+                    DetalleVenta.Add(new Entidades.DetalleVenta()
+                    {
+                        IdDetalleVenta = item1.IdDetalleVenta,
+                        IdCabeceraFactura = item1.IdCabeceraFactura,
+                        IdAsignarProductoLote = item1.IdAsignarProductoLote,
+                        AplicaDescuento = item1.AplicaDescuento,
+                        Faltante = item1.Faltante,
+                        Cantidad = item1.Cantidad,
+                        AsignarProductoLote = ProductoLote,
+                        ValorUnitario = ValorUnitario,
+                        Total = Total,
+                        Subtotal = Subtotal,
+                        PorcentajeDescuento = item1.PorcentajeDescuento,
+                        PerteneceKitCompleto = item1.PerteneceKitCompleto,
+                        CantidadDisponible = cantidadDisponible,
+                        PermitirVender = PermitirVender,
+                        Iva = item1.Iva,
+                        CantidadDescontada = Descuento,
+                        IvaAnadido = IvaAnadido
+                    });
+                }
+                DetalleVenta = DetalleVenta.GroupBy(a => a.IdDetalleVenta).Select(grp => grp.First()).ToList();
+                List<PersonaEntidad> Persona = new List<PersonaEntidad>();
+                List<TipoUsuario> TipoUsuario = new List<Entidades.TipoUsuario>();
+                foreach (var item2 in ConexionBD.sp_ConsultaActividadPersona(item.CabeceraFacturaIdAsignacionTU))
+                {
+                    Persona.Add(new PersonaEntidad()
+                    {
+                        IdPersona = Seguridad.Encriptar(item2.PersonadPersona.ToString()),
+                        NumeroDocumento = item2.PersonaNumeroDocumento,
+                        ApellidoPaterno = item2.PersonaApellidoPaterno,
+                        ApellidoMaterno = item2.PersonaApellidoMaterno,
+                        PrimerNombre = item2.PersonaPrimerNombre,
+                        SegundoNombre = item2.PersonaSegundoNombre,
+                        IdTipoDocumento = Seguridad.Encriptar(item2.PersonaIdTipoDocumento.ToString()),
+                    });
+                    TipoUsuario.Add(new Entidades.TipoUsuario()
+                    {
+                        IdTipoUsuario = Seguridad.Encriptar(item2.TipoUsuarioIdTipoUsuario.ToString()),
+                        IdAsignacionTu = Seguridad.Encriptar(item2.AsignacionTUIdAsignacionTU.ToString()),
+                        Identificacion = item2.TipoUsuarioIdentificacion,
+                        Descripcion = item2.TipoUsuarioDescripcion,
+                    });
+                }
+                ConfigurarVenta _ConfigurarVenta = new ConfigurarVenta();
+                _ConfigurarVenta = GestionConfigurarVenta.ConsultarConfigurarVentaPorFactura(item.CabeceraFacturaIdCabeceraFactura);
+                ListaCabeceraFactura.Add(new CabeceraFactura()
+                {
+                    IdCabeceraFactura = Seguridad.Encriptar(item.CabeceraFacturaIdCabeceraFactura.ToString()),
+                    IdAsignacionTU = Seguridad.Encriptar(item.CabeceraFacturaIdAsignacionTU.ToString()),
+                    IdTipoTransaccion = Seguridad.Encriptar(item.CabeceraFacturaIdTipoTransaccion.ToString()),
+                    EstadoCabeceraFactura = item.CabeceraFacturaEstadoCabeceraFactura,
+                    Finalizado = item.CabeceraFacturaFinalizado,
+                    FechaGeneracion = item.CabeceraFacturaFechaGeneracion,
+                    Codigo = item.CabeceraFacturaCodigo,
+                    TotalDescuento = TotalDescuento,
+                    TipoTransaccion = new TipoTransaccion()
+                    {
+                        IdTipoTransaccion = Seguridad.Encriptar(item.TipoTransaccionIdTipoTransaccion.ToString()),
+                        Descripcion = item.TipoTransaccionDescripcion,
+                        Identificador = item.TipoTransaccionIdentificador,
+                        FechaActualizacion = item.TipoTransaccionFechaModificacion,
+                        FechaCreacion = item.TipoTransaccionFechaCreacion,
+                    },
+                    DetalleVenta = DetalleVenta,
+                    PersonaEntidad = Persona.FirstOrDefault(),
+                    TipoUsuario = TipoUsuario.FirstOrDefault(),
+                    ConfigurarVenta = _ConfigurarVenta,
+                    TotalIva = TotalIva,
+                    Subtotal = TotalSubtotal,
+                    Total = TotalSubtotal + TotalIva - TotalDescuento,
+                });
+            }
+            return ListaCabeceraFactura.Where(p => p.Finalizado == true).GroupBy(a => a.IdCabeceraFactura).Select(grp => grp.First()).ToList();
+        }
         public List<CabeceraFactura> ConsultarFactura(string IdFactura)
         {
             //CargarDatos();
@@ -979,7 +1112,6 @@ namespace Negocio.Logica.Inventario
             }
             return _SaldoPendiente;
         }
-
         public List<CabeceraFactura> ConsultarFacturaPorId(int idCabeceraFactura)
         {
             List<CabeceraFactura> _Factura = new List<CabeceraFactura>();
@@ -1005,6 +1137,224 @@ namespace Negocio.Logica.Inventario
             {
                 return false;
             }
+        }
+
+
+        //reporte
+        public List<CabeceraFactura> ListarCabeceraFacturaFinalizadasPorRangoFecha(string Inicio,string Fin)
+        {
+            //CargarDatos();
+            decimal? TotalFactura = 0;
+            ListaCabeceraFactura = new List<CabeceraFactura>();
+            var AsignarProductoLote = GestionAsignarProductoLote.ListarAsignarProductoLote();
+            foreach (var item in ConexionBD.sp_ConsultarFacturasFinalizadaPorRangoFecha(Inicio, Fin))
+            {
+                TotalFactura = 0;
+                List<DetalleFactura> DetalleFactura = new List<Entidades.DetalleFactura>();
+                foreach (var item1 in ConexionBD.sp_ConsultarDetalleFactura(item.CabeceraFacturaIdCabeceraFactura))
+                {
+                    var _AsignarProductoLote = AsignarProductoLote.Where(p => Seguridad.DesEncriptar(p.IdAsignarProductoLote) == item1.IdAsignarProductoLote.ToString()).ToList();
+                    TotalFactura = TotalFactura + (item1.Cantidad * _AsignarProductoLote[0].ValorUnitario);
+                    DetalleFactura.Add(new Entidades.DetalleFactura()
+                    {
+                        IdDetalleFactura = Seguridad.Encriptar(item1.IdDetalleFactura.ToString()),
+                        IdCabeceraFactura = Seguridad.Encriptar(item1.IdCabeceraFactura.ToString()),
+                        IdAsignarProductoLote = Seguridad.Encriptar(item1.IdAsignarProductoLote.ToString()),
+                        Cantidad = item1.Cantidad,
+                        Faltante = item1.Faltante,
+                        AsignarProductoLote = _AsignarProductoLote,
+                    });
+                }
+                List<PersonaEntidad> Persona = new List<PersonaEntidad>();
+                List<TipoUsuario> TipoUsuario = new List<Entidades.TipoUsuario>();
+                foreach (var item2 in ConexionBD.sp_ConsultaActividadPersona(item.CabeceraFacturaIdAsignacionTU))
+                {
+                    Persona.Add(new PersonaEntidad()
+                    {
+                        IdPersona = Seguridad.Encriptar(item2.PersonadPersona.ToString()),
+                        NumeroDocumento = item2.PersonaNumeroDocumento,
+                        ApellidoPaterno = item2.PersonaApellidoPaterno,
+                        ApellidoMaterno = item2.PersonaApellidoMaterno,
+                        PrimerNombre = item2.PersonaPrimerNombre,
+                        SegundoNombre = item2.PersonaSegundoNombre,
+                        IdTipoDocumento = Seguridad.Encriptar(item2.PersonaIdTipoDocumento.ToString()),
+                    });
+                    TipoUsuario.Add(new Entidades.TipoUsuario()
+                    {
+                        IdTipoUsuario = Seguridad.Encriptar(item2.TipoUsuarioIdTipoUsuario.ToString()),
+                        IdAsignacionTu = Seguridad.Encriptar(item2.AsignacionTUIdAsignacionTU.ToString()),
+                        Identificacion = item2.TipoUsuarioIdentificacion,
+                        Descripcion = item2.TipoUsuarioDescripcion,
+                    });
+                }
+                ListaCabeceraFactura.Add(new CabeceraFactura()
+                {
+                    IdCabeceraFactura = Seguridad.Encriptar(item.CabeceraFacturaIdCabeceraFactura.ToString()),
+                    IdAsignacionTU = Seguridad.Encriptar(item.CabeceraFacturaIdAsignacionTU.ToString()),
+                    IdTipoTransaccion = Seguridad.Encriptar(item.CabeceraFacturaIdTipoTransaccion.ToString()),
+                    EstadoCabeceraFactura = item.CabeceraFacturaEstadoCabeceraFactura,
+                    Finalizado = item.CabeceraFacturaFinalizado,
+                    FechaGeneracion = item.CabeceraFacturaFechaGeneracion,
+                    Codigo = item.CabeceraFacturaCodigo,
+                    Total = TotalFactura,
+                    TipoTransaccion = new TipoTransaccion()
+                    {
+                        IdTipoTransaccion = Seguridad.Encriptar(item.TipoTransaccionIdTipoTransaccion.ToString()),
+                        Descripcion = item.TipoTransaccionDescripcion,
+                        Identificador = item.TipoTransaccionIdentificador,
+                        FechaActualizacion = item.TipoTransaccionFechaModificacion,
+                        FechaCreacion = item.TipoTransaccionFechaCreacion,
+                    },
+                    DetalleFactura = DetalleFactura,
+                    PersonaEntidad = Persona.FirstOrDefault(),
+                    TipoUsuario = TipoUsuario.FirstOrDefault(),
+
+                });
+            }
+            return ListaCabeceraFactura.GroupBy(a => a.IdCabeceraFactura).Select(grp => grp.First()).ToList();
+        }
+        public Decimal? InversionRealizadasPorRangoFecha(string Inicio, string Fin)
+        {
+            Decimal? TotalInvertido = 0;
+            //CargarDatos();
+            Decimal? TotalFactura = 0;
+            ListaCabeceraFactura = new List<CabeceraFactura>();
+            var AsignarProductoLote = GestionAsignarProductoLote.ListarAsignarProductoLote();
+            foreach (var item in ConexionBD.sp_ConsultarFacturasFinalizadaPorRangoFecha(Inicio, Fin))
+            {
+                TotalFactura = 0;
+                List<DetalleFactura> DetalleFactura = new List<Entidades.DetalleFactura>();
+                foreach (var item1 in ConexionBD.sp_ConsultarDetalleFactura(item.CabeceraFacturaIdCabeceraFactura))
+                {
+                    var _AsignarProductoLote = AsignarProductoLote.Where(p => Seguridad.DesEncriptar(p.IdAsignarProductoLote) == item1.IdAsignarProductoLote.ToString()).ToList();
+                    TotalFactura = TotalFactura + (item1.Cantidad * _AsignarProductoLote[0].ValorUnitario);
+                    DetalleFactura.Add(new Entidades.DetalleFactura()
+                    {
+                        IdDetalleFactura = Seguridad.Encriptar(item1.IdDetalleFactura.ToString()),
+                        IdCabeceraFactura = Seguridad.Encriptar(item1.IdCabeceraFactura.ToString()),
+                        IdAsignarProductoLote = Seguridad.Encriptar(item1.IdAsignarProductoLote.ToString()),
+                        Cantidad = item1.Cantidad,
+                        Faltante = item1.Faltante,
+                        AsignarProductoLote = _AsignarProductoLote,
+                    });
+                }
+                TotalInvertido = TotalInvertido + TotalFactura;
+                ListaCabeceraFactura.Add(new CabeceraFactura()
+                {
+                    IdCabeceraFactura = Seguridad.Encriptar(item.CabeceraFacturaIdCabeceraFactura.ToString()),
+                    IdAsignacionTU = Seguridad.Encriptar(item.CabeceraFacturaIdAsignacionTU.ToString()),
+                    IdTipoTransaccion = Seguridad.Encriptar(item.CabeceraFacturaIdTipoTransaccion.ToString()),
+                    EstadoCabeceraFactura = item.CabeceraFacturaEstadoCabeceraFactura,
+                    Finalizado = item.CabeceraFacturaFinalizado,
+                    FechaGeneracion = item.CabeceraFacturaFechaGeneracion,
+                    Codigo = item.CabeceraFacturaCodigo,
+                    Total = TotalFactura,
+                    TipoTransaccion = new TipoTransaccion()
+                    {
+                        IdTipoTransaccion = Seguridad.Encriptar(item.TipoTransaccionIdTipoTransaccion.ToString()),
+                        Descripcion = item.TipoTransaccionDescripcion,
+                        Identificador = item.TipoTransaccionIdentificador,
+                        FechaActualizacion = item.TipoTransaccionFechaModificacion,
+                        FechaCreacion = item.TipoTransaccionFechaCreacion,
+                    },
+                });
+            }
+            return TotalInvertido;
+        }
+        public Decimal?[] ConsultarFacturasVendidasEnEfectivo(string Inicio, string Fin)
+        {
+            ListaCabeceraFactura = new List<CabeceraFactura>();
+            var AsignarProductoLote = GestionAsignarProductoLote.ListarAsignarProductoLote();
+            var ListadetalleVenta = GestionDetalleVenta.ListarDetalleVenta();
+            var ListaPrecio = GestionPrecioConfigurarProducto.ListarPrecioConfigurarProducto().Where(p => p.Estado == "True").ToList();
+            decimal? TotalFactura = 0;
+            decimal? TotalDescuento = 0;
+            Decimal? TotalRecaudadoEfectivo = 0;
+            Decimal? TotalRecaudadoCreditoPendiente = 0;
+            Decimal? TotalRecaudadoCreditoFinalizado = 0;
+            foreach (var item in ConexionBD.sp_ConsultarFacturasVendidasEnEfectivo(Inicio, Fin))
+            {
+                List<DetalleVenta> DetalleVenta = new List<DetalleVenta>();
+                TotalFactura = 0;
+                TotalDescuento = 0;
+                foreach (var item1 in ListadetalleVenta.Where(p => Seguridad.DesEncriptar(p.IdCabeceraFactura) == item.CabeceraFacturaIdCabeceraFactura.ToString()))
+                {
+                    var ProductoLote = AsignarProductoLote.Where(p => Seguridad.DesEncriptar(p.IdAsignarProductoLote) == Seguridad.DesEncriptar(item1.IdAsignarProductoLote.ToString())).FirstOrDefault();
+                    decimal ValorUnitario = 0;
+                    decimal? Total = 0;
+                    decimal? Subtotal = 0;
+                    if (ProductoLote.PerteneceKit == "True")
+                    {
+                        ValorUnitario = ListaPrecio.Where(p => Seguridad.DesEncriptar(p.IdConfigurarProducto) == Seguridad.DesEncriptar(ProductoLote.AsignarProductoKit.IdConfigurarProducto)).FirstOrDefault().Precio;
+                        if (item1.AplicaDescuento == "True")
+                        {
+                            Subtotal = ValorUnitario * item1.Cantidad;
+                            Total = Subtotal - (Subtotal * (Convert.ToDecimal(ProductoLote.AsignarProductoKit.Kit.AsignarDescuentoKit.Descuento.Porcentaje) / 100));
+                            TotalDescuento = TotalDescuento + (Subtotal - Total);
+                        }
+                        else
+                        {
+                            Total = ValorUnitario * item1.Cantidad;
+                            Subtotal = Total;
+                        }
+                    }
+                    else
+                    {
+                        ValorUnitario = ListaPrecio.Where(p => Seguridad.DesEncriptar(p.IdConfigurarProducto) == Seguridad.DesEncriptar(ProductoLote.ConfigurarProductos.IdConfigurarProducto)).FirstOrDefault().Precio;
+                        Total = ValorUnitario * item1.Cantidad;
+                        Subtotal = Total;
+                    }
+                    TotalFactura = TotalFactura + Total;
+                    DetalleVenta.Add(new Entidades.DetalleVenta()
+                    {
+                        IdDetalleVenta = item1.IdDetalleVenta,
+                        IdCabeceraFactura = item1.IdCabeceraFactura,
+                        IdAsignarProductoLote = item1.IdAsignarProductoLote,
+                        AplicaDescuento = item1.AplicaDescuento,
+                        Faltante = item1.Faltante,
+                        Cantidad = item1.Cantidad,
+                        AsignarProductoLote = ProductoLote,
+                        ValorUnitario = ValorUnitario,
+                        Total = Total,
+                        Subtotal = Subtotal,
+                    });
+                }
+                DetalleVenta = DetalleVenta.GroupBy(a => a.IdDetalleVenta).Select(grp => grp.First()).ToList();
+                ConfigurarVenta _ConfigurarVenta = new ConfigurarVenta();
+                _ConfigurarVenta = GestionConfigurarVenta.ConsultarConfigurarVentaPorFactura(item.CabeceraFacturaIdCabeceraFactura);
+                TotalRecaudadoEfectivo = TotalRecaudadoEfectivo + TotalFactura;
+                ListaCabeceraFactura.Add(new CabeceraFactura()
+                {
+                    IdCabeceraFactura = Seguridad.Encriptar(item.CabeceraFacturaIdCabeceraFactura.ToString()),
+                    IdAsignacionTU = Seguridad.Encriptar(item.CabeceraFacturaIdAsignacionTU.ToString()),
+                    IdTipoTransaccion = Seguridad.Encriptar(item.CabeceraFacturaIdTipoTransaccion.ToString()),
+                    Finalizado = item.CabeceraFacturaFinalizado,
+                    FechaGeneracion = item.CabeceraFacturaFechaGeneracion,
+                    Codigo = item.CabeceraFacturaCodigo,
+                    TipoTransaccion = new TipoTransaccion()
+                    {
+                        IdTipoTransaccion = Seguridad.Encriptar(item.TipoTransaccionIdTipoTransaccion.ToString()),
+                        Descripcion = item.TipoTransaccionDescripcion,
+                        Identificador = item.TipoTransaccionIdentificador,
+                        FechaActualizacion = item.TipoTransaccionFechaModificacion,
+                        FechaCreacion = item.TipoTransaccionFechaCreacion,
+                    },
+                    DetalleVenta = DetalleVenta,
+                    ConfigurarVenta = _ConfigurarVenta,
+                    Total = TotalFactura,
+                    TotalDescuento = TotalDescuento,
+                });
+            }
+            foreach (var item in ConexionBD.sp_ConsultarFacturasCreditosPendientes(Inicio, Fin))
+            {
+                TotalRecaudadoCreditoPendiente = TotalRecaudadoCreditoPendiente + item.Monto;
+            }
+            foreach (var item in ConexionBD.sp_ConsultarFacturasCreditosFinalizadas(Inicio, Fin))
+            {
+                TotalRecaudadoCreditoFinalizado = TotalRecaudadoCreditoFinalizado + item.Monto;
+            }
+            Decimal?[] Totales = {TotalRecaudadoEfectivo,TotalRecaudadoCreditoPendiente,TotalRecaudadoCreditoFinalizado };
+            return Totales;
         }
     }
 }

@@ -1,0 +1,145 @@
+﻿<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div style="text-align:right">
+                <img width="400" height="115" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
+                <br />
+                <font size="2">
+                    <span><strong>RUC :</strong>1391748612001<br /></span>
+                </font>
+                <font size="2">
+                    <span><strong>DIRECCIÓN :</strong>PASO LATERAL TOSAGUA SECTOR SANTA ANA<br /></span>
+                </font>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div style="text-align:center" class="col-12">
+            <strong>
+                <font size="8">
+                    INVENTARIO
+                </font>
+            </strong>
+        </div>
+    </div>
+    <div class="row">
+        <div style="text-align:center" class="col-12">
+            <strong>
+                <font size="3">
+                    @ViewBag.Subtitulo
+                    @*@{
+                        var dato = DateTime.Parse(@ViewBag.Inicio);
+
+                        <span>@dato.ToString("dddd, dd MMMM yyyy").ToUpper()</span>
+                    }
+                    HASTA
+                    @{
+                        var fin = DateTime.Parse(@ViewBag.Fin);
+
+                        <span>@fin.ToString("dddd, dd MMMM yyyy").ToUpper()</span>
+                    }*@
+                </font>
+            </strong>
+        </div>
+    </div>
+    <br />
+    <div style="text-align:center;font-weight:bold;border:1px solid paleturquoise" class="row card-header align-items-center">
+        <div class="col-2">
+            INVERSIÓN
+        </div>
+        <div class="col-10">
+            <div style="border-bottom:1px solid paleturquoise" class="row">
+                <div class="col-12">
+                    RECUPERADO
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <font size="2">
+                        FACT. EFECTIVO
+                    </font>
+                </div>
+                <div class="col-4">
+                    <font size="2">
+                        FACT. CREDITO CANCELADAS
+                    </font>
+                </div>
+                <div class="col-4">
+                    <font size="2">
+                        FACT. CREDITO ABONO
+                    </font>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center;border-bottom:1px solid paleturquoise;border-right:1px solid paleturquoise;border-left:1px solid paleturquoise" class="row align-items-center">
+        <div class="col-2">
+            $@Math.Round(ViewBag.Invertido, 2)
+        </div>
+        <div class="col-4">
+            $@Math.Round(ViewBag.Efectivo, 2)
+        </div>
+        <div class="col-3">
+            $@Math.Round(ViewBag.Cancelada, 2)
+        </div>
+        <div class="col-3">
+            $@Math.Round(ViewBag.Finalizada, 2)
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div style="border:1px solid paleturquoise;text-align:center" class="col-5">
+            <strong>RESULTADOS</strong>
+            <div style="border-bottom:1px solid paleturquoise;border-top:1px solid paleturquoise" class="row">
+                <div style="font-weight:bold;border-right:1px solid paleturquoise" class="col-5">
+                    INVERSIÓN :
+                </div>
+                <div class="col-7">
+                    $@Math.Round(ViewBag.Invertido, 2)
+                </div>
+            </div>
+            <div class="row">
+                <div style="font-weight:bold;border-right:1px solid paleturquoise" class="col-5">
+                    RECUPERADO :
+                </div>
+                <div class="col-7">
+                    @{
+                        Decimal? suma = Math.Round(ViewBag.Efectivo, 2) + Math.Round(ViewBag.Cancelada, 2) + Math.Round(ViewBag.Finalizada, 2);
+                        <span>
+                            $@suma
+                        </span>
+                    }
+                </div>
+            </div>
+            <div style="border-top:1px solid paleturquoise;" class="row">
+                <div style="font-weight:bold;border-right:1px solid paleturquoise" class="col-5">
+                    TOTAL :
+                </div>
+                @{
+                    Decimal total = Math.Round(ViewBag.Invertido, 2)-(Math.Round(ViewBag.Efectivo, 2) + Math.Round(ViewBag.Cancelada, 2) + Math.Round(ViewBag.Finalizada, 2));
+                    string color = "";
+                    if (total>0)
+                    {
+                        color = "lightcoral";
+                    }else if (total == 0)
+                    {
+                        color = "orange";
+                    }else if (total<0)
+                    {
+                        total = Math.Abs(total);
+                        color = "darkseagreen";
+                    }
+                }
+                <div style="background-color:@color" class="col-7">
+                    @{
+                        <span>
+                            $@total
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

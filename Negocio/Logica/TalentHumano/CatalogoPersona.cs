@@ -428,10 +428,27 @@ namespace Negocio.Logica
                     ListaTelefono = ListaTelefonos,
                     ListaCorreo = ListaCorreos,
                     AsignacionPersonaParroquia = ListaAsignacionPersonaParroquia,
-                    IdUsuario = permitirEliminar
+                    IdUsuario = permitirEliminar,
+                    _objTipoDocumento = ListarTiposDocumentosPorId(item.IdTipoDocumento).FirstOrDefault()
                 });
             }
             return ListaPersona;
+        }
+        public List<TipoDocumento> ListarTiposDocumentosPorId(int idTipoDocumento)
+        {
+            List<TipoDocumento> ListaTipoDocumento = new List<TipoDocumento>();
+            foreach (var item in ConexionBD.sp_ConsultarTipoDocumento().Where(p => p.IdTipoDocumento == idTipoDocumento).ToList())
+            {
+                ListaTipoDocumento.Add(new TipoDocumento()
+                {
+                    IdTipoDocumento = Seguridad.Encriptar(item.IdTipoDocumento.ToString()),
+                    Documento = item.Descripcion,
+                    Identificador = item.Identificador,
+                    FechaCreacion = item.FechaCreacion,
+                    Estado = item.Estado,
+                });
+            }
+            return ListaTipoDocumento;
         }
 
         //CORREO
