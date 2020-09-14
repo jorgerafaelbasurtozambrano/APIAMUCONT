@@ -1,8 +1,7 @@
-﻿<div id="comprobante">
+﻿<div style="color:black" id="comprobante">
     <div style="text-align:center">
         <img width="400" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
     </div>
-    <br />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
     <link href="~/Content/TicketStyle.css" type="text/css" rel="stylesheet" />
     <div class="container">
@@ -31,7 +30,6 @@
             </div>
         }
     </div>
-    <br />
     <div class="container">
         <div class="row">
             <div style="border-left: 1px solid black;border-top: 1px solid black;" class="col-6">
@@ -109,7 +107,7 @@
             <div style="text-align:center" class="col-6">
                 @if (ViewBag.Datos.TotalAPagar != null)
                 {
-                    <span>TOTAL: $@ViewBag.Datos.TotalAPagar</span>
+                    <span>TOTAL: $ @ViewBag.Datos.TotalAPagar</span>
                 }
             </div>
         </div>
@@ -129,13 +127,11 @@
             </div>
         </div>
     </div>
-    <br />
     <div class="container">
         <div class="row">
             <div style="text-align:center" class="col-6">COMPRADOR/BALANZA</div>
             <div style="text-align:center" class="col-6">PROVEEDOR/CLIENTE</div>
         </div>
-        <br />
         <div class="row">
             <div style="text-align:center;color:blue" class="col-6">
                 <strong style="font-size: 150%">

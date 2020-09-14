@@ -59,9 +59,12 @@ namespace API.Controllers
             {
                 RotativaOptions = new Rotativa.Core.DriverOptions()
                 {
-                    PageOrientation = Orientation.Landscape,
-                    PageSize = Rotativa.Core.Options.Size.A5,
-                    IsLowQuality = true
+                    PageOrientation = Orientation.Portrait,
+                    PageSize = Rotativa.Core.Options.Size.A4,
+                    IsLowQuality = true,
+                    PageHeight = 105,
+                    PageMargins = new Margins(5,25,25,25)
+                    //PageWidth = 210,
                 }
             };
         }
@@ -76,9 +79,12 @@ namespace API.Controllers
             {
                 RotativaOptions = new Rotativa.Core.DriverOptions()
                 {
-                    PageOrientation = Orientation.Landscape,
-                    PageSize = Rotativa.Core.Options.Size.A5,
-                    IsLowQuality = true
+                    PageOrientation = Orientation.Portrait,
+                    PageSize = Rotativa.Core.Options.Size.A4,
+                    IsLowQuality = true,
+                    PageHeight = 105,
+                    PageMargins = new Margins(5, 25, 25, 25)
+                    //PageWidth = 210,
                 }
             };
         }

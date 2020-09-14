@@ -1417,15 +1417,6 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarDescuentoKitPorKit_Result>("sp_ConsultarAsignarDescuentoKitPorKit", idKitParameter);
         }
     
-        public virtual ObjectResult<sp_ConsultarAsignarProductoKit_Result> sp_ConsultarAsignarProductoKit(Nullable<int> idKit)
-        {
-            var idKitParameter = idKit.HasValue ?
-                new ObjectParameter("IdKit", idKit) :
-                new ObjectParameter("IdKit", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarProductoKit_Result>("sp_ConsultarAsignarProductoKit", idKitParameter);
-        }
-    
         public virtual ObjectResult<sp_ConsultarAsignarProductoKitPorId_Result> sp_ConsultarAsignarProductoKitPorId(Nullable<int> idAsignarProductoKit)
         {
             var idAsignarProductoKitParameter = idAsignarProductoKit.HasValue ?
@@ -1612,19 +1603,6 @@ namespace Datos
                 new ObjectParameter("IdKit", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CrearAsignarDescuentoKit_Result>("sp_CrearAsignarDescuentoKit", idDescuentoParameter, idKitParameter);
-        }
-    
-        public virtual int sp_CrearAsignarProductoKit(Nullable<int> idConfigurarProducto, Nullable<int> idAsignarDescuentoKit)
-        {
-            var idConfigurarProductoParameter = idConfigurarProducto.HasValue ?
-                new ObjectParameter("IdConfigurarProducto", idConfigurarProducto) :
-                new ObjectParameter("IdConfigurarProducto", typeof(int));
-    
-            var idAsignarDescuentoKitParameter = idAsignarDescuentoKit.HasValue ?
-                new ObjectParameter("IdAsignarDescuentoKit", idAsignarDescuentoKit) :
-                new ObjectParameter("IdAsignarDescuentoKit", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearAsignarProductoKit", idConfigurarProductoParameter, idAsignarDescuentoKitParameter);
         }
     
         public virtual ObjectResult<sp_CrearConfigurarProducto_Result> sp_CrearConfigurarProducto(Nullable<int> idAsignacionTipoUsuario, Nullable<int> idProducto, Nullable<int> idMedida, Nullable<int> idPresentacion, string codigo, Nullable<int> cantidadMedida, Nullable<int> iva)
@@ -3465,32 +3443,6 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarTickenVentaPorId_Result1>("sp_ConsultarTickenVentaPorId", idVentaRubroParameter);
         }
     
-        public virtual ObjectResult<sp_ConsultarPromedioPrecioCompraPorFecha_Result> sp_ConsultarPromedioPrecioCompraPorFecha(string fechaInicio, string fechaFin)
-        {
-            var fechaInicioParameter = fechaInicio != null ?
-                new ObjectParameter("FechaInicio", fechaInicio) :
-                new ObjectParameter("FechaInicio", typeof(string));
-    
-            var fechaFinParameter = fechaFin != null ?
-                new ObjectParameter("FechaFin", fechaFin) :
-                new ObjectParameter("FechaFin", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPromedioPrecioCompraPorFecha_Result>("sp_ConsultarPromedioPrecioCompraPorFecha", fechaInicioParameter, fechaFinParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarPromedioPrecioVentaPorFecha_Result> sp_ConsultarPromedioPrecioVentaPorFecha(string fechaInicio, string fechaFin)
-        {
-            var fechaInicioParameter = fechaInicio != null ?
-                new ObjectParameter("FechaInicio", fechaInicio) :
-                new ObjectParameter("FechaInicio", typeof(string));
-    
-            var fechaFinParameter = fechaFin != null ?
-                new ObjectParameter("FechaFin", fechaFin) :
-                new ObjectParameter("FechaFin", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPromedioPrecioVentaPorFecha_Result>("sp_ConsultarPromedioPrecioVentaPorFecha", fechaInicioParameter, fechaFinParameter);
-        }
-    
         public virtual ObjectResult<sp_ConsultarCompraRubroPorPersona_Result> sp_ConsultarCompraRubroPorPersona(string numeroDocumento, string fechaInicio, string fechaFin)
         {
             var numeroDocumentoParameter = numeroDocumento != null ?
@@ -3559,19 +3511,6 @@ namespace Datos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarVentaRubroPorPresentacionRubro_Result1>("sp_ConsultarVentaRubroPorPresentacionRubro", identificadorParameter, fechaInicioParameter, fechaFinParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> sp_ConsultarQuintalesComprado(string inicio, string fin)
-        {
-            var inicioParameter = inicio != null ?
-                new ObjectParameter("Inicio", inicio) :
-                new ObjectParameter("Inicio", typeof(string));
-    
-            var finParameter = fin != null ?
-                new ObjectParameter("Fin", fin) :
-                new ObjectParameter("Fin", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_ConsultarQuintalesComprado", inicioParameter, finParameter);
-        }
-    
         public virtual ObjectResult<Nullable<decimal>> sp_ConsultarQuintalesVendidos(string inicio, string fin)
         {
             var inicioParameter = inicio != null ?
@@ -3583,32 +3522,6 @@ namespace Datos
                 new ObjectParameter("Fin", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_ConsultarQuintalesVendidos", inicioParameter, finParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarPromedioHumedadCompraPorFecha_Result> sp_ConsultarPromedioHumedadCompraPorFecha(string fechaInicio, string fechaFin)
-        {
-            var fechaInicioParameter = fechaInicio != null ?
-                new ObjectParameter("FechaInicio", fechaInicio) :
-                new ObjectParameter("FechaInicio", typeof(string));
-    
-            var fechaFinParameter = fechaFin != null ?
-                new ObjectParameter("FechaFin", fechaFin) :
-                new ObjectParameter("FechaFin", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPromedioHumedadCompraPorFecha_Result>("sp_ConsultarPromedioHumedadCompraPorFecha", fechaInicioParameter, fechaFinParameter);
-        }
-    
-        public virtual ObjectResult<sp_ConsultarPromedioHumedadVentaPorFecha_Result> sp_ConsultarPromedioHumedadVentaPorFecha(string fechaInicio, string fechaFin)
-        {
-            var fechaInicioParameter = fechaInicio != null ?
-                new ObjectParameter("FechaInicio", fechaInicio) :
-                new ObjectParameter("FechaInicio", typeof(string));
-    
-            var fechaFinParameter = fechaFin != null ?
-                new ObjectParameter("FechaFin", fechaFin) :
-                new ObjectParameter("FechaFin", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPromedioHumedadVentaPorFecha_Result>("sp_ConsultarPromedioHumedadVentaPorFecha", fechaInicioParameter, fechaFinParameter);
         }
     
         public virtual ObjectResult<sp_ConsultarFacturasPendientes_Result1> sp_ConsultarFacturasPendientes(string fechaInicio, string fechaFin)
@@ -3829,6 +3742,97 @@ namespace Datos
                 new ObjectParameter("IdPersona", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarSaldoAbonadoPorPersona_Result>("sp_ConsultarSaldoAbonadoPorPersona", idPersonaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_ConsultarQuintalesComprado(string inicio, string fin)
+        {
+            var inicioParameter = inicio != null ?
+                new ObjectParameter("Inicio", inicio) :
+                new ObjectParameter("Inicio", typeof(string));
+    
+            var finParameter = fin != null ?
+                new ObjectParameter("Fin", fin) :
+                new ObjectParameter("Fin", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_ConsultarQuintalesComprado", inicioParameter, finParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPromedioPrecioCompraPorFecha_Result2> sp_ConsultarPromedioPrecioCompraPorFecha(string fechaInicio, string fechaFin)
+        {
+            var fechaInicioParameter = fechaInicio != null ?
+                new ObjectParameter("FechaInicio", fechaInicio) :
+                new ObjectParameter("FechaInicio", typeof(string));
+    
+            var fechaFinParameter = fechaFin != null ?
+                new ObjectParameter("FechaFin", fechaFin) :
+                new ObjectParameter("FechaFin", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPromedioPrecioCompraPorFecha_Result2>("sp_ConsultarPromedioPrecioCompraPorFecha", fechaInicioParameter, fechaFinParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPromedioPrecioVentaPorFecha_Result2> sp_ConsultarPromedioPrecioVentaPorFecha(string fechaInicio, string fechaFin)
+        {
+            var fechaInicioParameter = fechaInicio != null ?
+                new ObjectParameter("FechaInicio", fechaInicio) :
+                new ObjectParameter("FechaInicio", typeof(string));
+    
+            var fechaFinParameter = fechaFin != null ?
+                new ObjectParameter("FechaFin", fechaFin) :
+                new ObjectParameter("FechaFin", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPromedioPrecioVentaPorFecha_Result2>("sp_ConsultarPromedioPrecioVentaPorFecha", fechaInicioParameter, fechaFinParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPromedioHumedadCompraPorFecha_Result1> sp_ConsultarPromedioHumedadCompraPorFecha(string fechaInicio, string fechaFin)
+        {
+            var fechaInicioParameter = fechaInicio != null ?
+                new ObjectParameter("FechaInicio", fechaInicio) :
+                new ObjectParameter("FechaInicio", typeof(string));
+    
+            var fechaFinParameter = fechaFin != null ?
+                new ObjectParameter("FechaFin", fechaFin) :
+                new ObjectParameter("FechaFin", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPromedioHumedadCompraPorFecha_Result1>("sp_ConsultarPromedioHumedadCompraPorFecha", fechaInicioParameter, fechaFinParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarPromedioHumedadVentaPorFecha_Result1> sp_ConsultarPromedioHumedadVentaPorFecha(string fechaInicio, string fechaFin)
+        {
+            var fechaInicioParameter = fechaInicio != null ?
+                new ObjectParameter("FechaInicio", fechaInicio) :
+                new ObjectParameter("FechaInicio", typeof(string));
+    
+            var fechaFinParameter = fechaFin != null ?
+                new ObjectParameter("FechaFin", fechaFin) :
+                new ObjectParameter("FechaFin", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarPromedioHumedadVentaPorFecha_Result1>("sp_ConsultarPromedioHumedadVentaPorFecha", fechaInicioParameter, fechaFinParameter);
+        }
+    
+        public virtual int sp_CrearAsignarProductoKit(Nullable<int> idConfigurarProducto, Nullable<int> idAsignarDescuentoKit, Nullable<decimal> cantidad)
+        {
+            var idConfigurarProductoParameter = idConfigurarProducto.HasValue ?
+                new ObjectParameter("IdConfigurarProducto", idConfigurarProducto) :
+                new ObjectParameter("IdConfigurarProducto", typeof(int));
+    
+            var idAsignarDescuentoKitParameter = idAsignarDescuentoKit.HasValue ?
+                new ObjectParameter("IdAsignarDescuentoKit", idAsignarDescuentoKit) :
+                new ObjectParameter("IdAsignarDescuentoKit", typeof(int));
+    
+            var cantidadParameter = cantidad.HasValue ?
+                new ObjectParameter("Cantidad", cantidad) :
+                new ObjectParameter("Cantidad", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearAsignarProductoKit", idConfigurarProductoParameter, idAsignarDescuentoKitParameter, cantidadParameter);
+        }
+    
+        public virtual ObjectResult<sp_ConsultarAsignarProductoKit_Result1> sp_ConsultarAsignarProductoKit(Nullable<int> idKit)
+        {
+            var idKitParameter = idKit.HasValue ?
+                new ObjectParameter("IdKit", idKit) :
+                new ObjectParameter("IdKit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarAsignarProductoKit_Result1>("sp_ConsultarAsignarProductoKit", idKitParameter);
         }
     }
 }

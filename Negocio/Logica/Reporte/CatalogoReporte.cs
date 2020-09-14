@@ -30,7 +30,7 @@ namespace Negocio.Logica.Reporte
                 Compra.Add(new PromedioPrecios()
                 {
                     FechaInicio = item.FechaIngreso,
-                    Precio = item.PromedioPrecio
+                    Precio = Math.Round(item.PromedioPrecio,2)
                 });
                 Fecha.Add(item.FechaIngreso);
             }
@@ -39,7 +39,7 @@ namespace Negocio.Logica.Reporte
                 Venta.Add(new PromedioPrecios()
                 {
                     FechaInicio = item.FechaIngreso,
-                    Precio = item.PromedioPrecio
+                    Precio = Math.Round(item.PromedioPrecio, 2)
                 });
                 if (Fecha.Where(p => p.Contains(item.FechaIngreso)).FirstOrDefault() == null )
                 {
@@ -456,7 +456,7 @@ namespace Negocio.Logica.Reporte
                 Compra.Add(new PromedioPrecios()
                 {
                     FechaInicio = item.FechaIngreso,
-                    Precio = item.PromedioHumedad
+                    Precio = Math.Round(item.PromedioHumedad,2)
                 });
                 Fecha.Add(item.FechaIngreso);
             }
@@ -465,7 +465,7 @@ namespace Negocio.Logica.Reporte
                 Venta.Add(new PromedioPrecios()
                 {
                     FechaInicio = item.FechaIngreso,
-                    Precio = item.PromedioHumedad
+                    Precio = Math.Round(item.PromedioHumedad, 2)
                 });
                 if (Fecha.Where(p => p.Contains(item.FechaIngreso)).FirstOrDefault() == null)
                 {

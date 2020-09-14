@@ -15,6 +15,7 @@ namespace Negocio.Entidades
         public DateTime FechaActualizacion { get; set; }
         public bool Estado { get; set; }
         public string encriptada { get; set; }
+        public Decimal Cantidad { get; set; }
         public ConfigurarProductos ListaProductos { get; set; }
         public Kit Kit { get; set; }
         public Stock Stock { get; set; }

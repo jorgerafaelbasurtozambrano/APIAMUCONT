@@ -19,7 +19,7 @@ namespace Negocio.Logica.Inventario
         {
             try
             {
-                ConexionBD.sp_CrearAsignarProductoKit(int.Parse(AsignarProductoKit.IdConfigurarProducto), int.Parse(AsignarProductoKit.IdAsignarDescuentoKit));
+                ConexionBD.sp_CrearAsignarProductoKit(int.Parse(AsignarProductoKit.IdConfigurarProducto), int.Parse(AsignarProductoKit.IdAsignarDescuentoKit),AsignarProductoKit.Cantidad);
                 return true;
             }
             catch (Exception)
@@ -179,6 +179,7 @@ namespace Negocio.Logica.Inventario
                         FechaCreacion = item1.AsignarProductoKitFechaCreacion,
                         FechaActualizacion = item1.AsignarProductoKitFechaActualizacion,
                         Estado = item1.AsignarProductoKitEstado,
+                        Cantidad = item1.AsignarProductoKitCantidad,
                         ListaProductos = new ConfigurarProductos()
                         {
                             IdConfigurarProducto = Seguridad.Encriptar(item1.ConfigurarProductoIdConfigurarProducto.ToString()),

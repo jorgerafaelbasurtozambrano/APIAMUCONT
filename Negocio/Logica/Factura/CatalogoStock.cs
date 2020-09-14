@@ -86,22 +86,46 @@ namespace Negocio.Logica.Factura
                     ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock = ProductoEnStock;
                     ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.AsignarProductoLote.ConfigurarProductos = null;
                     ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.AsignarProductoLote.AsignarProductoKit = null;
-                    Disponible.Add(new StockProducto()
+                    if (ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad < ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad)
                     {
-                        Estado = true,
-                        Cantidad = ProductoEnStock.Cantidad
-                    });
+                        Disponible.Add(new StockProducto()
+                        {
+                            Estado = false,
+                            Cantidad = ProductoEnStock.Cantidad
+                        });
+                    }
+                    else
+                    {
+                        if (ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad % ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad == 0)
+                        {
+                            Disponible.Add(new StockProducto()
+                            {
+                                Estado = true,
+                                Cantidad = ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad/ (int) ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad
+                            });
+                        }
+                        else
+                        {
+                            Decimal valor = (Decimal) ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad / ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad;
+                            Disponible.Add(new StockProducto()
+                            {
+                                Estado = true,
+                                Cantidad = Convert.ToInt32(Math.Floor(valor))
+                        });
+                        }
+                    }
                 }
             }
             if (Disponible.Count(p=>p.Estado == false) == 0)
             {
                 ListaAsignarProductoKit[0].PermitirAnadir = true;
+                ListaAsignarProductoKit[0].CantidadMaxima = Disponible.Min(p => p.Cantidad);
             }
             else
             {
                 ListaAsignarProductoKit[0].PermitirAnadir = false;
+                ListaAsignarProductoKit[0].CantidadMaxima = 0;
             }
-            ListaAsignarProductoKit[0].CantidadMaxima = Disponible.Min(p=>p.Cantidad);
             return ListaAsignarProductoKit;
         }
         public List<PrecioConfigurarProducto> CargarDatosPrecioPorProducto()
@@ -142,23 +166,46 @@ namespace Negocio.Logica.Factura
                     else
                     {
                         ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock = ProductoEnStock;
-                        Disponible.Add(new StockProducto()
+                        if (ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad < ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad)
                         {
-                            Estado = true,
-                            Cantidad = ProductoEnStock.Cantidad
-                        });
+                            Disponible.Add(new StockProducto()
+                            {
+                                Estado = false,
+                                Cantidad = ProductoEnStock.Cantidad
+                            });
+                        }
+                        else
+                        {
+                            if (ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad % ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad == 0)
+                            {
+                                Disponible.Add(new StockProducto()
+                                {
+                                    Estado = true,
+                                    Cantidad = ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad / (int)ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad
+                                });
+                            }
+                            else
+                            {
+                                Decimal valor = (Decimal)ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad / ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad;
+                                Disponible.Add(new StockProducto()
+                                {
+                                    Estado = true,
+                                    Cantidad = Convert.ToInt32(Math.Floor(valor))
+                                });
+                            }
+                        }
                     }
                 }
-
                 if (Disponible.Count(p => p.Estado == false) == 0)
                 {
                     ListaAsignarProductoKit[0].PermitirAnadir = true;
+                    ListaAsignarProductoKit[0].CantidadMaxima = Disponible.Min(p => p.Cantidad);
                 }
                 else
                 {
                     ListaAsignarProductoKit[0].PermitirAnadir = false;
+                    ListaAsignarProductoKit[0].CantidadMaxima = 0;
                 }
-                ListaAsignarProductoKit[0].CantidadMaxima = Disponible.Min(p => p.Cantidad);
                 if (_DetalleVenta.Cantidad <= ListaAsignarProductoKit[0].CantidadMaxima)
                 {
                     List<PrecioConfigurarProducto> Precio = new List<PrecioConfigurarProducto>();
@@ -173,7 +220,7 @@ namespace Negocio.Logica.Factura
                             IdAsignarProductoLote = Seguridad.DesEncriptar(ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.AsignarProductoLote.IdAsignarProductoLote),
                             AplicaDescuento = "1",
                             Faltante = "0",
-                            Cantidad = _DetalleVenta.Cantidad
+                            Cantidad = _DetalleVenta.Cantidad * (int) ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad
                         }, dataPrecio.Precio);
                     }
                     return true;
@@ -208,22 +255,46 @@ namespace Negocio.Logica.Factura
                 else
                 {
                     ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock = ProductoEnStock;
-                    Disponible.Add(new StockProducto()
+                    if (ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad < ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad)
                     {
-                        Estado = true,
-                        Cantidad = ProductoEnStock.Cantidad
-                    });
+                        Disponible.Add(new StockProducto()
+                        {
+                            Estado = false,
+                            Cantidad = ProductoEnStock.Cantidad
+                        });
+                    }
+                    else
+                    {
+                        if (ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad % ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad == 0)
+                        {
+                            Disponible.Add(new StockProducto()
+                            {
+                                Estado = true,
+                                Cantidad = ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad / (int)ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad
+                            });
+                        }
+                        else
+                        {
+                            Decimal valor = (Decimal)ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Stock.Cantidad / ListaAsignarProductoKit[0].ListaAsignarProductoKit[i].Cantidad;
+                            Disponible.Add(new StockProducto()
+                            {
+                                Estado = true,
+                                Cantidad = Convert.ToInt32(Math.Floor(valor))
+                            });
+                        }
+                    }
                 }
             }
             if (Disponible.Count(p => p.Estado == false) == 0)
             {
                 ListaAsignarProductoKit[0].PermitirAnadir = true;
+                ListaAsignarProductoKit[0].CantidadMaxima = Disponible.Min(p => p.Cantidad);
             }
             else
             {
                 ListaAsignarProductoKit[0].PermitirAnadir = false;
+                ListaAsignarProductoKit[0].CantidadMaxima = 0;
             }
-            ListaAsignarProductoKit[0].CantidadMaxima = Disponible.Min(p => p.Cantidad);
             return ListaAsignarProductoKit;
         }
         public List<Stock> ListarStockPorIdAsignarProductoLote(int idAsignarProductoLote)

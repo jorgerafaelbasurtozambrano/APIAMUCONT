@@ -376,7 +376,7 @@ namespace API.Controllers
                                 if (cantidad > DatoKit.CantidadMaxima)
                                 {
                                     codigo = "500";
-                                    mensaje = "Solo existe en stock la cantidad de " + DatoKit.CantidadMaxima.ToString() + " unidades";
+                                    mensaje = "Solo existe en stock la cantidad de " + DatoKit.CantidadMaxima.ToString() + " kits";
                                 }
                                 else
                                 {

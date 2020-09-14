@@ -62,3 +62,17 @@ C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\obj\Debug\Negocio.csprojAssemb
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\obj\Debug\Negocio.csproj.CopyComplete
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\obj\Debug\Negocio.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Negocio\obj\Debug\Negocio.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\bin\Debug\Negocio.dll.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\bin\Debug\Negocio.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\bin\Debug\Negocio.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\bin\Debug\Datos.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\bin\Debug\EntityFramework.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\bin\Debug\Datos.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\bin\Debug\Datos.dll.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\bin\Debug\EntityFramework.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\obj\Debug\Negocio.csprojAssemblyReference.cache
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\obj\Debug\Negocio.csproj.CopyComplete
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\obj\Debug\Negocio.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Negocio\obj\Debug\Negocio.pdb

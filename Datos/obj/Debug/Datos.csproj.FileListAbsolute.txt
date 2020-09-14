@@ -39,3 +39,14 @@ C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\obj\Debug\Datos.csprojAssemblyRe
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\obj\Debug\Datos.csproj.CopyComplete
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\obj\Debug\Datos.dll
 C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\Datos\obj\Debug\Datos.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Debug\Datos.dll.config
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Debug\Datos.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Debug\Datos.pdb
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\obj\Debug\Datos.csprojAssemblyReference.cache
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\obj\Debug\Datos.csproj.CopyComplete
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\obj\Debug\Datos.dll
+C:\Users\jorge\Desktop\amucomt\AMUCOMTAPI\AMUCOMTAPI\Datos\obj\Debug\Datos.pdb

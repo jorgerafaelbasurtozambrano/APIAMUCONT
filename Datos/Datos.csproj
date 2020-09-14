@@ -146,6 +146,9 @@
     <Compile Include="sp_ConsultarAsignarProductoKit_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarAsignarProductoKit_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarAsignarProductoLotePorId_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -482,13 +485,31 @@
     <Compile Include="sp_ConsultarPromedioHumedadCompraPorFecha_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarPromedioHumedadCompraPorFecha_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarPromedioHumedadVentaPorFecha_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPromedioHumedadVentaPorFecha_Result1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarPromedioPrecioCompraPorFecha_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_ConsultarPromedioPrecioCompraPorFecha_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPromedioPrecioCompraPorFecha_Result2.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_ConsultarPromedioPrecioVentaPorFecha_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPromedioPrecioVentaPorFecha_Result1.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ConsultarPromedioPrecioVentaPorFecha_Result2.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_ConsultarProvinciaParaSeguimiento_Result.cs">

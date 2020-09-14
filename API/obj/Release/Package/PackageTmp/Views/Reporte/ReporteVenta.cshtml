@@ -1,4 +1,8 @@
 ﻿<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+@{
+    decimal sumaTotal = 0;
+    decimal sumaQuintales = 0;
+}
 <div class="container">
     <div style="text-align:center">
         <img width="400" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
@@ -217,16 +221,40 @@
                                             <td style="vertical-align:middle">@item._Vehiculo.Placa</td>
                                             <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
                                             <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
-                                            <td style="vertical-align:middle">@item.PesoACobrar kg</td>
+                                            <td style="vertical-align:middle">@item.PesoACobrar q</td>
                                             <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
                                             <td style="vertical-align:middle"><span>$</span>@item.TotalACobrar</td>
                                             <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
                                         </tr>
                                         counter = counter + 1;
+                                        sumaTotal = sumaTotal + @item.TotalACobrar;
+                                        sumaQuintales = sumaQuintales + @item.PesoACobrar;
                                     }
                                 }
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-9">
+                    </div>
+                    <div class="col-3">
+                        <div style="border-bottom:4px solid lightskyblue;border-left:4px solid lightskyblue;border-right:4px solid lightskyblue;" class="row">
+                            <div style="background-color:lavender" class="col-4">
+                                TOTAL:
+                            </div>
+                            <div style="background-color:white" class="col-8">
+                                $ @sumaTotal
+                            </div>
+                        </div>
+                        <div style="border-bottom:4px solid lightskyblue;border-left:4px solid lightskyblue;border-right:4px solid lightskyblue;" class="row">
+                            <div style="background-color:lavender" class="col-4">
+                                PESO:
+                            </div>
+                            <div style="background-color:white" class="col-8">
+                                @sumaQuintales q
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br />
@@ -240,6 +268,10 @@
                         </strong>
                     </div>
                 </div>
+                @{
+                    sumaTotal = 0;
+                    sumaQuintales = 0;
+                }
                 <div class="row">
                     <div style="border-bottom:4px solid darkcyan;border-left:4px solid darkcyan;border-right:4px solid darkcyan;" class="col-12">
                         <br />
@@ -264,16 +296,40 @@
                                             <td>@counter1</td>
                                             <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
                                             <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
-                                            <td style="vertical-align:middle">@item.PesoACobrar kg</td>
+                                            <td style="vertical-align:middle">@item.PesoACobrar q</td>
                                             <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
                                             <td style="vertical-align:middle"><span>$</span>@item.TotalACobrar</td>
                                             <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
                                         </tr>
                                         counter1 = counter1 + 1;
+                                        sumaTotal = sumaTotal + @item.TotalACobrar;
+                                        sumaQuintales = sumaQuintales + @item.PesoACobrar;
                                     }
                                 }
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-9">
+                    </div>
+                    <div class="col-3">
+                        <div style="border-bottom:4px solid darkcyan;border-left:4px solid darkcyan;border-right:4px solid darkcyan;" class="row">
+                            <div style="background-color:lavender" class="col-4">
+                                TOTAL:
+                            </div>
+                            <div style="background-color:white" class="col-8">
+                                $ @sumaTotal
+                            </div>
+                        </div>
+                        <div style="border-bottom:4px solid darkcyan;border-left:4px solid darkcyan;border-right:4px solid darkcyan;" class="row">
+                            <div style="background-color:lavender" class="col-4">
+                                PESO:
+                            </div>
+                            <div style="background-color:white" class="col-8">
+                                @sumaQuintales q
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -282,168 +338,224 @@
     else
     {
         <div class="container">
+            @{
+                sumaTotal = 0;
+                sumaQuintales = 0;
+            }
             <div class="row">
-                    <div style="border: 1px solid black;text-align:center;background-color:lavender" class="col-12">
-                        <strong>
-                            <font size="4">
-                                FILTRO
-                            </font>
-                        </strong>
-                        <span> @ViewBag.Inicio</span>
-                        <strong>
-                            <font size="4">
-                                HASTA
-                            </font>
-                        </strong>
-                        <span> @ViewBag.Fin</span>
-                    </div>
+                <div style="border: 1px solid black;text-align:center;background-color:lavender" class="col-12">
+                    <strong>
+                        <font size="4">
+                            FILTRO
+                        </font>
+                    </strong>
+                    <span> @ViewBag.Inicio</span>
+                    <strong>
+                        <font size="4">
+                            HASTA
+                        </font>
+                    </strong>
+                    <span> @ViewBag.Fin</span>
+                </div>
             </div>
-                <br />
-                <div class="row">
-                    <div style="background-color:lightskyblue;border-top:1px solid lightskyblue;border-left:1px solid lightskyblue;border-right:1px solid lightskyblue;border-bottom:1px solid lightskyblue;text-align:center" class="col-12">
-                        <strong>
-                            <font size="4">
-                                CARRO : @ViewBag.Datos.Count Ticket
-                            </font>
-                        </strong>
-                    </div>
+            <br />
+            <div class="row">
+                <div style="background-color:lightskyblue;border-top:1px solid lightskyblue;border-left:1px solid lightskyblue;border-right:1px solid lightskyblue;border-bottom:1px solid lightskyblue;text-align:center" class="col-12">
+                    <strong>
+                        <font size="4">
+                            CARRO : @ViewBag.Datos.Count Ticket
+                        </font>
+                    </strong>
                 </div>
-                <div class="row">
-                    <div style="border-bottom:4px solid lightskyblue;border-left:4px solid lightskyblue;border-right:4px solid lightskyblue;" class="col-12">
-                        <br />
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr style="text-align:center">
-                                    <th scope="col">#</th>
-                                    <th scope="col">CÉDULA</th>
-                                    <th scope="col">CLIENTE</th>
-                                    <th scope="col">CHOFER</th>
-                                    <th scope="col">PLACA</th>
-                                    <th scope="col">HUMEDAD</th>
-                                    <th scope="col">IMPUREZA</th>
-                                    <th scope="col">PESO</th>
-                                    <th scope="col">PRECIO</th>
-                                    <th scope="col">TOTAL</th>
-                                    <th scope="col">FECHA</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    int counter = 1;
-                                    foreach (var item in ViewBag.Datos)
-                                    {
-                                        <tr style="text-align:center;vertical-align:middle">
-                                            <td>@counter</td>
-                                            <td style="vertical-align:middle">@item._PersonaCliente.NumeroDocumento</td>
-                                            <td style="vertical-align:middle">
-                                                @item._PersonaCliente.PrimerNombre
-                                                @*@item._PersonaChofer.SegundoNombre*@
-                                                @item._PersonaCliente.ApellidoPaterno
-                                                @*@item._PersonaChofer.ApellidoMaterno*@
-                                            </td>
-                                            @if (item._TipoPresentacionRubro.Identificador == 1)
+            </div>
+            <div class="row">
+                <div style="border-bottom:4px solid lightskyblue;border-left:4px solid lightskyblue;border-right:4px solid lightskyblue;" class="col-12">
+                    <br />
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr style="text-align:center">
+                                <th scope="col">#</th>
+                                <th scope="col">CÉDULA</th>
+                                <th scope="col">CLIENTE</th>
+                                <th scope="col">CHOFER</th>
+                                <th scope="col">PLACA</th>
+                                <th scope="col">HUMEDAD</th>
+                                <th scope="col">IMPUREZA</th>
+                                <th scope="col">PESO</th>
+                                <th scope="col">PRECIO</th>
+                                <th scope="col">TOTAL</th>
+                                <th scope="col">FECHA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int counter = 1;
+                                foreach (var item in ViewBag.Datos)
+                                {
+                                    <tr style="text-align:center;vertical-align:middle">
+                                        <td>@counter</td>
+                                        <td style="vertical-align:middle">@item._PersonaCliente.NumeroDocumento</td>
+                                        <td style="vertical-align:middle">
+                                            @item._PersonaCliente.PrimerNombre
+                                            @*@item._PersonaChofer.SegundoNombre*@
+                                            @item._PersonaCliente.ApellidoPaterno
+                                            @*@item._PersonaChofer.ApellidoMaterno*@
+                                        </td>
+                                        @if (item._TipoPresentacionRubro.Identificador == 1)
+                                        {
+                                            if (item._PersonaChofer != null)
                                             {
-                                                if (item._PersonaChofer != null)
-                                                {
-                                                    <td style="vertical-align:middle">
-                                                        @item._PersonaChofer.PrimerNombre
-                                                        @*@item._PersonaChofer.SegundoNombre*@
-                                                        @item._PersonaChofer.ApellidoPaterno
-                                                        @*@item._PersonaChofer.ApellidoMaterno*@
-                                                    </td>
-                                                }
-                                                else
-                                                {
-                                                    <td></td>
-                                                }
-                                                if (item._Vehiculo != null)
-                                                {
-                                                    <td style="vertical-align:middle">@item._Vehiculo.Placa</td>
-                                                }
-                                                else
-                                                {
-                                                    <td></td>
-                                                }
-                                            }
-                                            <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
-                                            <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
-                                            <td style="vertical-align:middle">@item.PesoACobrar kg</td>
-                                            <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
-                                            <td style="vertical-align:middle"><span>$</span>@item.TotalACobrar</td>
-                                            <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
-                                        </tr>
-                                        counter = counter + 1;
-                                    }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <br />
-                <div style="page-break-after:always"></div>
-                <div class="row">
-                    <div style="background-color:darkcyan;border-top:1px solid darkcyan;border-left:1px solid darkcyan;border-right:1px solid darkcyan;border-bottom:1px solid darkcyan;text-align:center" class="col-12">
-                        <strong>
-                            <font size="4">
-                                SACO : @ViewBag.Saco.Count Ticket
-                            </font>
-                        </strong>
-                    </div>
-                </div>
-                <div class="row">
-                    <div style="border-bottom:4px solid darkcyan;border-left:4px solid darkcyan;border-right:4px solid darkcyan;" class="col-12">
-                        <br />
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr style="text-align:center">
-                                    <th scope="col">#</th>
-                                    <th scope="col">CÉDULA</th>
-                                    <th scope="col">CLIENTE</th>
-                                    <th scope="col">PLACA</th>
-                                    <th scope="col">HUMEDAD</th>
-                                    <th scope="col">IMPUREZA</th>
-                                    <th scope="col">PESO</th>
-                                    <th scope="col">PRECIO</th>
-                                    <th scope="col">TOTAL</th>
-                                    <th scope="col">FECHA</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    int counter1 = 1;
-                                    foreach (var item in ViewBag.Saco)
-                                    {
-                                        <tr style="text-align:center;vertical-align:middle">
-                                            <td>@counter1</td>
-                                            <td style="vertical-align:middle">@item._PersonaCliente.NumeroDocumento</td>
-                                            <td style="vertical-align:middle">
-                                                @item._PersonaCliente.PrimerNombre
-                                                @*@item._PersonaChofer.SegundoNombre*@
-                                                @item._PersonaCliente.ApellidoPaterno
-                                                @*@item._PersonaChofer.ApellidoMaterno*@
-                                            </td>
-                                            @if (item._Vehiculo != null)
-                                            {
-                                               <td style="vertical-align:middle">@item._Vehiculo.Placa</td>
+                                                <td style="vertical-align:middle">
+                                                    @item._PersonaChofer.PrimerNombre
+                                                    @*@item._PersonaChofer.SegundoNombre*@
+                                                    @item._PersonaChofer.ApellidoPaterno
+                                                    @*@item._PersonaChofer.ApellidoMaterno*@
+                                                </td>
                                             }
                                             else
                                             {
                                                 <td></td>
                                             }
-                                            <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
-                                            <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
-                                            <td style="vertical-align:middle">@item.PesoACobrar kg</td>
-                                            <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
-                                            <td style="vertical-align:middle"><span>$</span>@item.TotalACobrar</td>
-                                            <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
-                                        </tr>
-                                        counter1 = counter1 + 1;
-                                    }
+                                            if (item._Vehiculo != null)
+                                            {
+                                                <td style="vertical-align:middle">@item._Vehiculo.Placa</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                        }
+                                        <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
+                                        <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
+                                        <td style="vertical-align:middle">@item.PesoACobrar q</td>
+                                        <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
+                                        <td style="vertical-align:middle"><span>$</span>@item.TotalACobrar</td>
+                                        <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
+                                    </tr>
+                                    counter = counter + 1;
+                                    sumaTotal = sumaTotal + @item.TotalACobrar;
+                                    sumaQuintales = sumaQuintales + @item.PesoACobrar;
                                 }
-                            </tbody>
-                        </table>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-9">
+                </div>
+                <div class="col-3">
+                    <div style="border-bottom:4px solid lightskyblue;border-left:4px solid lightskyblue;border-right:4px solid lightskyblue;" class="row">
+                        <div style="background-color:lavender" class="col-4">
+                            TOTAL:
+                        </div>
+                        <div style="background-color:white" class="col-8">
+                            $ @sumaTotal
+                        </div>
+                    </div>
+                    <div style="border-bottom:4px solid lightskyblue;border-left:4px solid lightskyblue;border-right:4px solid lightskyblue;" class="row">
+                        <div style="background-color:lavender" class="col-4">
+                            PESO:
+                        </div>
+                        <div style="background-color:white" class="col-8">
+                            @sumaQuintales q
+                        </div>
                     </div>
                 </div>
+            </div>
+            <br />
+            <div style="page-break-after:always"></div>
+            <div class="row">
+                <div style="background-color:darkcyan;border-top:1px solid darkcyan;border-left:1px solid darkcyan;border-right:1px solid darkcyan;border-bottom:1px solid darkcyan;text-align:center" class="col-12">
+                    <strong>
+                        <font size="4">
+                            SACO : @ViewBag.Saco.Count Ticket
+                        </font>
+                    </strong>
+                </div>
+            </div>
+            @{
+                sumaTotal = 0;
+                sumaQuintales = 0;
+            }
+            <div class="row">
+                <div style="border-bottom:4px solid darkcyan;border-left:4px solid darkcyan;border-right:4px solid darkcyan;" class="col-12">
+                    <br />
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr style="text-align:center">
+                                <th scope="col">#</th>
+                                <th scope="col">CÉDULA</th>
+                                <th scope="col">CLIENTE</th>
+                                <th scope="col">PLACA</th>
+                                <th scope="col">HUMEDAD</th>
+                                <th scope="col">IMPUREZA</th>
+                                <th scope="col">PESO</th>
+                                <th scope="col">PRECIO</th>
+                                <th scope="col">TOTAL</th>
+                                <th scope="col">FECHA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int counter1 = 1;
+                                foreach (var item in ViewBag.Saco)
+                                {
+                                    <tr style="text-align:center;vertical-align:middle">
+                                        <td>@counter1</td>
+                                        <td style="vertical-align:middle">@item._PersonaCliente.NumeroDocumento</td>
+                                        <td style="vertical-align:middle">
+                                            @item._PersonaCliente.PrimerNombre
+                                            @*@item._PersonaChofer.SegundoNombre*@
+                                            @item._PersonaCliente.ApellidoPaterno
+                                            @*@item._PersonaChofer.ApellidoMaterno*@
+                                        </td>
+                                        @if (item._Vehiculo != null)
+                                        {
+                                            <td style="vertical-align:middle">@item._Vehiculo.Placa</td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                        <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
+                                        <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
+                                        <td style="vertical-align:middle">@item.PesoACobrar q</td>
+                                        <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
+                                        <td style="vertical-align:middle"><span>$</span>@item.TotalACobrar</td>
+                                        <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
+                                    </tr>
+                                    counter1 = counter1 + 1;
+                                    sumaTotal = sumaTotal + @item.TotalACobrar;
+                                    sumaQuintales = sumaQuintales + @item.PesoACobrar;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-9">
+                </div>
+                <div class="col-3">
+                    <div style="border-bottom:4px solid darkcyan;border-left:4px solid darkcyan;border-right:4px solid darkcyan;" class="row">
+                        <div style="background-color:lavender" class="col-4">
+                            TOTAL:
+                        </div>
+                        <div style="background-color:white" class="col-8">
+                            $ @sumaTotal
+                        </div>
+                    </div>
+                    <div style="border-bottom:4px solid darkcyan;border-left:4px solid darkcyan;border-right:4px solid darkcyan;" class="row">
+                        <div style="background-color:lavender" class="col-4">
+                            PESO:
+                        </div>
+                        <div style="background-color:white" class="col-8">
+                            @sumaQuintales q
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     }
 </div>

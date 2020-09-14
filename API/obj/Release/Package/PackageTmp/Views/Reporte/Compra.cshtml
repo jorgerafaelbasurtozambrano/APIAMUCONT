@@ -1,4 +1,8 @@
 ﻿<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+@{
+    decimal SumaTotal = 0;
+    decimal SumaQuintales = 0;
+}
 <div class="container">
     <div style="text-align:center">
         <img width="400" height="100" class="padding-right: 10%;padding-left: 10%;" src="~/Imagenes/amucomt.jpeg" />
@@ -275,7 +279,8 @@
                         </div>
                     </div>
                 }
-                else {
+                else
+                {
                     <div class="row">
                         <div style="border: 1px solid black;text-align:center;background-color:lavender" class="col-12">
                             <strong>
@@ -294,58 +299,88 @@
                     </div>
                     <br />
                     <table class="table">
-                            <thead class="thead-dark table-condensed table-bordered table-hover">
-                                <tr style="text-align:center">
-                                    <th scope="col">#</th>
-                                    <th scope="col">CLIENTE</th>
-                                    <th scope="col">IDENTIFICACIÓN</th>
-                                    @if (ViewBag.Identificador == "1")
-                                    {
-                                        <th scope="col">CARRO</th>
-                                    }
-                                    <th scope="col">HUMEDAD</th>
-                                    <th scope="col">IMPUREZA</th>
-                                    <th scope="col">PESO</th>
-                                    <th scope="col">PRECIO</th>
-                                    <th scope="col">TOTAL</th>
-                                    <th scope="col">FECHA</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    int counter = 1;
-                                    foreach (var item in ViewBag.Datos)
-                                    {
-                                        <tr style="text-align:center;vertical-align:middle">
-                                            <td style="vertical-align:middle">
-                                                @counter
-                                            </td>
-                                            <td style="vertical-align:middle;display:block">
-                                                @item._PersonaEntidad.PrimerNombre
-                                                @item._PersonaEntidad.SegundoNombre
-                                                @item._PersonaEntidad.ApellidoPaterno
-                                                @item._PersonaEntidad.ApellidoMaterno
-                                            </td>
-                                            <td style="vertical-align:middle">
-                                                @item._PersonaEntidad.NumeroDocumento
-                                            </td>
-                                             @if (ViewBag.Identificador == "1")
-                                             {
-                                                <td style="vertical-align:middle">@item._Vehiculo.Placa</td>
-                                             }
-                                            <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
-                                            <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
-                                            <td style="vertical-align:middle">@item.PesoSinImpurezas kg</td>
-                                            <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
-                                            <td style="vertical-align:middle"><span>$</span>@item.TotalAPagar</td>
-                                            <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
-                                        </tr>
-                                        counter = counter + 1;
-                                    }
+                        <thead class="thead-dark table-condensed table-bordered table-hover">
+                            <tr style="text-align:center">
+                                <th scope="col">#</th>
+                                <th scope="col">CLIENTE</th>
+                                <th scope="col">IDENTIFICACIÓN</th>
+                                @if (ViewBag.Identificador == "1")
+                                {
+                                    <th scope="col">CARRO</th>
                                 }
-                            </tbody>
-                        </table>
+                                <th scope="col">HUMEDAD</th>
+                                <th scope="col">IMPUREZA</th>
+                                <th scope="col">PESO</th>
+                                <th scope="col">PRECIO</th>
+                                <th scope="col">TOTAL</th>
+                                <th scope="col">FECHA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int counter = 1;
+                                foreach (var item in ViewBag.Datos)
+                                {
+                                    <tr style="text-align:center;vertical-align:middle">
+                                        <td style="vertical-align:middle">
+                                            @counter
+                                        </td>
+                                        <td style="vertical-align:middle;display:block">
+                                            @item._PersonaEntidad.PrimerNombre
+                                            @item._PersonaEntidad.SegundoNombre
+                                            @item._PersonaEntidad.ApellidoPaterno
+                                            @item._PersonaEntidad.ApellidoMaterno
+                                        </td>
+                                        <td style="vertical-align:middle">
+                                            @item._PersonaEntidad.NumeroDocumento
+                                        </td>
+                                        @if (ViewBag.Identificador == "1")
+                                        {
+                                            <td style="vertical-align:middle">@item._Vehiculo.Placa</td>
+                                        }
+                                        <td style="vertical-align:middle">@item.PorcentajeHumedad %</td>
+                                        <td style="vertical-align:middle">@item.PorcentajeImpureza %</td>
+                                        <td style="vertical-align:middle">@item.PesoAPagar q</td>
+                                        <td style="vertical-align:middle"><span>$</span>@item.PrecioPorQuintal</td>
+                                        <td style="vertical-align:middle"><span>$</span>@item.TotalAPagar</td>
+                                        <td style="vertical-align:middle">@item.FechaSalida.ToShortDateString()</td>
+                                    </tr>
+                                    SumaTotal = SumaTotal + @item.TotalAPagar;
+                                    SumaQuintales = SumaQuintales + @item.PesoAPagar;
+                                    counter = counter + 1;
+                                }
+                            }
+                        </tbody>
+                    </table>
                 }
+            </div>
+            <div style="padding-right: 25px;" class="container">
+                <footer style="position:fixed;left:0px;bottom:0px;height:auto;width:100%">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-9">
+                            </div>
+                            <div class="col-3">
+                                <div style="border:1px solid black" class="row">
+                                    <div style="background-color:lavender" class="col-6">
+                                        <strong>TOTAL :</strong>
+                                    </div>
+                                    <div style="background-color:white" class="col-6">
+                                        $@SumaTotal
+                                    </div>
+                                </div>
+                                <div style="border:1px solid black" class="row">
+                                    <div style="background-color:lavender" class="col-6">
+                                        <strong>QUINTALES :</strong>
+                                    </div>
+                                    <div style="background-color:white" class="col-6">
+                                        @SumaQuintales q
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         }
     }
